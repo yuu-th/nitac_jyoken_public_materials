@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>お問い合わせ</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        background-color: #f0f2f5;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .mobile-screen {
+        width: 375px; /* Typical mobile width */
+        height: 812px; /* Typical mobile height */
+        background-color: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 20px 15px 20px;
+        background-color: #fff;
+        /* border-bottom: 1px solid #e0e0e0; */
+      }
+
+      .header h1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
+        color: #000;
+      }
+
+      .header .notification-icon {
+        font-size: 22px;
+        cursor: pointer;
+      }
+
+      .controls {
+        display: flex;
+        padding: 10px 20px;
+        background-color: #fff;
+        gap: 10px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .filter-button {
+        display: flex;
+        align-items: center;
+        padding: 8px 15px;
+        background-color: #e9ecef;
+        border: none;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #495057;
+      }
+
+      .filter-button .filter-icon {
+        margin-right: 8px;
+        font-size: 18px;
+        line-height: 1; /* Adjust icon alignment */
+      }
+
+      .search-bar {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        background-color: #e9ecef;
+        border-radius: 20px;
+        padding: 0 15px;
+      }
+
+      .search-bar .search-icon {
+        margin-right: 8px;
+        color: #6c757d;
+        font-size: 16px;
+      }
+
+      .search-bar input {
+        flex-grow: 1;
+        border: none;
+        background-color: transparent;
+        padding: 10px 0;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-bar input::placeholder {
+        color: #6c757d;
+      }
+
+      .inquiry-list {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 10px 0px 10px 0px; /* Reduced top padding */
+        background-color: #fff; /* List background as white to contain items */
+      }
+
+      .inquiry-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        border-bottom: 1px solid #f0f0f0; /* Lighter border */
+        background-color: #fff;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .inquiry-item:last-child {
+        border-bottom: none;
+      }
+
+      .inquiry-item:hover {
+        background-color: #f8f9fa;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #ced4da; /* Placeholder avatar color */
+        margin-right: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 20px; /* For potential icon/initial */
+      }
+
+      .item-details {
+        flex-grow: 1;
+      }
+
+      .item-details .customer-id {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 2px;
+      }
+
+      .item-details .content-preview {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .status-badge {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        margin-right: 10px;
+        min-width: 50px;
+        text-align: center;
+      }
+
+      .status-in-progress {
+        background-color: #e6fffa;
+        color: #08a37e; /* Adjusted to match image more closely */
+      }
+      .status-in-progress-alt {
+        /* For the second type of '対応中' */
+        background-color: #ccf0e5; /* Slightly different green */
+        color: #008060; /* Darker green text */
+      }
+
+      .status-completed {
+        background-color: #ffebee;
+        color: #e53935; /* Adjusted to match image more closely */
+      }
+
+      .arrow-icon {
+        font-size: 18px;
+        color: #adb5bd;
+      }
+
+      .footer-nav {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        background-color: #fff;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #888; /* Default icon and text color */
+        font-size: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        position: relative;
+        flex: 1;
+        text-align: center;
+      }
+
+      .nav-item .icon {
+        font-size: 22px;
+        margin-bottom: 4px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .nav-item.active .icon {
+        color: #fff; /* White icon when active */
+      }
+
+      .nav-item.active .icon::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 44px; /* Circle size */
+        height: 44px; /* Circle size */
+        background-color: #007bff; /* Blue circle */
+        border-radius: 50%;
+        z-index: -1;
+      }
+
+      .nav-item.active .label {
+        color: #007bff; /* Blue text when active */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mobile-screen">
+      <header class="header">
+        <h1>お問い合わせ</h1>
+        <span class="notification-icon">🔔</span>
+      </header>
+
+      <div class="controls">
+        <button class="filter-button"><span class="filter-icon">≡</span> 絞り込み</button>
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="検索" />
+        </div>
+      </div>
+
+      <div class="inquiry-list">
+        <div class="inquiry-item">
+          <div class="avatar">👤</div>
+          <div class="item-details">
+            <div class="customer-id">お客様ID: 12345</div>
+            <div class="content-preview">内容: ログインについて</div>
+          </div>
+          <span class="status-badge status-in-progress">対応中</span>
+          <span class="arrow-icon">&gt;</span>
+        </div>
+        <div class="inquiry-item">
+          <div class="avatar">👤</div>
+          <div class="item-details">
+            <div class="customer-id">お客様ID: 67890</div>
+            <div class="content-preview">内容: 支払い方法の変更</div>
+          </div>
+          <span class="status-badge status-completed">完了</span>
+          <span class="arrow-icon">&gt;</span>
+        </div>
+        <div class="inquiry-item">
+          <div class="avatar">👤</div>
+          <div class="item-details">
+            <div class="customer-id">お客様ID: 11223</div>
+            <div class="content-preview">内容: サービスに関する質問</div>
+          </div>
+          <span class="status-badge status-in-progress-alt">対応中</span>
+          <span class="arrow-icon">&gt;</span>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <a href="#" class="nav-item">
+          <span class="icon">🏠</span>
+          <span class="label">ホーム</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon">💬</span>
+          <span class="label">チャット</span>
+        </a>
+        <a href="#" class="nav-item active">
+          <span class="icon">📄</span>
+          <span class="label">履歴</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon">⚙️</span>
+          <span class="label">設定</span>
+        </a>
+      </nav>
+    </div>
+  </body>
+</html>
