@@ -1,0 +1,477 @@
+
+      <!DOCTYPE html>
+      <html lang="ja">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>WEB班８_JS_最初の導入</title>
+        <link rel="stylesheet" href="../../../../style.css">
+        <style>
+          @font-face {
+            font-family: 'IPAGothic';
+            src: local('IPAGothic');
+          }
+          @font-face {
+            font-family: 'IPAMincho';
+            src: local('IPAMincho');
+          }
+          html, body {
+            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+          }
+          pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            padding: 16px;
+            overflow: auto;
+          }
+          code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: rgba(27, 31, 35, 0.05);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+          }
+          pre code {
+            background-color: transparent;
+            padding: 0;
+          }
+          blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 16px;
+            color: #555;
+            margin-left: 0;
+          }
+          img {
+            max-width: 100%;
+            height: auto;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          table, th, td {
+            border: 1px solid #ddd;
+          }
+          th, td {
+            padding: 8px 12px;
+          }
+          th {
+            background-color: #f6f8fa;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>第1章: JavaScriptとは – 言語特性と最初の一歩</h1>
+<p>前回は、JavaScriptの冒険に出るための準備として、開発環境を整えたり、GitやGitHubといった便利なツールの使い方を学んだりしましたね。いよいよ今回からは、冒険の主役であるJavaScriptそのものについて深く探求していきます！</p>
+<p>JavaScriptは、ウェブページに命を吹き込み、ユーザーの操作に応じて見た目が変わったり、アニメーションしたりと、インタラクティブな体験を作り出すための強力なプログラミング言語です。まるで魔法の杖のように、ウェブの世界をより豊かで楽しいものに変えることができるんですよ。</p>
+<p>この章では、まず「JavaScriptって一体何者なの？」という基本的なところから始め、HTMLやCSSといったウェブ技術との関係性、そしてJavaScriptが持つユニークな特徴、さらにはプログラムを書く上での最初のお作法について一緒に学んでいきましょう。</p>
+<p>最初は覚えることが多く感じるかもしれませんが、一つ一つ丁寧に解説していきますので、安心してくださいね。さあ、JavaScriptの魔法の世界への第一歩を踏み出しましょう！</p>
+<h2>目次</h2>
+<ol>
+<li>JavaScriptの概要<ul>
+<li>HTML/CSSとの関係：ウェブページの役割分担</li>
+<li>JavaScriptファイルの連携方法</li>
+<li>実行環境：どこで動くの？</li>
+</ul>
+</li>
+<li>JavaScriptの主な言語特性<ul>
+<li>動的型付け：柔軟だけど注意も必要</li>
+<li>プロトタイプベースのオブジェクト指向：ちょっと変わった仕組み</li>
+<li>関数型プログラミングの側面：関数は働き者！</li>
+<li>イベント駆動型プログラミング：何かが起きたら動く！</li>
+</ul>
+</li>
+<li>JavaScriptプログラミングの基本作法<ul>
+<li>Hello, World!：最初のご挨拶</li>
+<li>コメント：未来の自分へのメッセージ</li>
+<li>セミコロン：文の終わり、どうする？</li>
+<li>波括弧 <code>{}</code>：まとまりを示す記号</li>
+</ul>
+</li>
+<li>「オブジェクトという便利な箱」の具体性</li>
+</ol>
+<hr>
+<h2>1. JavaScriptの概要</h2>
+<p>まずは、JavaScriptがウェブの世界でどんな役割を担っているのか、そしてどうやってHTMLファイルと連携するのかを見ていきましょう。</p>
+<h3>HTML/CSSとの関係：ウェブページの役割分担</h3>
+<p>ウェブページを作るとき、主に3つの技術が使われます。それぞれ役割が違うんですよ。</p>
+<ul>
+<li><strong>HTML (HyperText Markup Language)</strong>: ウェブページの<strong>骨組みや構造</strong>を担当します。例えば、「ここが見出しで、ここが段落、ここに画像があって…」といった情報を定義します。人間でいうと骨格みたいなものですね。</li>
+<li><strong>CSS (Cascading Style Sheets)</strong>: ウェブページの<strong>見た目や装飾</strong>を担当します。文字の色や大きさ、背景色、レイアウトなどを指定して、ページを美しく整えます。人間でいうと服装や髪型、メイクといったところでしょうか。</li>
+<li><strong>JavaScript (JS)</strong>: ウェブページに<strong>動きや対話性</strong>を加えるのがJavaScriptの役割です。ボタンをクリックしたらメッセージが表示されたり、入力内容に応じて表示が変わったり、アニメーションしたり…。人間でいうと、話したり動いたりする能力に近いです。</li>
+</ul>
+<p>この3つが協力し合うことで、私たちが普段見ているような、情報が整理されていて、見た目も綺麗で、操作もできるウェブページが作られているんです。</p>
+<h3>JavaScriptファイルの連携方法</h3>
+<p>JavaScriptのコードをHTMLファイルに組み込む方法はいくつかありますが、主に2つの方法がよく使われます。</p>
+<ol>
+<li><p><strong>外部ファイルとして読み込む</strong>:
+ JavaScriptのコードを別のファイル（拡張子は <code>.js</code>、例えば <code>app.js</code>）に書いておき、HTMLファイルからそれを読み込む方法です。これが一番一般的で、コードの管理がしやすくなるのでおすすめです。</p>
+<pre><code class="language-html">&lt;!-- filepath: (任意のフォルダ)/index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;JS連携テスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;JavaScript連携テスト&lt;/h1&gt;
+    &lt;!-- scriptタグのsrc属性でJSファイルを指定 --&gt;
+    &lt;script src=&quot;app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<pre><code class="language-javascript">// filepath: (index.htmlと同じフォルダ)/app.js
+// このファイルにJavaScriptのコードを書いていきます
+console.log(&quot;app.jsが読み込まれました！&quot;);
+</code></pre>
+<p> <strong>ポイント:</strong> <code>script</code>タグは、HTMLファイルの <code>&lt;body&gt;</code> タグの閉じタグの直前に書くのが一般的です。これは、HTMLの構造が先に読み込まれてからJavaScriptが実行されるようにするためで、JavaScriptがHTML要素を操作しようとしたときに、まだその要素が存在しない、といったエラーを防ぐためです。</p>
+</li>
+<li><p><strong>HTMLファイル内に直接書き込む (インライン)</strong>:
+ 短いコードの場合や、ちょっとしたテストをしたい場合には、HTMLファイル内の <code>&lt;script&gt;</code> タグの間に直接JavaScriptコードを書くこともできます。</p>
+<pre><code class="language-html">&lt;!-- filepath: (任意のフォルダ)/inline_script.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;インラインJSテスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;インラインJavaScriptテスト&lt;/h1&gt;
+    &lt;script&gt;
+        // ここに直接JavaScriptコードを書きます
+        alert(&quot;こんにちは！インラインJavaScriptです。&quot;);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p> ただ、コードが長くなってくるとHTMLファイルが見づらくなってしまうので、基本的には外部ファイルに分ける方法を使いましょうね。</p>
+</li>
+</ol>
+<h3>実行環境：どこで動くの？</h3>
+<p>JavaScriptが実行される主な場所は2つあります。</p>
+<ul>
+<li><p><strong>ブラウザ (フロントエンド)</strong>:
+  これがJavaScriptの最も伝統的で主要な活躍場所です。Google Chrome, Microsoft Edge, Firefoxといったウェブブラウザには、JavaScriptを実行するための「エンジン」が内蔵されています。ユーザーが見ているウェブページ上で、HTMLやCSSと連携しながら動作し、インタラクティブな体験を提供します。私たちがこれから主に学んでいくのは、このブラウザ上で動くJavaScriptです。</p>
+</li>
+<li><p><strong>Node.js (サーバーサイド、ツールなど)</strong>:
+  「序章」でも少し触れましたが、Node.jsという環境を使うと、JavaScriptをブラウザの外、つまり自分のパソコンやサーバー上でも動かすことができます。これにより、ウェブサイトの裏側の処理（データベースとの連携など）をJavaScriptで書いたり、開発を助ける便利なツール（例えば、コードをチェックしたり、ファイルをまとめたりするもの）を実行したりできるようになります。Node.jsについては、また後の章で詳しく触れる機会がありますので、今は「ブラウザ以外でも動かせるんだな」くらいに覚えておけば大丈夫です。</p>
+</li>
+</ul>
+<hr>
+<h2>2. JavaScriptの主な言語特性</h2>
+<p>JavaScriptには、他のプログラミング言語と比べていくつかのユニークな特徴があります。これらを理解しておくと、学習を進める上で役立ちますよ。</p>
+<p>ただし、プログラミングを初めて学ぶ皆には難しいかもしれないので、「へー」って感じで聞き流してほしいです</p>
+<h3>動的型付け：柔軟だけど注意も必要</h3>
+<p>JavaScriptは<strong>動的型付け言語</strong> (Dynamically Typed Language) です。これは、変数にどんな種類のデータ（数値、文字列、真偽値など）でも代入でき、実行時に型が決まるという特徴です。</p>
+<p>例えば、こんなことができます。</p>
+<pre><code class="language-javascript">let myData = 100; // 最初は数値
+console.log(myData); // 100 と表示
+
+myData = &quot;こんにちは！&quot;; // 次に文字列を代入
+console.log(myData); // こんにちは！ と表示
+
+myData = true; // さらに真偽値を代入
+console.log(myData); // true と表示
+</code></pre>
+<p>これは非常に柔軟で書きやすい反面、意図しない型で処理を進めてしまってエラーになったり、バグの原因になったりすることもあります。
+「あれ、この変数には数値が入っているつもりだったのに、いつの間にか文字列に変わってた！」なんてことも。</p>
+<p><strong>メリット</strong>:</p>
+<ul>
+<li>コードを素早く書ける。</li>
+<li>型の宣言が不要なので、記述量が減る。</li>
+</ul>
+<p><strong>デメリット</strong>:</p>
+<ul>
+<li>実行するまで型に関するエラーが分かりにくい。</li>
+<li>大規模な開発では、型の管理が難しくなることがある。</li>
+</ul>
+<p>このデメリットを補うために、JavaScriptに静的な型付けの機能を追加した<strong>TypeScript</strong>という言語も人気があります。TypeScriptについては、この学習プランの後半で触れる予定ですので、お楽しみに！</p>
+<h3>プロトタイプベースのオブジェクト指向：ちょっと変わった仕組み</h3>
+<p>多くのプログラミング言語（JavaやC#など）では、「クラス」という設計図をもとにオブジェクト（モノ）を作る「クラスベースのオブジェクト指向」が採用されています。</p>
+<p>一方、JavaScriptは<strong>プロトタイプベースのオブジェクト指向</strong>という、少し変わった仕組みを持っています。これは、既存のオブジェクトを「プロトタイプ」（原型）として、それをコピーしたり拡張したりして新しいオブジェクトを作っていく考え方です。</p>
+<p><strong>歴史的経緯</strong>:
+実は、JavaScriptが生まれた背景には面白い話があります。1990年代半ば、ウェブページに手軽に動きを加えられる軽量なスクリプト言語が求められていました。当時主流だったJavaアプレットは高機能でしたが、少し重厚長大でした。そこで、ネットスケープ社のブレンダン・アイク氏が、なんとわずか10日間でJavaScriptの最初のバージョンを設計したと言われています。その際、Selfというプログラミング言語などの影響を受け、クラスではなくプロトタイプをベースとした、より柔軟なオブジェクトモデルが採用されたのです。</p>
+<p>このプロトタイプという考え方は、最初は少しとっつきにくいかもしれませんが、JavaScriptの柔軟性を支える重要な要素の一つです。オブジェクトやプロトタイプについては、後の章でじっくり解説しますので、今は「JavaScriptのオブジェクトの作り方は、他の言語とちょっと違うんだな」くらいに思っておいてください。</p>
+<h3>関数型プログラミングの側面：関数は働き者</h3>
+<p>JavaScriptでは、関数が非常に重要な役割を果たします。そして、関数は「<strong>第一級オブジェクト</strong>」として扱われます。これは、関数を他のデータ（数値や文字列など）と同じように、変数に代入したり、他の関数の引数として渡したり、関数の戻り値として返したりできる、という意味です。</p>
+<p>この性質を利用すると、関数型プログラミングと呼ばれるスタイルでコードを書くことができます。例えば、ある処理を行う関数を別の関数に渡して、その処理をカスタマイズする、なんてこともできます。</p>
+<p>ちょっと難しいかもしれませんが、簡単な「高階関数もどき」の例を見てみましょう。（高階関数とは、関数を引数に取ったり、関数を返したりする関数のことです）</p>
+<pre><code class="language-javascript">function operateOnArray(array, operation) {
+  const resultArray = []; // 結果を格納する新しい配列
+  for (let i = 0; i &lt; array.length; i++) {
+    // 配列の各要素に対して、渡されたoperation関数を実行し、結果を新しい配列に追加
+    resultArray.push(operation(array[i]));
+  }
+  return resultArray;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+
+// 各要素を2倍にする操作
+const doubledNumbers = operateOnArray(numbers, function(num) {
+  return num * 2;
+});
+console.log(doubledNumbers); // [2, 4, 6, 8, 10] と表示されます
+
+// 各要素に10を加える操作
+const addedTenNumbers = operateOnArray(numbers, function(num) {
+  return num + 10;
+});
+console.log(addedTenNumbers); // [11, 12, 13, 14, 15] と表示されます
+</code></pre>
+<p>この例では、<code>operateOnArray</code> という関数が、配列 (<code>array</code>) ともう一つの関数 (<code>operation</code>) を引数に取っています。そして、<code>operation</code> に渡す関数を変えるだけで、配列の各要素に対する処理内容を自由に変えられていますよね。これが関数型プログラミングの面白いところの一つです。</p>
+<p>関数については、後の章でさらに詳しく学びますので、ここでは「JavaScriptの関数って、ただの処理の塊じゃなくて、もっと色々なことができるパワフルなやつなんだな」と感じてもらえれば十分です。</p>
+<h3>イベント駆動型プログラミング：何かが起きたら動く</h3>
+<p>JavaScriptは、特にブラウザ上で動く場合、<strong>イベント駆動型プログラミング</strong>というスタイルが中心になります。
+「イベント」とは、ユーザーの操作（ボタンのクリック、マウスの移動、キーボード入力など）や、システムの出来事（ページの読み込み完了、タイマーの時間が来たなど）のことです。</p>
+<p>イベント駆動型プログラミングでは、「もし○○というイベントが起きたら、××という処理を実行する」というように、あらかじめイベントとそれに対応する処理を結びつけておきます。そして、実際にそのイベントが発生したときに、対応する処理が呼び出される、という流れになります。</p>
+<p>例えば、「ユーザーがボタンをクリックしたら、メッセージを表示する」といった処理は、まさにイベント駆動の考え方ですね。このイベント処理についても、後の章で詳しく見ていきます。</p>
+<hr>
+<h2>3. JavaScriptプログラミングの基本作法</h2>
+<p>さあ、いよいよJavaScriptのコードを実際に書いていく上での基本的なルール、お作法について学んでいきましょう。</p>
+<h3>Hello, World!：最初のご挨拶</h3>
+<p>プログラミング学習の伝統として、最初に「Hello, World!」という文字列を表示するプログラムを作ることが多いです。JavaScriptでもやってみましょう！</p>
+<p><strong>1. ブラウザのコンソールに表示する</strong></p>
+<p>ブラウザの開発者ツールにある「コンソール」は、JavaScriptのメッセージを表示したり、簡単なテストコードを実行したりするのに非常に便利な場所です。<code>console.log()</code> という命令を使うと、コンソールに好きなメッセージを表示できます。</p>
+<pre><code class="language-javascript">console.log(&quot;Hello, World! from console!&quot;);
+</code></pre>
+<p>この <code>hello_console.js</code> ファイルをHTMLファイルから読み込んでブラウザで表示し、開発者ツールのコンソールを開いてみてください。（序章で言及した、ブラウザでF12を押すと開くやつです）「Hello, World! from console!」と表示されていれば成功です！
+<code>console.log()</code> は、プログラムが正しく動いているか確認したり、変数の値を見たりするのに、これから本当によく使うことになるので、ぜひ覚えておいてくださいね。名探偵の虫眼鏡のようなものです！</p>
+<p><strong>2. ブラウザの画面にアラートとして表示する</strong></p>
+<p><code>alert()</code> という命令を使うと、ブラウザの画面に小さなポップアップウィンドウ（アラートダイアログ）を表示して、メッセージを伝えることができます。</p>
+<pre><code class="language-javascript">alert(&quot;Hello, World! from alert!&quot;);
+</code></pre>
+<p>この <code>hello_alert.js</code> をHTMLから読み込むと、ページを開いたときに「Hello, World! from alert!」というメッセージのアラートが表示されるはずです。</p>
+<p><strong>3. HTML要素の内容を変更して表示する (DOM操作)</strong></p>
+<p>JavaScriptを使って、HTML要素の内容を直接書き換えることもできます。これは「DOM操作」と呼ばれるテクニックで、ウェブページを動的に変化させるための基本です。</p>
+<p>まずは、こんなHTMLファイルを用意しましょう。</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;JS DOM Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p id=&quot;messageArea&quot;&gt;ここにメッセージが表示されます。&lt;/p&gt;
+
+    &lt;button onclick=&quot;displayMessage()&quot;&gt;メッセージ表示&lt;/button&gt;
+
+    &lt;script&gt;
+        function displayMessage() {
+            // idが &quot;messageArea&quot; のHTML要素を取得
+            const messageElement = document.getElementById(&#39;messageArea&#39;);
+            // その要素のテキスト内容を書き換える
+            messageElement.textContent = &#39;Hello, World! from JavaScript DOM manipulation!&#39;;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>このHTMLファイルをブラウザで開いて、「メッセージ表示」ボタンをクリックしてみてください。<code>&lt;p&gt;</code>タグで囲まれた部分のテキストが「Hello, World! from JavaScript DOM manipulation!」に変われば大成功です！</p>
+<p>ここでは、<code>document.getElementById(&#39;messageArea&#39;)</code> で特定のHTML要素を見つけ出し、<code>textContent</code> というプロパティを使ってその中身を書き換えています。
+「え、<code>document</code> って何？ <code>getElementById</code> って？ <code>textContent</code> って？？」と、たくさんの「？」が浮かんでいるかもしれませんが、心配しないでください！これらのDOM操作に関する詳しいことは、後の「DOMの探求」の章でじっくり解説します。今は、「JavaScriptって、HTMLの中身も変えられるんだな、すごい！」と感じてもらえればOKです。</p>
+<h3>コメント：未来の自分へのメッセージ</h3>
+<p>プログラムの中に、処理内容を説明するためのメモ書きを残すことができます。これを<strong>コメント</strong>と言います。コメントは、プログラムの実行には影響しませんが、コードを後から見返したときや、他の人がコードを読むときに、処理内容を理解しやすくするために非常に重要です。</p>
+<p>JavaScriptのコメントには、主に2種類あります。</p>
+<ul>
+<li><p><strong>一行コメント</strong>:  から行末までがコメントになります。</p>
+<pre><code class="language-javascript">// filepath: (どこかのフォルダ)/comments_example.js
+// これは一行コメントです
+let userAge = 20; // ユーザーの年齢を格納する変数（これもコメント）
+</code></pre>
+</li>
+<li><p><strong>複数行コメント</strong>: <code>/*</code> と <code>*/</code> で囲まれた範囲がコメントになります。</p>
+<pre><code class="language-javascript">/*
+  これは複数行コメントです。
+  何行にもわたって書くことができます。
+  主に、関数の説明や、少し複雑な処理の概要を書くのに使います。
+*/
+function calculatePrice(quantity, unitPrice) {
+  // 商品の数量と単価から合計金額を計算する
+  return quantity * unitPrice;
+}
+</code></pre>
+</li>
+</ul>
+<p><strong>個人的には、コメントは未来の自分へのメッセージであり、チームメイトへの思いやりだと思っています。</strong>「このコード、何でこんな書き方したんだっけ…？」と数ヶ月後に悩むことは本当によくあります（笑）。面倒くさがらずに、分かりやすいコメントを書く習慣をつけると、後で絶対に自分を褒めてあげたくなりますよ。これは経験上、間違いありません！</p>
+<h3>セミコロン：文の終わり、どうする？</h3>
+<p>JavaScriptでは、文（命令の単位）の終わりに<strong>セミコロン (<code>;</code>)</strong> を付けるのが一般的です。</p>
+<pre><code class="language-javascript">let name = &quot;高専太郎&quot;;
+console.log(name);
+alert(&quot;処理が完了しました。&quot;);
+</code></pre>
+<p>実は、JavaScriptには <strong>ASI (Automatic Semicolon Insertion)</strong> という、セミコロンが省略されていても、解釈できる場所では自動的にセミコロンを挿入してくれる機能があります。そのため、セミコロンを省略しても動く場合があります。</p>
+<p>しかし、このASIは時々、意図しない場所でセミコロンを挿入してしまい、バグの原因になることがあります。例えば、こんなコードを見てください。</p>
+<pre><code class="language-javascript">function getObject() {
+  return // ASIにより、ここでセミコロンが勝手に挿入されてしまう！
+  {
+    name: &quot;ASI Trap&quot;
+  };
+}
+
+let myObject = getObject();
+console.log(myObject); // undefined と表示されてしまう！
+</code></pre>
+<p>この例では、<code>return</code> の直後で改行しているため、ASIがそこで文の終わりだと判断してセミコロンを挿入してしまいます。その結果、<code>getObject</code>関数は何も返さない（<code>undefined</code>を返す）ことになってしまうのです。</p>
+<p>このような予期せぬ挙動を避けるため、そしてコードの意図を明確にするために、<strong>文の終わりにはセミコロンを付けることを強く推奨します。</strong> 多くの開発チームでは、セミコロンを付けることをコーディングスタイルとして定めています。私たちも、セミコロンは基本的に付ける、というルールで進めていきましょうね。</p>
+<h3>波括弧 <code>{}</code>：まとまりを示す記号</h3>
+<p><strong>波括弧 <code>{}</code></strong> (curly braces) は、JavaScriptでいくつかの重要な役割を果たします。</p>
+<ul>
+<li><p><strong>ブロックを示す</strong>:
+  複数の文を一つのまとまりとして扱う「ブロック」を作るのに使います。例えば、<code>if</code>文や<code>for</code>ループ、関数の定義などで使われます。</p>
+<pre><code class="language-javascript">// filepath: (どこかのフォルダ)/braces_block.js
+let age = 18;
+if (age &gt;= 20) { // if文のブロックの始まり
+  console.log(&quot;成人です。&quot;);
+  console.log(&quot;お酒が飲めますね！&quot;);
+} // if文のブロックの終わり
+else { // else文のブロックの始まり
+  console.log(&quot;未成年です。&quot;);
+} // else文のブロックの終わり
+
+function greet(name) { // 関数のブロックの始まり
+  console.log(&quot;こんにちは、&quot; + name + &quot;さん！&quot;);
+} // 関数のブロックの終わり
+</code></pre>
+</li>
+<li><p><strong>オブジェクトリテラルで使う</strong>:
+  後で詳しく学びますが、「オブジェクト」というデータの塊を作る際にも波括弧を使います。</p>
+<pre><code class="language-javascript">// filepath: (どこかのフォルダ)/braces_object.js
+let user = { // オブジェクトリテラルの始まり
+  name: &quot;高専花子&quot;,
+  age: 17,
+  hobby: &quot;プログラミング&quot;
+}; // オブジェクトリテラルの終わり
+console.log(user.name); // 高専花子 と表示
+</code></pre>
+</li>
+</ul>
+<p>波括弧は、コードの構造を明確にするために非常に重要です。どこからどこまでが一つのまとまりなのかを意識しながらコードを書いていきましょう。</p>
+<hr>
+<h2>4. 「オブジェクトという便利な箱」の具体性</h2>
+<p>JavaScriptでは、「オブジェクト」という概念が非常に重要です。先ほど少し出てきましたが、ここで改めて、オブジェクトがどんなものかイメージを掴んでおきましょう。</p>
+<p>オブジェクトとは、簡単に言うと、**関連するデータ（情報）や機能（操作）をひとまとめにした「便利な箱」**のようなものです。
+この箱の中には、「名前（<strong>プロパティ</strong>と呼びます）」と、それに対応する「値（データや機能）」が入っています。</p>
+<p>例えば、「ユーザー」というオブジェクトを考えてみましょう。</p>
+<pre><code class="language-javascript">let user = {
+  // &quot;name&quot; という名前（プロパティ）に &quot;山田太郎&quot; という値（文字列データ）
+  name: &quot;山田太郎&quot;,
+  // &quot;age&quot; という名前（プロパティ）に 30 という値（数値データ）
+  age: 30,
+  // &quot;isStudent&quot; という名前（プロパティ）に false という値（真偽値データ）
+  isStudent: false,
+  // &quot;greet&quot; という名前（プロパティ）に、挨拶する機能（関数）
+  greet: function() {
+    console.log(&quot;こんにちは、&quot; + this.name + &quot;です！&quot;);
+  }
+};
+
+// オブジェクトのデータにアクセス
+console.log(user.name);    // 山田太郎 と表示
+console.log(user.age);     // 30 と表示
+
+// オブジェクトの機能（メソッドと呼びます）を実行
+user.greet(); // こんにちは、山田太郎です！ と表示
+</code></pre>
+<p>この<code>user</code>オブジェクトは、「名前」「年齢」「学生かどうか」といったデータと、「挨拶する」という機能をまとめて持っています。まるで、整理整頓された引き出しのように、関連するものを一箇所に集めて管理できるので、プログラムがとても分かりやすくなります。</p>
+<p>この「オブジェクト」という考え方は、JavaScriptプログラミングのあらゆる場面で登場します。今はまだ「ふーん、そんなものがあるんだな」くらいで大丈夫です。これから少しずつ、この便利な箱の使い方に慣れていきましょうね！</p>
+<hr>
+<h2>✏️ 本日の演習</h2>
+<p>さあ、今日学んだことを早速試してみましょう！</p>
+<ol>
+<li><strong>HTMLとJavaScriptの連携ファイル作成！</strong><ul>
+<li>デスクトップなど分かりやすい場所に、<code>js_practice</code> という名前で新しいフォルダを作成してください。</li>
+<li>VSCodeで <code>js_practice</code> フォルダを開いてください。</li>
+<li><code>js_practice</code> フォルダの中に、<code>index.html</code> というファイルと <code>script.js</code> というファイルを作成してください。</li>
+<li>index.html には、基本的なHTML構造（<code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code> タグなど）を書き、<code>&lt;body&gt;</code> タグの最後に <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code> と記述して <code>script.js</code> を読み込むようにしてください。</li>
+<li><code>script.js</code> に、<code>console.log(&quot;JavaScriptの練習開始！&quot;);</code> と <code>alert(&quot;HTMLとJSの連携成功！&quot;);</code> という2行を書いて保存してください。</li>
+<li>index.html をブラウザで開いて、アラートが表示され、開発者ツールのコンソールにメッセージが表示されることを確認しましょう。</li>
+</ul>
+</li>
+<li><strong>コメントを使ってみよう！</strong><ul>
+<li>先ほど作成した <code>script.js</code> を開いてください。</li>
+<li>1行目の <code>console.log</code> の上に、一行コメントで「これはコンソールにメッセージを表示する命令です」と書いてみましょう。</li>
+<li>2行目の <code>alert</code> の上に、複数行コメントで「これはアラートダイアログを表示する命令です。\nユーザーに簡単な通知をするのに使えます。」（<code>\n</code>は改行を意味します）と書いてみましょう。</li>
+<li>ファイルを保存して、もう一度 index.html をブラウザで開き、動作が変わらないこと（コメントは実行に影響しないこと）を確認しましょう。</li>
+</ul>
+</li>
+<li><strong><code>console.log</code> で色々表示！</strong><ul>
+<li><code>script.js</code> に、以下の内容を追記してみましょう。<ul>
+<li>自分の名前を <code>console.log</code> で表示する。</li>
+<li>好きな食べ物を <code>console.log</code> で表示する。</li>
+<li><code>1 + 1</code> の計算結果を <code>console.log</code> で表示する。（ヒント: <code>console.log(1 + 1);</code> のように書けます）</li>
+</ul>
+</li>
+<li>保存してブラウザで確認し、コンソールに正しく表示されるか見てみましょう。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<hr>
+<hr>
+<h3>演習の解答例</h3>
+<p>演習1、2、3の指示に従って、<code>js_practice</code> フォルダ内に以下の2つのファイルを作成してください。</p>
+<ol>
+<li>index.html</li>
+<li><code>script.js</code></li>
+</ol>
+<p>それぞれのファイルの内容は以下の通りです。</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;JavaScript 演習&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;JavaScriptの練習ページ&lt;/h1&gt;
+    &lt;p&gt;ブラウザの開発者ツールを開いてコンソールを確認してください。&lt;/p&gt;
+
+    &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<pre><code class="language-javascript">// これはコンソールにメッセージを表示する命令です
+console.log(&quot;JavaScriptの練習開始！&quot;);
+
+/*
+  これはアラートダイアログを表示する命令です。
+  ユーザーに簡単な通知をするのに使えます。
+*/
+alert(&quot;HTMLとJSの連携成功！&quot;);
+
+// 自分の名前を表示
+console.log(&quot;高専太郎&quot;); // ここはご自身の名前に置き換えてください
+
+// 好きな食べ物を表示
+console.log(&quot;カレーライス&quot;); // ここはご自身の好きな食べ物に置き換えてください
+
+// 1 + 1 の計算結果を表示
+console.log(1 + 1);
+</code></pre>
+<p><strong>実行方法：</strong></p>
+<ol>
+<li><code>js_practice</code> フォルダを作成します。</li>
+<li>上記のコードをそれぞれ index.html と <code>script.js</code> という名前で <code>js_practice</code> フォルダ内に保存します。</li>
+<li>index.html ファイルをウェブブラウザで開きます。<ul>
+<li>アラートが表示されることを確認してください。</li>
+<li>ブラウザの開発者ツール（通常はF12キーで開きます）のコンソールタブを開き、メッセージや計算結果が表示されていることを確認してください。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>まとめと次回予告</h2>
+<p>お疲れ様でした！今回は、JavaScriptがどんな言語で、ウェブページの中でどんな役割を果たしているのか、そしてプログラムを書き始めるための基本的なお作法について学びましたね。</p>
+<ul>
+<li>JavaScriptはHTML（骨組み）、CSS（見た目）と協力して、ウェブページに<strong>動きや対話性</strong>を加えること。</li>
+<li>JavaScriptコードは、外部ファイルとして読み込んだり、HTML内に直接書いたりできること。</li>
+<li><code>console.log()</code> や <code>alert()</code> で簡単なメッセージを表示できること。</li>
+<li>コメントはコードを分かりやすくするための重要なメモであること。</li>
+<li>文の終わりにはセミコロン (<code>;</code>) を付けるのが推奨されること。</li>
+</ul>
+<p>実際に手を動かして、HTMLファイルとJavaScriptファイルを連携させたり、<code>console.log</code>を使ってみたりすることで、少しずつJavaScriptに慣れてきたのではないでしょうか。</p>
+<p>次回は、プログラミングの基本中の基本である「<strong>変数とデータ型</strong>」について学びます。情報を一時的に保存しておくための「変数」とは何か、そしてJavaScriptが扱えるデータの種類にはどんなものがあるのか、といったことを詳しく見ていきます。ここも非常に大切な基礎となる部分ですので、お楽しみに！</p>
+
+      </body>
+      </html>
+    

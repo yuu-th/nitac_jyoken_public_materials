@@ -1,0 +1,405 @@
+
+      <!DOCTYPE html>
+      <html lang="ja">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>フロントエンド４</title>
+        <link rel="stylesheet" href="../../../style.css">
+        <style>
+          @font-face {
+            font-family: 'IPAGothic';
+            src: local('IPAGothic');
+          }
+          @font-face {
+            font-family: 'IPAMincho';
+            src: local('IPAMincho');
+          }
+          html, body {
+            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+          }
+          pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            padding: 16px;
+            overflow: auto;
+          }
+          code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: rgba(27, 31, 35, 0.05);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+          }
+          pre code {
+            background-color: transparent;
+            padding: 0;
+          }
+          blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 16px;
+            color: #555;
+            margin-left: 0;
+          }
+          img {
+            max-width: 100%;
+            height: auto;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          table, th, td {
+            border: 1px solid #ddd;
+          }
+          th, td {
+            padding: 8px 12px;
+          }
+          th {
+            background-color: #f6f8fa;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>発展HTML</h1>
+<p>前の資料では、HTMLの基本的なタグを使ってWebページの骨組みを作る方法を学びましたね。今回は、さらに一歩進んで、Webページにもっと豊かな意味を持たせたり、インタラクティブな機能を追加したりするためのHTMLタグを見ていきましょう。</p>
+<p>基本的なタグだけでもWebページは作れますが、これから紹介するタグを使いこなすことで、より構造が分かりやすく、ユーザーにとっても、検索エンジン（Googleなど）にとっても、そして開発者自身にとっても「良い」Webページを作ることができるようになります。</p>
+<h2>1. セマンティックタグ：意味のある構造を作る</h2>
+<p>HTML5から、ページの各部分が「何を表しているのか」をより明確に示すためのタグがたくさん導入されました。これらを <strong>セマンティックタグ</strong> と呼びます。「セマンティック」とは「意味の」という意味です。</p>
+<p>以前学んだ <code>&lt;div&gt;</code> タグは、単なる「箱」でしかなく、それ自体に意味はありませんでした。セマンティックタグを使うことで、コンピューター（ブラウザや検索エンジン）も「ここがヘッダーだな」「ここがナビゲーションだな」と理解しやすくなります。</p>
+<p>代表的なセマンティックタグを見てみましょう。</p>
+<ul>
+<li><strong><code>&lt;header&gt;</code></strong>: ページやセクションの導入部分、ヘッダー情報を入れる場所です。サイトのロゴ、タイトル、ナビゲーションなどがよく入ります。</li>
+<li><strong><code>&lt;footer&gt;</code></strong>: ページやセクションのフッター情報（著者、コピーライト、関連リンクなど）を入れる場所です。</li>
+<li><strong><code>&lt;nav&gt;</code></strong>: 主要なナビゲーションリンク（メニュー）を入れる場所です。サイト内の他のページへのリンクや、ページ内の特定セクションへのリンクなど。</li>
+<li><strong><code>&lt;main&gt;</code></strong>: そのページの主要なコンテンツ（本文）を入れる場所です。<code>main</code> 要素は、1つのページに1つだけ使うのが原則です。</li>
+<li><strong><code>&lt;article&gt;</code></strong>: それ自体で完結する独立したコンテンツ（ブログ記事、ニュース記事、フォーラムの投稿など）を入れる場所です。<code>article</code> は入れ子にすることもできます。</li>
+<li><strong><code>&lt;section&gt;</code></strong>: 文書内のテーマごとの区切りを表します。通常、見出し（<code>&lt;h1&gt;</code>〜<code>&lt;h6&gt;</code>）と一緒に使われます。<code>article</code> の中をさらに <code>section</code> で区切ったり、関連するコンテンツをグループ化したりします。</li>
+<li><strong><code>&lt;aside&gt;</code></strong>: メインコンテンツとは直接的な関係が薄い補足情報や関連情報（サイドバー、広告、補足説明など）を入れる場所です。</li>
+</ul>
+<p><strong>なぜセマンティックタグが重要？</strong></p>
+<ol>
+<li><strong>SEO (検索エンジン最適化) に有利</strong>: Googleなどの検索エンジンは、これらのタグを見てページの内容や構造をより正確に理解し、検索結果のランキングに役立てます。</li>
+<li><strong>アクセシビリティ向上</strong>: スクリーンリーダー（視覚障碍者がWebページを読むためのソフト）などが、ページの構造を理解しやすくなり、より多くの人が情報にアクセスしやすくなります。</li>
+<li><strong>コードの可読性向上</strong>: <code>&lt;div&gt;</code> だらけのコードよりも、<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> などが使われている方が、開発者自身も後からコードを読んだときに構造を把握しやすくなります。</li>
+</ol>
+<p><strong>開発者の視点:</strong>
+最初は <code>&lt;div&gt;</code> とどう使い分けるか迷うかもしれませんが、「この部分は何のためのエリアか？」を考えて、適切なセマンティックタグを選ぶ癖をつけると良いでしょう。完璧を目指す必要はありませんが、意識することが大切です。</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;title&gt;セマンティックなページ&lt;/title&gt;
+    &lt;style&gt;
+      ul {
+        list-style: none;
+      }
+      nav li {
+        display: inline;
+      }
+      nav a{
+        display: inline-block;
+      }
+      article {
+        float: left;
+        width: 68%;
+      }
+      aside {
+        float: right;
+        width: 28%;
+      }
+      footer {
+        text-align: center;
+        clear: both;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h1&gt;サイトタイトル&lt;/h1&gt;
+      &lt;nav&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;/&quot;&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;概要&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+      &lt;article&gt;
+        &lt;h2&gt;記事タイトル&lt;/h2&gt;
+        &lt;p&gt;記事の本文です。...&lt;/p&gt;
+        &lt;section&gt;
+          &lt;h3&gt;セクション1&lt;/h3&gt;
+          &lt;p&gt;セクション1の内容です。...&lt;/p&gt;
+        &lt;/section&gt;
+        &lt;section&gt;
+          &lt;h3&gt;セクション2&lt;/h3&gt;
+          &lt;p&gt;セクション2の内容です。...&lt;/p&gt;
+        &lt;/section&gt;
+      &lt;/article&gt;
+
+      &lt;aside&gt;
+        &lt;h3&gt;関連リンク&lt;/h3&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;関連情報1&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;関連情報2&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+      &lt;p&gt;&amp;copy; 2025 サイト名&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2>2. フォーム要素の発展：もっとインタラクティブに</h2>
+<p>基本的な <code>&lt;form&gt;</code>, <code>&lt;input type=&quot;text&quot;&gt;</code>, <code>&lt;input type=&quot;submit&quot;&gt;</code> は前の資料で見ましたが、HTMLにはもっと多様な入力形式や便利なフォーム関連タグがあります。</p>
+<h3><code>&lt;input&gt;</code> の様々な <code>type</code> 属性</h3>
+<p><code>&lt;input&gt;</code> タグは <code>type</code> 属性を変えるだけで、色々な入力欄を作れます。</p>
+<ul>
+<li><code>type=&quot;email&quot;</code>: メールアドレス入力用。ブラウザによっては入力形式をチェックしてくれます。</li>
+<li><code>type=&quot;password&quot;</code>: パスワード入力用。入力文字が <code>*</code> などで隠されます。</li>
+<li><code>type=&quot;number&quot;</code>: 数値入力用。スピンボタン（上下矢印）が表示されることも。</li>
+<li><code>type=&quot;date&quot;</code>: 日付入力用。カレンダーが表示されることも。</li>
+<li><code>type=&quot;color&quot;</code>: 色選択用。カラーピッカーが表示されることも。</li>
+<li><code>type=&quot;range&quot;</code>: 特定範囲の値を選択するスライダー。</li>
+<li><code>type=&quot;checkbox&quot;</code>: 複数選択可能なチェックボックス。</li>
+<li><code>type=&quot;radio&quot;</code>: 複数の中から一つだけ選択するラジオボタン。同じ <code>name</code> 属性を持つラジオボタンがグループになります。</li>
+<li><code>type=&quot;file&quot;</code>: ファイルを選択するためのボタン。</li>
+</ul>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;label for=&quot;email&quot;&gt;メール:&lt;/label&gt;
+  &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;user_email&quot;&gt;&lt;br&gt;
+
+  &lt;label for=&quot;pass&quot;&gt;パスワード:&lt;/label&gt;
+  &lt;input type=&quot;password&quot; id=&quot;pass&quot; name=&quot;user_password&quot;&gt;&lt;br&gt;
+
+  &lt;label for=&quot;num&quot;&gt;数量:&lt;/label&gt;
+  &lt;input type=&quot;number&quot; id=&quot;num&quot; name=&quot;quantity&quot; min=&quot;1&quot; max=&quot;10&quot;&gt;&lt;br&gt; &lt;!-- min/maxで範囲指定 --&gt;
+
+  &lt;label for=&quot;bday&quot;&gt;誕生日:&lt;/label&gt;
+  &lt;input type=&quot;date&quot; id=&quot;bday&quot; name=&quot;birthday&quot;&gt;&lt;br&gt;
+
+  &lt;label for=&quot;favcolor&quot;&gt;好きな色:&lt;/label&gt;
+  &lt;input type=&quot;color&quot; id=&quot;favcolor&quot; name=&quot;favorite_color&quot;&gt;&lt;br&gt;
+
+  &lt;label for=&quot;vol&quot;&gt;音量:&lt;/label&gt;
+  &lt;input type=&quot;range&quot; id=&quot;vol&quot; name=&quot;volume&quot; min=&quot;0&quot; max=&quot;100&quot;&gt;&lt;br&gt; &lt;!-- min/maxで範囲指定 --&gt;
+
+  &lt;p&gt;興味のある分野 (複数選択可):&lt;/p&gt;
+  &lt;input type=&quot;checkbox&quot; id=&quot;tech&quot; name=&quot;interest&quot; value=&quot;technology&quot;&gt;
+  &lt;label for=&quot;tech&quot;&gt;技術&lt;/label&gt;&lt;br&gt;
+  &lt;input type=&quot;checkbox&quot; id=&quot;art&quot; name=&quot;interest&quot; value=&quot;art&quot;&gt;
+  &lt;label for=&quot;art&quot;&gt;芸術&lt;/label&gt;&lt;br&gt;
+
+  &lt;p&gt;好きな季節 (一つ選択):&lt;/p&gt;
+  &lt;input type=&quot;radio&quot; id=&quot;spring&quot; name=&quot;season&quot; value=&quot;spring&quot;&gt;
+  &lt;label for=&quot;spring&quot;&gt;春&lt;/label&gt;&lt;br&gt;
+  &lt;input type=&quot;radio&quot; id=&quot;summer&quot; name=&quot;season&quot; value=&quot;summer&quot;&gt;
+  &lt;label for=&quot;summer&quot;&gt;夏&lt;/label&gt;&lt;br&gt;
+
+  &lt;label for=&quot;profile_pic&quot;&gt;写真:&lt;/label&gt;
+  &lt;input type=&quot;file&quot; id=&quot;profile_pic&quot; name=&quot;profile_picture&quot;&gt;&lt;br&gt;
+
+  &lt;input type=&quot;submit&quot; value=&quot;送信&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<h3>その他のフォーム関連タグ</h3>
+<ul>
+<li><strong><code>&lt;textarea&gt;</code></strong>: 複数行のテキスト入力欄。</li>
+<li><strong><code>&lt;select&gt;</code> と <code>&lt;option&gt;</code></strong>: ドロップダウンリスト（選択肢）。<ul>
+<li><strong><code>&lt;optgroup&gt;</code></strong>: <code>&lt;option&gt;</code> をグループ化してラベルを付けられます。</li>
+</ul>
+</li>
+<li><strong><code>&lt;datalist&gt;</code></strong>: <code>&lt;input&gt;</code> に入力候補のリストを提供します。ユーザーは候補から選ぶことも、自由に入力することもできます。</li>
+<li><strong><code>&lt;label&gt;</code></strong>: 入力欄（<code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code> など）と、その説明ラベルを結びつけます。<code>for</code> 属性の値と、対応する入力要素の <code>id</code> 属性の値を一致させます。<ul>
+<li><strong>開発者の視点:</strong> <code>&lt;label&gt;</code> は非常に重要です！ ラベルをクリックすると対応する入力欄がフォーカスされるため、使いやすさが向上します。また、スクリーンリーダーが「何の入力欄か」を正しく読み上げるためにも不可欠です。必ず使いましょう。</li>
+</ul>
+</li>
+<li><strong><code>&lt;fieldset&gt;</code> と <code>&lt;legend&gt;</code></strong>: 関連するフォーム部品をグループ化し、<code>&lt;legend&gt;</code> でそのグループにタイトルを付けます。フォームが長くなる場合に整理するのに役立ちます。</li>
+</ul>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;個人情報&lt;/legend&gt;
+    &lt;label for=&quot;name&quot;&gt;名前:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;user_name&quot;&gt;&lt;br&gt;
+
+    &lt;label for=&quot;message&quot;&gt;メッセージ:&lt;/label&gt;&lt;br&gt;
+    &lt;textarea id=&quot;message&quot; name=&quot;user_message&quot; rows=&quot;4&quot; cols=&quot;50&quot;&gt;&lt;/textarea&gt;&lt;br&gt;
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;その他&lt;/legend&gt;
+    &lt;label for=&quot;country&quot;&gt;国:&lt;/label&gt;
+    &lt;select id=&quot;country&quot; name=&quot;user_country&quot;&gt;
+      &lt;option value=&quot;&quot;&gt;選択してください&lt;/option&gt;
+      &lt;optgroup label=&quot;アジア&quot;&gt;
+        &lt;option value=&quot;jp&quot;&gt;日本&lt;/option&gt;
+        &lt;option value=&quot;kr&quot;&gt;韓国&lt;/option&gt;
+      &lt;/optgroup&gt;
+      &lt;optgroup label=&quot;ヨーロッパ&quot;&gt;
+        &lt;option value=&quot;fr&quot;&gt;フランス&lt;/option&gt;
+        &lt;option value=&quot;de&quot;&gt;ドイツ&lt;/option&gt;
+      &lt;/optgroup&gt;
+    &lt;/select&gt;&lt;br&gt;
+
+    &lt;label for=&quot;browser&quot;&gt;よく使うブラウザ:&lt;/label&gt;
+    &lt;input list=&quot;browsers&quot; id=&quot;browser&quot; name=&quot;user_browser&quot;&gt;
+    &lt;datalist id=&quot;browsers&quot;&gt;
+      &lt;option value=&quot;Chrome&quot;&gt;
+      &lt;option value=&quot;Firefox&quot;&gt;
+      &lt;option value=&quot;Safari&quot;&gt;
+      &lt;option value=&quot;Edge&quot;&gt;
+    &lt;/datalist&gt;&lt;br&gt;
+  &lt;/fieldset&gt;
+
+  &lt;input type=&quot;submit&quot; value=&quot;登録&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<h3>フォームバリデーション属性</h3>
+<p>HTMLだけで簡単な入力チェック（バリデーション）を行うための属性もあります。</p>
+<ul>
+<li><code>required</code>: 入力必須項目にします。</li>
+<li><code>pattern</code>: 正規表現を使って、入力可能な文字パターンを指定します。</li>
+<li><code>min</code>, <code>max</code>: 数値や日付の最小値・最大値を指定します。</li>
+<li><code>step</code>: 数値や範囲入力の刻み幅を指定します。</li>
+<li><code>minlength</code>, <code>maxlength</code>: 入力可能な最小・最大文字数を指定します。</li>
+</ul>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;label for=&quot;username&quot;&gt;ユーザー名 (必須, 5文字以上):&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot; required minlength=&quot;5&quot;&gt;&lt;br&gt;
+
+  &lt;label for=&quot;postal_code&quot;&gt;郵便番号 (例: 123-4567):&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;postal_code&quot; name=&quot;postal_code&quot; pattern=&quot;\d{3}-\d{4}&quot; placeholder=&quot;123-4567&quot;&gt;&lt;br&gt;
+
+  &lt;input type=&quot;submit&quot; value=&quot;送信&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<p><strong>開発者の視点:</strong> HTMLのバリデーションは手軽ですが、あくまで補助的なものです。悪意のあるユーザーはこれを簡単に回避できてしまうため、<strong>サーバー側でのしっかりとしたバリデーションは別途必須</strong> です。フロントエンド（HTML/JavaScript）のバリデーションは、ユーザーの入力ミスを減らし、使い勝手を良くするためのものと考えましょう。</p>
+<h2>3. メディア要素：動画と音声の埋め込み</h2>
+<p>HTML5では、プラグイン（昔はFlashなどが使われていました）なしで動画や音声をWebページに埋め込めるようになりました。</p>
+<h3><code>&lt;video&gt;</code> タグ</h3>
+<p>動画ファイルを埋め込みます。</p>
+<ul>
+<li><code>src</code>: 動画ファイルのパスまたはURL。</li>
+<li><code>controls</code>: 再生、一時停止、音量などのコントロールパネルを表示します。通常は付けた方が親切です。</li>
+<li><code>width</code>, <code>height</code>: 動画の表示サイズを指定します。CSSで指定する方が柔軟です。</li>
+<li><code>autoplay</code>: ページ読み込み時に自動再生します。多くの場合、ユーザー体験を損ねるので注意が必要です。<code>muted</code> 属性と一緒でないとブロックされることが多いです。</li>
+<li><code>loop</code>: 動画を繰り返し再生します。</li>
+<li><code>muted</code>: 最初からミュート（消音）状態で再生します。自動再生したい場合に必要になることが多いです。</li>
+<li><code>poster</code>: 動画が読み込まれる前や、再生開始前に表示される画像のパスまたはURL。</li>
+</ul>
+<pre><code class="language-html">&lt;!-- コントロール表示あり --&gt;
+&lt;video src=&quot;movie.mp4&quot; controls width=&quot;640&quot; height=&quot;360&quot; poster=&quot;thumbnail.jpg&quot;&gt;&lt;/video&gt;
+
+&lt;!-- 自動再生 (ミュート必須の場合が多い), ループ --&gt;
+&lt;video src=&quot;background.mp4&quot; autoplay muted loop width=&quot;100%&quot;&gt;&lt;/video&gt;
+</code></pre>
+<h3><code>&lt;audio&gt;</code> タグ</h3>
+<p>音声ファイルを埋め込みます。属性は <code>&lt;video&gt;</code> と似ています。</p>
+<pre><code class="language-html">&lt;!-- コントロール表示あり --&gt;
+&lt;audio src=&quot;music.mp3&quot; controls&gt;&lt;/audio&gt;
+
+&lt;!-- 自動再生 (非推奨), ループ --&gt;
+&lt;audio src=&quot;bgm.ogg&quot; autoplay loop&gt;&lt;/audio&gt;
+</code></pre>
+<h3><code>&lt;source&gt;</code> タグ</h3>
+<p>異なるブラウザが対応している動画/音声フォーマットは様々です。<code>&lt;source&gt;</code> タグを使うと、複数のフォーマットのファイルを用意しておき、ブラウザが再生可能なものを自動で選択させることができます。<code>&lt;video&gt;</code> または <code>&lt;audio&gt;</code> タグの中に入れます。</p>
+<pre><code class="language-html">&lt;video controls width=&quot;640&quot; height=&quot;360&quot; poster=&quot;thumbnail.jpg&quot;&gt;
+  &lt;source src=&quot;movie.webm&quot; type=&quot;video/webm&quot;&gt;
+  &lt;source src=&quot;movie.mp4&quot; type=&quot;video/mp4&quot;&gt;
+  &lt;!-- 対応ブラウザがない場合のメッセージ --&gt;
+  お使いのブラウザは動画再生に対応していません。
+&lt;/video&gt;
+
+&lt;audio controls&gt;
+  &lt;source src=&quot;music.opus&quot; type=&quot;audio/opus&quot;&gt;
+  &lt;source src=&quot;music.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
+  お使いのブラウザは音声再生に対応していません。
+&lt;/audio&gt;
+</code></pre>
+<h3><code>&lt;track&gt;</code> タグ</h3>
+<p>動画や音声に、字幕、キャプション、説明などを追加するためのタグです。Web VTT (<code>.vtt</code>) という形式のファイルでテキストと表示タイミングを指定します。アクセシビリティ向上のために重要です。</p>
+<pre><code class="language-html">&lt;video src=&quot;lecture.mp4&quot; controls&gt;
+  &lt;track kind=&quot;subtitles&quot; src=&quot;subtitles_ja.vtt&quot; srclang=&quot;ja&quot; label=&quot;日本語字幕&quot; default&gt;
+  &lt;track kind=&quot;captions&quot; src=&quot;captions_en.vtt&quot; srclang=&quot;en&quot; label=&quot;English Captions&quot;&gt;
+&lt;/video&gt;
+</code></pre>
+<h2>4. その他の便利なタグ</h2>
+<p>他にも、特定の目的で役立つタグがあります。</p>
+<h3><code>&lt;details&gt;</code> と <code>&lt;summary&gt;</code></h3>
+<p>クリックすると詳細が表示/非表示される、アコーディオンのようなUI（ユーザーインターフェース）を簡単に作れます。<code>&lt;summary&gt;</code> が常に表示されるタイトル部分、<code>&lt;details&gt;</code> の中の <code>&lt;summary&gt;</code> 以外の部分が詳細コンテンツになります。</p>
+<pre><code class="language-html">&lt;details&gt;
+  &lt;summary&gt;もっと詳しく見る&lt;/summary&gt;
+  &lt;p&gt;ここが詳細な内容です。画像やリストなども入れられます。&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;項目1&lt;/li&gt;
+    &lt;li&gt;項目2&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/details&gt;
+</code></pre>
+<h3><code>&lt;iframe&gt;</code></h3>
+<p>インラインフレーム (Inline Frame) の略で、現在のHTMLページの中に、別のHTMLページを埋め込むことができます。Google マップや YouTube 動画の埋め込みによく使われます。</p>
+<pre><code class="language-html">&lt;!-- Google マップの埋め込み例 --&gt;
+&lt;iframe
+  src=&quot;https://www.google.com/maps/embed?pb=!1m18!1m12!...&quot;
+  width=&quot;600&quot;
+  height=&quot;450&quot;
+  style=&quot;border:0;&quot;
+  allowfullscreen=&quot;&quot;
+  loading=&quot;lazy&quot;
+  referrerpolicy=&quot;no-referrer-when-downgrade&quot;&gt;
+&lt;/iframe&gt;
+
+&lt;!-- YouTube 動画の埋め込み例 --&gt;
+&lt;iframe
+  width=&quot;560&quot;
+  height=&quot;315&quot;
+  src=&quot;https://www.youtube.com/embed/VIDEO_ID&quot;
+  title=&quot;YouTube video player&quot;
+  frameborder=&quot;0&quot;
+  allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot;
+  allowfullscreen&gt;
+&lt;/iframe&gt;
+</code></pre>
+<p><strong>開発者の視点:</strong> <code>&lt;iframe&gt;</code> は便利ですが、セキュリティリスク（クリックジャッキングなど）や、ページの読み込み速度に影響を与える可能性もあります。むやみに使わず、信頼できるコンテンツの埋め込みに限定しましょう。<code>sandbox</code> 属性や <code>allow</code> 属性で、埋め込みコンテンツができることを制限することも検討しましょう。</p>
+<h3><code>&lt;figure&gt;</code> と <code>&lt;figcaption&gt;</code></h3>
+<p>図版（画像、図、コード片など）とそのキャプション（説明文）をセットで示すためのタグです。<code>&lt;figure&gt;</code> で図版全体を囲み、<code>&lt;figcaption&gt;</code> でキャプションを記述します。</p>
+<pre><code class="language-html">&lt;figure&gt;
+  &lt;img src=&quot;chart.png&quot; alt=&quot;売上推移グラフ&quot;&gt;
+  &lt;figcaption&gt;図1: 最近の売上推移を示すグラフ&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;
+  &lt;pre&gt;&lt;code&gt;function hello() {
+  console.log(&quot;Hello, world!&quot;);
+}&lt;/code&gt;&lt;/pre&gt;
+  &lt;figcaption&gt;コード例1: JavaScriptでの挨拶表示&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<h3><code>&lt;canvas&gt;</code> (概要)</h3>
+<p>JavaScript と連携して、図形を描画したり、アニメーションを作成したりするための領域を提供します。ゲームやグラフィックツールなど、高度なグラフィック表現に使われますが、HTMLだけでは何も表示されず、JavaScriptでのプログラミングが必須になります。</p>
+<pre><code class="language-html">&lt;canvas id=&quot;myCanvas&quot; width=&quot;200&quot; height=&quot;100&quot; style=&quot;border:1px solid #000;&quot;&gt;&lt;/canvas&gt;
+&lt;!-- この後、JavaScriptで描画処理を書く --&gt;
+</code></pre>
+<h2>5. まとめ：より豊かな表現力を持つHTMLへ</h2>
+<p>お疲れ様でした！今回は、基本的なHTMLに加えて、より発展的なタグを見てきました。</p>
+<ul>
+<li><strong>セマンティックタグ</strong> (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> など) を使うことで、ページの構造が明確になり、SEOやアクセシビリティ、コードの可読性が向上します。</li>
+<li><strong>フォーム要素</strong> (<code>&lt;input&gt;</code> の多様な <code>type</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;label&gt;</code> など) を使いこなすことで、ユーザーが情報を入力しやすい、インタラクティブなページを作れます。</li>
+<li><strong>メディア要素</strong> (<code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;source&gt;</code>) で、動画や音声を簡単に埋め込めます。</li>
+<li><strong>その他のタグ</strong> (<code>&lt;details&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;figure&gt;</code> など) も、特定の場面で役立ちます。</li>
+</ul>
+<p>これらのタグを適切に使うことで、単なる情報の羅列ではなく、構造化され、意味を持ち、インタラクティブで、豊かな表現力を持つWebページを作成することができます。</p>
+<p>もちろん、すべてを一度に覚える必要はありません。「こういうことができるんだな」と知っておき、実際にページを作る際に「あの機能を使いたいな」と思ったら、改めて調べ直してみる、という進め方で大丈夫です。</p>
+<p>次の資料では、いよいよCSSの発展的な内容に入っていきます。より高度なセレクタや、Webページに動きや視覚効果を加える方法などを学んでいきましょう！</p>
+
+      </body>
+      </html>
+    
