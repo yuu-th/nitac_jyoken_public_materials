@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学習タスク管理</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header class="main-header">
+      <h1>📚 今日の学習タスク</h1>
+      <p>目標: CSS装飾とJavaScript動きをマスターしよう！</p>
+    </header>
+
+    <!-- 進捗表示 -->
+    <section class="progress-section">
+      <h2>📈 学習進捗</h2>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-text" id="progressText">0 / 6 完了 (0%)</p>
+      </div>
+    </section>
+
+    <!-- タスクリスト -->
+    <section class="tasks-section">
+      <h2>✅ タスクリスト</h2>
+
+      <div class="task-item">
+        <input type="checkbox" id="task1" class="task-checkbox" />
+        <label for="task1">HTML基本構造を作成</label>
+      </div>
+
+      <div class="task-item">
+        <input type="checkbox" id="task2" class="task-checkbox" />
+        <label for="task2">CSSで基本レイアウト</label>
+      </div>
+
+      <div class="task-item">
+        <input type="checkbox" id="task3" class="task-checkbox" />
+        <label for="task3">グラデーション背景を追加</label>
+      </div>
+
+      <div class="task-item">
+        <input type="checkbox" id="task4" class="task-checkbox" />
+        <label for="task4">ホバーエフェクト実装</label>
+      </div>
+
+      <div class="task-item">
+        <input type="checkbox" id="task5" class="task-checkbox" />
+        <label for="task5">JavaScriptで進捗バー作成</label>
+      </div>
+
+      <div class="task-item">
+        <input type="checkbox" id="task6" class="task-checkbox" />
+        <label for="task6">完了エフェクト追加</label>
+      </div>
+    </section>
+
+    <!-- 完了メッセージ（JavaScriptで表示） -->
+    <div class="completion-message" id="completionMessage">
+      <h2>🎉 おめでとうございます！</h2>
+      <p>全てのタスクが完了しました！</p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
