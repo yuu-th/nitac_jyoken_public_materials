@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>【SPA】非CS学生向けAI教育資料作成方針書 Ver.2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: "Inter", "Noto Sans JP", sans-serif;
+      }
+      .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 350px;
+        max-height: 50vh;
+      }
+      @media (min-width: 768px) {
+        .chart-container {
+          height: 400px;
+        }
+      }
+      .content-section {
+        display: none;
+      }
+      .content-section.active {
+        display: block;
+      }
+      .nav-link.active {
+        background-color: #4f46e5;
+        color: white;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside class="w-64 bg-slate-800 text-white p-6 fixed h-full hidden lg:block">
+        <h1 class="text-xl font-bold mb-8 text-indigo-300">作成方針書 Ver.2.0</h1>
+        <nav id="sidebar-nav">
+          <ul class="space-y-2">
+            <li><a href="#section-1" class="nav-link block p-3 rounded-lg hover:bg-slate-700 transition-colors">1. はじめに</a></li>
+            <li><a href="#section-2" class="nav-link block p-3 rounded-lg hover:bg-slate-700 transition-colors">2. 対象読者と学習目標</a></li>
+            <li><a href="#section-3" class="nav-link block p-3 rounded-lg hover:bg-slate-700 transition-colors">3. 資料の基本方針</a></li>
+            <li><a href="#section-4" class="nav-link block p-3 rounded-lg hover:bg-slate-700 transition-colors">4. 資料のスコープ</a></li>
+            <li><a href="#section-5" class="nav-link block p-3 rounded-lg hover:bg-slate-700 transition-colors">5. 主要コンテンツ構成案</a></li>
+            <li><a href="#section-6" class="nav-link block p-3 rounded-lg hover:bg-slate-700 transition-colors">6. 表現スタイルと留意点</a></li>
+            <li><a href="#section-7" class="nav-link block p-3 rounded-lg hover:bg-slate-700 transition-colors">7. 期待される学習効果</a></li>
+            <li><a href="#section-8" class="nav-link block p-3 rounded-lg hover:bg-slate-700 transition-colors">8. 作成プロセス</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="flex-1 lg:ml-64 p-4 sm:p-8 md:p-12">
+        <header class="mb-12">
+          <h1 class="text-3xl md:text-4xl font-bold text-slate-900">非CS学生向けAI教育資料作成方針書</h1>
+          <p class="text-xl text-indigo-600">Ver.2.0 - インタラクティブガイド</p>
+        </header>
+
+        <div class="lg:hidden mb-8">
+          <select id="mobile-nav" class="w-full p-3 border rounded-lg bg-white shadow">
+            <option value="section-1">1. はじめに</option>
+            <option value="section-2">2. 対象読者と学習目標</option>
+            <option value="section-3">3. 資料の基本方針</option>
+            <option value="section-4">4. 資料のスコープ</option>
+            <option value="section-5">5. 主要コンテンツ構成案</option>
+            <option value="section-6">6. 表現スタイルと留意点</option>
+            <option value="section-7">7. 期待される学習効果</option>
+            <option value="section-8">8. 作成プロセス</option>
+          </select>
+        </div>
+
+        <section id="section-1" class="content-section space-y-6">
+          <h2 class="text-2xl font-bold border-b-2 border-indigo-500 pb-2">1. はじめに（資料作成の目的と背景）</h2>
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <p class="leading-relaxed">
+              本方針書は、コンピュータサイエンス（CS）を専攻していない学生（以下、非CS学生）を対象としたAI教育資料を作成するための詳細かつ具体的な指針を定めるものです。提供された「高専DCON向けAI技術資料作成」（以下、DCON資料）は、2025年現在のAI技術の最前線と、それが「ものづくり」や社会課題解決にどのように繋がりうるかを示す貴重な情報源です。
+            </p>
+            <p class="mt-4 leading-relaxed">
+              AI技術は社会のあらゆる側面に急速に浸透しつつあり、その活用はCS分野に留まりません。非CS学生が将来、自身の専門分野や社会においてAI技術の恩恵を最大限に引き出し、またCS専門家と効果的に協業して新たな価値を創造するためには、技術の詳細な実装方法（How）ではなく、<strong>AIの最先端で「何が（What）」起きており、それが「なぜ（Why）」重要で、どのような可能性と課題を秘めているのかを本質的に理解する</strong>ことが不可欠です。これは、CS専門家との共通言語を構築し、より具体的で建設的な議論を可能にするための基礎となります。
+            </p>
+          </div>
+          <div class="bg-indigo-100 border-l-4 border-indigo-500 text-indigo-800 p-6 rounded-lg shadow-sm">
+            <h3 class="text-xl font-semibold mb-2">本資料作成の目的</h3>
+            <p>本資料作成の目的は、非CS学生が以下の状態になることを支援することです。</p>
+            <ul class="list-disc list-inside mt-4 space-y-2">
+              <li>AI技術の主要なトレンド、最先端のキーワードとその概要、そしてそれが持つ意義を、過度な期待や誤解なく把握できる。</li>
+              <li>AIの可能性と限界、社会的・倫理的影響を現実的かつ多角的に理解できる。</li>
+              <li>自身の専門分野や関心領域において、最先端AI技術の知見を活かした活用のアイデアを発想し、その実現可能性やリスクを建設的に議論できる。</li>
+              <li>CS専攻の学生やAI専門家と、最先端技術に関する共通の理解基盤の上で円滑なコミュニケーションを取り、協創的なプロジェクトを推進できる。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="section-2" class="content-section space-y-6">
+          <h2 class="text-2xl font-bold border-b-2 border-indigo-500 pb-2">2. 対象読者と学習目標</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-3">主たる対象読者</h3>
+              <ul class="list-disc list-inside space-y-2 text-slate-700">
+                <li>大学・専門学校等に在籍する、コンピュータサイエンスを専門としない学生（文系、理系非情報系など）。</li>
+                <li>AIに関する事前知識は限定的であると想定。</li>
+                <li>（副次的に、DCON参加を目指す高専生がAIの全体像を掴むための一助となることも意識するが、内容は一般学生向けに平易化する）。</li>
+              </ul>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-3">学習目標</h3>
+              <div class="chart-container">
+                <canvas id="learningGoalsChart"></canvas>
+              </div>
+              <p class="text-center text-sm text-slate-500 mt-2">6つの主要な学習目標をレーダーチャートで可視化しています。ホバーして詳細を確認してください。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-3" class="content-section space-y-6">
+          <h2 class="text-2xl font-bold border-b-2 border-indigo-500 pb-2">3. 資料の基本方針</h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+              <h3 class="text-xl font-semibold mb-2 text-indigo-600">現実的・懐疑的視点</h3>
+              <p class="text-slate-700">AI技術の可能性と同時に、その限界、課題、リスクも必ず言及し、バランスの取れた情報提供を行います。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+              <h3 class="text-xl font-semibold mb-2 text-indigo-600">非CS学生への最適化</h3>
+              <p class="text-slate-700">最先端技術のキーワードは積極的に導入しつつ、解説は平易に行い、比喩や図解を多用します。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+              <h3 class="text-xl font-semibold mb-2 text-indigo-600">What/Why/Keyword中心</h3>
+              <p class="text-slate-700">「何ができるか」「なぜ重要か」を中心に、「共通言語」となるキーワードを提示します。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+              <h3 class="text-xl font-semibold mb-2 text-indigo-600">対話的・思考喚起</h3>
+              <p class="text-slate-700">Q&Aや演習問題を設け、読者の主体的な思考を促します。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow col-span-1 md:col-span-2 lg:col-span-1">
+              <h3 class="text-xl font-semibold mb-2 text-indigo-600">DCON資料の徹底活用</h3>
+              <p class="text-slate-700">DCON資料の知見を、より幅広い分野の応用ヒントとして多角的に展開します。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-4" class="content-section space-y-6">
+          <h2 class="text-2xl font-bold border-b-2 border-indigo-500 pb-2">4. 資料のスコープ</h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-4 text-green-600 flex items-center"><span class="text-3xl mr-3">✔</span> 対応するスコープ</h3>
+              <ul class="list-disc list-inside space-y-2 text-slate-700">
+                <li>AIの基本概念</li>
+                <li>主要AI技術トレンドと最先端キーワード（DCON資料ベース）</li>
+                <li>データの重要性と課題</li>
+                <li>責任あるAI</li>
+                <li>AIプロジェクトの考え方</li>
+                <li>DCON資料の活用</li>
+              </ul>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-4 text-red-600 flex items-center"><span class="text-3xl mr-3">✖</span> 対応しないスコープ</h3>
+              <ul class="list-disc list-inside space-y-2 text-slate-700">
+                <li>高度な技術的詳細（数式、アルゴリズム）</li>
+                <li>プログラミング実装</li>
+                <li>特定のAIツールの操作マニュアル</li>
+                <li>網羅的なAIの歴史や学術的分類</li>
+                <li>未消化な最新論文の詳細</li>
+                <li>AGIに関する過度な議論</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-8 bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-xl font-semibold mb-4">主要技術キーワードのランドスケープ</h3>
+            <div class="chart-container" style="height: 450px">
+              <canvas id="techKeywordsChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-slate-500 mt-2">スコープ内の主要技術キーワードをバブルチャートで示しています。バブルの大きさは関連トピックの多さを示唆します。</p>
+          </div>
+        </section>
+
+        <section id="section-5" class="content-section space-y-6">
+          <h2 class="text-2xl font-bold border-b-2 border-indigo-500 pb-2">5. 主要コンテンツ構成案</h2>
+          <p class="text-slate-600">以下は教育資料の構成案です。各項目をクリックすると、詳細な内容を展開できます。</p>
+          <div id="content-explorer" class="space-y-4"></div>
+        </section>
+
+        <section id="section-6" class="content-section space-y-6">
+          <h2 class="text-2xl font-bold border-b-2 border-indigo-500 pb-2">6. 表現スタイルと留意点</h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">トーン＆マナー</h3>
+              <p>親しみやすく、分かりやすい言葉遣い。知的好奇心を刺激しつつ、冷静な視点を促す。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">ビジュアル</h3>
+              <p>図、イラスト、概念図などを積極的に活用し、抽象的な概念を視覚的に示す。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">具体例</h3>
+              <p>身近な製品やサービスを例に出し、成功例だけでなく失敗例も取り上げる。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">懐疑的視点の明示</h3>
+              <p>「ここがスゴイ！（可能性）」と「ここが心配…（限界・リスク）」のような対比構造を設ける。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">引用・参考文献</h3>
+              <p>DCON資料やその他信頼できる情報源からの引用を明確にする。</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">最新性への配慮</h3>
+              <p>「2025年現在の状況に基づく」という前提を明記し、普遍的な考え方を中心に据える。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-7" class="content-section space-y-6">
+          <h2 class="text-2xl font-bold border-b-2 border-indigo-500 pb-2">7. 期待される学習効果（シミュレーション）</h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-4 text-slate-700">資料作成側の視点</h3>
+              <ul class="list-disc list-inside space-y-2 text-slate-700">
+                <li>DCON資料の技術的キーワードとその意義を、非CS学生がアクセス可能な形で提示する。</li>
+                <li>各技術の「What」「Why」を明確にし、応用への想像力を刺激する。</li>
+                <li>「DCONへの示唆」を、普遍的な社会課題解決やイノベーション創出のヒントとして展開する。</li>
+              </ul>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-4 text-indigo-700">資料閲覧側（非CS学生）の視点</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold">読む前</h4>
+                  <p class="text-sm text-slate-600">「AIって難しそう」「自分には関係ないかも」</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold">読んでいる最中</h4>
+                  <p class="text-sm text-slate-600">「MoEってそういうことか、AIも分業するんだな」「Gaussian Splattingで3D作るの、自分の研究で使えるかも？」</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold">読んだ後</h4>
+                  <p class="text-sm text-slate-600">専門用語が分かり、CS専攻の友人と具体的な技術名を交えて議論できるようになった。AIの可能性にワクワクしつつも、冷静に判断できるようになった。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-8" class="content-section space-y-6">
+          <h2 class="text-2xl font-bold border-b-2 border-indigo-500 pb-2">8. 作成プロセスと参考情報</h2>
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-xl font-semibold mb-4">作成プロセス</h3>
+            <ol class="list-decimal list-inside space-y-3 text-slate-700">
+              <li><strong>構成案の詳細化:</strong> 各章・各セクションで何をどの深さで記述するか決定。</li>
+              <li><strong>DCON資料の再読解と情報抽出:</strong> 非CS学生向けに翻訳・一般化できる箇所を抽出。</li>
+              <li><strong>各セクションの執筆:</strong> 基本方針と表現スタイルに従い執筆。図やイラストのラフ案も作成。</li>
+              <li><strong>懐疑的視点のチェック:</strong> 各項目で限界・リスク・課題がバランス良く記述されているか確認。</li>
+              <li><strong>レビューと修正:</strong> (可能であれば)非CS学生の協力を得てレビューし、改善。</li>
+              <li><strong>最終化:</strong> 全体の整合性を取り、用語集や付録を作成。</li>
+            </ol>
+            <h3 class="text-xl font-semibold mt-6 mb-4">参考情報</h3>
+            <ul class="list-disc list-inside space-y-2 text-slate-700">
+              <li>本方針書の作成にあたり参照した「高専DCON向けAI技術資料作成」ファイル。</li>
+              <li>これまでのユーザーとの対話ログ。</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const contentExplorerData = {
+          "序章：AI新時代へようこそ": {
+            icon: "🚀",
+            items: ["AIという言葉のイメージと現実", "なぜ今、AIが爆発的に進化しているのか？", "この資料で学ぶこと：What, Why, Keyword", "学びの心構え：現実的・懐疑的視点"],
+          },
+          "第1部：AIの現在地": {
+            icon: "🗺️",
+            items: {
+              "1.1. AI、機械学習、ディープラーニング": [],
+              "1.2. Transformer革命とその先": ["Transformerのすごさと広がり", "効率的なアテンションメカニズム", "Mixture of Experts (MoE)", "バイトレベルモデル（BLT）"],
+              "1.3. データはAIの生命線": ["大規模データセットと合成データ", "「良いデータ」とは？"],
+              "1.4. 人間とAIの新しい関係": ["アライメント（RLHF, DPO）", "多様な人間の理解（PRISM）", "専門家フィードバックの質"],
+              "1.5. 生成AIとマルチモーダリティ": ["テキスト、画像、音声、動画、3D", "MLLMの衝撃"],
+              "1.6. 科学と複雑な問題解決": ["創薬、材料開発、数学的推論"],
+              "1.7. 効率化と最適化": ["AIスタック全体の最適化", "モデル圧縮とエッジAI"],
+              "1.8. 責任あるAI": ["安全性、公平性、透明性(XAI)等", "グリッチトークン、サイレント故障"],
+            },
+          },
+          "第2部：最先端AI技術の解剖図鑑": {
+            icon: "🔬",
+            items: {
+              "2.1. 大規模言語モデル（LLM）の最前線": ["アーキテクチャ進化(MoE, BLT)", "MLLM詳細(Meta PE & PLM)", "思考力(CoT)", "エージェントAI", "ドメイン特化(RAG, LoRA)", "オープン vs クローズド"],
+              "2.2. コンピュータビジョン（CV）のブレークスルー": ["効率的ViT", "画像・ビデオ生成(拡散モデル)", "3Dビジョン(NeRF, 3DGS)", "リアルタイム物体検出(RT-DETR)"],
+              "2.3. 強化学習（RL）のフロンティア": ["Safe RL", "マルチエージェントRL (MARL)", "高度な模倣学習(IL/IRL)"],
+              "2.4. テキストと画像を超えた生成AI": ["オーディオ生成", "コード生成"],
+            },
+          },
+          "第3部：AIをさらに賢く、身近にする新しい学び方と未来のカタチ": {
+            icon: "🧠",
+            items: {
+              "3.1. 新しい学習戦略の探求": ["大規模自己教師あり学習(SSL)", "継続学習(CL)", "連合学習(FL)"],
+              "3.2. 次世代AIハードウェア": ["ニューロモーフィック(SNN)", "量子AI"],
+              "3.3. AGI（汎用人工知能）への道": ["AGIとは？", "実現への大きな壁"],
+            },
+          },
+          "第4部：AIで未来をデザインする": {
+            icon: "🎨",
+            items: {
+              "4.1. 社会課題とAI技術の交差点": ["ヘルスケア、農業、教育など", "DCON受賞作のヒント"],
+              "4.2. アイデアをカタチにするために": ["ものづくり×DL×事業性", "有望技術の活かし方"],
+              "4.3. CS専門家との「うまい」付き合い方": ["共通言語で議論", "期待値コントロール"],
+              "4.4. 【ワークショップ】アイデアソン": ["技術シーズと社会課題のマッピング", "ブレインストーミング"],
+            },
+          },
+          "終章：AI新時代の羅針盤を手に": {
+            icon: "🧭",
+            items: ["学び続けることの重要性", "非CS分野だからこそ拓けるAI活用の地平"],
+          },
+          付録: {
+            icon: "📚",
+            items: ["最先端AI技術キーワード集", "もっと知りたい人のための情報源"],
+          },
+        };
+
+        const explorerContainer = document.getElementById("content-explorer");
+
+        function createExplorer(data, container, level = 0) {
+          Object.entries(data).forEach(([key, value]) => {
+            const isObject = typeof value.items === "object" && !Array.isArray(value.items);
+
+            const card = document.createElement("div");
+            card.className = `bg-white rounded-lg shadow-sm overflow-hidden ${level > 0 ? "ml-4" : ""}`;
+
+            const header = document.createElement("div");
+            header.className = `p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 transition-colors ${isObject ? "" : "font-semibold"} ${level === 0 ? "bg-slate-100" : ""}`;
+            header.innerHTML = `
+                <span class="flex items-center">
+                    ${value.icon ? `<span class="mr-3 text-xl">${value.icon}</span>` : ""}
+                    <span class="${level === 0 ? "text-xl font-bold text-slate-700" : ""}">${key}</span>
+                </span>
+                ${isObject ? '<span class="text-indigo-500 transform transition-transform">▼</span>' : ""}
+            `;
+
+            card.appendChild(header);
+
+            if (isObject) {
+              const content = document.createElement("div");
+              content.className = "p-4 border-t border-slate-200 hidden bg-white";
+              createExplorer(value.items, content, level + 1);
+              card.appendChild(content);
+
+              header.addEventListener("click", () => {
+                content.classList.toggle("hidden");
+                header.querySelector("span:last-child").classList.toggle("rotate-180");
+              });
+            } else if (Array.isArray(value.items) && value.items.length > 0) {
+              const content = document.createElement("div");
+              content.className = "p-4 border-t border-slate-200 hidden bg-white";
+              const list = document.createElement("ul");
+              list.className = "list-disc list-inside space-y-2 text-slate-600";
+              value.items.forEach((item) => {
+                const li = document.createElement("li");
+                li.textContent = item;
+                list.appendChild(li);
+              });
+              content.appendChild(list);
+              card.appendChild(content);
+
+              header.addEventListener("click", () => {
+                content.classList.toggle("hidden");
+                header.querySelector("span:last-child").classList.toggle("rotate-180");
+              });
+              header.innerHTML = `
+                    <span class="flex items-center">
+                         ${value.icon ? `<span class="mr-3 text-xl">${value.icon}</span>` : ""}
+                        <span class="${level === 0 ? "text-xl font-bold text-slate-700" : ""}">${key}</span>
+                    </span>
+                    <span class="text-indigo-500 transform transition-transform">▼</span>`;
+            }
+
+            container.appendChild(card);
+          });
+        }
+
+        createExplorer(contentExplorerData, explorerContainer);
+
+        const navLinks = document.querySelectorAll(".nav-link");
+        const mobileNav = document.getElementById("mobile-nav");
+        const contentSections = document.querySelectorAll(".content-section");
+
+        function showSection(sectionId) {
+          contentSections.forEach((section) => {
+            section.classList.remove("active");
+          });
+          const activeSection = document.getElementById(sectionId);
+          if (activeSection) {
+            activeSection.classList.add("active");
+          }
+
+          navLinks.forEach((link) => {
+            if (link.getAttribute("href") === `#${sectionId}`) {
+              link.classList.add("active");
+            } else {
+              link.classList.remove("active");
+            }
+          });
+
+          if (mobileNav.value !== sectionId) {
+            mobileNav.value = sectionId;
+          }
+        }
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const sectionId = link.getAttribute("href").substring(1);
+            showSection(sectionId);
+          });
+        });
+
+        mobileNav.addEventListener("change", (e) => {
+          showSection(e.target.value);
+        });
+
+        showSection("section-1");
+
+        const learningGoalsCtx = document.getElementById("learningGoalsChart").getContext("2d");
+        new Chart(learningGoalsCtx, {
+          type: "radar",
+          data: {
+            labels: ["基本用語の理解", "最先端技術キーワードの把握", "データの重要性の理解", "倫理的・社会的課題の認識", "応用アイデアの発想力", "批判的思考力"],
+            datasets: [
+              {
+                label: "学習目標",
+                data: [5, 5, 5, 5, 5, 5],
+                backgroundColor: "rgba(79, 70, 229, 0.2)",
+                borderColor: "rgb(79, 70, 229)",
+                pointBackgroundColor: "rgb(79, 70, 229)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgb(79, 70, 229)",
+              },
+            ],
+          },
+          options: {
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                angleLines: {
+                  color: "rgba(0, 0, 0, 0.1)",
+                },
+                grid: {
+                  color: "rgba(0, 0, 0, 0.1)",
+                },
+                pointLabels: {
+                  font: {
+                    size: 12,
+                    family: "'Inter', 'Noto Sans JP', sans-serif",
+                  },
+                  callback: function (label) {
+                    if (label.length > 8) {
+                      return label.match(/.{1,8}/g);
+                    }
+                    return label;
+                  },
+                },
+                ticks: {
+                  display: false,
+                  stepSize: 1,
+                },
+                suggestedMin: 0,
+                suggestedMax: 5,
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                callbacks: {
+                  title: function (tooltipItems) {
+                    return tooltipItems[0].label.replace(/,/g, "");
+                  },
+                  label: function () {
+                    return "重要目標";
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        const techKeywordsCtx = document.getElementById("techKeywordsChart").getContext("2d");
+        new Chart(techKeywordsCtx, {
+          type: "bubble",
+          data: {
+            datasets: [
+              {
+                label: "基盤モデル・NLP",
+                data: [{ x: 20, y: 75, r: 25 }],
+                backgroundColor: "rgba(79, 70, 229, 0.7)",
+              },
+              {
+                label: "コンピュータビジョン",
+                data: [{ x: 60, y: 70, r: 28 }],
+                backgroundColor: "rgba(219, 39, 119, 0.7)",
+              },
+              {
+                label: "強化学習",
+                data: [{ x: 80, y: 40, r: 20 }],
+                backgroundColor: "rgba(16, 185, 129, 0.7)",
+              },
+              {
+                label: "生成AI (オーディオ等)",
+                data: [{ x: 75, y: 15, r: 18 }],
+                backgroundColor: "rgba(245, 158, 11, 0.7)",
+              },
+              {
+                label: "新しい学習戦略",
+                data: [{ x: 25, y: 25, r: 22 }],
+                backgroundColor: "rgba(13, 148, 136, 0.7)",
+              },
+              {
+                label: "次世代ハードウェア",
+                data: [{ x: 50, y: 45, r: 15 }],
+                backgroundColor: "rgba(107, 114, 128, 0.7)",
+              },
+            ],
+          },
+          options: {
+            maintainAspectRatio: false,
+            scales: {
+              x: { display: false },
+              y: { display: false },
+            },
+            plugins: {
+              legend: {
+                position: "bottom",
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": " + context.raw.r;
+                    }
+                    return label;
+                  },
+                },
+              },
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
