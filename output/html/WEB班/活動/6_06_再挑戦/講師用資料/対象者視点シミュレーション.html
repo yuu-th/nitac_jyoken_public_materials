@@ -1,0 +1,389 @@
+
+      <!DOCTYPE html>
+      <html lang="ja">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>対象者視点シミュレーション</title>
+        <link rel="stylesheet" href="../../../../style.css">
+        <style>
+          @font-face {
+            font-family: 'IPAGothic';
+            src: local('IPAGothic');
+          }
+          @font-face {
+            font-family: 'IPAMincho';
+            src: local('IPAMincho');
+          }
+          html, body {
+            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+          }
+          pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            padding: 16px;
+            overflow: auto;
+          }
+          code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: rgba(27, 31, 35, 0.05);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+          }
+          pre code {
+            background-color: transparent;
+            padding: 0;
+          }
+          blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 16px;
+            color: #555;
+            margin-left: 0;
+          }
+          img {
+            max-width: 100%;
+            height: auto;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          table, th, td {
+            border: 1px solid #ddd;
+          }
+          th, td {
+            padding: 8px 12px;
+          }
+          th {
+            background-color: #f6f8fa;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>📊 対象者視点でのワークショップ体験シミュレーション</h1>
+<h2>🎭 想定対象者プロフィール</h2>
+<ul>
+<li><strong>年齢</strong>: 高専1-2年生</li>
+<li><strong>スキル</strong>: HTML/CSS/JavaScript基礎学習済み</li>
+<li><strong>経験</strong>: 簡単な静的ページは作ったことがある</li>
+<li><strong>心理状態</strong>: 「動的なサイトを作ってみたい」けど「どこから手をつけていいかわからない」</li>
+</ul>
+<hr>
+<h2>🎬 Phase 0: 完成形体験・分析（10分）</h2>
+<h3>対象者の反応シミュレーション</h3>
+<h4>🎮 <strong>Step 0-1: デモ体験（5分）</strong></h4>
+<p><strong>対象者の心境</strong>:</p>
+<ul>
+<li>「おお、普通にきれいなサイトだ」</li>
+<li>「チェックボックスをクリックしたら進捗バーが動いた！」</li>
+<li>「ホバーしたら浮き上がる感じになる、かっこいい」</li>
+<li>「全部チェックしたらメッセージが出た！」</li>
+</ul>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>特になし（体験のみなので）</li>
+</ul>
+<h4>🔍 <strong>Step 0-2: 機能分解（5分）</strong></h4>
+<p><strong>対象者の思考</strong>:</p>
+<ul>
+<li>「ええと、上にタイトルがあって...」</li>
+<li>「進捗バーってどうやって作るんだろう？」</li>
+<li>「チェックボックスは知ってるけど、こんなにきれいにできるの？」</li>
+</ul>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>進捗バーの実装方法が想像つかない</li>
+<li>「どこがHTMLでどこがCSSなのかわからない」</li>
+</ul>
+<p><strong>必要なサポート</strong>:</p>
+<ul>
+<li>「今は実装方法を考えなくて大丈夫、まずは何があるかだけ見つけましょう」</li>
+<li>ホワイトボードに要素を書き出してもらう</li>
+</ul>
+<hr>
+<h2>🏗️ Phase 1: HTML構造実装（30分）</h2>
+<h3>対象者の体験シミュレーション</h3>
+<h4>🏗️ <strong>Step 1-1: 要素の洗い出し（10分）</strong></h4>
+<p><strong>対象者の思考プロセス</strong>:</p>
+<pre><code>「ええと、タイトル部分は...h1タグ？」
+「進捗バーは...divかな？でもどうやって棒にするんだろう」
+「チェックボックスはinputタグで...」
+「ラベルはlabelタグ？でもこんなにきれいになるの？」
+</code></pre>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>進捗バーの構造が想像できない</li>
+<li>「classとidどっちを使えばいい？」</li>
+<li>「セマンティックHTMLって何？」</li>
+</ul>
+<p><strong>必要なサポート</strong>:</p>
+<ul>
+<li>「進捗バーは外側のdivと内側のdivの2重構造ですよ」</li>
+<li>「classは複数の要素、idは1つの要素に使います」</li>
+<li>「headerタグ、sectionタグを使うと意味的に正しいHTMLになります」</li>
+</ul>
+<h4>💻 <strong>Step 1-2: HTML実装（20分）</strong></h4>
+<p><strong>対象者の実装体験</strong>:</p>
+<p><strong>5分経過時点</strong>:</p>
+<pre><code class="language-html">&lt;h1&gt;今日の学習タスク&lt;/h1&gt;
+&lt;p&gt;目標: CSS装飾とJavaScript動きをマスターしよう！&lt;/p&gt;
+&lt;!-- 「あれ、header タグを使った方がいいって言ってたな」 --&gt;
+</code></pre>
+<p><strong>10分経過時点</strong>:</p>
+<pre><code class="language-html">&lt;header&gt;
+  &lt;h1&gt;📚 今日の学習タスク&lt;/h1&gt;
+  &lt;p&gt;目標: CSS装飾とJavaScript動きをマスターしよう！&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;div&gt;
+  &lt;h2&gt;📈 学習進捗&lt;/h2&gt;
+  &lt;div&gt;進捗バー&lt;/div&gt;
+  &lt;!-- 「進捗バーってどう書くんだっけ？」 --&gt;
+&lt;/div&gt;
+</code></pre>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>進捗バーの2重div構造を忘れる</li>
+<li>class名/id名の命名に迷う</li>
+<li>「完了メッセージはどこに書けばいい？」</li>
+</ul>
+<p><strong>必要なサポート</strong>:</p>
+<ul>
+<li>「進捗バーは<code>&lt;div class=&quot;progress-bar&quot;&gt;&lt;div class=&quot;progress-fill&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code>です」</li>
+<li>「class名は後でCSSで使うので、わかりやすい名前をつけましょう」</li>
+<li>「完了メッセージは最初は非表示なので、body の最後でOKです」</li>
+</ul>
+<p><strong>20分経過時点（期待する状態）</strong>:</p>
+<ul>
+<li>基本的なHTML構造は完成</li>
+<li>見た目はまだブラウザのデフォルトスタイル</li>
+</ul>
+<hr>
+<h2>🎨 Phase 2: CSS基本装飾（35分）</h2>
+<h3>対象者の体験シミュレーション</h3>
+<h4>🎨 <strong>Step 2-1: 完成形との見た目比較（5分）</strong></h4>
+<p><strong>対象者の反応</strong>:</p>
+<ul>
+<li>「うわ、全然違う！」</li>
+<li>「背景がグレーで、白いカードみたいになってる」</li>
+<li>「フォントも違うし、間隔も全然違う」</li>
+</ul>
+<p><strong>発見するギャップ</strong>:</p>
+<ul>
+<li>「背景色がない」</li>
+<li>「カードの影がない」</li>
+<li>「余白が全然足りない」</li>
+</ul>
+<h4>🖌️ <strong>Step 2-2: 基本レイアウトCSS（25分）</strong></h4>
+<p><strong>5分経過時点（全体設定）</strong>:
+<strong>対象者の思考</strong>:</p>
+<ul>
+<li>「<code>*</code> って何？全部に適用される？」</li>
+<li>「box-sizing: border-box って何だっけ？」</li>
+</ul>
+<pre><code class="language-css">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f3f4f6;
+  font-family: sans-serif;
+}
+</code></pre>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>リセットCSSの意味がわからない</li>
+<li>「色コードってどうやって決めるの？」</li>
+</ul>
+<p><strong>15分経過時点（カードレイアウト）</strong>:
+<strong>対象者の困惑</strong>:</p>
+<ul>
+<li>「border-radius で角丸になるのはわかるけど...」</li>
+<li>「box-shadow の数値の意味がわからない」</li>
+</ul>
+<pre><code class="language-css">.main-header, section {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+</code></pre>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>box-shadow の構文が複雑</li>
+<li>「rgbaって何？」</li>
+<li>「どの値がどの効果なのかわからない」</li>
+</ul>
+<p><strong>必要なサポート</strong>:</p>
+<ul>
+<li>「box-shadow は <code>水平 垂直 ぼかし 色</code> の順番です」</li>
+<li>「rgba は透明度付きの色指定です」</li>
+<li>実際に値を変更して効果を確認してもらう</li>
+</ul>
+<p><strong>25分経過時点（進捗バー・タスクアイテム）</strong>:
+<strong>対象者の実装</strong>:</p>
+<pre><code class="language-css">.progress-bar {
+  background: #e5e7eb;
+  height: 25px;
+  border-radius: 12px;
+}
+
+.progress-fill {
+  background: #10b981;
+  height: 100%;
+  width: 0%; /* 「なんで0%？」 */
+  border-radius: 12px;
+}
+</code></pre>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>「width: 0% の意味がわからない」</li>
+<li>「タスクアイテムのflexboxレイアウトが難しい」</li>
+</ul>
+<h4>🔍 <strong>Step 2-3: 完成形チェック（5分）</strong></h4>
+<p><strong>対象者の感想</strong>:</p>
+<ul>
+<li>「おお、だいぶ似てきた！」</li>
+<li>「でもまだホバーエフェクトがない」</li>
+</ul>
+<hr>
+<h2>⚡ Phase 3: CSSアニメーション（25分）</h2>
+<h3>対象者の体験シミュレーション</h3>
+<h4>⚡ <strong>Step 3-1: アニメーション要件分析（5分）</strong></h4>
+<p><strong>対象者の発見</strong>:</p>
+<ul>
+<li>「マウスを乗せると浮き上がる感じになる」</li>
+<li>「進捗バーが幅変化してた」</li>
+<li>「完了メッセージがポップアップで出る」</li>
+</ul>
+<h4>🎭 <strong>Step 3-2: ホバーエフェクト実装（15分）</strong></h4>
+<p><strong>5分経過時点</strong>:
+<strong>対象者の試行錯誤</strong>:</p>
+<pre><code class="language-css">.task-item:hover {
+  /* 何を書けばいいんだろう？ */
+}
+</code></pre>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>「:hover は知ってるけど、何を変化させればいい？」</li>
+<li>「浮き上がる感じってどうやって作るの？」</li>
+</ul>
+<p><strong>10分経過時点</strong>:</p>
+<pre><code class="language-css">.task-item:hover {
+  background: #f1f5f9;
+  /* 「色は変わったけど、浮き上がらない」 */
+}
+</code></pre>
+<p><strong>必要なサポート</strong>:</p>
+<ul>
+<li>「transform: translateY(-2px) で上に移動できます」</li>
+<li>「transitionを使うとなめらかに変化します」</li>
+</ul>
+<p><strong>15分経過時点</strong>:</p>
+<pre><code class="language-css">.task-item {
+  transition: all 0.3s ease;
+}
+
+.task-item:hover {
+  background: #f1f5f9;
+  border-color: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+</code></pre>
+<p><strong>対象者の感動</strong>:</p>
+<ul>
+<li>「おお！浮いた！すげー！」</li>
+</ul>
+<hr>
+<h2>⚙️ Phase 4: JavaScript動的機能（20分）</h2>
+<h3>対象者の体験シミュレーション</h3>
+<h4>🧠 <strong>Step 4-1: 動的機能の特定（5分）</strong></h4>
+<p><strong>対象者の分析</strong>:</p>
+<ul>
+<li>「チェックすると線が引かれる」</li>
+<li>「進捗バーが伸びる」</li>
+<li>「全部チェックするとメッセージが出る」</li>
+</ul>
+<h4>⚙️ <strong>Step 4-2: JavaScript実装（15分）</strong></h4>
+<p><strong>3分経過時点（要素取得）</strong>:</p>
+<pre><code class="language-javascript">const checkboxes = document.querySelectorAll(&#39;.task-checkbox&#39;);
+// 「querySelectorAllってquerySelectorと何が違うんだっけ？」
+</code></pre>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>querySelectorとquerySelectorAllの違い</li>
+<li>「NodeListって配列？」</li>
+</ul>
+<p><strong>7分経過時点（イベント処理）</strong>:</p>
+<pre><code class="language-javascript">checkboxes.forEach(checkbox =&gt; {
+  checkbox.addEventListener(&#39;change&#39;, function() {
+    // 「ここで何をすればいいんだっけ？」
+  });
+});
+</code></pre>
+<p><strong>対象者の困惑</strong>:</p>
+<ul>
+<li>「forEachって何？」</li>
+<li>「changeイベントって何？clickじゃダメ？」</li>
+<li>「function()の中に何を書けばいい？」</li>
+</ul>
+<p><strong>必要なサポート</strong>:</p>
+<ul>
+<li>「forEachは配列の各要素に対して処理を実行します」</li>
+<li>「changeはチェック状態が変わった時、clickは押した時です」</li>
+<li>「まずはconsole.log(&#39;クリックされた&#39;)と書いてみましょう」</li>
+</ul>
+<p><strong>15分経過時点（進捗計算）</strong>:</p>
+<pre><code class="language-javascript">function updateProgress() {
+  const totalTasks = checkboxes.length;
+  const completedTasks = document.querySelectorAll(&#39;.task-checkbox:checked&#39;).length;
+  // 「:checkedって何？」
+  const percentage = Math.round((completedTasks / totalTasks) * 100);
+  // 「Math.roundって何だっけ？」
+}
+</code></pre>
+<p><strong>つまづきポイント</strong>:</p>
+<ul>
+<li>CSS セレクタの:checked</li>
+<li>計算式の理解</li>
+<li>DOM操作でのstyle変更</li>
+</ul>
+<p><strong>最終的な対象者の感想</strong>:</p>
+<ul>
+<li>「動いた！でも複雑だな...」</li>
+<li>「JavaScriptって難しいけど面白い」</li>
+</ul>
+<hr>
+<h2>🚨 全体的なつまづきポイントまとめ</h2>
+<h3><strong>高頻度でつまづく部分</strong></h3>
+<ol>
+<li><strong>CSS の box-shadow, rgba構文</strong></li>
+<li><strong>JavaScript のquerySelectorAll, forEach</strong></li>
+<li><strong>進捗バーの2重div構造</strong></li>
+<li><strong>transform, transition の概念</strong></li>
+</ol>
+<h3><strong>必要なサポート戦略</strong></h3>
+<ol>
+<li><strong>実際に値を変更して効果確認</strong></li>
+<li><strong>console.logでデバッグ習慣</strong></li>
+<li><strong>ペア作業での相互サポート</strong></li>
+<li><strong>段階的な目標設定</strong></li>
+</ol>
+<h3><strong>学習効果を高めるポイント</strong></h3>
+<ol>
+<li><strong>完成形との比較を頻繁に行う</strong></li>
+<li><strong>動作確認のタイミングを明確に</strong></li>
+<li><strong>「なぜそうするのか」の説明</strong></li>
+<li><strong>成功体験の積み重ね</strong></li>
+</ol>
+
+      </body>
+      </html>
+    

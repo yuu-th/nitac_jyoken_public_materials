@@ -1,0 +1,682 @@
+
+      <!DOCTYPE html>
+      <html lang="ja">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ワークショップ説明資料案3</title>
+        <link rel="stylesheet" href="../../../../../style.css">
+        <style>
+          @font-face {
+            font-family: 'IPAGothic';
+            src: local('IPAGothic');
+          }
+          @font-face {
+            font-family: 'IPAMincho';
+            src: local('IPAMincho');
+          }
+          html, body {
+            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+          }
+          pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            padding: 16px;
+            overflow: auto;
+          }
+          code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: rgba(27, 31, 35, 0.05);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+          }
+          pre code {
+            background-color: transparent;
+            padding: 0;
+          }
+          blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 16px;
+            color: #555;
+            margin-left: 0;
+          }
+          img {
+            max-width: 100%;
+            height: auto;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          table, th, td {
+            border: 1px solid #ddd;
+          }
+          th, td {
+            padding: 8px 12px;
+          }
+          th {
+            background-color: #f6f8fa;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>📚 WEB班ワークショップ説明資料案3（穴埋め問題で能動学習版）</h1>
+<h2>🎯 今日のゴール</h2>
+<p><strong>穴埋め問題を解きながら、タスク管理アプリを段階的に完成させて、CSS装飾とJavaScript動作の実装力を身につける</strong></p>
+<h3>🧩 穴埋め問題形式について</h3>
+<ul>
+<li>⚡ <strong>ただの写経ではありません！</strong></li>
+<li>🧠 <strong>自分で考えて空欄を埋める</strong>ことで理解を深めます</li>
+<li>🤝 <strong>ペアで話し合い</strong>ながら最適解を見つけます</li>
+<li>💡 <strong>なぜその答えなのか</strong>を説明できるようになります</li>
+</ul>
+<hr>
+<h2>🚀 ワークショップの流れ</h2>
+<h3><strong>Step 0: 完成形を体験しよう（10分）</strong></h3>
+<p>まずは今日作るアプリを実際に触ってみましょう！</p>
+<p><strong>やること</strong>:</p>
+<ol>
+<li>完成形のタスク管理アプリを操作</li>
+<li>どんな要素・機能があるか観察</li>
+<li>「これを作るには何が必要？」を考える</li>
+</ol>
+<hr>
+<h3><strong>Step 1: HTML穴埋めチャレンジ（30分）</strong></h3>
+<h4>🧩 <strong>問題1-1: 基本構造穴埋め（10分）</strong></h4>
+<p>以下のHTMLの空欄を埋めてください：</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;学習タスク管理&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;_______.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- ヘッダー部分 --&gt;
+  &lt;_______ class=&quot;_______-header&quot;&gt;
+    &lt;h1&gt;📚 今日の学習タスク&lt;/h1&gt;
+    &lt;p&gt;目標: CSS装飾とJavaScript動きをマスターしよう！&lt;/p&gt;
+  &lt;/_______&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>🤝 ペアで考えよう</strong>:</p>
+<ol>
+<li><code>_______</code> の1番目に入るファイル名は？</li>
+<li><code>_______</code> の2番目に入るHTMLタグは？</li>
+<li><code>_______-header</code> の最初の部分は？</li>
+</ol>
+<p><strong>選択肢</strong>:</p>
+<ul>
+<li>A) div, main, header</li>
+<li>B) section, article, nav  </li>
+<li>C) header, section, div</li>
+</ul>
+<details>
+<summary>💡 解答と解説</summary>
+
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;header class=&quot;main-header&quot;&gt;
+  &lt;h1&gt;📚 今日の学習タスク&lt;/h1&gt;
+  &lt;p&gt;目標: CSS装飾とJavaScript動きをマスターしよう！&lt;/p&gt;
+&lt;/header&gt;
+</code></pre>
+<p><strong>理由</strong>:</p>
+<ul>
+<li><code>style.css</code>: 一般的なCSS ファイル名</li>
+<li><code>header</code>: ページの見出し部分にはheaderタグが適切</li>
+<li><code>main-header</code>: メインのヘッダーであることを表すclass名</li>
+</ul>
+</details>
+
+<h4>🧩 <strong>問題1-2: 進捗バー構造穴埋め（10分）</strong></h4>
+<pre><code class="language-html">&lt;!-- 進捗表示 --&gt;
+&lt;_______ class=&quot;progress-section&quot;&gt;
+  &lt;h2&gt;📈 学習進捗&lt;/h2&gt;
+  &lt;div class=&quot;progress-container&quot;&gt;
+    &lt;div class=&quot;_______-bar&quot;&gt;
+      &lt;div class=&quot;_______-fill&quot; id=&quot;_______Fill&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;_______-text&quot; id=&quot;_______Text&quot;&gt;0 / 6 完了 (0%)&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/_______&gt;
+</code></pre>
+<p><strong>🧠 考える問題</strong>:</p>
+<ol>
+<li>進捗表示全体を囲むタグは？（セマンティックHTMLを意識）</li>
+<li>進捗バーの外側divのclass名は？</li>
+<li>進捗バーの内側divのclass名は？</li>
+<li>JavaScriptで操作するためのid名は？</li>
+</ol>
+<p><strong>ヒント</strong>: </p>
+<ul>
+<li>外側は「枠」、内側は「実際の進捗」</li>
+<li>id名は JavaScript で使いやすい名前</li>
+</ul>
+<details>
+<summary>💡 解答と解説</summary>
+
+<pre><code class="language-html">&lt;section class=&quot;progress-section&quot;&gt;
+  &lt;h2&gt;📈 学習進捗&lt;/h2&gt;
+  &lt;div class=&quot;progress-container&quot;&gt;
+    &lt;div class=&quot;progress-bar&quot;&gt;
+      &lt;div class=&quot;progress-fill&quot; id=&quot;progressFill&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;progress-text&quot; id=&quot;progressText&quot;&gt;0 / 6 完了 (0%)&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>理由</strong>:</p>
+<ul>
+<li><code>section</code>: 意味的にまとまった内容なので</li>
+<li><code>progress-bar</code>: 進捗バーの枠</li>
+<li><code>progress-fill</code>: 実際に伸びる部分</li>
+<li><code>progressFill</code>, <code>progressText</code>: JavaScriptで操作しやすい名前</li>
+</ul>
+</details>
+
+<h4>🧩 <strong>問題1-3: タスクリスト穴埋め（10分）</strong></h4>
+<pre><code class="language-html">&lt;!-- タスクリスト --&gt;
+&lt;section class=&quot;tasks-section&quot;&gt;
+  &lt;h2&gt;✅ タスクリスト&lt;/h2&gt;
+  
+  &lt;div class=&quot;_______-item&quot;&gt;
+    &lt;input type=&quot;_______&quot; id=&quot;task1&quot; class=&quot;_______-checkbox&quot;&gt;
+    &lt;_______ for=&quot;_______&quot;&gt;HTML基本構造を作成&lt;/label&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- 🎯 チャレンジ: 残り5つのタスクを自分で書いてみよう！ --&gt;
+  
+&lt;/section&gt;
+
+&lt;!-- 完了メッセージ --&gt;
+&lt;div class=&quot;completion-message&quot; id=&quot;_______Message&quot;&gt;
+  &lt;h2&gt;🎉 おめでとうございます！&lt;/h2&gt;
+  &lt;p&gt;全てのタスクが完了しました！&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p><strong>🧠 自分で考える問題</strong>:</p>
+<ol>
+<li>タスク1つ分のclass名は？</li>
+<li>チェックボックスのtype属性は？  </li>
+<li>チェックボックスとテキストを関連付けるタグは？</li>
+<li>完了メッセージのid名は？</li>
+</ol>
+<p><strong>🎯 チャレンジ</strong>: 残り5つのタスクアイテムを自分で作ってみてください！
+（内容: &quot;CSSで基本レイアウト&quot;, &quot;グラデーション背景を追加&quot;, &quot;ホバーエフェクト実装&quot;, &quot;JavaScriptで進捗バー作成&quot;, &quot;完了エフェクト追加&quot;）</p>
+<details>
+<summary>💡 解答例</summary>
+
+<pre><code class="language-html">&lt;div class=&quot;task-item&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; id=&quot;task1&quot; class=&quot;task-checkbox&quot;&gt;
+  &lt;label for=&quot;task1&quot;&gt;HTML基本構造を作成&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;task-item&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; id=&quot;task2&quot; class=&quot;task-checkbox&quot;&gt;
+  &lt;label for=&quot;task2&quot;&gt;CSSで基本レイアウト&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;!-- 以下同様のパターン --&gt;
+
+&lt;div class=&quot;completion-message&quot; id=&quot;completionMessage&quot;&gt;
+</code></pre>
+</details>
+
+<hr>
+<h3><strong>Step 2: CSS穴埋めチャレンジ（35分）</strong></h3>
+<h4>🧩 <strong>問題2-1: 基本設定穴埋め（10分）</strong></h4>
+<pre><code class="language-css">/* 基本設定 */
+_______ {
+  margin: _______;
+  padding: _______;
+  box-sizing: _______-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: _______; /* グレー系の色 */
+  padding: _______px;   /* 全体の余白 */
+}
+</code></pre>
+<p><strong>🤝 ペアで話し合い</strong>:</p>
+<ol>
+<li>全要素を選択するセレクタは？</li>
+<li>要素の外側余白をリセットする値は？</li>
+<li><code>box-sizing</code> の値は？</li>
+<li>背景色は何色が良い？（色コードで）</li>
+<li>全体の余白は何px？</li>
+</ol>
+<p><strong>ヒント</strong>: </p>
+<ul>
+<li>リセットCSS の基本</li>
+<li>グレー系: <code>#f3f4f6</code>, <code>#e5e7eb</code>, <code>#gray</code> など</li>
+</ul>
+<details>
+<summary>💡 解答と解説</summary>
+
+<pre><code class="language-css">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: #f3f4f6;
+  padding: 20px;
+}
+</code></pre>
+<p><strong>理由</strong>:</p>
+<ul>
+<li><code>*</code>: 全要素選択</li>
+<li><code>0</code>: リセット値</li>
+<li><code>border-box</code>: サイズ計算を簡単に</li>
+<li><code>#f3f4f6</code>: 薄いグレー</li>
+<li><code>20px</code>: 適度な余白</li>
+</ul>
+</details>
+
+<h4>🧩 <strong>問題2-2: カードレイアウト穴埋め（15分）</strong></h4>
+<pre><code class="language-css">/* カード型レイアウト */
+.main-header, _______ {
+  background: _______;
+  padding: _______rem;
+  border-radius: _______px;
+  margin-bottom: _______rem;
+  box-shadow: _______ _______ _______px rgba(0,0,0,_______);
+}
+
+/* 進捗バー */
+.progress-bar {
+  width: _______;
+  height: _______px;
+  background: #e5e7eb;
+  border-radius: _______px;
+  overflow: _______;
+}
+
+.progress-fill {
+  height: _______;
+  background: _______; /* 緑系の色 */
+  width: _______%;     /* 初期値 */
+  transition: width _______s ease;
+}
+</code></pre>
+<p><strong>🧠 考える問題</strong>:</p>
+<ol>
+<li>headerと同じスタイルを適用するセレクタは？</li>
+<li>カードの背景色は？</li>
+<li><code>box-shadow</code> の構文は <code>水平 垂直 ぼかし 色</code> ですが、適切な値は？</li>
+<li>進捗バーの初期幅は何%？</li>
+<li>アニメーション時間は何秒が自然？</li>
+</ol>
+<p><strong>💡 実験してみよう</strong>: 値を変更して効果を確認！</p>
+<details>
+<summary>💡 解答例</summary>
+
+<pre><code class="language-css">.main-header, section {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 25px;
+  background: #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #10b981;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+</code></pre>
+</details>
+
+<h4>🧩 <strong>問題2-3: ホバーエフェクト穴埋め（10分）</strong></h4>
+<pre><code class="language-css">/* タスクアイテム */
+.task-item {
+  display: _______;
+  align-items: _______;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  cursor: _______;
+  transition: _______ _______s ease;
+}
+
+/* 🎯 チャレンジ: ホバーエフェクトを自分で作ろう！ */
+.task-item:hover {
+  background: _______; /* 少し違う色に */
+  border-color: _______; /* アクセントカラーに */
+  transform: translateY(_______px); /* 上に移動 */
+  box-shadow: _______ _______ _______px rgba(79, 70, 229, 0.2);
+}
+</code></pre>
+<p><strong>🎯 ホバーエフェクト完全自作チャレンジ</strong>:</p>
+<ol>
+<li><code>display</code> と <code>align-items</code> でどんなレイアウト？</li>
+<li>マウスカーソルの形は？</li>
+<li>ホバー時の背景色は？（少し変化させる）</li>
+<li>何px上に移動させる？</li>
+<li>影の効果は？</li>
+</ol>
+<p><strong>🤝 ペアで実験</strong>: 値を変更して一番良い効果を見つけよう！</p>
+<details>
+<summary>💡 解答例</summary>
+
+<pre><code class="language-css">.task-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.task-item:hover {
+  background: #f1f5f9;
+  border-color: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+</code></pre>
+</details>
+
+<hr>
+<h3><strong>Step 3: JavaScript穴埋めチャレンジ（25分）</strong></h3>
+<h4>🧩 <strong>問題3-1: 要素取得穴埋め（5分）</strong></h4>
+<pre><code class="language-javascript">document.addEventListener(&quot;_______&quot;, function () {
+  // 要素を取得
+  const taskCheckboxes = document._______(&quot;._______-checkbox&quot;);
+  const progressFill = document._______(&quot;_______Fill&quot;);
+  const progressText = document._______(&quot;_______Text&quot;);
+  const completionMessage = document._______(&quot;_______Message&quot;);
+});
+</code></pre>
+<p><strong>🧠 考える問題</strong>:</p>
+<ol>
+<li>DOMが読み込まれた時のイベント名は？</li>
+<li>複数要素を取得するメソッドは？</li>
+<li>ID で1つの要素を取得するメソッドは？</li>
+<li>class名とid名の正確な名前は？</li>
+</ol>
+<details>
+<summary>💡 解答</summary>
+
+<pre><code class="language-javascript">document.addEventListener(&quot;DOMContentLoaded&quot;, function () {
+  const taskCheckboxes = document.querySelectorAll(&quot;.task-checkbox&quot;);
+  const progressFill = document.getElementById(&quot;progressFill&quot;);
+  const progressText = document.getElementById(&quot;progressText&quot;);
+  const completionMessage = document.getElementById(&quot;completionMessage&quot;);
+});
+</code></pre>
+</details>
+
+<h4>🧩 <strong>問題3-2: イベント処理ロジック穴埋め（10分）</strong></h4>
+<pre><code class="language-javascript">// 各チェックボックスにイベントを追加
+taskCheckboxes._______(function(checkbox) {
+  checkbox.addEventListener(&quot;_______&quot;, function () {
+    const taskItem = checkbox._______(&quot;.task-item&quot;);
+
+    if (checkbox._______) {
+      taskItem.classList._______(&quot;completed&quot;);
+    } else {
+      taskItem.classList._______(&quot;completed&quot;);
+    }
+
+    _______(); // 進捗更新関数を呼び出し
+  });
+});
+</code></pre>
+<p><strong>🎯 ロジック理解チャレンジ</strong>:</p>
+<ol>
+<li>配列の各要素に処理を実行するメソッドは？</li>
+<li>チェック状態変化を検知するイベントは？</li>
+<li>親要素を取得するメソッドは？</li>
+<li>チェック状態を確認するプロパティは？</li>
+<li>クラスを追加/削除するメソッドは？</li>
+</ol>
+<details>
+<summary>💡 解答</summary>
+
+<pre><code class="language-javascript">taskCheckboxes.forEach(function(checkbox) {
+  checkbox.addEventListener(&quot;change&quot;, function () {
+    const taskItem = checkbox.closest(&quot;.task-item&quot;);
+
+    if (checkbox.checked) {
+      taskItem.classList.add(&quot;completed&quot;);
+    } else {
+      taskItem.classList.remove(&quot;completed&quot;);
+    }
+
+    updateProgress();
+  });
+});
+</code></pre>
+</details>
+
+<h4>🧩 <strong>問題3-3: 進捗計算完全自作チャレンジ（10分）</strong></h4>
+<pre><code class="language-javascript">function updateProgress() {
+  // 🎯 以下を自分で実装してみよう！
+  
+  // 1. 全タスク数を取得（ヒント: taskCheckboxes.length）
+  const totalTasks = _______;
+  
+  // 2. 完了したタスク数を取得（ヒント: :checked セレクタ）
+  const completedTasks = document.querySelectorAll(&quot;_______&quot;).length;
+  
+  // 3. パーセンテージを計算（四捨五入）
+  const percentage = Math.round((_______ / _______) * 100);
+  
+  // 4. 進捗バーの幅を更新
+  progressFill.style._______ = percentage + &quot;%&quot;;
+  
+  // 5. 進捗テキストを更新
+  progressText._______ = `${_______} / ${_______} 完了 (${_______}%)`;
+  
+  // 6. 全完了時の判定
+  if (_______ === _______) {
+    completionMessage.style.display = &quot;_______&quot;;
+  } else {
+    completionMessage.style.display = &quot;_______&quot;;
+  }
+}
+</code></pre>
+<p><strong>🧠 完全自作問題</strong>:
+この関数を自分で完成させてください！</p>
+<p><strong>考えるポイント</strong>:</p>
+<ol>
+<li>全タスク数の取得方法</li>
+<li>完了タスクの条件（:checked）</li>
+<li>パーセンテージ計算式</li>
+<li>DOM要素のプロパティ更新</li>
+<li>条件分岐の判定</li>
+</ol>
+<p><strong>🤝 ペア作業</strong>: 一緒に考えて実装しよう！</p>
+<details>
+<summary>💡 解答例</summary>
+
+<pre><code class="language-javascript">function updateProgress() {
+  const totalTasks = taskCheckboxes.length;
+  const completedTasks = document.querySelectorAll(&quot;.task-checkbox:checked&quot;).length;
+  const percentage = Math.round((completedTasks / totalTasks) * 100);
+  
+  progressFill.style.width = percentage + &quot;%&quot;;
+  progressText.textContent = `${completedTasks} / ${totalTasks} 完了 (${percentage}%)`;
+  
+  if (completedTasks === totalTasks) {
+    completionMessage.style.display = &quot;block&quot;;
+  } else {
+    completionMessage.style.display = &quot;none&quot;;
+  }
+}
+</code></pre>
+</details>
+
+<hr>
+<h3><strong>Step 4: デバッグチャレンジ（20分）</strong></h3>
+<h4>🐛 <strong>問題4-1: バグ発見・修正チャレンジ（10分）</strong></h4>
+<p>以下のコードにはバグがあります。見つけて修正してください！</p>
+<pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;div class=&quot;task-item&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; id=&quot;task1&quot; class=&quot;task-check&quot;&gt;
+  &lt;label for=&quot;task-1&quot;&gt;HTML基本構造を作成&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="language-css">/* CSS */
+.task-item hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+}
+</code></pre>
+<pre><code class="language-javascript">// JavaScript
+const checkboxes = document.querySelectorAll(&quot;.task-checkbox&quot;);
+const progressText = document.getElementById(&quot;progress-text&quot;);
+
+checkboxes.forEach(checkbox =&gt; {
+  checkbox.addEventListener(&quot;click&quot;, function() {
+    updateProgress();
+  });
+});
+</code></pre>
+<p><strong>🕵️ バグ発見ミッション</strong>:</p>
+<ol>
+<li>HTMLの問題は？</li>
+<li>CSSの問題は？  </li>
+<li>JavaScriptの問題は？</li>
+</ol>
+<p><strong>🤝 ペアで話し合い</strong>: 何が間違っているか見つけよう！</p>
+<details>
+<summary>🐛 バグと修正方法</summary>
+
+<p><strong>HTMLのバグ</strong>:</p>
+<ul>
+<li><code>class=&quot;task-check&quot;</code> → <code>class=&quot;task-checkbox&quot;</code></li>
+<li><code>for=&quot;task-1&quot;</code> → <code>for=&quot;task1&quot;</code></li>
+</ul>
+<p><strong>CSSのバグ</strong>:</p>
+<ul>
+<li><code>.task-item hover</code> → <code>.task-item:hover</code></li>
+</ul>
+<p><strong>JavaScriptのバグ</strong>:</p>
+<ul>
+<li><code>getElementById(&quot;progress-text&quot;)</code> → <code>getElementById(&quot;progressText&quot;)</code></li>
+<li><code>addEventListener(&quot;click&quot;)</code> → <code>addEventListener(&quot;change&quot;)</code></li>
+</ul>
+</details>
+
+<h4>🎯 <strong>問題4-2: 機能拡張チャレンジ（10分）</strong></h4>
+<p>基本機能が完成したら、以下の機能を追加してみよう！</p>
+<p><strong>🎯 チャレンジミッション</strong>（難易度別）:</p>
+<p><strong>初級</strong>: 完了メッセージをクリックで閉じる機能</p>
+<pre><code class="language-javascript">completionMessage.addEventListener(&quot;_______&quot;, function() {
+  // ここに処理を書こう
+});
+</code></pre>
+<p><strong>中級</strong>: タスク完了時に背景色を変える機能  </p>
+<pre><code class="language-css">.task-item.completed {
+  background: _______; /* 薄い緑 */
+  border-color: _______; /* 緑 */
+}
+
+.task-item.completed label {
+  text-decoration: _______; /* 取り消し線 */
+  color: _______; /* グレー */
+}
+</code></pre>
+<p><strong>上級</strong>: 進捗バーの色をパーセンテージで変える機能</p>
+<pre><code class="language-javascript">// ヒント: パーセンテージに応じて色を変更
+if (percentage &lt; 50) {
+  progressFill.style.background = &quot;_______&quot;; // 赤系
+} else if (percentage &lt; 100) {
+  progressFill.style.background = &quot;_______&quot;; // 黄系  
+} else {
+  progressFill.style.background = &quot;_______&quot;; // 緑系
+}
+</code></pre>
+<p><strong>🤝 ペアで挑戦</strong>: どのレベルまでできるか試してみよう！</p>
+<hr>
+<h2>🎉 穴埋め完了！おめでとうございます！</h2>
+<h3><strong>🧠 学習効果チェック</strong></h3>
+<p><strong>🤝 ペアで話し合い</strong>:</p>
+<ol>
+<li>一番難しかった穴埋めは？その理由は？</li>
+<li>一番「なるほど！」と思った部分は？</li>
+<li>写経と穴埋め、どちらが理解しやすかった？</li>
+</ol>
+<h3><strong>🎯 できるようになったこと</strong></h3>
+<ul>
+<li>✅ HTMLの構造を<strong>理由と共に</strong>設計</li>
+<li>✅ CSSプロパティの<strong>意味を理解</strong>して記述</li>
+<li>✅ JavaScriptロジックを<strong>自分で構築</strong></li>
+<li>✅ バグを<strong>発見・修正</strong>する能力</li>
+<li>✅ 機能を<strong>拡張</strong>する思考力</li>
+</ul>
+<hr>
+<h2>🆘 穴埋めサポートシステム</h2>
+<h3><strong>段階別ヒント提供</strong></h3>
+<h4><strong>レベル1: 方向性ヒント</strong></h4>
+<ul>
+<li>「〇〇について考えてみてください」</li>
+<li>「完成形と比べて何が必要ですか？」</li>
+</ul>
+<h4><strong>レベル2: 選択肢ヒント</strong></h4>
+<ul>
+<li>「A, B, C のどれが適切でしょうか？」</li>
+<li>「〇〇という方法はどうでしょう？」</li>
+</ul>
+<h4><strong>レベル3: 直接ヒント</strong></h4>
+<ul>
+<li>「この部分は〇〇を使います」</li>
+<li>「構文は『〇〇: △△;』です」</li>
+</ul>
+<h3><strong>穴埋め特有のサポート</strong></h3>
+<h4><strong>考える時間の確保</strong></h4>
+<ul>
+<li>⏰ <strong>制限時間</strong>: 各問題に適切な時間設定</li>
+<li>🤝 <strong>ペア相談</strong>: わからない時は相談OK</li>
+<li>💡 <strong>ヒント要求</strong>: 困ったら手を挙げる</li>
+</ul>
+<h4><strong>答え合わせプロセス</strong></h4>
+<ol>
+<li><strong>自分の答えを発表</strong></li>
+<li><strong>理由を説明</strong></li>
+<li><strong>正解と比較</strong></li>
+<li><strong>なぜその答えなのか理解</strong></li>
+</ol>
+<h4><strong>よくある間違いパターン</strong></h4>
+<p>❌ <strong>「書けばいいと思った」</strong>
+✅ <strong>「この理由でこの答えにした」</strong></p>
+<p>❌ <strong>「なんとなく選んだ」</strong>
+✅ <strong>「〇〇の効果を狙ってこれを選んだ」</strong></p>
+<h3><strong>穴埋め効果の検証</strong></h3>
+<p><strong>写経との違い</strong>:</p>
+<ul>
+<li>📝 写経: コードを見て書く → 手の記憶</li>
+<li>🧩 穴埋め: 理由を考えて書く → 頭の理解</li>
+</ul>
+<p><strong>能動性の向上</strong>:</p>
+<ul>
+<li>🤔 「なぜこの値？」を常に考える</li>
+<li>💡 「他の選択肢はダメ？」を検討する</li>
+<li>🎯 「どんな効果を狙う？」を明確化</li>
+</ul>
+<hr>
+<p><strong>Think, Fill, Code! 🧩</strong>
+穴埋めで理解を深めて、本当の実装力を身につけよう！</p>
+
+      </body>
+      </html>
+    
