@@ -1,0 +1,26 @@
+{
+  "name": "nitac_jyoken_public_materials",
+  "version": "1.0.0",
+  "description": "[https://yuu-th.github.io/nitac_jyoken_public_materials](https://yuu-th.github.io/nitac_jyoken_public_materials/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuu-th/nitac_jyoken_public_materials.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuu-th/nitac_jyoken_public_materials/issues"
+  },
+  "homepage": "https://github.com/yuu-th/nitac_jyoken_public_materials#readme",
+  "dependencies": {
+    "@marp-team/marp-cli": "^4.1.2",
+    "@marp-team/marp-core": "^4.1.0",
+    "marked": "^15.0.12",
+    "puppeteer": "file:latest"
+  }
+}
