@@ -19,23 +19,42 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm' # npmのキャッシュを有効化
+
+      - name: Cache apt packages # aptパッケージのキャッシュ設定を追加
+        uses: actions/cache@v3
+        with:
+          path: |
+            /var/cache/apt/archives
+            /var/lib/apt/lists
+          key: ${{ runner.os }}-apt-${{ hashFiles('**/apt-packages.txt') }} # キャッシュキー用のファイルを参照
+          restore-keys: |
+            ${{ runner.os }}-apt-
+
+      - name: Create apt package list for caching # aptでインストールするパッケージのリストファイルを作成
+        run: |
+          cat > apt-packages.txt <<EOL
+          fonts-ipafont-gothic
+          fonts-ipafont-mincho
+          fonts-noto-cjk
+          fonts-noto-cjk-extra
+          language-pack-ja
+          fonts-takao
+          fonts-mplus
+          wkhtmltopdf
+          xvfb
+          EOL
 
       - name: Install dependencies
         run: |
-          npm init -y
+          # npm init -y # package.jsonがリポジトリにあれば不要
           npm install --save marked puppeteer@19.7.0 @marp-team/marp-cli @marp-team/marp-core
 
       - name: Install Japanese fonts
+        # if: steps.cache-apt.outputs.cache-hit != 'true' # キャッシュがない場合のみ実行するオプション (必要に応じて)
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            fonts-ipafont-gothic \
-            fonts-ipafont-mincho \
-            fonts-noto-cjk \
-            fonts-noto-cjk-extra \
-            language-pack-ja \
-            fonts-takao \
-            fonts-mplus
+          sudo apt-get install -y $(cat apt-packages.txt)
 
       - name: Configure locale
         run: |
@@ -801,9 +820,10 @@ jobs:
           EOL
 
       - name: Install wkhtmltopdf as fallback
+        # if: steps.cache-apt.outputs.cache-hit != 'true' # こちらもキャッシュがない場合のみ実行するオプション (apt-packages.txtに含めたため、上記のInstall Japanese fontsステップでインストールされる)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y wkhtmltopdf xvfb
+          # sudo apt-get update # 既に実行済み
+          # sudo apt-get install -y wkhtmltopdf xvfb # apt-packages.txt経由でインストール済み
           echo '#!/bin/bash
           xvfb-run -a -s "-screen 0 1280x1024x24" wkhtmltopdf "$@"' | sudo tee /usr/local/bin/wkhtmltopdf-xvfb
           sudo chmod +x /usr/local/bin/wkhtmltopdf-xvfb
