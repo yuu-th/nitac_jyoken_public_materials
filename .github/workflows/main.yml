@@ -46,9 +46,7 @@ jobs:
           EOL
 
       - name: Install dependencies
-        run: |
-          # npm init -y # package.jsonがリポジトリにあれば不要
-          npm install --save marked puppeteer@19.7.0 @marp-team/marp-cli @marp-team/marp-core
+        run: npm ci # npm install --save ... の代わりに npm ci を使用
 
       - name: Install Japanese fonts
         # if: steps.cache-apt.outputs.cache-hit != 'true' # キャッシュがない場合のみ実行するオプション (必要に応じて)
