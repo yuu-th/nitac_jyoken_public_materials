@@ -1,0 +1,322 @@
+
+      <!DOCTYPE html>
+      <html lang="ja">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>practice</title>
+        <link rel="stylesheet" href="../../../style.css">
+        <style>
+          @font-face {
+            font-family: 'IPAGothic';
+            src: local('IPAGothic');
+          }
+          @font-face {
+            font-family: 'IPAMincho';
+            src: local('IPAMincho');
+          }
+          html, body {
+            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+          }
+          pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            padding: 16px;
+            overflow: auto;
+          }
+          code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: rgba(27, 31, 35, 0.05);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+          }
+          pre code {
+            background-color: transparent;
+            padding: 0;
+          }
+          blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 16px;
+            color: #555;
+            margin-left: 0;
+          }
+          img {
+            max-width: 100%;
+            height: auto;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          table, th, td {
+            border: 1px solid #ddd;
+          }
+          th, td {
+            padding: 8px 12px;
+          }
+          th {
+            background-color: #f6f8fa;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>オブジェクト指向プログラミング演習課題 🚀</h1>
+<p>この演習では、学んだオブジェクト指向の考え方を使って、3つの簡単なCUIゲームを順番に作成していきます。
+それぞれのゲームを作ることで、クラス、インスタンス、属性、メソッドといった基本的な概念から、少しずつステップアップしていきましょう！</p>
+<hr>
+<h2>演習1：じゃんけんゲーム ✊✌️✋</h2>
+<p><strong>目的：</strong></p>
+<ul>
+<li>クラスとインスタンスの基本的な作り方を学ぶ。</li>
+<li>簡単なメソッドの定義と呼び出しを体験する。</li>
+<li>プレイヤーとコンピュータの対戦ロジックを考える。</li>
+</ul>
+<p><strong>作るもの：</strong>
+プレイヤーが手（グー、チョキ、パー）を選び、コンピュータもランダムに手を出して勝敗を判定するCUIゲームです。</p>
+<p><strong>実行イメージ：</strong></p>
+<pre><code class="language-text">じゃんけんゲームを開始します！
+あなたの手を選んでください (1:グー, 2:チョキ, 3:パー): &gt; 1
+
+あなた: グー
+コンピュータ: パー
+
+残念、あなたの負けです！
+
+もう一度プレイしますか？ (y/n): &gt; n
+ゲームを終了します。
+</code></pre>
+<p><strong>実装ステップのヒント：</strong></p>
+<ol>
+<li><strong><code>Player</code> クラスを考えてみよう！</strong><ul>
+<li><strong>属性案</strong>:<ul>
+<li><code>name</code>: プレイヤーの名前 (例: &quot;あなた&quot;)</li>
+<li><code>hand</code>: プレイヤーが出した手 (例: 1, 2, 3 など数字で管理すると便利)</li>
+</ul>
+</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self, name)</code>: 名前を受け取って初期化する。</li>
+<li><code>choose_hand(self)</code>: プレイヤーに入力を促し、<code>self.hand</code> に選択した手を設定する。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>ComputerPlayer</code> クラスを考えてみよう！ (Playerクラスを継承すると楽かも？)</strong><ul>
+<li><strong>属性案</strong>: <code>Player</code>クラスと同じものを持たせられる。</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self, name=&quot;コンピュータ&quot;)</code>: 名前は固定で良いでしょう。</li>
+<li><code>choose_hand(self)</code>: ランダムに手を選び <code>self.hand</code> に設定する (<code>random.randint(1, 3)</code> など)。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>Game</code> クラスを考えてみよう！</strong><ul>
+<li>ゲーム全体を管理するクラスです。</li>
+<li><strong>属性案</strong>:<ul>
+<li><code>player</code>: <code>Player</code> クラスのインスタンス。</li>
+<li><code>computer</code>: <code>ComputerPlayer</code> クラスのインスタンス。</li>
+<li><code>hand_map</code>: 手の数字と文字列（&quot;グー&quot;など）を対応させる辞書 (例: <code>{1: &quot;グー&quot;, ...}</code>)</li>
+</ul>
+</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self)</code>: <code>player</code> と <code>computer</code> のインスタンスを作成する。</li>
+<li><code>display_hands(self)</code>: 両者の手を見やすく表示する。</li>
+<li><code>judge_winner(self)</code>: <code>player.hand</code> と <code>computer.hand</code> を比較して勝敗を判定し、結果 (例: 0:あいこ, 1:プレイヤー勝ち, 2:コンピュータ勝ち) を返す。</li>
+<li><code>play_round(self)</code>: 1回のじゃんけんを実行する (手の選択、表示、勝敗判定、結果表示)。</li>
+<li><code>start(self)</code>: ゲームを開始し、<code>play_round</code> を繰り返し実行するループを持つ。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>勝敗判定のロジックを考えよう。</strong><ul>
+<li><code>judge_winner</code> メソッドの中で、if文を使って条件分岐します。</li>
+</ul>
+</li>
+<li><strong>ゲーム全体の流れ（<code>if __name__ == &quot;__main__&quot;:</code> の中身のイメージ）：</strong><pre><code class="language-python"># game = Game()  # Gameオブジェクトを作成
+# game.start()   # ゲームを開始
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2>演習2：サイコロゲーム 🎲</h2>
+<p><strong>目的：</strong></p>
+<ul>
+<li>複数の小さなクラスを連携させる方法を学ぶ。</li>
+<li>オブジェクトが他のオブジェクトを利用する形を体験する。</li>
+</ul>
+<p><strong>作るもの：</strong>
+プレイヤーとコンピュータがそれぞれサイコロを振り、出た目の大きさで勝敗を決めるシンプルなゲームです。</p>
+<p><strong>実行イメージ：</strong></p>
+<pre><code class="language-text">サイコロゲーム！
+
+--- ラウンド 1 ---
+あなた がサイコロを振ります... 出た目は 4 です。
+コンピュータ がサイコロを振ります... 出た目は 2 です。
+あなたの勝ちです！
+
+現在のスコア: あなた 1 - 0 コンピュータ
+
+続けますか？ (y/n): y
+</code></pre>
+<p><strong>実装ステップのヒント：</strong></p>
+<ol>
+<li><strong><code>Die</code> (サイコロ) クラスを作ろう！</strong><ul>
+<li><strong>属性案</strong>:<ul>
+<li><code>sides</code>: サイコロの面の数 (デフォルトは6)</li>
+</ul>
+</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self, sides=6)</code>: 面の数を設定する。</li>
+<li><code>roll(self)</code>: 1から <code>self.sides</code> までのランダムな整数を返す (<code>random.randint(1, self.sides)</code>)。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>Player</code> クラスを考えよう！</strong><ul>
+<li><strong>属性案</strong>:<ul>
+<li><code>name</code>: プレイヤーの名前。</li>
+<li><code>score</code>: プレイヤーの勝利数。</li>
+<li><code>current_roll</code>: 直近で振ったサイコロの目。</li>
+</ul>
+</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self, name)</code>: 名前で初期化、スコアは0。</li>
+<li><code>roll_die(self, die_instance)</code>: 引数で受け取った <code>Die</code> オブジェクトの <code>roll()</code> メソッドを呼び出し、結果を <code>self.current_roll</code> に保存し、その値を返す。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>Game</code> クラスを考えよう！</strong><ul>
+<li><strong>属性案</strong>:<ul>
+<li><code>player1</code>: <code>Player</code> クラスのインスタンス (人間プレイヤー用)。</li>
+<li><code>player2</code>: <code>Player</code> クラスのインスタンス (コンピュータプレイヤー用)。</li>
+<li><code>die</code>: <code>Die</code> クラスのインスタンス (ゲームで使うサイコロ)。</li>
+</ul>
+</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self)</code>: <code>player1</code>, <code>player2</code>, <code>die</code> のインスタンスを作成する。</li>
+<li><code>play_round(self)</code>:<ol>
+<li><code>player1</code> と <code>player2</code> がそれぞれ <code>die</code> を使ってサイコロを振る (<code>roll_die</code> メソッドを呼び出す)。</li>
+<li>出た目を比較して勝敗を判定し、勝者のスコアを増やす。</li>
+<li>結果を表示する。</li>
+</ol>
+</li>
+<li><code>show_scores(self)</code>: 現在のスコアを表示する。</li>
+<li><code>start(self)</code>: ゲームを開始し、<code>play_round</code> と <code>show_scores</code> を繰り返し実行するループを持つ。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>ゲーム全体の流れ（<code>if __name__ == &quot;__main__&quot;:</code> の中身のイメージ）：</strong><pre><code class="language-python"># game = Game()  # Gameオブジェクトを作成
+# game.start()   # ゲームを開始
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2>演習3：テキストベースRPG風バトル ⚔️</h2>
+<p><strong>目的：</strong></p>
+<ul>
+<li>クラスの継承とメソッドのオーバーライドを体験する。</li>
+<li>より複雑なオブジェクト間の相互作用を実装する。</li>
+<li>カプセル化の考え方を少し意識してみる。</li>
+</ul>
+<p><strong>作るもの：</strong>
+プレイヤーキャラクターとモンスターが交互に攻撃しあい、どちらかのHPが0になるまで戦うCUIバトルゲームです。</p>
+<p><strong>実行イメージ：</strong></p>
+<pre><code class="language-text">--- バトル開始！ ---
+[勇者 アベル HP: 100/100] vs [スライム HP: 30/30]
+
+勇者 アベルのターン:
+1: こうげき
+コマンド？ &gt; 1
+
+勇者 アベルのこうげき！
+スライムに 15 のダメージ！
+[スライム HP: 15/30]
+
+スライムのターン:
+スライムのこうげき！
+勇者 アベルに 8 のダメージ！
+[勇者 アベル HP: 92/100]
+
+... (戦闘継続) ...
+
+スライムをたおした！
+</code></pre>
+<p><strong>実装ステップのヒント：</strong></p>
+<ol>
+<li><strong><code>Character</code> (キャラクター) という親クラスを作ろう！</strong><ul>
+<li><strong>属性案</strong>:<ul>
+<li><code>name</code>: キャラクターの名前。</li>
+<li><code>max_hp</code>: 最大HP。</li>
+<li><code>hp</code>: 現在のHP。</li>
+<li><code>attack_power</code>: 攻撃力。</li>
+<li><code>is_defeated</code>: 倒されたかどうかのフラグ (True/False)。</li>
+</ul>
+</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self, name, hp, attack_power)</code>: 各属性を初期化。<code>is_defeated</code> は <code>False</code> に。</li>
+<li><code>attack(self, target)</code>: <code>target</code> (別の <code>Character</code> オブジェクト) に攻撃する。ダメージ計算 (例: <code>random.randint(self.attack_power // 2, self.attack_power)</code>) を行い、<code>target</code> の <code>take_damage</code> メソッドを呼び出す。攻撃前に自分や相手が倒れていないか確認すると良い。</li>
+<li><code>take_damage(self, damage)</code>: <code>damage</code> を受けて <code>self.hp</code> を減らす。HPが0以下になったら <code>self.hp = 0</code> とし、<code>self.is_defeated = True</code> にする。HPが0未満にならないように注意（カプセル化の初歩）。</li>
+<li><code>show_status(self)</code>: 現在のHPなどを表示する。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>Hero</code> (勇者) クラスを作ろう！ (<code>Character</code> クラスを継承)</strong><ul>
+<li><strong>属性案</strong>:<ul>
+<li>(親クラスの属性に加えて) <code>mp</code>: 魔法ポイント。</li>
+<li><code>magic_power</code>: 魔法攻撃力。</li>
+</ul>
+</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self, name, hp, attack_power, mp, magic_power)</code>: 親クラスの <code>__init__</code> を <code>super().__init__(name, hp, attack_power)</code> で呼び出し、追加で <code>mp</code> と <code>magic_power</code> を初期化。</li>
+<li><code>cast_spell(self, target)</code>: 勇者独自の魔法攻撃。MPを消費し、<code>magic_power</code> に基づいたダメージを <code>target</code> に与える。MPが足りない場合の処理も考える。</li>
+<li><code>attack(self, target)</code> (任意でオーバーライド): 親の <code>attack</code> とは少し違う攻撃メッセージにしたり、効果を変えたりできる。<code>super().attack(target)</code> で親の処理を呼び出すことも可能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>Monster</code> (モンスター) クラスを作ろう！ (<code>Character</code> クラスを継承)</strong><ul>
+<li><strong>属性案</strong>:<ul>
+<li>(親クラスの属性に加えて) <code>special_attack_name</code>: 特殊攻撃の名前。</li>
+</ul>
+</li>
+<li><strong>メソッド案</strong>:<ul>
+<li><code>__init__(self, name, hp, attack_power, special_attack_name)</code>: 親クラスの <code>__init__</code> を呼び出し、<code>special_attack_name</code> を初期化。</li>
+<li><code>special_attack(self, target)</code>: モンスター独自の特殊攻撃。通常の <code>attack</code> より強力なダメージを与えたり、追加効果があったりするかもしれない。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>バトルを進行するメインの処理（関数または <code>Game</code> クラスのメソッドとして）を書こう！</strong><ul>
+<li><code>Hero</code> と <code>Monster</code> のインスタンスを作成する。</li>
+<li>どちらかの <code>is_defeated</code> が <code>True</code> になるまでループする。</li>
+<li>ループの中で、プレイヤーのターンとモンスターのターンを交互に実行する。<ul>
+<li>プレイヤーのターン: コマンド入力を受け付け、<code>Hero</code> の <code>attack</code> や <code>cast_spell</code> を呼び出す。</li>
+<li>モンスターのターン: <code>Monster</code> の <code>attack</code> や <code>special_attack</code> を呼び出す。</li>
+</ul>
+</li>
+<li>各ターン終了後にキャラクターのステータスを表示すると分かりやすい。</li>
+</ul>
+</li>
+<li><strong>ゲーム全体の流れ（<code>if __name__ == &quot;__main__&quot;:</code> の中身のイメージ）：</strong><pre><code class="language-python"># hero = Hero(&quot;勇者&quot;, 100, 15, 50, 20)
+# monster = Monster(&quot;スライム&quot;, 30, 8, &quot;体当たり&quot;)
+
+# # バトルループを実行する関数を呼び出す (例)
+# def battle(player_char, enemy_char):
+#     # ... (上記4のメイン処理) ...
+#     pass
+# battle(hero, monster)
+</code></pre>
+</li>
+</ol>
+<hr>
+<p>まずは演習1から挑戦してみましょう！行き詰まったら、スライド資料を見返したり、少しずつ動かしながら確認したりするのがおすすめです。頑張ってください！</p>
+
+      </body>
+      </html>
+    

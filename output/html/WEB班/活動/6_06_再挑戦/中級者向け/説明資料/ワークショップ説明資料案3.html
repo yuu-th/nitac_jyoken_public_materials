@@ -98,24 +98,18 @@
 &lt;/head&gt;
 &lt;body&gt;
   &lt;!-- ヘッダー部分 --&gt;
-  &lt;_______ class=&quot;_______-header&quot;&gt;
+  &lt;_______ class=&quot;_______&quot;&gt;
     &lt;h1&gt;📚 今日の学習タスク&lt;/h1&gt;
     &lt;p&gt;目標: CSS装飾とJavaScript動きをマスターしよう！&lt;/p&gt;
   &lt;/_______&gt;
+
+  &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p><strong>🤝 ペアで考えよう</strong>:</p>
-<ol>
-<li><code>_______</code> の1番目に入るファイル名は？</li>
-<li><code>_______</code> の2番目に入るHTMLタグは？</li>
-<li><code>_______-header</code> の最初の部分は？</li>
-</ol>
 <p><strong>選択肢</strong>:</p>
 <ul>
-<li>A) div, main, header</li>
-<li>B) section, article, nav  </li>
-<li>C) header, section, div</li>
+<li>div, main, header, style, index, main-header, main-footer</li>
 </ul>
 <details>
 <summary>💡 解答と解説</summary>
@@ -207,7 +201,7 @@
 <li>チェックボックスとテキストを関連付けるタグは？</li>
 <li>完了メッセージのid名は？</li>
 </ol>
-<p><strong>🎯 チャレンジ</strong>: 残り5つのタスクアイテムを自分で作ってみてください！
+<p><strong>🎯 課題</strong>: 残り5つのタスクアイテムを自分で作ってみてください！
 （内容: &quot;CSSで基本レイアウト&quot;, &quot;グラデーション背景を追加&quot;, &quot;ホバーエフェクト実装&quot;, &quot;JavaScriptで進捗バー作成&quot;, &quot;完了エフェクト追加&quot;）</p>
 <details>
 <summary>💡 解答例</summary>
@@ -229,7 +223,7 @@
 </details>
 
 <hr>
-<h3><strong>Step 2: CSS穴埋めチャレンジ（35分）</strong></h3>
+<h3><strong>Step 2: CSS穴埋めチャレンジ（50分）</strong></h3>
 <h4>🧩 <strong>問題2-1: 基本設定穴埋め（10分）</strong></h4>
 <pre><code class="language-css">/* 基本設定 */
 _______ {
@@ -239,7 +233,10 @@ _______ {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: &quot;Hiragino Sans&quot;, &quot;Yu Gothic&quot;, sans-serif;
+  line-height: _____;
+  color: #___;
+  min-height: _____vh;
   background: _______; /* グレー系の色 */
   padding: _______px;   /* 全体の余白 */
 }
@@ -249,6 +246,9 @@ body {
 <li>全要素を選択するセレクタは？</li>
 <li>要素の外側余白をリセットする値は？</li>
 <li><code>box-sizing</code> の値は？</li>
+<li><code>line-height</code> の適切な値は？</li>
+<li><code>color</code> の値は？（#から始まる）</li>
+<li><code>min-height</code> の値は？</li>
 <li>背景色は何色が良い？（色コードで）</li>
 <li>全体の余白は何px？</li>
 </ol>
@@ -267,7 +267,10 @@ body {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: &quot;Hiragino Sans&quot;, &quot;Yu Gothic&quot;, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  min-height: 100vh;
   background: #f3f4f6;
   padding: 20px;
 }
@@ -277,6 +280,9 @@ body {
 <li><code>*</code>: 全要素選択</li>
 <li><code>0</code>: リセット値</li>
 <li><code>border-box</code>: サイズ計算を簡単に</li>
+<li><code>1.6</code>: 読みやすい行間</li>
+<li><code>#333</code>: 濃いグレーで読みやすく</li>
+<li><code>100vh</code>: 画面の高さ全体</li>
 <li><code>#f3f4f6</code>: 薄いグレー</li>
 <li><code>20px</code>: 適度な余白</li>
 </ul>
@@ -288,8 +294,10 @@ body {
   background: _______;
   padding: _______rem;
   border-radius: _______px;
+  text-align: _______;
   margin-bottom: _______rem;
   box-shadow: _______ _______ _______px rgba(0,0,0,_______);
+  border-left: _______px solid #_______;  /* 左端のアクセント線 */
 }
 
 /* 進捗バー */
@@ -312,7 +320,9 @@ body {
 <ol>
 <li>headerと同じスタイルを適用するセレクタは？</li>
 <li>カードの背景色は？</li>
+<li>ヘッダーの<code>text-align</code>の値は？</li>
 <li><code>box-shadow</code> の構文は <code>水平 垂直 ぼかし 色</code> ですが、適切な値は？</li>
+<li>セクションの左端アクセント線は何px？何色？</li>
 <li>進捗バーの初期幅は何%？</li>
 <li>アニメーション時間は何秒が自然？</li>
 </ol>
@@ -324,8 +334,10 @@ body {
   background: white;
   padding: 2rem;
   border-radius: 10px;
+  text-align: center;
   margin-bottom: 2rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-left: 4px solid #4f46e5;
 }
 
 .progress-bar {
@@ -334,6 +346,7 @@ body {
   background: #e5e7eb;
   border-radius: 12px;
   overflow: hidden;
+  margin-bottom: 1rem;  /* 進捗バーとテキストの間隔 */
 }
 
 .progress-fill {
@@ -341,11 +354,86 @@ body {
   background: #10b981;
   width: 0%;
   transition: width 0.5s ease;
+  border-radius: 12px;  /* 進捗部分の角丸 */
 }
 </code></pre>
 </details>
 
-<h4>🧩 <strong>問題2-3: ホバーエフェクト穴埋め（10分）</strong></h4>
+
+
+<h4>🧩 <strong>問題2-3: ヘッダーと見出しスタイル穴埋め（10分）</strong></h4>
+<pre><code class="language-css">/* ヘッダー内のスタイル */
+.main-header h1 {
+  color: #_______;  /* メインカラー */
+  font-size: _______rem;
+  margin-bottom: _______rem;
+}
+
+.main-header p {
+  color: #____;     /* 薄いグレー */
+  font-size: _______rem;
+}
+
+/* セクション見出し */
+section h2 {
+  color: #_______;  /* メインカラー */
+  margin-bottom: _______rem;
+  font-size: _______rem;
+}
+
+/* 進捗コンテナ */
+.progress-container {
+  text-align: _______;
+}
+
+.progress-text {
+  font-weight: _____;
+  font-size: _______rem;
+  color: #_______;  /* メインカラー */
+}
+</code></pre>
+<p><strong>🎯 タイポグラフィチャレンジ</strong>:</p>
+<ol>
+<li>メインカラー（#4f46e5）を適切な場所に配置</li>
+<li>文字サイズの階層を考える（h1 &gt; h2 &gt; p）</li>
+<li>余白の統一感を出す</li>
+<li>フォントウェイトの効果的な使用</li>
+</ol>
+<details>
+<summary>💡 解答例</summary>
+
+<pre><code class="language-css">.main-header h1 {
+  color: #4f46e5;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.main-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+section h2 {
+  color: #4f46e5;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.progress-container {
+  text-align: center;
+}
+
+.progress-text {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #4f46e5;
+}
+</code></pre>
+</details>
+
+
+
+<h4>🧩 <strong>問題2-4: タスクリストスタイルとホバーエフェクト穴埋め（10分）</strong></h4>
 <pre><code class="language-css">/* タスクアイテム */
 .task-item {
   display: _______;
@@ -381,6 +469,11 @@ body {
 <pre><code class="language-css">.task-item {
   display: flex;
   align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -390,6 +483,175 @@ body {
   border-color: #4f46e5;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+</code></pre>
+</details>
+
+
+<h4>🧩 <strong>問題2-5: タスクリスト詳細スタイル穴埋め（10分）</strong></h4>
+<pre><code class="language-css">/* チェックボックス */
+.task-checkbox {
+  width: ____px;
+  height: ____px;
+  margin-right: ____rem;
+  cursor: ______;
+}
+
+/* ラベルスタイル */
+.task-item label {
+  flex: _;           /* 残りスペースを使用 */
+  cursor: ______;
+  font-size: ____rem;
+  color: #___;      /* 通常の文字色 */
+}
+
+/* 完了状態のスタイル */
+.task-item.completed {
+  background: #_______;  /* 薄い緑 */
+  border-color: #_______;  /* 緑 */
+}
+
+.task-item.completed label {
+  text-decoration: _______-______;  /* 取り消し線 */
+  color: #_______;  /* グレー */
+}
+</code></pre>
+<p><strong>🧠 考える問題</strong>:</p>
+<ol>
+<li>チェックボックスのサイズは何px？</li>
+<li>flexプロパティで残りスペースを使うには？</li>
+<li>完了時の背景色・ボーダー色は？</li>
+<li>取り消し線のCSSプロパティは？</li>
+</ol>
+<details>
+<summary>💡 解答例</summary>
+
+<pre><code class="language-css">.task-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.task-item label {
+  flex: 1;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+}
+
+.task-item.completed {
+  background: #ecfdf5;
+  border-color: #10b981;
+}
+
+.task-item.completed label {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+</code></pre>
+</details>
+
+<h4>🧩 <strong>問題2-6: 完了メッセージスタイル穴埋め（10分）</strong></h4>
+<pre><code class="language-css">/* 完了メッセージ（重要！） */
+.completion-message {
+  position: _______;     /* 画面に固定 */
+  top: ___%;            /* 縦中央 */
+  left: ___%;           /* 横中央 */
+  transform: translate(-50%, -50%);  /* 完全中央配置 */
+  background: #_______;  /* 緑 */
+  color: _____;         /* 白 */
+  padding: ____rem;
+  border-radius: ____px;
+  text-align: _______;
+  display: ____;        /* 初期状態は非表示 */
+  box-shadow: _ _px ____px rgba(0, 0, 0, 0.2);
+  z-index: ____;        /* 最前面に表示 */
+}
+
+.completion-message h2 {
+  color: _____;         /* 白 */
+  margin-bottom: ____rem;
+}
+</code></pre>
+<p><strong>🎯 モーダル実装チャレンジ</strong>:</p>
+<ol>
+<li><code>position</code> で画面固定にするには？</li>
+<li>完全中央配置の仕組みは？</li>
+<li>初期状態で非表示にするには？</li>
+<li>最前面に表示するプロパティは？</li>
+</ol>
+<details>
+<summary>💡 解答例</summary>
+
+<pre><code class="language-css">.completion-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #10b981;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  display: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.completion-message h2 {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+</code></pre>
+</details>
+
+<h4>🧩 <strong>問題2-7: レスポンシブ対応穴埋め（5分）</strong></h4>
+<pre><code class="language-css">/* レスポンシブ対応 */
+@media (max-width: ____px) {
+  body {
+    padding: ____px;  /* モバイルでは狭く */
+  }
+
+  .main-header,
+  section {
+    padding: ____rem;  /* 内側余白も調整 */
+  }
+
+  .main-header h1 {
+    font-size: ____rem;  /* 文字サイズ縮小 */
+  }
+
+  .task-item {
+    padding: ____rem;   /* タスクアイテムも調整 */
+  }
+}
+</code></pre>
+<p><strong>🧠 考える問題</strong>:</p>
+<ol>
+<li>モバイル判定のブレイクポイントは？</li>
+<li>各要素の余白をどう調整する？</li>
+</ol>
+<details>
+<summary>💡 解答例</summary>
+
+<pre><code class="language-css">@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .main-header,
+  section {
+    padding: 1.5rem;
+  }
+
+  .main-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .task-item {
+    padding: 0.8rem;
+  }
 }
 </code></pre>
 </details>
@@ -426,19 +688,22 @@ body {
 
 <h4>🧩 <strong>問題3-2: イベント処理ロジック穴埋め（10分）</strong></h4>
 <pre><code class="language-javascript">// 各チェックボックスにイベントを追加
-taskCheckboxes._______(function(checkbox) {
-  checkbox.addEventListener(&quot;_______&quot;, function () {
-    const taskItem = checkbox._______(&quot;.task-item&quot;);
-
-    if (checkbox._______) {
-      taskItem.classList._______(&quot;completed&quot;);
-    } else {
-      taskItem.classList._______(&quot;completed&quot;);
-    }
-
-    _______(); // 進捗更新関数を呼び出し
+taskCheckboxes.forEach(function(checkbox) {
+  checkbox.addEventListener(&quot;change&quot;, function() {
+    handleTaskChange(this);
   });
 });
+function handleTaskChange(checkbox) () {
+  const taskItem = checkbox._______(&quot;.task-item&quot;);
+
+  if (checkbox._______) {
+    taskItem.classList._______(&quot;completed&quot;);
+  } else {
+    taskItem.classList._______(&quot;completed&quot;);
+  }
+
+  updateProgress(); // 進捗更新関数を呼び出し
+}
 </code></pre>
 <p><strong>🎯 ロジック理解チャレンジ</strong>:</p>
 <ol>
@@ -526,58 +791,7 @@ taskCheckboxes._______(function(checkbox) {
 </details>
 
 <hr>
-<h3><strong>Step 4: デバッグチャレンジ（20分）</strong></h3>
-<h4>🐛 <strong>問題4-1: バグ発見・修正チャレンジ（10分）</strong></h4>
-<p>以下のコードにはバグがあります。見つけて修正してください！</p>
-<pre><code class="language-html">&lt;!-- HTML --&gt;
-&lt;div class=&quot;task-item&quot;&gt;
-  &lt;input type=&quot;checkbox&quot; id=&quot;task1&quot; class=&quot;task-check&quot;&gt;
-  &lt;label for=&quot;task-1&quot;&gt;HTML基本構造を作成&lt;/label&gt;
-&lt;/div&gt;
-</code></pre>
-<pre><code class="language-css">/* CSS */
-.task-item hover {
-  background: #f1f5f9;
-  transform: translateY(-2px);
-}
-</code></pre>
-<pre><code class="language-javascript">// JavaScript
-const checkboxes = document.querySelectorAll(&quot;.task-checkbox&quot;);
-const progressText = document.getElementById(&quot;progress-text&quot;);
-
-checkboxes.forEach(checkbox =&gt; {
-  checkbox.addEventListener(&quot;click&quot;, function() {
-    updateProgress();
-  });
-});
-</code></pre>
-<p><strong>🕵️ バグ発見ミッション</strong>:</p>
-<ol>
-<li>HTMLの問題は？</li>
-<li>CSSの問題は？  </li>
-<li>JavaScriptの問題は？</li>
-</ol>
-<p><strong>🤝 ペアで話し合い</strong>: 何が間違っているか見つけよう！</p>
-<details>
-<summary>🐛 バグと修正方法</summary>
-
-<p><strong>HTMLのバグ</strong>:</p>
-<ul>
-<li><code>class=&quot;task-check&quot;</code> → <code>class=&quot;task-checkbox&quot;</code></li>
-<li><code>for=&quot;task-1&quot;</code> → <code>for=&quot;task1&quot;</code></li>
-</ul>
-<p><strong>CSSのバグ</strong>:</p>
-<ul>
-<li><code>.task-item hover</code> → <code>.task-item:hover</code></li>
-</ul>
-<p><strong>JavaScriptのバグ</strong>:</p>
-<ul>
-<li><code>getElementById(&quot;progress-text&quot;)</code> → <code>getElementById(&quot;progressText&quot;)</code></li>
-<li><code>addEventListener(&quot;click&quot;)</code> → <code>addEventListener(&quot;change&quot;)</code></li>
-</ul>
-</details>
-
-<h4>🎯 <strong>問題4-2: 機能拡張チャレンジ（10分）</strong></h4>
+<h4>🎯 <strong>問題4-1: 機能拡張チャレンジ（10分）</strong></h4>
 <p>基本機能が完成したら、以下の機能を追加してみよう！</p>
 <p><strong>🎯 チャレンジミッション</strong>（難易度別）:</p>
 <p><strong>初級</strong>: 完了メッセージをクリックで閉じる機能</p>
@@ -586,14 +800,15 @@ checkboxes.forEach(checkbox =&gt; {
 });
 </code></pre>
 <p><strong>中級</strong>: タスク完了時に背景色を変える機能  </p>
-<pre><code class="language-css">.task-item.completed {
-  background: _______; /* 薄い緑 */
-  border-color: _______; /* 緑 */
+<pre><code class="language-css">/* 問題2-5で学習済み！ */
+.task-item.completed {
+  background: #ecfdf5; /* 薄い緑 */
+  border-color: #10b981; /* 緑 */
 }
 
 .task-item.completed label {
-  text-decoration: _______; /* 取り消し線 */
-  color: _______; /* グレー */
+  text-decoration: line-through; /* 取り消し線 */
+  color: #6b7280; /* グレー */
 }
 </code></pre>
 <p><strong>上級</strong>: 進捗バーの色をパーセンテージで変える機能</p>
