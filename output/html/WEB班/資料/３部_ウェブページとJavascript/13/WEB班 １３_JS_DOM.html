@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WEB班 １３_JS_DOM</title>
-<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
 </head>
 <body class="markdown-body">
 <h1>第6章: DOMの探求 – HTMLをJavaScriptで操る</h1>
@@ -89,7 +89,7 @@
 </code></pre>
 <p>このHTMLを、JavaScriptはDOMを通して、下のような階層構造（ツリー構造）として認識します。</p>
 <h3>DOMツリー – HTMLの構造を図で見てみよう</h3>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-1.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-1.png" alt=""></p>
 <ul>
 <li>一番上の <code>&lt;html&gt;</code> が木の根っこ（ルート）で、そこから <code>&lt;head&gt;</code> や <code>&lt;body&gt;</code> が枝分かれし、さらにその下に <code>&lt;title&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code> といった要素が葉っぱのようにつながっています。</li>
 <li>この一つ一つの要素やテキスト、コメントなどを<strong>ノード (Node)</strong> と呼びます。</li>
@@ -350,7 +350,7 @@ staticArray.forEach(function(divElement) {
 </ul>
 </li>
 </ul>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-2.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-2.png" alt=""></p>
 <p><strong>HTML例:</strong></p>
 <pre><code class="language-html">&lt;div id=&quot;parent&quot;&gt;
   &lt;!-- これはコメントです --&gt;
@@ -454,7 +454,7 @@ contentArea.innerHTML = &quot;&lt;h2&gt;新しいタイトル&lt;/h2&gt;&lt;p&gt
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>  <img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-3.png" alt=""></p>
+<p>  <img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-3.png" alt=""></p>
 </li>
 <li><p><strong>使い所:</strong> HTML構造を動的に生成してページに埋め込みたい場合など、<code>innerHTML</code> が便利な場面もありますが、その際は<strong>入力される値を厳格にサニタイズ（無害化）する処理が必須</strong>です。初学者のうちは、できるだけ <code>textContent</code> を使うように心がけ、<code>innerHTML</code> を使う場合はその危険性を常に意識しましょう。</p>
 </li>
@@ -753,8 +753,8 @@ if (myListContainer) {
   myListContainer.appendChild(fragment); // 最後にまとめてDOMに追加 (ここで1回再描画)
 }
 </code></pre>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-4.png" alt="">
-<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-5.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-4.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-5.png" alt=""></p>
 <h3>ループの外で要素参照</h3>
 <p>ループの中で何度も同じDOM要素を取得するようなコードは避け、ループの前に一度だけ取得して変数に保存しておきましょう。</p>
 <pre><code class="language-javascript">// 悪い例 (ループ内で毎回要素を取得)
@@ -826,9 +826,9 @@ if (myBox) {
   // }
 }
 </code></pre>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-7.png" alt="">
-<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-8.png" alt="">
-<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-6.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-7.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-8.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-6.png" alt=""></p>
 <p>これらのプロパティは、要素の位置やサイズに基づいて何か処理を行いたい場合（例えば、ツールチップを要素の隣に表示するなど）に役立ちます。</p>
 <hr>
 <h2>✏️ 本日の演習</h2>

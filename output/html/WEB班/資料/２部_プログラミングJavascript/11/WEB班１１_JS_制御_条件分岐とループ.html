@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WEB班１１_JS_制御_条件分岐とループ</title>
-<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
 </head>
 <body class="markdown-body">
 <h1>第4章: 制御フロー – プログラムの流れを操る</h1>
@@ -77,11 +77,11 @@ if (score &gt;= 90) {
 <li><code>else if (別の条件式)</code>: (任意) 直前の <code>if</code> や <code>else if</code> の条件が <code>false</code> (偽) で、かつこの <code>else if</code> の条件式が <code>true</code> の場合に実行されます。いくつでも繋げられます。</li>
 <li><code>else</code>: (任意) これまでの <code>if</code> や <code>else if</code> のどの条件も <code>false</code> だった場合に実行されます。</li>
 </ul>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image.png" alt="">
-<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-2.png" alt="">
-<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-3.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-2.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-3.png" alt=""></p>
 <p>elseはなくても良いです。</p>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-1.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-1.png" alt=""></p>
 <p><strong>ポイント:</strong> 条件式には、前回学んだ比較演算子 (<code>&gt;</code>, <code>&lt;</code>, <code>===</code> など) や論理演算子 (<code>&amp;&amp;</code>, <code>||</code>, <code>!</code>) を組み合わせて、複雑な条件を作ることもできますよ。</p>
 <pre><code class="language-javascript">let isLoggedIn = true;
 let userRole = &quot;admin&quot;;
@@ -122,8 +122,8 @@ switch (signalColor) {
 <li><code>break;</code>: <code>switch</code> 文の処理をここで終了させます。<strong>これを書き忘れると、次の <code>case</code> の処理も続けて実行されてしまう（フォールスルー）ので、基本的には各 <code>case</code> の最後に書くようにしましょう！</strong></li>
 <li><code>default:</code>: (任意) どの <code>case</code> にも一致しなかった場合に実行されます。</li>
 </ul>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-4.png" alt="">
-<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-5.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-4.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-5.png" alt=""></p>
 <h4><code>case</code> と <code>break</code> – スイッチの行き先と停止線</h4>
 <p><code>switch</code> 文は、電車のポイント切り替えのようなものだとイメージしてください。<code>switch</code> の式の結果によって、どの <code>case</code> という線路に進むかが決まります。そして、<code>break</code> は「ここで停車！」という合図です。もし <code>break</code> がないと、電車は止まらずに次の駅（次の <code>case</code>）まで進んでしまいます。</p>
 <h4>フォールスルーって何？ – <code>break</code> を忘れると…？</h4>
@@ -165,7 +165,7 @@ console.log(`あなたの評価は${grade}です。`); // 出力: あなたの�
 <p>プログラムでは、同じような処理を何度も繰り返したい、という場面がよくあります。例えば、「リストの各項目に対して同じ操作をしたい」「1から100までの数字を順番に表示したい」などです。このような繰り返し処理を実現するのが<strong>ループ (Loop)</strong> です。</p>
 <h3>ループってどんなイメージ？ (フローチャートで見てみよう)</h3>
 <p>ループは、特定の条件が満たされている間、同じ処理のブロックをぐるぐると回り続けるイメージです。</p>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-6.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-6.png" alt=""></p>
 <p>JavaScriptには、主に3種類のループ構文があります。</p>
 <h3><code>for</code> ループ – 回数が決まっている繰り返し</h3>
 <p><code>for</code> ループは、繰り返す回数があらかじめ分かっている場合や、特定の範囲の数値を順番に使いたい場合によく使われます。</p>
@@ -198,7 +198,7 @@ for (let i = 0; i &lt; fruits.length; i++) {
 // バナナ
 // みかん
 </code></pre>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-7.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-7.png" alt=""></p>
 <h3><code>while</code> ループ – 条件が満たされている間の繰り返し</h3>
 <p><code>while</code> ループは、特定の条件が <code>true</code> である限り、処理を繰り返します。繰り返す回数が事前に分からない場合などに使われます。</p>
 <p>構文: <code>while (条件式) { /* 繰り返す処理 */ }</code></p>
@@ -220,8 +220,8 @@ while (count &lt; 3) {
 console.log(&quot;ループ終了後のカウント:&quot;, count); // 出力: ループ終了後のカウント: 3
 </code></pre>
 <p><strong>注意:</strong> <code>while</code> ループでは、ループ内の処理でいつか条件式が <code>false</code> になるようにしないと、<strong>無限ループ</strong>に陥ってしまう可能性があります。カウンター変数を更新し忘れるなどがよくある原因です。</p>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-9.png" alt="">
-<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-8.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-9.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-8.png" alt=""></p>
 <h3><code>do...while</code> ループ – とりあえず1回はやってみる繰り返し</h3>
 <p><code>do...while</code> ループは <code>while</code> ループと似ていますが、<strong>条件式の評価が処理ブロックの後に行われる</strong>点が異なります。そのため、条件式の結果に関わらず、処理ブロックは<strong>最低でも1回は必ず実行されます</strong>。</p>
 <p>構文: <code>do { /* 繰り返す処理 */ } while (条件式);</code></p>
@@ -245,7 +245,7 @@ do {
 // (参考) Node.jsでユーザー入力を受け取るのは少し複雑なので、ここでは概念だけ。
 // 実際の入力処理は、readlineモジュールなどを使います。
 </code></pre>
-<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-10.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/11/image-10.png" alt=""></p>
 <p><code>do...while</code> は、例えば「ユーザーに何か入力してもらい、それが特定の条件を満たすまで繰り返す（ただし、最初は必ず入力してもらう）」といった場面で使えます。</p>
 <h3>無限ループにご注意！ – 終わらないループの恐怖</h3>
 <p>ループの条件式がいつまでも <code>false</code> にならなかったり、ループを抜ける処理がなかったりすると、プログラムは永遠に同じ処理を繰り返し続ける<strong>無限ループ</strong>という状態に陥ります。</p>
