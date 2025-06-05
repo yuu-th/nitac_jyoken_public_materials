@@ -43,7 +43,7 @@ jobs:
 
       - name: Convert Markdown files
         run: |
-          set BASE_PATH=/nitac_jyoken_public_materials
+          set BASE_PATH="/nitac_jyoken_public_materials"
           node convert.js # convert.jsの実行
 
       - name: Configure Git
