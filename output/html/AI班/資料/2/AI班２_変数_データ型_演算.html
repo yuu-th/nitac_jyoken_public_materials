@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AI班２_変数_データ型_演算</title>
-        <link rel="stylesheet" href="../../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>Pythonプログラミング入門：変数、データ型、演算</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI班２_変数_データ型_演算</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>Pythonプログラミング入門：変数、データ型、演算</h1>
 <p>前回は開発環境を整えて、初めての <code>print(&quot;Hello, World!&quot;)</code> を実行し、またコメントの重要性について学びました。</p>
 <p>今回は、プログラミングでデータを扱うための超基本にして超重要な「<strong>変数</strong>」と「<strong>データ型</strong>」、そしてそれらを使った簡単な「<strong>演算</strong>」について学んでいきます。ここをしっかり押さえると、プログラムでできることの幅が一気に広がります。覚えることも多いかもしれませんが、少しずつ慣れていきましょう</p>
 <h2>目次</h2>
@@ -97,7 +40,7 @@
 <p>プログラムでは、数値や文字列など、様々な「データ」を扱います。このデータを一時的に保存しておいたり、後で使ったりするために用意するのが「<strong>変数</strong>」です。</p>
 <p>変数とは、<strong>データを入れておくための名前付きの箱</strong>のようなものだとイメージしてください。箱に名前（これが<strong>変数名</strong>）をつけて、その中にデータ（これが<strong>値</strong>）を入れておく感じです。</p>
 <p>例えば、テストの点数「80」というデータに「<code>score</code>」という名前の変数を用意したり、自分の名前「山田太郎」というデータに「<code>my_name</code>」という変数を用意したりできます。こうすることで、後から「<code>score</code>」や「<code>my_name</code>」という名前で、中のデータを取り出して使うことができるんです。便利ですよね！</p>
-<p><img src="image.png" alt="alt text"></p>
+<p><img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/2/image.png" alt=""></p>
 <h3>変数の作り方（定義）と使い方</h3>
 <p>Pythonで変数を作るのはとっても簡単です。基本の形はこれだけ！</p>
 <pre><code class="language-python">変数名 = 値
@@ -180,9 +123,9 @@ print(type(c))  # 変数 c のデータ型を表示
 &lt;class &#39;str&#39;&gt;
 </code></pre>
 <p>ちゃんとそれぞれのデータ型が表示されましたね！<code>type()</code> 関数は、デバッグ（プログラムの間違い探し）の時などにも役立つので、覚えておくと便利ですよ。</p>
-<p><img src="image-1.png" alt="alt text">
-<img src="image-2.png" alt="alt text">
-<img src="image-3.png" alt="alt text"></p>
+<p><img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/2/image-1.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/2/image-2.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/2/image-3.png" alt=""></p>
 <hr>
 <h2>3. 基本的な演算をマスターしよう</h2>
 <p>変数とデータ型が分かったところで、次はそれらを使って簡単な計算や操作をしてみましょう。これを「<strong>演算</strong>」と言い、演算に使われる記号を「<strong>演算子</strong>」と言います。</p>
@@ -349,6 +292,5 @@ print(&quot;result2のデータ型:&quot;, type(result2)) # こちらもデー�
 <p>次回は、今回少し触れた「文字列 (<code>str</code>型)」について、もっと詳しく掘り下げていきます。文字列を切り取ったり、特定の文字を探したり、色々な操作ができるように</p>
 <p>質問や要望などがあれば、いつでも部長のカトに聞いてくださいね。次回も頑張りましょう！</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ゲーム班４</title>
-        <link rel="stylesheet" href="../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>C#導入</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゲーム班４</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>C#導入</h1>
 <h2>UnityにおけるC</h2>
 <p>Unityで開発する上で使用される言語は主にC#です。JavaScriptも使用可能ですが、現在の開発環境ではC#が標準です。Unityの場合、一般的なC#に加えて「Unity特有の関数や機能」が多数存在するため、「Unity言語」と呼べるほどの特殊性があります。</p>
 <p>まずはC#の基本構文を理解し、Unity特有の機能は開発を進めながら徐々に習得していくことをお勧めします。</p>
@@ -88,9 +31,9 @@
 </ol>
 <h2>変数と型</h2>
 <p>変数とは、データを一時的に保存するための「箱」のようなものです。変数にはそれぞれ保存できるデータの種類（型）が決まっており、一度に保存できるデータは1つだけです。</p>
-<p><img src="image.png" alt="alt text"></p>
+<p><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/4/image.png" alt=""></p>
 <p>変数には整数、小数、文字列など様々な型があります。C#では使用前に変数の型を宣言する必要があります。</p>
-<p><img src="%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A.png" alt="alt text"></p>
+<p><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/4/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A.png" alt=""></p>
 <p>上の画像の表が型の一覧です。丸がついてる方をよく使います。また、これに追加してunity特有のものもあるので都度都度言います。</p>
 <p><strong>今、理解すべき型：</strong></p>
 <ul>
@@ -149,7 +92,7 @@ Debug.Log(playerName + &quot;のレベルは &quot; + level + &quot; です。&q
 <p>このように、変数はプログラムの中でデータを扱ったり、情報を表示したりするために非常に重要です。</p>
 <h3>論理演算</h3>
 <p>論理演算とは、ある条件が「真」か「偽」かを判断する演算です。つまり、「正しい」か「間違ってる」か。正しいか、間違っているかを調べる<strong>条件式</strong>にはさまざまな<strong>比較演算子</strong>を使用できます。</p>
-<p><img src="a.png" alt="alt text"><br>いろいろ書いてますが赤線のあるとこがよく使うものです。</p>
+<p><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/4/a.png" alt=""><br>いろいろ書いてますが赤線のあるとこがよく使うものです。</p>
 <p><strong>今、理解すべき比較演算子：</strong></p>
 <ul>
 <li><code>==</code> ：等しい（例: <code>a == b</code>）</li>
@@ -295,6 +238,5 @@ void Start() {
 <p>WEBサイトには粗悪なものがトップに出てくることがよくあります。(googleが金儲けのために...)
 そのため、一番上に出てきたサイトだけでなく、他のサイトも見る<strong>根気</strong>が必要です。</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

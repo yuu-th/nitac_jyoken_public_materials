@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AI班６_関数_エラーハンドリング_標準ライブラリ</title>
-        <link rel="stylesheet" href="../../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>関数、エラーハンドリング、標準ライブラリ</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI班６_関数_エラーハンドリング_標準ライブラリ</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>関数、エラーハンドリング、標準ライブラリ</h1>
 <p>前回は、「ループ」と「条件分岐」を学び、プログラムに複雑な流れや判断をさせることができるようになりましたね！これで、面倒な繰り返し作業や、状況に応じた処理の切り替えはお手の物になったはずです。</p>
 <p>さあ、今回はプログラミングの世界で「整理整頓の達人」とも言える「<strong>関数 (かんすう)</strong>」と、Pythonが最初から用意してくれている超便利な道具箱「<strong>標準ライブラリ</strong>」について学びます！
 関数をマスターすれば、あなたの書くプログラムはもっとスッキリ整理され、同じ処理を何度も書く手間が省けます。そして標準ライブラリを知れば、複雑な計算や日付の扱い、ランダムなことまで、まるで魔法のように簡単に実現できるようになります。
@@ -123,7 +66,7 @@ AI開発においても、これらの知識は非常に重要です。自分で
 <p>そこで登場するのが「<strong>関数</strong>」です！
 関数とは、<strong>一連の処理をひとまとめにして名前をつけたもの</strong>、いわばプログラムの「部品」のようなものです。
 例えば、「挨拶をする」という処理や、「2つの数値を受け取って合計を計算する」という処理をそれぞれ関数として作っておけば、必要な時にその関数の名前を呼ぶだけで、その処理を実行できるようになります。</p>
-<p><img src="image-1.png" alt="alt text"> <!-- 関数の概念図：入力があって処理をして出力がある箱のようなイメージ --></p>
+<p><img src="image-1.png" alt=""> <!-- 関数の概念図：入力があって処理をして出力がある箱のようなイメージ --></p>
 <h3>関数のメリット：整理整頓、再利用、読みやすさアップ</h3>
 <p>関数を使うと、たくさんのいいことがあります。</p>
 <ul>
@@ -185,7 +128,7 @@ print(&quot;passのテスト完了&quot;)
 <hr>
 <h2>3. 関数に情報を渡す：引数 (ひきすう)</h2>
 <p>関数は、ただ決まった処理をするだけでなく、呼び出される時に外部から情報を受け取って、その情報に基づいて処理を変えることができます。この関数に渡す情報のことを「<strong>引数 (ひきすう)</strong>」と呼びます。</p>
-<p><img src="image-2.png" alt="alt text"> <!-- 引数がある関数の概念図：入力の口が複数ある箱のイメージ --></p>
+<p><img src="image-2.png" alt=""> <!-- 引数がある関数の概念図：入力の口が複数ある箱のイメージ --></p>
 <h3>引数とは？</h3>
 <p>関数を定義するときに、丸括弧 <code>()</code> の中に変数名を書くことで、その関数が受け取る引数を指定できます。この定義時に書く引数のことを「<strong>仮引数 (parameter)</strong>」と呼びます。
 そして、関数を呼び出す時に実際に渡す値のことを「<strong>実引数 (argument)</strong>」と呼びます。</p>
@@ -284,7 +227,7 @@ greet_with_country(&quot;John&quot;, &quot;アメリカ&quot;) # country引数�
 <hr>
 <h2>4. 関数から結果を受け取る：戻り値 (もどりち)</h2>
 <p>関数は、処理を実行するだけでなく、その結果を呼び出し元に返すことができます。この返される値のことを「<strong>戻り値 (もどりち)</strong>」または「<strong>返り値 (かえりち)</strong>」と呼びます。</p>
-<p><img src="image-3.png" alt="alt text"> <!-- 戻り値がある関数の概念図：処理結果が出てくる出口がある箱のイメージ --></p>
+<p><img src="image-3.png" alt=""> <!-- 戻り値がある関数の概念図：処理結果が出てくる出口がある箱のイメージ --></p>
 <h3><code>return</code> で値を返す</h3>
 <p>関数から値を返すには <code>return</code> というキーワードを使います。</p>
 <pre><code class="language-python">def add(x, y):
@@ -343,7 +286,7 @@ simple_greet関数の戻り値: None
 <hr>
 <h2>5. 変数が使える範囲：スコープを意識しよう</h2>
 <p>プログラムの中で定義した変数は、どこからでも自由に使えるわけではありません。変数が有効な範囲（つまり、その変数にアクセスできる範囲）のことを「<strong>スコープ</strong>」と呼びます。</p>
-<p><img src="image-4.png" alt="alt text"> <!-- スコープの概念図：関数の中と外で変数の見える範囲が違うイメージ --></p>
+<p><img src="image-4.png" alt=""> <!-- スコープの概念図：関数の中と外で変数の見える範囲が違うイメージ --></p>
 <h3>ローカル変数：関数の中でだけ使える</h3>
 <p>関数の中で定義された変数は、その関数の中だけで有効です。これを「<strong>ローカル変数 (local variable)</strong>」と呼びます。関数の外からローカル変数にアクセスしようとするとエラーになります。</p>
 <pre><code class="language-python">def my_function():
@@ -897,6 +840,5 @@ print(&quot;\n演習お疲れ様でした！&quot;)
 <p>次回の資料では、今まで学んできたことを振り返り、知識を整理しましょう。そして、実際にAI開発を行うために利用していくライブラリに立ち向かう前準備を指定行きます。</p>
 <p>分からないこと、もっと知りたいことがあれば、いつでも遠慮なく部長のカトに気軽に質問してくださいね！みんなで一緒にスキルアップしていきましょう！</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

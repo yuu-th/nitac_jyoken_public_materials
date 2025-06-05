@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI班/資料/4 - ドキュメント一覧</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --accent-color: #3b82f6;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --dark-color: #1f2937;
+      --light-color: #f8fafc;
+      --border-color: #e5e7eb;
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--light-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ヘッダー */
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    /* ブレッドクラム */
+    .breadcrumb {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .breadcrumb-link:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb-separator {
+      margin: 0 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .breadcrumb-current {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* サブディレクトリナビゲーション */
+    .subdirectory-nav {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2rem;
+    }
+
+    .subdirectory-nav h3 {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .subdirectory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .subdirectory-card {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: var(--light-color);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+
+    .subdirectory-card:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .subdirectory-icon {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-right: 1rem;
+    }
+
+    .subdirectory-info h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .subdirectory-info p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ファイルセクション */
+    .files-section {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2rem;
+    }
+
+    .files-section h3 {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .file-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .file-card {
+      background: var(--light-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .file-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .file-info {
+      margin-bottom: 1rem;
+    }
+
+    .file-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .file-icon {
+      color: var(--primary-color);
+    }
+
+    .file-path {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+
+    .marp-tag {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .path-tag {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .file-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-html {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .btn-html:hover {
+      background: var(--secondary-color);
+    }
+
+    .btn-pdf {
+      background: var(--danger-color);
+      color: white;
+    }
+
+    .btn-pdf:hover {
+      background: #dc2626;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .subdirectory-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .file-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .file-actions {
+        flex-direction: column;
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1><i class="fas fa-folder-open"></i> ドキュメント一覧</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="../../../index.html" class="breadcrumb-link">ルート</a> <span class="breadcrumb-separator">&gt;</span> <a href="../../index.html" class="breadcrumb-link">AI班</a> <span class="breadcrumb-separator">&gt;</span> <a href="../index.html" class="breadcrumb-link">資料</a> <span class="breadcrumb-separator">&gt;</span> <span class="breadcrumb-current">4</span>
+    </nav>
+
+    
+
+    <div class="files-section"><h3><i class="fas fa-file-alt"></i> このディレクトリのファイル</h3><div class="file-grid">
+      <div class="file-card fade-in" data-name="ai班４_リスト_辞書" data-category="regular">
+        <div class="file-info">
+          <h4 class="file-name">
+            <i class="fas fa-file-alt file-icon"></i>
+            AI班４_リスト_辞書
+          </h4>
+          <p class="file-path">AI班/資料/4/AI班４_リスト_辞書.md</p>
+          
+        </div>
+        <div class="file-actions">
+          <a href="../../../html/AI班/資料/4/AI班４_リスト_辞書.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+          <a href="../../../pdf/AI班/資料/4/AI班４_リスト_辞書.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+        </div>      </div>
+    </div></div>
+
+    
+  </div>
+</body>
+</html>

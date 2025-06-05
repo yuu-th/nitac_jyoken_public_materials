@@ -1,75 +1,18 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>no4</title>
-        <link rel="stylesheet" href="../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>ゲーム作り2</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>no4</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>ゲーム作り2</h1>
 <h2>敵を作ろう</h2>
-<p>あなたが正義を説くのならそれは誰かの悪でもあるわけです。というわけで敵を作りましょう。<br>今回は敵を作りにあたってprefabという機能を使います。敵は基本的に複数います。これらを1体1体作っていたら作業量が膨大になってしまいます。これを回避するためにそのオブジェクトの原型を作って、それらをコピーしてゲームシーン上に出す機能がprefabです。<br>今までと同じようにヒエラルキーで右クリックから2D object &gt; sprite &gt; square　で名前をenemyとしましょう<br><img src="image.png" alt="alt text"><br>これをprefabにします。やり方としてはヒエラルキー上のオブジェクトをプロジェクトウィンドウにドラッグアンドドロップするだけです。
-<img src="image-1.png" alt="alt text"><br>画像のようにenemyが青っぽくなればできています。これから敵を編集するときはヒエラルキーにあるenemyではなくプロジェクトウィンドウの方のenemyを変更します。また、インスペクターウィンドウからSpriteをtilemap_packed_114として、BoxCollider2DとRigidbody2Dをつけましょう。<br><img src="image-2.png" alt="alt text">  </p>
+<p>あなたが正義を説くのならそれは誰かの悪でもあるわけです。というわけで敵を作りましょう。<br>今回は敵を作りにあたってprefabという機能を使います。敵は基本的に複数います。これらを1体1体作っていたら作業量が膨大になってしまいます。これを回避するためにそのオブジェクトの原型を作って、それらをコピーしてゲームシーン上に出す機能がprefabです。<br>今までと同じようにヒエラルキーで右クリックから2D object &gt; sprite &gt; square　で名前をenemyとしましょう<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image.png" alt=""><br>これをprefabにします。やり方としてはヒエラルキー上のオブジェクトをプロジェクトウィンドウにドラッグアンドドロップするだけです。
+<img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-1.png" alt=""><br>画像のようにenemyが青っぽくなればできています。これから敵を編集するときはヒエラルキーにあるenemyではなくプロジェクトウィンドウの方のenemyを変更します。また、インスペクターウィンドウからSpriteをtilemap_packed_114として、BoxCollider2DとRigidbody2Dをつけましょう。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-2.png" alt="">  </p>
 <h3>プレイヤーと敵の死亡判定</h3>
-<p>プレイヤーが敵に当たったら死ぬようにしましょう。当たり判定と接触したときにそれが地面なのか敵なのかを判定しなければなりません。今回は、tagという機能を使って判定します。まず、敵にtagをつけましょう。enemyを選択してインスペクターウィンドウから上部のtagを選んでAdd tagを選択して+からEnemyと入力してsaveを押してください。<br><img src="image-3.png" alt="alt text"><br><img src="image-4.png" alt="alt text"><br><img src="image-5.png" alt="alt text"><br>次にPlayerControllerの編集をします。当たり判定をいじるのでこの部分を変更します。</p>
+<p>プレイヤーが敵に当たったら死ぬようにしましょう。当たり判定と接触したときにそれが地面なのか敵なのかを判定しなければなりません。今回は、tagという機能を使って判定します。まず、敵にtagをつけましょう。enemyを選択してインスペクターウィンドウから上部のtagを選んでAdd tagを選択して+からEnemyと入力してsaveを押してください。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-3.png" alt=""><br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-4.png" alt=""><br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-5.png" alt=""><br>次にPlayerControllerの編集をします。当たり判定をいじるのでこの部分を変更します。</p>
 <pre><code>    private void OnCollisionEnter2D(Collision2D collision)
     {
         is_field = true;
@@ -111,7 +54,7 @@
         is_field = true;
     }
 </code></pre>
-<p>上から踏んだかどうかの判定は法線での判定を使いましょう。法線というのは当たり判定の接触面からプレイヤーに線を引いたときにできる線のことで上向きであるほど1に近づき、下向きであるほど-1に近づきます。<br><img src="image-7.png" alt="alt text"><br>この黒線が法線で、画像の場合だいたい0.5くらいです。今回はプレイヤーと敵の接触でできた法線が0.7以上なら敵を踏んで倒せたことにしましょう。　　</p>
+<p>上から踏んだかどうかの判定は法線での判定を使いましょう。法線というのは当たり判定の接触面からプレイヤーに線を引いたときにできる線のことで上向きであるほど1に近づき、下向きであるほど-1に近づきます。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-7.png" alt=""><br>この黒線が法線で、画像の場合だいたい0.5くらいです。今回はプレイヤーと敵の接触でできた法線が0.7以上なら敵を踏んで倒せたことにしましょう。　　</p>
 <pre><code>    private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == &quot;Enemy&quot;)
@@ -150,9 +93,9 @@
     }
 }
 </code></pre>
-<p>PlayerControllerの復習にもなると思います。始めにRigitbody2Dを取得して、Update関数で速度制限を設けながらAddforceで力を加えています。Enemy(Prefabの元の方)にEnemyControllerをつけて実行してみてください。<br><img src="image-8.png" alt="alt text">  </p>
+<p>PlayerControllerの復習にもなると思います。始めにRigitbody2Dを取得して、Update関数で速度制限を設けながらAddforceで力を加えています。Enemy(Prefabの元の方)にEnemyControllerをつけて実行してみてください。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-8.png" alt="">  </p>
 <p>そしてここで忘れていましたがたまに敵やプレイヤーが転んだり、プレイヤーと敵がぶつかったときに押されて移動するときがあると思います。これを修正しましょう。まず、転ぶのに関してはRigitbody2Dの設定で治せます。z軸での回転を無効化しましょう。　　
-<img src="image-9.png" alt="alt text"><br>画像のようにFreeze Rotation Z にチェックをいれてください。両方のオブジェクトで行ってください。次に押されるのを直しましょう。これは物理演算によって押されているので、重さを変更しましょう。EnemyのRigitbody2Dを見てください。<br><img src="image-10.png" alt="alt text"><br>また、敵が移動しているときに突然止まることがあるときはBoxCollider2DのEdgeRadiusを0.01くらいに設定してください。<br><img src="image-11.png" alt="alt text"><br>また、最後に敵が壁にぶつかったら逆方向に折り返すようにしましょう。これは、移動ができなかった場合、反転するというやり方で実装します。  </p>
+<img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-9.png" alt=""><br>画像のようにFreeze Rotation Z にチェックをいれてください。両方のオブジェクトで行ってください。次に押されるのを直しましょう。これは物理演算によって押されているので、重さを変更しましょう。EnemyのRigitbody2Dを見てください。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-10.png" alt=""><br>また、敵が移動しているときに突然止まることがあるときはBoxCollider2DのEdgeRadiusを0.01くらいに設定してください。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-11.png" alt=""><br>また、最後に敵が壁にぶつかったら逆方向に折り返すようにしましょう。これは、移動ができなかった場合、反転するというやり方で実装します。  </p>
 <pre><code>    Vector3 last_pos;
     int vector_pm = -1;
     void FixedUpdate()
@@ -208,7 +151,7 @@
     }
 </code></pre>
 <h3>ゴール作り</h3>
-<p>今回はゴールしたらそれを検知するまででいいです。今までと同じようにオブジェクト作成しましょう。<br><img src="image-12.png" alt="alt text"><br><img src="image-13.png" alt="alt text"><br>また画像はtilemap_packed_146としましょう。今回、このオブジェクトに物理演算はさせないので、BoxCollider2Dのみつけましょう。<br><img src="image-14.png" alt="alt text"><br>またGoalタグを作成し、つけましょう。<br><img src="image-15.png" alt="alt text"><br>PlayerControllerに戻り、当たり判定に変更を加えましょう。  </p>
+<p>今回はゴールしたらそれを検知するまででいいです。今までと同じようにオブジェクト作成しましょう。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-12.png" alt=""><br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-13.png" alt=""><br>また画像はtilemap_packed_146としましょう。今回、このオブジェクトに物理演算はさせないので、BoxCollider2Dのみつけましょう。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-14.png" alt=""><br>またGoalタグを作成し、つけましょう。<br><img src="/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC4%E5%9B%9E/image-15.png" alt=""><br>PlayerControllerに戻り、当たり判定に変更を加えましょう。  </p>
 <pre><code>    private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == &quot;Enemy&quot;)
@@ -231,6 +174,5 @@
 </code></pre>
 <p>これで最低限です。次はクリア後の処理とタイトルからの移動、リスタートを作りましょう。</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

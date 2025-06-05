@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WEB班１０_JS_演算子とデータ構造</title>
-        <link rel="stylesheet" href="../../../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>第3章: 演算子と基本的なデータ構造 – 計算、比較、そして情報の集まり</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEB班１０_JS_演算子とデータ構造</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>第3章: 演算子と基本的なデータ構造 – 計算、比較、そして情報の集まり</h1>
 <p>前回は、JavaScriptの心臓部とも言える「変数」と「データ型」について学びましたね。情報をしまう箱と、その中身の種類が分かれば、いよいよそれらを使って色々な操作ができるようになります！</p>
 <p>この章では、まずプログラムの中で計算をしたり、値を比べたりするための「<strong>演算子</strong>」という記号たちと友達になります。四則演算はもちろん、条件によって処理を変えるための比較や論理の演算子も登場しますよ。</p>
 <p>そして後半では、たくさんの情報をまとめてスッキリ管理するための「<strong>配列</strong>」と「<strong>オブジェクト</strong>」という、JavaScriptの強力な武器を手に入れます。これらを使いこなせるようになると、プログラムで表現できることの幅がぐーんと広がります！</p>
@@ -541,8 +484,8 @@ colors[1] = &quot;紫&quot;; // 1番目の要素 &quot;緑&quot; を &quot;紫&q
 console.log(&quot;変更後の色リスト:&quot;, colors); // [&quot;赤&quot;, &quot;紫&quot;, &quot;青&quot;, &quot;黄色&quot;]
 </code></pre>
 <p><strong>超重要ポイント:</strong> 配列のインデックスは <strong>0から始まる</strong> ということを絶対に忘れないでください！プログラミング初心者がよく間違えるポイントの一つです。「1番目」の要素はインデックス <code>0</code>、「2番目」の要素はインデックス <code>1</code> です。</p>
-<p><img src="image.png" alt="alt text">
-<img src="image-1.png" alt="alt text"></p>
+<p><img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/10/image.png" alt="">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/10/image-1.png" alt=""></p>
 <h3>配列を便利に操作！ – 基本的な配列メソッド</h3>
 <p>配列には、要素を追加したり、削除したり、検索したりするための便利な機能（<strong>メソッド</strong>と呼びます）がたくさん用意されています。ここでは、特によく使う基本的なメソッドをいくつか紹介します。</p>
 <h4>末尾に追加・削除: <code>push()</code>, <code>pop()</code> (箱の中身が変わるよ！)</h4>
@@ -924,6 +867,5 @@ console.log(&quot;こんにちは、私の名前は&quot; + person.name + &quot;
 <p>これらの知識は、これからより複雑なプログラムを組んでいく上で、何度も何度も使うことになる土台です。特に配列とオブジェクトは、JavaScriptでデータを扱う際の中心的な役割を担います。</p>
 <p>次回は、プログラムの流れを操るための「<strong>制御フロー</strong>」について学びます。条件によって処理を分けたり（<code>if</code>文、<code>switch</code>文）、同じ処理を繰り返したり（<code>for</code>ループ、<code>while</code>ループ）する方法をマスターすれば、いよいよ本格的なプログラムらしいプログラムが書けるようになりますよ！お楽しみに！</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WEB班９_JS_変数とデータ型</title>
-        <link rel="stylesheet" href="../../../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>第2章: 変数とデータ型 – 情報の入れ物と種類</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEB班９_JS_変数とデータ型</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>第2章: 変数とデータ型 – 情報の入れ物と種類</h1>
 <p>前回は、JavaScriptがどんな言語で、HTMLやCSSとどう連携するのか、そしてプログラムを書く上での基本的なお作法について学びましたね。いよいよ今回は、プログラミングの本当に基本的な部品となる「変数」と「データ型」について深く掘り下げていきます！</p>
 <p>「変数」と聞くと、なんだか数学みたいで難しそう…と感じるかもしれませんが、心配しないでください！プログラミングにおける変数は、情報を一時的にしまっておくための「名前付きの箱」のようなものなんです。そして「データ型」は、その箱にどんな種類の情報を入れられるか、というルールのようなものです。</p>
 <p>この章をマスターすれば、プログラムの中で情報を扱ったり、計算したりするための基礎がバッチリ身につきます。最初は覚えることが少し多いかもしれませんが、一つ一つ丁寧に解説していきますので、一緒に頑張りましょう！ここを乗り越えれば、JavaScriptでできることの幅がぐっと広がりますよ！</p>
@@ -172,8 +115,8 @@ console.log(favoriteFruits); // [&quot;ぶどう&quot;, &quot;バナナ&quot;, &
 // favoriteFruitsという箱自体を、別の配列に差し替えようとするとエラー
 // favoriteFruits = [&quot;メロン&quot;, &quot;スイカ&quot;]; // TypeError: Assignment to constant variable.
 </code></pre>
-<p><img src="image.png" alt="alt text">
-<img src="image-1.png" alt="alt text"></p>
+<p><img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image.png" alt="">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-1.png" alt=""></p>
 <p>この挙動は最初は少しややこしく感じるかもしれませんが、「<code>const</code> は変数の再代入を防ぐもので、中身の変更まで完全に禁止するわけではない（特にオブジェクトや配列の場合）」と覚えておきましょう。</p>
 <h3>宣言と代入 – 箱の用意と中身の投入</h3>
 <p>変数を使う流れを整理すると、以下のようになります。</p>
@@ -400,9 +343,9 @@ testScope();
 <p>このブロックスコープのおかげで、変数が意図しない範囲に影響を与えるのを防ぎやすくなり、より安全なコードを書くことができます。<code>let</code> と <code>const</code> が推奨される大きな理由の一つです。</p>
 <h3>スコープのイメージ図</h3>
 <p>スコープの関係を視覚的にイメージすると、以下のようになります。</p>
-<p><img src="image-2.png" alt="alt text">
-<img src="image-3.png" alt="alt text">
-<img src="image-4.png" alt="alt text"></p>
+<p><img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-2.png" alt="">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-3.png" alt="">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-4.png" alt=""></p>
 <p>プログラムは、内側のスコープから外側のスコープにある変数にはアクセスできますが、外側のスコープから内側のスコープにある変数には（基本的に）アクセスできません。また、同じレベルの別のスコープにある変数にもアクセスできません。</p>
 <hr>
 <h2>5. 変数の巻き上げ (Hoisting) – ちょっと不思議な現象</h2>
@@ -620,6 +563,5 @@ console.log(&quot;\&quot;hello\&quot; をBooleanに変換:&quot;, Boolean(&quot;
 <p>たくさんの新しい言葉や概念が出てきて大変だったかもしれませんが、これらの知識は今後のJavaScript学習の土台となります。実際に手を動かしてコードを書いてみることで、少しずつ体に染み込んでいきますよ。</p>
 <p>次回は、計算や比較を行うための「<strong>演算子</strong>」と、複数の情報をまとめて扱うための基本的なデータ構造である「<strong>配列</strong>」と「<strong>オブジェクト</strong>」について詳しく見ていきます。プログラムでできることが、さらにぐっと広がりますので、お楽しみに！</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

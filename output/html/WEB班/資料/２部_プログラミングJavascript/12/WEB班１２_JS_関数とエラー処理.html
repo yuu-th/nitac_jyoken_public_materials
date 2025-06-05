@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WEB班１２_JS_関数とエラー処理</title>
-        <link rel="stylesheet" href="../../../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>第5章: 関数とスコープ、エラー処理 – 処理の部品化とその周辺知識</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEB班１２_JS_関数とエラー処理</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>第5章: 関数とスコープ、エラー処理 – 処理の部品化とその周辺知識</h1>
 <p>前回は、計算や比較を行うための「演算子」と、複数の情報をまとめて扱う「配列」や「オブジェクト」について学びましたね。プログラムで扱えるデータの種類が増え、少しずつ複雑なことも表現できるようになってきたのではないでしょうか。</p>
 <p>さて今回は、プログラミングの非常に強力な概念である「<strong>関数</strong>」について深く掘り下げていきます！関数とは、特定の処理をひとまとめにして名前をつけた「部品」のようなものです。この部品をうまく使うことで、同じ処理を何度も書く手間を省いたり、プログラム全体をスッキリ整理したり、さらには他の人が作った便利な部品を借りてきたりすることもできるようになります。</p>
 <p>そして、関数と密接に関わってくるのが「<strong>スコープ</strong>」という考え方です。これは以前にも少し触れましたが、変数がどの範囲で有効なのか、というルールでしたね。関数を使うことで新しいスコープが生まれるので、その仕組みをしっかり理解することが大切です。</p>
@@ -404,9 +347,9 @@ const oldSolutionObject = {
 oldSolutionObject.greet();
 </code></pre>
 <p>従来の関数の場合
-<img src="image.png" alt="alt text"></p>
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image.png" alt=""></p>
 <p>アロー関数の場合
-<img src="image-1.png" alt="alt text">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-1.png" alt="">
 (従来の関数であれば、objを返すところが、arrowを定義したところでのthis=windowが与えられている)</p>
 <p><strong><code>this</code> の挙動はJavaScriptの中でも特に難しい部分の一つです。</strong>
 アロー関数は、コールバック関数（他の関数に渡される関数）の中で、外側の <code>this</code> をそのまま使いたい場合に非常に便利です。一方、オブジェクトのメソッドを定義する場合は、通常、従来の関数式を使った方が意図通りに <code>this</code> がそのオブジェクトを指すため、適切です。</p>
@@ -673,8 +616,8 @@ outerFunc();
 </code></pre>
 <p><code>innerFunc</code> は <code>outerFunc</code> の中で定義されているため、<code>innerFunc</code> は <code>outerFunc</code> のスコープ（<code>y</code> がある場所）と、さらにその外側のグローバルスコープ（<code>x</code> がある場所）にアクセスできます。
 この「関数が定義された場所でスコープが決まる」という性質が、先ほど説明したクロージャの基礎にもなっています。</p>
-<p><img src="image-2.png" alt="alt text">
-<img src="image-3.png" alt="alt text"></p>
+<p><img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-2.png" alt="">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-3.png" alt=""></p>
 <hr>
 <h2>5. 即時実行関数 (IIFE) – ちょっと特殊な関数の使い方</h2>
 <p><strong>即時実行関数 (Immediately Invoked Function Expression, IIFE)</strong> とは、関数を定義すると同時に実行する書き方です。</p>
@@ -1039,6 +982,5 @@ testSquareRoot(&quot;abc&quot;); // TypeErrorを発生させるテスト
 <p>ここで、まずJavascriptというプログラミング言語の勉強はひとまず区切りにしましょう。</p>
 <p>次回は、いよいよブラウザ上でJavaScriptを動かすための第一歩、「<strong>DOMの探求 – HTMLをJavaScriptで操る</strong>」です！JavaScriptを使ってウェブページの内容を動的に変更したり、ユーザーの操作に反応したりする方法を学んでいきます。ウェブ開発の面白さが一気に花開く章ですので、お楽しみに！</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

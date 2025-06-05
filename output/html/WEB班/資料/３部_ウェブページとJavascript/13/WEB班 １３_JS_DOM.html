@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WEB班 １３_JS_DOM</title>
-        <link rel="stylesheet" href="../../../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>第6章: DOMの探求 – HTMLをJavaScriptで操る</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEB班 １３_JS_DOM</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>第6章: DOMの探求 – HTMLをJavaScriptで操る</h1>
 <p>前回は、プログラムの流れを自在に操る「制御フロー」について学びましたね！<code>if</code>文で条件によって処理を変えたり、<code>for</code>ループで同じ処理を繰り返したりできるようになり、作れるプログラムの幅がぐっと広がったことと思います。</p>
 <p>さて今回は、いよいよJavaScriptの真骨頂とも言える「<strong>DOM操作</strong>」について学んでいきます。DOMって何？って思うかもしれませんが、簡単に言うと「<strong>JavaScriptを使ってウェブページのHTML要素を自由自在に操るための仕組み</strong>」のことです。これができるようになると、ユーザーのアクションに応じてウェブページの内容を動的に変えたり、アニメーションをつけたりと、インタラクティブなウェブサイトを作れるようになります！</p>
 <p>例えば、「ボタンをクリックしたら新しいメッセージが表示される」「入力フォームに文字を入れたらリアルタイムでプレビューが変わる」といった動きは、このDOM操作の技術が使われています。最初は覚えることが少し多く感じるかもしれませんが、一つ一つ丁寧に見ていけば大丈夫。この章をマスターすれば、あなたのウェブページがまるで生きているかのように動き出すはずです。さあ、HTMLを自在に操る魔法使いになるための第一歩を踏み出しましょう！</p>
@@ -146,7 +89,7 @@
 </code></pre>
 <p>このHTMLを、JavaScriptはDOMを通して、下のような階層構造（ツリー構造）として認識します。</p>
 <h3>DOMツリー – HTMLの構造を図で見てみよう</h3>
-<p><img src="image-1.png" alt="alt text"></p>
+<p><img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-1.png" alt=""></p>
 <ul>
 <li>一番上の <code>&lt;html&gt;</code> が木の根っこ（ルート）で、そこから <code>&lt;head&gt;</code> や <code>&lt;body&gt;</code> が枝分かれし、さらにその下に <code>&lt;title&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code> といった要素が葉っぱのようにつながっています。</li>
 <li>この一つ一つの要素やテキスト、コメントなどを<strong>ノード (Node)</strong> と呼びます。</li>
@@ -407,7 +350,7 @@ staticArray.forEach(function(divElement) {
 </ul>
 </li>
 </ul>
-<p><img src="image-2.png" alt="alt text"></p>
+<p><img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-2.png" alt=""></p>
 <p><strong>HTML例:</strong></p>
 <pre><code class="language-html">&lt;div id=&quot;parent&quot;&gt;
   &lt;!-- これはコメントです --&gt;
@@ -511,7 +454,7 @@ contentArea.innerHTML = &quot;&lt;h2&gt;新しいタイトル&lt;/h2&gt;&lt;p&gt
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>  <img src="image-3.png" alt="alt text"></p>
+<p>  <img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-3.png" alt=""></p>
 </li>
 <li><p><strong>使い所:</strong> HTML構造を動的に生成してページに埋め込みたい場合など、<code>innerHTML</code> が便利な場面もありますが、その際は<strong>入力される値を厳格にサニタイズ（無害化）する処理が必須</strong>です。初学者のうちは、できるだけ <code>textContent</code> を使うように心がけ、<code>innerHTML</code> を使う場合はその危険性を常に意識しましょう。</p>
 </li>
@@ -810,8 +753,8 @@ if (myListContainer) {
   myListContainer.appendChild(fragment); // 最後にまとめてDOMに追加 (ここで1回再描画)
 }
 </code></pre>
-<p><img src="image-4.png" alt="alt text">
-<img src="image-5.png" alt="alt text"></p>
+<p><img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-4.png" alt="">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-5.png" alt=""></p>
 <h3>ループの外で要素参照</h3>
 <p>ループの中で何度も同じDOM要素を取得するようなコードは避け、ループの前に一度だけ取得して変数に保存しておきましょう。</p>
 <pre><code class="language-javascript">// 悪い例 (ループ内で毎回要素を取得)
@@ -883,9 +826,9 @@ if (myBox) {
   // }
 }
 </code></pre>
-<p><img src="image-7.png" alt="alt text">
-<img src="image-8.png" alt="alt text">
-<img src="image-6.png" alt="alt text"></p>
+<p><img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-7.png" alt="">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-8.png" alt="">
+<img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%93%E9%83%A8_%E3%82%A6%E3%82%A7%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8Javascript/13/image-6.png" alt=""></p>
 <p>これらのプロパティは、要素の位置やサイズに基づいて何か処理を行いたい場合（例えば、ツールチップを要素の隣に表示するなど）に役立ちます。</p>
 <hr>
 <h2>✏️ 本日の演習</h2>
@@ -1098,6 +1041,5 @@ function addInitialTask(text) {
 <p>これらの知識は、ユーザーインターフェースを動的に変化させたり、ユーザーのアクションに応じたインタラクティブな機能を作ったりする上で、絶対に欠かせないものです。最初は覚えることが多いと感じるかもしれませんが、実際に手を動かしてコードを書いていくうちに、自然と身についていきます。演習問題などを通して、ぜひ色々なDOM操作を試してみてくださいね。</p>
 <p>次回は、ユーザーのクリックやキーボード入力といった「<strong>イベント</strong>」をJavaScriptでどう扱うか、そしてそのイベントに応じてDOM操作を実行する方法、つまり「<strong>イベント処理</strong>」について詳しく学んでいきます。これができるようになると、いよいよ本格的なウェブアプリケーションの動きを作れるようになりますよ！お楽しみに！</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

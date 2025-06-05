@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AI班５_条件分岐_ループ</title>
-        <link rel="stylesheet" href="../../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>条件分岐、ループ</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI班５_条件分岐_ループ</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>条件分岐、ループ</h1>
 <p>前回は、「リスト」と「辞書」という、たくさんのデータをまとめて効率的に扱うための強力な武器を学びましたね。これで、クラスの名簿やゲームキャラクターのステータスなど、より複雑な情報もプログラムで管理できるようになりました！</p>
 <p>さあ、今回はプログラミングの心臓部とも言える「<strong>ループ（繰り返し処理）</strong>」と「<strong>条件分岐 (<code>if</code>文)</strong>」を学びます！ これらをマスターすれば、プログラムがまるで生き物のように、状況に応じて異なる動きをしたり、面倒な作業を何度も正確にこなしてくれたりするようになります。
 いよいよ本格的なプログラムらしいことができるようになってきます。じっくり、そして楽しみながら進んでいきましょう！</p>
@@ -229,11 +172,11 @@ if temperature &gt; 28:
 <li><code>:</code> (コロン): 条件式の後には必ずコロンをつけます。忘れやすいので注意！</li>
 <li><strong>インデント (字下げ)</strong>: <code>if</code>文の次の行から、条件が成り立った時に実行したい処理を書きますが、この部分は必ず<strong>インデント</strong>（半角スペース4つ分が一般的）を入れます。Pythonではこのインデントが非常に重要で、処理のまとまり（ブロック）を示します。インデントが正しくないと、エラーになったり、意図しない動きをしたりするので、しっかり意識してくださいね。</li>
 </ul>
-<p><img src="image-1.png" alt="alt text">
-<img src="image-2.png" alt="alt text">
-<img src="image-3.png" alt="alt text">
-<img src="image-5.png" alt="alt text">
-<img src="image-4.png" alt="alt text"></p>
+<p><img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-1.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-2.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-3.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-5.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-4.png" alt=""></p>
 <p>例えば、ある数値がプラスかどうかを判定するプログラムはこう書けます。</p>
 <pre><code class="language-python">number = 10
 if number &gt; 0:
@@ -290,11 +233,11 @@ elif signal == &quot;blue&quot;: # 地域によっては &quot;green&quot;
 else:
     print(f&quot;&#39;{signal}&#39; は信号の色として認識できません。&quot;)
 </code></pre>
-<p><img src="image-6.png" alt="alt text">
-<img src="image-7.png" alt="alt text">
-<img src="image-8.png" alt="alt text">
-<img src="image-10.png" alt="alt text">
-<img src="image-9.png" alt="alt text">
+<p><img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-6.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-7.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-8.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-10.png" alt="">
+<img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-9.png" alt="">
 <strong>ポイント：</strong> <code>if</code>, <code>elif</code>, <code>else</code> のブロックでは、条件に一致した最初のブロックだけが実行され、残りのブロックは無視されます。</p>
 <h3>条件式を組み立てるコツ (比較演算子、論理演算子、<code>in</code>演算子)</h3>
 <p><code>if</code>文の「条件式」には、結果が <code>True</code> か <code>False</code> になるような式を書きます。<strong>比較演算子</strong>や<strong>論理演算子</strong>です。</p>
@@ -359,7 +302,7 @@ if entered_id == user_id:
 else:
     print(&quot;IDが間違っています。&quot;)
 </code></pre>
-<p><img src="image.png" alt="alt text"></p>
+<p><img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image.png" alt=""></p>
 <p>ネストした<code>if</code>文を使うと、より複雑な条件分岐を表現できますが、あまり深くネストしすぎるとコードが読みにくくなることがあります。そんな時は、処理を関数に分けたり、条件式を見直したりすると良いでしょう。（関数については次回以降で学びます！）</p>
 <h3>ちょっと便利：条件式を1行で書く (三項演算子)</h3>
 <p>簡単な <code>if-else</code> の処理を1行で簡潔に書きたい場合があります。そんな時に使えるのが「<strong>三項演算子 (conditional expression)</strong>」です。</p>
@@ -620,7 +563,7 @@ print(&quot;ループが終了しました。&quot;)
 </code></pre>
 <p>もしプログラムが無限ループに陥ってしまって、VSCodeのターミナルで実行が止まらなくなったら、慌てずにキーボードの <strong><code>Ctrl</code>キーを押しながら <code>C</code>キー</strong> を押してください (<code>Ctrl+C</code>)。これで実行中のPythonプログラムを強制的に停止させることができます。
 これは非常に重要なショートカットなので、絶対に覚えておきましょう！「あれ、プログラムが止まらない！」と思ったら、まずは <code>Ctrl+C</code> です！</p>
-<p><img src="image-11.png" alt="alt text"></p>
+<p><img src="/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-11.png" alt=""></p>
 <hr>
 <h2>3. ループを自在にコントロール</h2>
 <p>ループ処理の途中で、「もうここでループを抜けたい！」とか「今回はこの処理を飛ばして次に進みたい！」と思うことがありますよね。そんな時に役立つのが <code>break</code> と <code>continue</code> という命令です。</p>
@@ -905,6 +848,5 @@ print(&quot;\n演習お疲れ様でした！&quot;)
 <p>次回は、「<strong>関数定義と標準ライブラリ</strong>」について学びます。自分でオリジナルの命令（関数）を作れるようになると、プログラムがもっと整理されて、再利用しやすくなりますよ！さらに、Pythonが最初から用意してくれている便利な道具箱（標準ライブラリ）の中身も一緒に見ていきましょう。ますますプログラミングが楽しくなること間違いなしです！</p>
 <p>分からないこと、つまづいたことがあれば、いつでも遠慮なく部長のカトに気軽に質問してくださいね！みんなで助け合いながら、スキルアップしていきましょう！</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>

@@ -1,70 +1,13 @@
-
-      <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>フロントエンド１</title>
-        <link rel="stylesheet" href="../../../style.css">
-        <style>
-          @font-face {
-            font-family: 'IPAGothic';
-            src: local('IPAGothic');
-          }
-          @font-face {
-            font-family: 'IPAMincho';
-            src: local('IPAMincho');
-          }
-          html, body {
-            font-family: "IPAGothic", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-          }
-          pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            padding: 16px;
-            overflow: auto;
-          }
-          code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            background-color: rgba(27, 31, 35, 0.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-          }
-          pre code {
-            background-color: transparent;
-            padding: 0;
-          }
-          blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 16px;
-            color: #555;
-            margin-left: 0;
-          }
-          img {
-            max-width: 100%;
-            height: auto;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          table, th, td {
-            border: 1px solid #ddd;
-          }
-          th, td {
-            padding: 8px 12px;
-          }
-          th {
-            background-color: #f6f8fa;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>HTMLファイルを実行（表示）してみよう</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フロントエンド１</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="markdown-body">
+<h1>HTMLファイルを実行（表示）してみよう</h1>
 <p>HTMLファイルを実際にコンピューターで表示させる方法を学びます。HTMLファイルはWebブラウザ（Google Chrome, Microsoft Edge, Firefoxなど）があれば見ることができますが、Webページを作りながら確認するには、もっと便利なツールを使うのがおすすめです。</p>
 <p>ここでは、多くのプロの開発者も使っている高機能なテキストエディタ <strong>Visual Studio Code (VSCode)</strong> と、その拡張機能 <strong>Live Server</strong> を使って、HTMLファイルを簡単に表示する方法を紹介します。</p>
 <h2>1. Visual Studio Code (VSCode) の準備</h2>
@@ -115,12 +58,12 @@
 <li><p>VSCodeを起動します。</p>
 </li>
 <li><p>画面左側にあるアイコンが並んだバー（アクティビティバー）から、<strong>四角が組み合わさったようなアイコン（拡張機能）</strong> をクリックします。</p>
-<p> <img src="image.png" alt="alt text"></p>
+<p> <img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%91%E9%83%A8__HTML%E3%81%A8CSS/image.png" alt=""></p>
 </li>
 <li><p>検索ボックスが表示されるので、「<strong>Live Server</strong>」と入力します。</p>
 </li>
 <li><p>検索結果に「Live Server」（作者: Ritwick Dey）が表示されるので、それをクリックします。</p>
-<p> <img src="image-1.png" alt="alt text"></p>
+<p> <img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%91%E9%83%A8__HTML%E3%81%A8CSS/image-1.png" alt=""></p>
 </li>
 <li><p>右側にLive Serverの詳細が表示されるので、「<strong>Install</strong>」(Install)ボタンをクリックします。</p>
 </li>
@@ -157,8 +100,8 @@
 <li>ファイル名の入力欄が表示されるので、<code>index.html</code> と入力して <code>Enter</code> キーを押します。</li>
 <li>これで、<code>MyWebSite</code> フォルダの中に <code>index.html</code> という空のファイルが作成され、右側のエディタ画面で開かれます。</li>
 </ul>
-<p> <img src="image-2.png" alt="alt text"></p>
-<p> <img src="image-3.png" alt="alt text"></p>
+<p> <img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%91%E9%83%A8__HTML%E3%81%A8CSS/image-2.png" alt=""></p>
+<p> <img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%91%E9%83%A8__HTML%E3%81%A8CSS/image-3.png" alt=""></p>
 <ul>
 <li><code>index.html</code> は、多くの場合Webサイトのトップページ（最初に表示されるページ）として使われる特別なファイル名です。</li>
 </ul>
@@ -198,7 +141,7 @@
 <li>表示されたメニューから「<strong>Open with Live Server</strong>」を選択します。</li>
 <li>または、VSCodeウィンドウ右下のステータスバーに「<strong>Go Live</strong>」というボタンがあれば、それをクリックしてもOKです。</li>
 </ul>
-<p> <img src="image-4.png" alt="alt text"></p>
+<p> <img src="/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%91%E9%83%A8__HTML%E3%81%A8CSS/image-4.png" alt=""></p>
 </li>
 <li><p><strong>ブラウザで確認</strong>:</p>
 <ul>
@@ -224,6 +167,5 @@
 </ul>
 <p>この環境があれば、HTMLやCSSの学習がよりスムーズに進みます。どんどんコードを書いて、表示を確認しながらWeb制作のスキルを身につけていきましょう！</p>
 
-      </body>
-      </html>
-    
+</body>
+</html>
