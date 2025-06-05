@@ -42,7 +42,9 @@ jobs:
           echo "wkhtmltopdf configured to run with Xvfb."
 
       - name: Convert Markdown files
-        run: node convert.js # convert.jsの実行
+        run: |
+          set BASE_PATH=/nitac_jyoken_public_materials
+          node convert.js # convert.jsの実行
 
       - name: Configure Git
         run: |
