@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゲーム班４</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>C#導入</h1>
+<h2>UnityにおけるC</h2>
+<p>Unityで開発する上で使用される言語は主にC#です。JavaScriptも使用可能ですが、現在の開発環境ではC#が標準です。Unityの場合、一般的なC#に加えて「Unity特有の関数や機能」が多数存在するため、「Unity言語」と呼べるほどの特殊性があります。</p>
+<p>まずはC#の基本構文を理解し、Unity特有の機能は開発を進めながら徐々に習得していくことをお勧めします。</p>
+<h2>C#について</h2>
+<p>C#はマイクロソフト社が開発した言語です。名前からC言語から派生したように見えますが、実際には直接の互換性はありません。C#はCとJavaの良い部分を取り入れた言語で、文法の多くはC言語に似ています。そのため、C言語の知識があれば比較的理解しやすいでしょう。</p>
+<h2>学習の流れ</h2>
+<ol>
+<li>プログラミングの基礎となる変数</li>
+<li>変数の様々な種類と型</li>
+<li>変数を使った演算</li>
+<li>制御構造<ol>
+<li>条件分岐（if-else文）</li>
+<li>ループ処理<ol>
+<li>while文</li>
+<li>for文</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>関数</li>
+</ol>
+<h2>変数と型</h2>
+<p>変数とは、データを一時的に保存するための「箱」のようなものです。変数にはそれぞれ保存できるデータの種類（型）が決まっており、一度に保存できるデータは1つだけです。</p>
+<p><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/4/image.png" alt=""></p>
+<p>変数には整数、小数、文字列など様々な型があります。C#では使用前に変数の型を宣言する必要があります。</p>
+<p><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/4/%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A.png" alt=""></p>
+<p>上の画像の表が型の一覧です。丸がついてる方をよく使います。また、これに追加してunity特有のものもあるので都度都度言います。</p>
+<p><strong>今、理解すべき型：</strong></p>
+<ul>
+<li><code>int</code>：整数型（例: 1, 42, -10）</li>
+<li><code>string</code>：文字列型（例: &quot;Hello&quot;）</li>
+</ul>
+<p>将来的に皆さんが理解する型：</p>
+<ul>
+<li><code>float</code>：単精度浮動小数点型（例: 3.14f）</li>
+<li><code>double</code>：倍精度浮動小数点型（例: 3.14159）</li>
+<li><code>bool</code>：論理型（true/false）</li>
+<li><code>char</code>：文字型（例: &#39;A&#39;）</li>
+</ul>
+<p>変数の宣言は以下のように行います：</p>
+<pre><code class="language-csharp">int score; // 整数型の変数scoreを宣言
+score = 100; // 値を代入
+
+// 宣言と代入を同時に行うこともできます
+string playerName = &quot;Player1&quot;;
+</code></pre>
+<h2>演算</h2>
+<h3>変数を使った演算</h3>
+<p>先ほど紹介したように、まずintとstring型だけ覚えてほしいです。実際に使ってみましょう。</p>
+<p><strong>整数(int)を使ってみる</strong></p>
+<p><code>int</code>型の変数には数字を入れられます。足し算や引き算などの計算ができます。</p>
+<pre><code class="language-csharp">// 整数型の変数を宣言して、値を入れる
+int score = 50;
+int bonus = 10;
+
+// 足し算をする
+int totalScore = score + bonus; // totalScoreには 60 が入る
+
+// 結果をUnityのコンソールに表示する
+Debug.Log(&quot;合計スコア: &quot; + totalScore); // &quot;合計スコア: 60&quot; と表示される
+</code></pre>
+<p><strong>文字列(string)を使ってみる</strong></p>
+<p><code>string</code>型の変数には文字を入れられます。文字同士を <code>+</code> で繋げることができます。</p>
+<pre><code class="language-csharp">// 文字列型の変数を宣言して、文字を入れる
+string greeting = &quot;こんにちは&quot;;
+string name = &quot;勇者&quot;;
+
+// 文字列を繋げる
+string message = greeting + &quot;、&quot; + name + &quot;！&quot;; // messageには &quot;こんにちは、勇者！&quot; が入る
+
+// 結果をUnityのコンソールに表示する
+Debug.Log(message); // &quot;こんにちは、勇者！&quot; と表示される
+</code></pre>
+<p><strong>整数と文字列を組み合わせる</strong></p>
+<p><code>int</code>型の数字と<code>string</code>型の文字を <code>+</code> で繋げて表示することもよくあります。</p>
+<pre><code class="language-csharp">int level = 5;
+string playerName = &quot;スライム&quot;;
+
+// 文字列と数値を組み合わせて表示
+Debug.Log(playerName + &quot;のレベルは &quot; + level + &quot; です。&quot;); // &quot;スライムのレベルは 5 です。&quot; と表示される
+</code></pre>
+<p>このように、変数はプログラムの中でデータを扱ったり、情報を表示したりするために非常に重要です。</p>
+<h3>論理演算</h3>
+<p>論理演算とは、ある条件が「真」か「偽」かを判断する演算です。つまり、「正しい」か「間違ってる」か。正しいか、間違っているかを調べる<strong>条件式</strong>にはさまざまな<strong>比較演算子</strong>を使用できます。</p>
+<p><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/4/a.png" alt=""><br>いろいろ書いてますが赤線のあるとこがよく使うものです。</p>
+<p><strong>今、理解すべき比較演算子：</strong></p>
+<ul>
+<li><code>==</code> ：等しい（例: <code>a == b</code>）</li>
+<li><code>!=</code> ：等しくない（例: <code>a != b</code>）</li>
+<li><code>&lt;</code> ：より小さい（例: <code>a &lt; b</code>）</li>
+<li><code>&gt;</code> ：より大きい（例: <code>a &gt; b</code>）</li>
+<li><code>&lt;=</code> ：以下（例: <code>a &lt;= b</code>）</li>
+<li><code>&gt;=</code> ：以上（例: <code>a &gt;= b</code>）</li>
+</ul>
+<p><strong>皆さんが将来的に理解する比較演算子</strong></p>
+<ul>
+<li><code>&amp;&amp;</code> ：AND（かつ）</li>
+<li><code>||</code> ：OR（または）</li>
+<li><code>!</code> ：NOT（否定）</li>
+</ul>
+<h2>基本的な制御構造</h2>
+<h3>if文（条件分岐）</h3>
+<p>名前もifということで、もし～ならという処理を行います。条件が正しい場合、{}内の処理を実行します。</p>
+<pre><code class="language-csharp">if(a&gt;1){ //ここの()の中身で&quot;～なら&quot;を指示する
+    Debug.Log(&quot;123&quot;);
+}
+</code></pre>
+<p>上のコードの場合、変数a(整数型)が1より大きいなら2行目の処理が実行されます。
+また、if文はこの後にelse文をつなげることで もし～でなく、～なら だったり もし～でないなら～する　といった処理もできます。</p>
+<pre><code class="language-csharp">if(a&gt;5){ 
+    Debug.Log(&quot;123&quot;);
+} else if(a&gt;1){
+    Debug.Log(&quot;456&quot;);
+} else {
+    Debug.Log(&quot;789&quot;);
+}
+</code></pre>
+<p>この場合、aが5より大きいなら2行目を、5よりは小さいが1より大きいなら4行目を、どの条件にも当てはまらないなら6行目を実行します。</p>
+<h3>くり返し処理、ループ</h3>
+<h4>while</h4>
+<p>繰り返し処理です。一定の条件式が成り立っている限り{}の中の処理を繰り返します。</p>
+<pre><code class="language-csharp">int count = 0;
+while (count &lt; 3) {
+    Debug.Log(&quot;カウント: &quot; + count);
+    count = count + 1;
+}
+</code></pre>
+<p>if文と同様に()内の内容が条件です。この場合、整数型の変数iが5未満である限り、中の処理を実行し続けます。
+このコードでは、countは0,1,2と変化し、</p>
+<pre><code class="language-plain">カウント: 0
+カウント: 1
+カウント: 2
+</code></pre>
+<p>というように表示され、終了します</p>
+<h4>for文（繰り返し処理）</h4>
+<p>これはWhile文を進化させたやつです。
+例えば、3回繰り返す処理をしたい場合、while文だと以下のように書きましたね。</p>
+<pre><code class="language-csharp">int count = 0; // ここ省略したい
+while (count &lt; 3) {
+    Debug.Log(&quot;カウント: &quot; + count);
+    count= count + 1; // ここ省略したい。
+}
+</code></pre>
+<p>for文を使うと、countという変数を定義したり、count変数に1を足して、更新するのを省略できます。(初期化、条件式、更新処理を1行でまとめて書けます。)</p>
+<p>具体的には</p>
+<pre><code class="language-csharp">// iを0から始めて、5未満の間、1ずつ増やしながら繰り返す
+for (int count = 0; count &lt; 3; count=count + 1) {
+    Debug.Log(&quot;カウント: &quot; + i);
+}
+</code></pre>
+<p>というように書くのです。
+実際に書くときは、とても難しいので皆さん最初は調べたり、この資料を見ながらやって一魔将。</p>
+<p>for文の構造：<code>for (初期化; 条件式; 更新処理) { 繰り返す処理 }</code></p>
+<h2>関数（メソッド）</h2>
+<p>関数（C#では一般的に「メソッド」と呼ばれます）は、一連の処理をまとめたものです。必要なときに呼び出すことで、同じ処理を効率的に再利用できます。</p>
+<p>関数の構造：</p>
+<pre><code class="language-csharp">void 関数名() {
+
+    // 処理内容、ここで何かしらの処理を実行する
+
+    return;
+}
+</code></pre>
+<p>実際のゲーム開発では、例えば、「プレイヤーをジャンプさせる関数」としてJump()という関数を作成します。
+Jumpするときは、例えば、プレイヤーの位置を上に移動させる処理を書きますが、実際にJumpさせたいときに、その中身の処理を考えずに、Jump()と書くだけで、プレイヤーがジャンプする処理を実行できます。</p>
+<p>その他の例：</p>
+<pre><code class="language-csharp">// 引数なし、戻り値なしの関数
+void ShowMessage() {
+    Debug.Log(&quot;こんにちは！&quot;);
+    return; // voidの場合、returnは省略可能
+}
+</code></pre>
+<h3>引数ありの関数</h3>
+<p>引数とは、関数に渡すデータのことです。関数を呼び出すときに必要な情報を渡すために使用します。引数は関数の定義時に指定します。</p>
+<p>例えば、ジャンプさせるときに、ジャンプの高さを指定したい場合、関数の引数として高さを渡すことができます。
+例えば、<code>Jump(3)</code>と書くと、3mジャンプするという意味になります。</p>
+<p>その他の例：</p>
+<pre><code class="language-csharp">void Hallo(string name) {
+    Debug.Log(&quot;こんにちは、&quot; + name + &quot;！&quot;); // 引数nameを使って挨拶
+}
+
+Hallo(&quot;勇者&quot;); // &quot;こんにちは、勇者！&quot;と表示
+</code></pre>
+<h3>戻り値ありの関数</h3>
+<p>戻り値とは、関数が処理を終えた後に返す値のことです。戻り値は関数の定義時に指定します。戻り値がある場合、関数の型を指定する必要があります。
+と問えば、プレイヤーの残り体力を知りたいときには、PlayerHP()という関数を作成し、HPの値を戻り値として返すことができます。
+例えば、<code>int HP = PlayerHP()</code>と書くと、HP変数にPlayerHP()の戻り値が代入されます。</p>
+<p>その他の例：</p>
+<pre><code class="language-csharp">int Calculate(int a, int b) { // 返り値の型は関数の名前の前に指定する
+    int result = a + b;
+    return result; // 整数値を返す
+}
+</code></pre>
+<p>実際のゲームプログラミングでは、関数の中から別の関数を呼び出すことになります。</p>
+<p>例：</p>
+<pre><code class="language-csharp">// ゲームが始まったら、このStart関数が実行される
+void Start() {
+    ShowMessage(); // &quot;こんにちは！&quot;と表示
+
+    int sum = Calculate(5, 3); // 関数の結果を変数に代入
+    Debug.Log(&quot;計算結果: &quot; + sum); // &quot;計算結果: 8&quot;と表示
+}
+</code></pre>
+<h3>関数の書き方のまとめ</h3>
+<p>関数の基本的な書き方は共通しています。引数（受け取る情報）や戻り値（返す結果）があるかないかで、書き方が少し変わるだけです。</p>
+<pre><code class="language-csharp">戻り値の型 関数名(引数１の型 引数1, 引数2の型 引数2, ...) {
+
+    // 処理内容
+
+    return 戻り値; // 戻り値がある場合は必須
+}
+</code></pre>
+<p>引数がない場合は、関数名の後の()の中身を空にする。</p>
+<p>戻り値がない場合は、戻り値の型をvoidにする。</p>
+<p>引数や戻り値がない場合：</p>
+<pre><code class="language-csharp">void 関数名() {
+
+    // 処理内容
+
+    return; // 戻り値がない場合はreturnは省略可能
+}
+</code></pre>
+<p>以上がC#プログラミングの基本です。Unityでの実践を通じて、これらの基礎を身につけていきましょう。</p>
+<p>また、分からないことが必ず出てきます。カトーとか、他の先輩がいるときは聞いてみてください。でも、今の時代自分で調べても何とかできます。</p>
+<p>例えば、</p>
+<p>「C# 変数 宣言」
+「C# if文」などで調べると、たくさんの情報が出てきます。</p>
+<p>WEBサイトには粗悪なものがトップに出てくることがよくあります。(googleが金儲けのために...)
+そのため、一番上に出てきたサイトだけでなく、他のサイトも見る<strong>根気</strong>が必要です。</p>
+
+</body>
+</html>

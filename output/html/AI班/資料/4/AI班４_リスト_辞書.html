@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI班４_リスト_辞書</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>リスト、辞書</h1>
+<p>前回は、文字列操作の便利なテクニックについて学びましたね。これで文字列データをかなり自由に扱えるようになったはずです！</p>
+<p>今回は、プログラミングで非常に重要な「<strong>複数のデータをまとめて扱う</strong>」ための強力な武器、「<strong>リスト (<code>list</code>型)</strong>」と「<strong>辞書 (<code>dict</code>型)</strong>」という新しいデータ型を学びます。これらをマスターすれば、例えばクラスの名簿を管理したり、ゲームのキャラクターのステータスを保存したり、センサーから取得した複数の測定値を記録したりと、プログラムでできることの幅が広がります。</p>
+<p>AIの実装においても必要になるデータを扱う能力に直結してきます。焦らず、いつでも気軽に質問してください。</p>
+<h2>目次</h2>
+<ol>
+<li><strong>リスト (<code>list</code>)：順番付きのデータコレクション</strong><ul>
+<li>リストとは？ なぜ便利？</li>
+<li>リストの作り方：<code>[]</code> で囲むだけ！</li>
+<li>リストの要素へのアクセス：インデックスが大活躍</li>
+<li>リストのスライス：一部分を切り出す (文字列操作の復習も兼ねて！)</li>
+<li>リストの要素を変更する</li>
+<li>リストに要素を追加する：<code>append()</code>, <code>insert()</code>, <code>extend()</code></li>
+<li>リストから要素を削除する：<code>del</code>文, <code>pop()</code>, <code>remove()</code></li>
+<li>リストの便利な相棒たち：リストメソッド (<code>len()</code>, <code>sort()</code>, <code>count()</code> など)</li>
+<li>リストの中にリスト！？：ネストしたリスト（多次元リストの第一歩）</li>
+</ul>
+</li>
+<li><strong>辞書 (<code>dict</code>)：キーと値のペアでデータを管理</strong><ul>
+<li>辞書とは？ なぜ便利？</li>
+<li>辞書の作り方：<code>{}</code> とキー・バリューペア</li>
+<li>辞書の要素へのアクセス：キーを指定する</li>
+<li>辞書に要素を追加・変更する</li>
+<li>辞書から要素を削除する：<code>del</code>文, <code>pop()</code></li>
+<li>辞書の便利な相棒たち：辞書メソッド (<code>keys()</code>, <code>values()</code>, <code>items()</code>, <code>get()</code> など)</li>
+</ul>
+</li>
+<li><strong>リストと辞書の使い分け (ちょっとしたヒント)</strong></li>
+<li><strong>演習</strong></li>
+</ol>
+<hr>
+<h2>1. リスト (<code>list</code>)：順番付きのデータコレクション</h2>
+<h3>リストとは？ なぜ便利？</h3>
+<p>「<strong>リスト (<code>list</code>)</strong>」は、複数のデータを「<strong>順番に並べて</strong>」格納することができるデータ型です。ちょうど、買い物リストや、出席番号順に並んだ名簿のようなイメージですね。
+今まで学んだ変数では、基本的に1つのデータしか入れられませんでした (例: <code>name = &quot;高専太郎&quot;</code>、<code>score = 80</code>)。でも、例えばクラス全員の名前や、テストの全科目の点数のように、関連する複数のデータをまとめて扱いたい場面はたくさんあります。そんな時にリストが大活躍するんです！</p>
+<p>リストを使うと、こんなメリットがあります：</p>
+<ul>
+<li>たくさんのデータを一つの変数で管理できる。</li>
+<li>データの順番が保持される。</li>
+<li>後から要素を追加したり、削除したり、変更したりと、柔軟に操作できる。</li>
+</ul>
+<p>Pythonでは、数値、文字列、さらには他のリストなど、異なるデータ型の値を同じリストに混在させることも可能です（ただ、通常は同じ種類のデータを入れることが多いです）。</p>
+<h3>リストの作り方：<code>[]</code> で囲むだけ</h3>
+<p>リストを作るのはとっても簡単！ 角括弧 <code>[]</code> で囲み、各要素をカンマ <code>,</code> で区切って書きます。</p>
+<pre><code class="language-python"># 空のリスト
+empty_list = []
+print(f&quot;空のリスト: {empty_list}, 型: {type(empty_list)}&quot;)
+
+# 数値のリスト (例: テストの点数)
+scores = [80, 92, 75, 88, 60]
+print(f&quot;点数リスト: {scores}&quot;)
+
+# 文字列のリスト (例: 好きな果物)
+fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;, &quot;grape&quot;]
+print(f&quot;果物リスト: {fruits}&quot;)
+
+# 異なるデータ型を混ぜることも可能 (あまり推奨されない場合もある)
+mixed_list = [10, &quot;Hello&quot;, 3.14, True]
+print(f&quot;混合リスト: {mixed_list}&quot;)
+</code></pre>
+<p>実行結果：</p>
+<pre><code>空のリスト: [], 型: &lt;class &#39;list&#39;&gt;
+点数リスト: [80, 92, 75, 88, 60]
+果物リスト: [&#39;apple&#39;, &#39;banana&#39;, &#39;orange&#39;, &#39;grape&#39;]
+混合リスト: [10, &#39;Hello&#39;, 3.14, True]
+</code></pre>
+<p><img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image.png" alt="">
+<img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-1.png" alt=""></p>
+<h3>リストの要素へのアクセス：インデックスが大活躍</h3>
+<p>リストの中の個々のデータ（これを「<strong>要素</strong>」と呼びます）にアクセスするには、文字列の時と同じように「<strong>インデックス</strong>」を使います。
+思い出してください、インデックスは <code>0</code> から始まる番号でしたね！</p>
+<pre><code class="language-python">fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;, &quot;grape&quot;]
+# インデックス:  0        1         2        3
+
+print(f&quot;最初の果物: {fruits[0]}&quot;)      # インデックス0は &#39;apple&#39;
+print(f&quot;3番目の果物: {fruits[2]}&quot;)    # インデックス2は &#39;orange&#39;
+
+# マイナスインデックスも使えます
+print(f&quot;最後の果物: {fruits[-1]}&quot;)     # -1は最後の要素 &#39;grape&#39;
+print(f&quot;最後から2番目の果物: {fruits[-2]}&quot;) # -2は最後から2番目の &#39;orange&#39;
+</code></pre>
+<p>実行結果：</p>
+<pre><code>最初の果物: apple
+3番目の果物: orange
+最後の果物: grape
+最後から2番目の果物: orange
+</code></pre>
+<p><img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-2.png" alt="">
+<img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-3.png" alt=""></p>
+<p><strong>注意！</strong> 文字列の時と同様に、存在しないインデックスを指定すると <code>IndexError</code> というエラーが発生します。例えば、上の <code>fruits</code> リストで <code>fruits[4]</code> としようとするとエラーです。気をつけてくださいね。</p>
+<h3>リストのスライス：一部分を切り出す (文字列操作の復習も兼ねて！)</h3>
+<p>文字列で学んだ「スライス」は、リストでも全く同じように使えます！ <code>[開始インデックス:終了インデックス:ステップ]</code> の形で、リストの一部分を新しいリストとして取り出すことができます。</p>
+<pre><code class="language-python">numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# インデックス1から4の手前まで (1, 2, 3)
+print(f&quot;numbers[1:4] -&gt; {numbers[1:4]}&quot;)
+
+# 最初からインデックス5の手前まで (0, 1, 2, 3, 4)
+print(f&quot;numbers[:5] -&gt; {numbers[:5]}&quot;)
+
+# インデックス5から最後まで (5, 6, 7, 8, 9)
+print(f&quot;numbers[5:] -&gt; {numbers[5:]}&quot;)
+
+# 2つおきに取り出す (0, 2, 4, 6, 8)
+print(f&quot;numbers[::2] -&gt; {numbers[::2]}&quot;)
+
+# リスト全体をコピー
+copied_numbers = numbers[:]
+print(f&quot;コピーされたリスト: {copied_numbers}&quot;)
+
+# リストを逆順にする
+reversed_numbers = numbers[::-1]
+print(f&quot;逆順のリスト: {reversed_numbers}&quot;)
+</code></pre>
+<p>実行結果：</p>
+<pre><code>numbers[1:4] -&gt; [1, 2, 3]
+numbers[:5] -&gt; [0, 1, 2, 3, 4]
+numbers[5:] -&gt; [5, 6, 7, 8, 9]
+numbers[::2] -&gt; [0, 2, 4, 6, 8]
+コピーされたリスト: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+逆順のリスト: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+</code></pre>
+<p>スライスは非常に便利なので、文字列とリスト、両方で使いこなせるようにしておきましょう！</p>
+<h3>リストの要素を変更する</h3>
+<p>リストの大きな特徴の一つは、作成した後でも要素の値を変更できることです。これを「<strong>ミュータブル (mutable)</strong>」である、と言います。（ちなみに、文字列は一度作ると変更できない「イミュータブル (immutable)」なデータ型です。）</p>
+<p>要素を変更するには、インデックスで場所を指定して、新しい値を代入します。</p>
+<pre><code class="language-python">colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]
+print(f&quot;変更前: {colors}&quot;)
+
+colors[1] = &quot;yellow&quot; # インデックス1 (2番目の要素) を &quot;yellow&quot; に変更
+print(f&quot;変更後: {colors}&quot;)
+
+colors[-1] = &quot;purple&quot; # 最後の要素を &quot;purple&quot; に変更
+print(f&quot;さらに変更後: {colors}&quot;)
+</code></pre>
+<p>実行結果：</p>
+<pre><code>変更前: [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]
+変更後: [&#39;red&#39;, &#39;yellow&#39;, &#39;blue&#39;]
+さらに変更後: [&#39;red&#39;, &#39;yellow&#39;, &#39;purple&#39;]
+</code></pre>
+<h3>リストに要素を追加する：<code>append()</code>, <code>insert()</code>, <code>extend()</code></h3>
+<p>リストの長さを変えたい、つまり要素を追加したい場合もよくあります。Pythonにはそのための便利なメソッドが用意されています。</p>
+<ul>
+<li><p><strong><code>リスト.append(要素)</code></strong>: リストの<strong>末尾</strong>に新しい要素を1つ追加します。一番よく使う追加方法かもしれません。</p>
+<pre><code class="language-python">my_classmates = [&quot;佐藤&quot;, &quot;鈴木&quot;]
+print(f&quot;追加前: {my_classmates}&quot;)
+my_classmates.append(&quot;高橋&quot;)
+print(f&quot;append後: {my_classmates}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>追加前: [&#39;佐藤&#39;, &#39;鈴木&#39;]
+append後: [&#39;佐藤&#39;, &#39;鈴木&#39;, &#39;高橋&#39;]
+</code></pre>
+</li>
+<li><p><strong><code>リスト.insert(インデックス, 要素)</code></strong>: 指定した<strong>インデックスの位置</strong>に新しい要素を1つ挿入します。元の要素は後ろにずれます。</p>
+<pre><code class="language-python">numbers = [10, 20, 40, 50]
+print(f&quot;挿入前: {numbers}&quot;)
+numbers.insert(2, 30) # インデックス2の位置に30を挿入
+print(f&quot;insert後: {numbers}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>挿入前: [10, 20, 40, 50]
+insert後: [10, 20, 30, 40, 50]
+</code></pre>
+</li>
+<li><p><strong><code>リスト.extend(別のリスト)</code></strong>: リストに別のリストの<strong>全要素</strong>をまとめて追加します。<code>+</code>演算子でリスト同士を連結するのと似ていますが、<code>extend</code>は元のリストを変更する点が異なります。</p>
+<pre><code class="language-python">list_a = [1, 2, 3]
+list_b = [4, 5, 6]
+print(f&quot;extend前 list_a: {list_a}&quot;)
+list_a.extend(list_b)
+print(f&quot;extend後 list_a: {list_a}&quot;)
+
+# 参考: +演算子の場合 (新しいリストが作られる)
+list_c = [1, 2, 3]
+list_d = [4, 5, 6]
+list_e = list_c + list_d
+print(f&quot;+演算子の場合 list_c: {list_c}, list_e: {list_e}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>extend前 list_a: [1, 2, 3]
+extend後 list_a: [1, 2, 3, 4, 5, 6]
++演算子の場合 list_c: [1, 2, 3], list_e: [1, 2, 3, 4, 5, 6]
+</code></pre>
+</li>
+</ul>
+<h3>リストから要素を削除する：<code>del</code>文, <code>pop()</code>, <code>remove()</code></h3>
+<p>要素を追加するだけでなく、不要になった要素を削除することも重要です。</p>
+<ul>
+<li><p><strong><code>del リスト[インデックス]</code></strong>: 指定したインデックスの要素を削除します。<code>del</code>はPythonの文（命令の一種）です。</p>
+<pre><code class="language-python">items = [&quot;PC&quot;, &quot;mouse&quot;, &quot;keyboard&quot;, &quot;monitor&quot;]
+print(f&quot;削除前: {items}&quot;)
+del items[1] # インデックス1 (&quot;mouse&quot;) を削除
+print(f&quot;del後: {items}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>削除前: [&#39;PC&#39;, &#39;mouse&#39;, &#39;keyboard&#39;, &#39;monitor&#39;]
+del後: [&#39;PC&#39;, &#39;keyboard&#39;, &#39;monitor&#39;]
+</code></pre>
+<p>  スライスを使って範囲を指定し、複数の要素を一度に削除することもできます (<code>del items[1:3]</code>)。</p>
+</li>
+<li><p><strong><code>リスト.pop(インデックス)</code></strong>: 指定したインデックスの要素をリストから取り除き、その要素の値を返します。インデックスを省略すると、<strong>末尾の要素</strong>を取り除いて返します。</p>
+<pre><code class="language-python">stack = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;]
+print(f&quot;pop前: {stack}&quot;)
+last_item = stack.pop() # 末尾の &quot;D&quot; を取り出す
+print(f&quot;取り出した要素: {last_item}, pop後: {stack}&quot;)
+second_item = stack.pop(1) # インデックス1 (&quot;B&quot;) を取り出す
+print(f&quot;取り出した要素: {second_item}, pop後: {stack}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>pop前: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;]
+取り出した要素: D, pop後: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]
+取り出した要素: B, pop後: [&#39;A&#39;, &#39;C&#39;]
+</code></pre>
+<p>  <code>pop()</code> は、リストをスタック（後入れ先出しのデータ構造）のように使いたい場合に便利です。</p>
+</li>
+<li><p><strong><code>リスト.remove(値)</code></strong>: リストの中から、指定した<strong>値</strong>を持つ最初の要素を削除します。同じ値が複数ある場合は、最初に見つかったものだけが削除されます。</p>
+<pre><code class="language-python">pets = [&quot;dog&quot;, &quot;cat&quot;, &quot;dog&quot;, &quot;rabbit&quot;]
+print(f&quot;remove前: {pets}&quot;)
+pets.remove(&quot;dog&quot;) # 最初の &quot;dog&quot; を削除
+print(f&quot;remove後: {pets}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>remove前: [&#39;dog&#39;, &#39;cat&#39;, &#39;dog&#39;, &#39;rabbit&#39;]
+remove後: [&#39;cat&#39;, &#39;dog&#39;, &#39;rabbit&#39;]
+</code></pre>
+<p>  <strong>注意！</strong> <code>remove()</code> は、指定した値がリスト内に存在しない場合、<code>ValueError</code> というエラーになります。</p>
+</li>
+</ul>
+<h3>リストの便利な相棒たち：リストメソッド</h3>
+<p>リストには、上で紹介した追加・削除以外にも、様々な便利なメソッドや関連する関数があります。</p>
+<ul>
+<li><p><strong><code>len(リスト)</code></strong>: リストの要素数を返します (これは関数です)。</p>
+<pre><code class="language-python">numbers = [10, 20, 30, 40, 50]
+print(f&quot;リストの長さ: {len(numbers)}&quot;) # 5
+</code></pre>
+</li>
+<li><p><strong><code>リスト.sort()</code></strong>: リストの要素を<strong>昇順</strong> (小さい順、アルファベット順) に並び替えます。このメソッドは元のリストを直接変更します。</p>
+<pre><code class="language-python">num_list = [3, 1, 4, 1, 5, 9, 2, 6]
+char_list = [&quot;banana&quot;, &quot;apple&quot;, &quot;cherry&quot;]
+num_list.sort()
+char_list.sort()
+print(f&quot;数値ソート後: {num_list}&quot;)
+print(f&quot;文字列ソート後: {char_list}&quot;)
+
+# 降順にしたい場合は reverse=True を指定
+num_list.sort(reverse=True)
+print(f&quot;数値降順ソート後: {num_list}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>数値ソート後: [1, 1, 2, 3, 4, 5, 6, 9]
+文字列ソート後: [&#39;apple&#39;, &#39;banana&#39;, &#39;cherry&#39;]
+数値降順ソート後: [9, 6, 5, 4, 3, 2, 1, 1]
+</code></pre>
+<p>  <strong>注意！</strong> <code>sort()</code> は異なるデータ型が混在するリスト（例: 数値と文字列）には使えません (エラーになります)。</p>
+</li>
+<li><p><strong><code>sorted(リスト)</code></strong>: リストの要素を並び替えた<strong>新しいリストを返します</strong>。元のリストは変更されません (これは関数です)。</p>
+<pre><code class="language-python">original_list = [30, 10, 20]
+sorted_new_list = sorted(original_list)
+print(f&quot;元のリスト: {original_list}&quot;)
+print(f&quot;sorted()で作成された新しいリスト: {sorted_new_list}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>元のリスト: [30, 10, 20]
+sorted()で作成された新しいリスト: [10, 20, 30]
+</code></pre>
+</li>
+<li><p><strong><code>リスト.reverse()</code></strong>: リストの要素の並びを<strong>逆順</strong>にします。これも元のリストを直接変更します。</p>
+<pre><code class="language-python">my_list = [1, &quot;two&quot;, 3.0]
+my_list.reverse()
+print(f&quot;reverse後: {my_list}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>reverse後: [3.0, &#39;two&#39;, 1]
+</code></pre>
+</li>
+<li><p><strong><code>リスト.count(値)</code></strong>: リストの中に指定した値が何個含まれているかを数えます。</p>
+<pre><code class="language-python">grades = [&quot;A&quot;, &quot;B&quot;, &quot;A&quot;, &quot;C&quot;, &quot;A&quot;, &quot;B&quot;]
+count_a = grades.count(&quot;A&quot;)
+print(f&quot;Aの数: {count_a}&quot;) # 3
+</code></pre>
+</li>
+<li><p><strong><code>リスト.index(値)</code></strong>: リストの中で指定した値が最初に出現するインデックスを返します。</p>
+<pre><code class="language-python">animals = [&quot;cat&quot;, &quot;dog&quot;, &quot;bird&quot;, &quot;dog&quot;]
+dog_index = animals.index(&quot;dog&quot;)
+print(f&quot;最初のdogのインデックス: {dog_index}&quot;) # 1
+</code></pre>
+<p>  <strong>注意！</strong> 指定した値がリストにない場合は <code>ValueError</code> になります。</p>
+</li>
+<li><p><strong><code>値 in リスト</code></strong>: 特定の値がリストに含まれているかどうかを <code>True</code> / <code>False</code> で返します (これは演算子です)。</p>
+<pre><code class="language-python">numbers = [1, 3, 5, 7, 9]
+print(f&quot;5はリストに含まれるか: {5 in numbers}&quot;)  # True
+print(f&quot;2はリストに含まれるか: {2 in numbers}&quot;)  # False
+print(f&quot;2はリストに含まれないか: {2 not in numbers}&quot;) # True
+</code></pre>
+</li>
+</ul>
+<p>これらのメソッドや関数を使いこなせると、リスト操作が格段に楽になりますよ！</p>
+<h3>リストの中にリスト！？：ネストしたリスト（多次元リストの第一歩）</h3>
+<p>リストの要素には、数値や文字列だけでなく、別のリストを入れることもできます。これを「<strong>ネストしたリスト</strong>」や「<strong>入れ子のリスト</strong>」と呼びます。これは、表のような2次元のデータや、もっと複雑な構造のデータを表現するのに役立ちます。</p>
+<pre><code class="language-python"># 2x3の行列のようなデータ
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6]
+]
+print(f&quot;ネストしたリスト: {matrix}&quot;)
+
+# 要素へのアクセス
+print(f&quot;1行目 (インデックス0): {matrix[0]}&quot;)        # [1, 2, 3]
+print(f&quot;2行目3列目の要素: {matrix[1][2]}&quot;) # 6 (matrix[1]が[4,5,6]を返し、その[2]番目)
+
+# 変更も可能
+matrix[0][1] = 200
+print(f&quot;変更後のmatrix: {matrix}&quot;)
+</code></pre>
+<p>実行結果：</p>
+<pre><code>ネストしたリスト: [[1, 2, 3], [4, 5, 6]]
+1行目 (インデックス0): [1, 2, 3]
+2行目3列目の要素: 6
+変更後のmatrix: [[1, 200, 3], [4, 5, 6]]
+</code></pre>
+<p><img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-4.png" alt="">
+<img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-5.png" alt="">
+<img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-6.png" alt="">
+<img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-7.png" alt=""></p>
+<p>最初は少しややこしく感じるかもしれませんが、エクセルの表のようなものをイメージすると分かりやすいかもしれませんね。</p>
+<hr>
+<h2>2. 辞書 (<code>dict</code>)：キーと値のペアでデータを管理</h2>
+<p>リストは順番でデータを管理しましたが、次に見る「<strong>辞書 (<code>dict</code>)</strong>」は、「<strong>キー (key)</strong>」と「<strong>値 (value)</strong>」のペアでデータを管理します。ちょうど、英和辞書で単語（キー）を引くと意味（値）が出てくるのに似ていますね。</p>
+<p>リストでは要素にアクセスするのにインデックス（0からの番号）を使いましたが、辞書では自分で決めた「キー」を使って対応する「値」を取り出します。</p>
+<p>辞書を使うと、こんなメリットがあります：</p>
+<ul>
+<li>データに意味のある名前（キー）をつけて管理できるので、何の情報か分かりやすい。</li>
+<li>大量の関連情報を一つの変数でまとめて扱える（例：個人のプロフィール情報など）。</li>
+<li>データの順番は基本的には気にしない（Python 3.7以降は挿入順序が保持されますが、それに依存しない設計が推奨されます）。</li>
+</ul>
+<h3>辞書の作り方：<code>{}</code> とキー・バリューペア</h3>
+<p>辞書は波括弧 <code>{}</code> を使って作ります。キーと値はコロン <code>:</code> で結びつけ、各ペアはカンマ <code>,</code> で区切ります。</p>
+<pre><code class="language-python"># 空の辞書
+empty_dict = {}
+print(f&quot;空の辞書: {empty_dict}, 型: {type(empty_dict)}&quot;)
+
+# 生徒の情報を格納する辞書
+student = {
+    &quot;name&quot;: &quot;高専太郎&quot;, # &quot;name&quot;がキー, &quot;高専太郎&quot;が値
+    &quot;age&quot;: 18,
+    &quot;department&quot;: &quot;情報工学科&quot;,
+    &quot;grades&quot;: [85, 90, 78] # 値にはリストも使える！
+}
+print(f&quot;生徒の情報: {student}&quot;)
+</code></pre>
+<p>実行結果：</p>
+<pre><code>空の辞書: {}, 型: &lt;class &#39;dict&#39;&gt;
+生徒の情報: {&#39;name&#39;: &#39;高専太郎&#39;, &#39;age&#39;: 18, &#39;department&#39;: &#39;情報工学科&#39;, &#39;grades&#39;: [85, 90, 78]}
+</code></pre>
+<p><img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-8.png" alt="">
+<img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-10.png" alt="">
+<img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-11.png" alt="">
+<img src="nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/4/image-12.png" alt=""></p>
+<p><strong>キーに関する注意点：</strong></p>
+<ul>
+<li>キーは辞書の中で<strong>ユニーク(一意)</strong> でなければなりません。同じキーを複数使うことはできません（後から同じキーで値を設定すると上書きされます）。</li>
+<li>キーには、文字列や数値など、変更不可能な（イミュータブルな）データ型を使います。リストのような変更可能な（ミュータブルな）データ型はキーには使えません。通常は文字列をキーにすることが多いです。</li>
+</ul>
+<h3>辞書の要素へのアクセス：キーを指定する</h3>
+<p>辞書の中の値にアクセスするには、リストのインデックスの代わりに「キー」を使います。書き方は <code>辞書[キー]</code> です。</p>
+<pre><code class="language-python">student = {
+    &quot;name&quot;: &quot;高専太郎&quot;,
+    &quot;age&quot;: 18,
+    &quot;department&quot;: &quot;情報工学科&quot;
+}
+
+print(f&quot;名前: {student[&#39;name&#39;]}&quot;)
+print(f&quot;年齢: {student[&#39;age&#39;]}&quot;)
+# print(f&quot;趣味: {student[&#39;hobby&#39;]}&quot;) # これはエラー！ &#39;hobby&#39;というキーは存在しない
+</code></pre>
+<p>実行結果：</p>
+<pre><code>名前: 高専太郎
+年齢: 18
+</code></pre>
+<p><strong>注意！</strong> リストと同様に、存在しないキーを指定して値を取得しようとすると <code>KeyError</code> というエラーが発生します。これを避ける方法は後で紹介しますね (<code>get()</code> メソッド)。</p>
+<h3>辞書に要素を追加・変更する</h3>
+<p>辞書に新しいキーと値のペアを追加したり、既存のキーに対応する値を変更したりするのは簡単です。</p>
+<pre><code class="language-python">profile = {&quot;name&quot;: &quot;技大花子&quot;}
+print(f&quot;変更前: {profile}&quot;)
+
+# 新しいキーと値のペアを追加
+profile[&quot;age&quot;] = 20
+profile[&quot;city&quot;] = &quot;Nagaoka&quot;
+print(f&quot;追加後: {profile}&quot;)
+
+# 既存のキーの値を変更 (上書き)
+profile[&quot;city&quot;] = &quot;Tokyo&quot;
+print(f&quot;変更後: {profile}&quot;)
+</code></pre>
+<p>実行結果：</p>
+<pre><code>変更前: {&#39;name&#39;: &#39;技大花子&#39;}
+追加後: {&#39;name&#39;: &#39;技大花子&#39;, &#39;age&#39;: 20, &#39;city&#39;: &#39;Nagaoka&#39;}
+変更後: {&#39;name&#39;: &#39;技大花子&#39;, &#39;age&#39;: 20, &#39;city&#39;: &#39;Tokyo&#39;}
+</code></pre>
+<p>指定したキーが辞書に既に存在すれば値が更新され、存在しなければ新しいキーと値のペアとして追加されます。</p>
+<h3>辞書から要素を削除する：<code>del</code>文, <code>pop()</code></h3>
+<p>辞書から特定のキーと値のペアを削除する方法も見てみましょう。</p>
+<ul>
+<li><p><strong><code>del 辞書[キー]</code></strong>: 指定したキーとその値を辞書から削除します。</p>
+<pre><code class="language-python">car_info = {&quot;maker&quot;: &quot;Toyota&quot;, &quot;model&quot;: &quot;Prius&quot;, &quot;year&quot;: 2020}
+print(f&quot;削除前: {car_info}&quot;)
+del car_info[&quot;year&quot;]
+print(f&quot;del後: {car_info}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>削除前: {&#39;maker&#39;: &#39;Toyota&#39;, &#39;model&#39;: &#39;Prius&#39;, &#39;year&#39;: 2020}
+del後: {&#39;maker&#39;: &#39;Toyota&#39;, &#39;model&#39;: &#39;Prius&#39;}
+</code></pre>
+</li>
+<li><p><strong><code>辞書.pop(キー, デフォルト値)</code></strong>: 指定したキーの要素を辞書から取り除き、その値を返します。キーが存在しない場合にエラーになるのを避けるため、オプションでデフォルト値を指定できます。</p>
+<pre><code class="language-python">settings = {&quot;volume&quot;: 80, &quot;brightness&quot;: 60, &quot;mode&quot;: &quot;eco&quot;}
+print(f&quot;pop前: {settings}&quot;)
+
+mode_value = settings.pop(&quot;mode&quot;)
+print(f&quot;取り出したmode: {mode_value}, pop後: {settings}&quot;)
+
+# 存在しないキーをpopしようとするとエラーになる
+# non_existent = settings.pop(&quot;color&quot;) # KeyError
+
+# デフォルト値を指定すればエラーにならない
+color_value = settings.pop(&quot;color&quot;, &quot;N/A&quot;) # &quot;color&quot;キーは無いのでデフォルト値&quot;N/A&quot;が返る
+print(f&quot;取り出したcolor: {color_value}, pop後: {settings}&quot;)
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>pop前: {&#39;volume&#39;: 80, &#39;brightness&#39;: 60, &#39;mode&#39;: &#39;eco&#39;}
+取り出したmode: eco, pop後: {&#39;volume&#39;: 80, &#39;brightness&#39;: 60}
+取り出したcolor: N/A, pop後: {&#39;volume&#39;: 80, &#39;brightness&#39;: 60}
+</code></pre>
+</li>
+</ul>
+<h3>辞書の便利な相棒たち：辞書メソッド</h3>
+<p>辞書にも、操作を助ける便利なメソッドがたくさんあります。</p>
+<ul>
+<li><p><strong><code>len(辞書)</code></strong>: 辞書に含まれるキーと値のペアの数を返します (これは関数です)。</p>
+<pre><code class="language-python">user = {&quot;id&quot;: 101, &quot;username&quot;: &quot;ai_master&quot;, &quot;active&quot;: True}
+print(f&quot;ペアの数: {len(user)}&quot;) # 3
+</code></pre>
+</li>
+<li><p><strong><code>辞書.keys()</code></strong>: 辞書のすべての<strong>キー</strong>を一覧で取得します (専門的には「ビューオブジェクト」という形で返されます)。ループ処理などでよく使います。</p>
+<pre><code class="language-python">product = {&quot;name&quot;: &quot;Laptop&quot;, &quot;price&quot;: 120000, &quot;stock&quot;: 15}
+all_keys = product.keys()
+print(f&quot;キーの一覧: {all_keys}&quot;) # dict_keys([&#39;name&#39;, &#39;price&#39;, &#39;stock&#39;])
+# list(all_keys) とするとリストに変換できます
+</code></pre>
+</li>
+<li><p><strong><code>辞書.values()</code></strong>: 辞書のすべての<strong>値</strong>を一覧で取得します (これもビューオブジェクト)。</p>
+<pre><code class="language-python">product = {&quot;name&quot;: &quot;Laptop&quot;, &quot;price&quot;: 120000, &quot;stock&quot;: 15}
+all_values = product.values()
+print(f&quot;値の一覧: {all_values}&quot;) # dict_values([&#39;Laptop&#39;, 120000, 15])
+</code></pre>
+</li>
+<li><p><strong><code>辞書.items()</code></strong>: 辞書のすべての<strong>キーと値のペア</strong>を (キー, 値) というタプル（後で少し触れますが、変更不可なリストのようなもの）の形で一覧取得します (これもビューオブジェクト)。ループでキーと値を同時に扱いたい場合に非常に便利です。</p>
+<pre><code class="language-python">product = {&quot;name&quot;: &quot;Laptop&quot;, &quot;price&quot;: 120000, &quot;stock&quot;: 15}
+all_items = product.items()
+print(f&quot;アイテムの一覧: {all_items}&quot;) # dict_items([(&#39;name&#39;, &#39;Laptop&#39;), (&#39;price&#39;, 120000), (&#39;stock&#39;, 15)])
+</code></pre>
+</li>
+<li><p><strong><code>辞書.get(キー, デフォルト値)</code></strong>: キーを指定して値を取得します。<code>辞書[キー]</code> と似ていますが、キーが存在しなくても<strong>エラーにならず</strong>、代わりに <code>None</code> (何もないことを示す特別な値) または指定したデフォルト値を返します。これは安全に値を取得したい場合に非常に役立ちます。</p>
+<pre><code class="language-python">student = {&quot;name&quot;: &quot;高専太郎&quot;, &quot;age&quot;: 18}
+print(f&quot;名前: {student.get(&#39;name&#39;)}&quot;)
+print(f&quot;年齢: {student.get(&#39;age&#39;)}&quot;)
+print(f&quot;趣味 (存在しないキー): {student.get(&#39;hobby&#39;)}&quot;) # None
+print(f&quot;趣味 (デフォルト値指定): {student.get(&#39;hobby&#39;, &#39;特になし&#39;)}&quot;) # 特になし
+</code></pre>
+<p>  実行結果：</p>
+<pre><code>名前: 高専太郎
+年齢: 18
+趣味 (存在しないキー): None
+趣味 (デフォルト値指定): 特になし
+</code></pre>
+<p>  個人的には、辞書から値を取り出すときは、エラーでプログラムが止まるのを避けるために <code>get()</code> を積極的に使うことをお勧めします！</p>
+</li>
+<li><p><strong><code>キー in 辞書</code></strong>: 特定のキーが辞書に含まれているかどうかを <code>True</code> / <code>False</code> で返します (これは演算子です)。値ではなく、<strong>キーの存在確認</strong>であることに注意してください。</p>
+<pre><code class="language-python">config = {&quot;host&quot;: &quot;localhost&quot;, &quot;port&quot;: 8080}
+print(f&quot;&#39;host&#39;キーは存在するか: {&#39;host&#39; in config}&quot;)    # True
+print(f&quot;&#39;user&#39;キーは存在するか: {&#39;user&#39; in config}&quot;)    # False
+print(f&quot;&#39;user&#39;キーは存在しないか: {&#39;user&#39; not in config}&quot;) # True
+</code></pre>
+</li>
+</ul>
+<hr>
+<h2>3. リストと辞書の使い分け (ちょっとしたヒント)</h2>
+<p>リストと辞書、どちらも複数のデータを扱うのに便利ですが、どんな時にどちらを使えばいいか迷うかもしれませんね。簡単な目安としてはこんな感じです。</p>
+<ul>
+<li><p><strong>リストが向いているケース</strong>:</p>
+<ul>
+<li>データの「<strong>順番</strong>」が重要で、その順番で処理したい場合 (例: 実行するタスクのリスト、時系列データ)。</li>
+<li>同じ種類のものをたくさん集めて、番号で管理したい場合 (例: テストの点数一覧、複数のセンサーからの測定値)。</li>
+<li>要素の追加や削除が頻繁で、特に末尾への追加が多い場合。</li>
+</ul>
+</li>
+<li><p><strong>辞書が向いているケース</strong>:</p>
+<ul>
+<li>データに「<strong>名前（ラベル）</strong>」をつけて、その名前で情報を取り出したい場合 (例: 個人のプロフィール(名前、年齢、趣味)、設定情報)。</li>
+<li>異なる種類の情報をひとまとめにして、それぞれの情報が何であるかを明確にしたい場合。</li>
+<li>データの順番はあまり重要ではなく、キーによる高速なアクセスが求められる場合。</li>
+</ul>
+</li>
+</ul>
+<p>もちろん、これらは絶対的なルールではありませんし、リストと辞書を組み合わせて使うこともよくあります（例えば、生徒の辞書を要素とするリストなど）。実際にプログラムを書いていく中で、どちらがその状況に適しているか、だんだんと感覚が掴めてくるはずです。</p>
+<hr>
+<h2>✏️ 本日の演習</h2>
+<p>さあ、今日学んだリストと辞書のテクニックを使って、実際に手を動かしてみましょう！</p>
+<ol>
+<li>VSCodeで新しいPythonファイル（例: <code>practice04.py</code>）を作成してください。</li>
+<li><strong>リスト練習</strong>:<ul>
+<li>あなたの好きなプログラミング言語を3つ以上入れたリスト <code>favorite_languages</code> を作成してください。</li>
+<li><code>favorite_languages</code> の最初の要素と最後の要素を <code>print()</code> で表示してください。</li>
+<li><code>favorite_languages</code> の末尾に、新しく学びたい言語を1つ追加してください (<code>append()</code>)。</li>
+<li><code>favorite_languages</code> の2番目の要素を、別の言語に変更してください。</li>
+<li><code>favorite_languages</code> の中から、いずれかの言語を削除してください (<code>remove()</code> または <code>del</code>)。</li>
+<li><code>favorite_languages</code> の現在の要素数を <code>print()</code> で表示してください (<code>len()</code>)。</li>
+<li><code>favorite_languages</code> をアルファベット順に並び替えて表示してください (<code>sort()</code> または <code>sorted()</code>)。</li>
+</ul>
+</li>
+<li><strong>辞書練習</strong>:<ul>
+<li>あなたのPCに関する情報（例: <code>OS</code>, <code>CPU</code>, <code>RAM_GB</code>, <code>GPU</code>）を格納した辞書 <code>my_pc_specs</code> を作成してください。RAMの容量は数値で入れてみましょう。</li>
+<li><code>my_pc_specs</code> からOSとCPUの情報を <code>print()</code> で表示してください。</li>
+<li><code>my_pc_specs</code> に新しい情報（例: <code>storage_GB</code> とその容量）を追加してください。</li>
+<li><code>my_pc_specs</code> のRAMの容量を、現在の倍の値に更新してください。</li>
+<li><code>my_pc_specs</code> に <code>GPU</code> というキーが存在するか確認し、もし存在すればその値を表示し、存在しなければ「GPU情報なし」と表示するコードを書いてみましょう (<code>get()</code>メソッドや <code>in</code> 演算子と <code>if</code> 文を使うと良いでしょう。<code>if</code>文は次回詳しく学びますが、<code>if &#39;GPU&#39; in my_pc_specs:</code> のように書けます)。</li>
+</ul>
+</li>
+<li><strong>発展 (リストと辞書の組み合わせ)</strong>:<ul>
+<li>複数の友人（3人以上）の情報を管理するデータ構造を考えてみましょう。各友人の情報として「名前(name)」と「好きな食べ物(favorite_food)」を辞書で持ち、それらの辞書を一つのリスト <code>friends_data</code> に格納してください。
+  例: <code>friends_data = [{&#39;name&#39;: &#39;Aさん&#39;, &#39;favorite_food&#39;: &#39;カレー&#39;}, {&#39;name&#39;: &#39;Bさん&#39;, &#39;favorite_food&#39;: &#39;寿司&#39;}, ...]</code></li>
+<li>作成した <code>friends_data</code> リストから、2番目の友人の名前と好きな食べ物を表示してください。</li>
+<li><code>friends_data</code> リストに、新しい友人の情報を追加してください。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<hr>
+<hr>
+<h3>演習の解答例</h3>
+<pre><code class="language-python"># practice04.py
+
+# 2. リスト練習
+print(&quot;--- 2. リスト練習 ---&quot;)
+favorite_languages = [&quot;Python&quot;, &quot;JavaScript&quot;, &quot;C++&quot;]
+print(f&quot;作成直後: {favorite_languages}&quot;)
+
+# 最初の要素と最後の要素
+print(f&quot;最初の言語: {favorite_languages[0]}&quot;)
+print(f&quot;最後の言語: {favorite_languages[-1]}&quot;)
+
+# 末尾に新しい言語を追加
+favorite_languages.append(&quot;Rust&quot;)
+print(f&quot;append後: {favorite_languages}&quot;)
+
+# 2番目の要素を変更
+favorite_languages[1] = &quot;TypeScript&quot;
+print(f&quot;2番目を変更後: {favorite_languages}&quot;)
+
+# いずれかの言語を削除 (例: C++)
+if &quot;C++&quot; in favorite_languages:
+    favorite_languages.remove(&quot;C++&quot;)
+print(f&quot;remove後: {favorite_languages}&quot;)
+# もしdelを使うなら: del favorite_languages[2] (インデックスに注意)
+
+# 要素数を表示
+print(f&quot;現在の要素数: {len(favorite_languages)}&quot;)
+
+# アルファベット順に並び替え (元のリストを変更)
+favorite_languages.sort()
+print(f&quot;ソート後: {favorite_languages}&quot;)
+# sorted()を使うなら: sorted_languages = sorted(favorite_languages)
+print(&quot;&quot;)
+
+# 3. 辞書練習
+print(&quot;--- 3. 辞書練習 ---&quot;)
+my_pc_specs = {
+    &quot;OS&quot;: &quot;Windows 11&quot;,
+    &quot;CPU&quot;: &quot;Intel Core i7&quot;,
+    &quot;RAM_GB&quot;: 16,
+    &quot;GPU&quot;: &quot;NVIDIA GeForce RTX 3060&quot;
+}
+print(f&quot;作成直後: {my_pc_specs}&quot;)
+
+# OSとCPUの情報を表示
+print(f&quot;OS: {my_pc_specs[&#39;OS&#39;]}&quot;)
+print(f&quot;CPU: {my_pc_specs.get(&#39;CPU&#39;)}&quot;) # getでもOK
+
+# 新しい情報を追加
+my_pc_specs[&quot;storage_GB&quot;] = 1024 # 1TB
+print(f&quot;ストレージ追加後: {my_pc_specs}&quot;)
+
+# RAMの容量を倍に更新
+my_pc_specs[&quot;RAM_GB&quot;] = my_pc_specs[&quot;RAM_GB&quot;] * 2
+# または my_pc_specs[&quot;RAM_GB&quot;] *= 2
+print(f&quot;RAM更新後: {my_pc_specs}&quot;)
+
+# GPU情報の確認と表示
+if &#39;GPU&#39; in my_pc_specs:
+    print(f&quot;GPU: {my_pc_specs[&#39;GPU&#39;]}&quot;)
+else:
+    print(&quot;GPU情報なし&quot;)
+
+# get() を使った別解
+gpu_info = my_pc_specs.get(&quot;GPU&quot;)
+if gpu_info: # NoneでなければTrue扱い
+    print(f&quot;GPU (get版): {gpu_info}&quot;)
+else:
+    print(&quot;GPU情報なし (get版)&quot;)
+print(&quot;&quot;)
+
+# 4. 発展 (リストと辞書の組み合わせ)
+print(&quot;--- 4. 発展 ---&quot;)
+friends_data = [
+    {&quot;name&quot;: &quot;山田さん&quot;, &quot;favorite_food&quot;: &quot;ラーメン&quot;},
+    {&quot;name&quot;: &quot;田中さん&quot;, &quot;favorite_food&quot;: &quot;焼肉&quot;},
+    {&quot;name&quot;: &quot;鈴木さん&quot;, &quot;favorite_food&quot;: &quot;お寿司&quot;}
+]
+print(f&quot;友人データ: {friends_data}&quot;)
+
+# 2番目の友人の名前と好きな食べ物を表示
+if len(friends_data) &gt;= 2:
+    second_friend = friends_data[1] # インデックス1が2番目
+    print(f&quot;2番目の友人: {second_friend[&#39;name&#39;]}さん、好きな食べ物: {second_friend[&#39;favorite_food&#39;]}&quot;)
+else:
+    print(&quot;友人が2人未満です。&quot;)
+
+# 新しい友人の情報を追加
+new_friend = {&quot;name&quot;: &quot;加藤さん&quot;, &quot;favorite_food&quot;: &quot;パスタ&quot;}
+friends_data.append(new_friend)
+print(f&quot;新しい友人を追加後: {friends_data}&quot;)
+
+print(&quot;\n演習お疲れ様でした！&quot;)
+</code></pre>
+<hr>
+<p>リストと辞書は、Pythonプログラミングの屋台骨とも言える非常に重要なデータ型です。とにかく経験を積んでください。「このデータはどうやって管理するのが効率的かな？」と考えるクセをつけると、より良いプログラムが書けるようになりますよ。</p>
+<p>次回は、プログラムの流れを自在にコントロールするための重要な構文、「<strong>ループ (繰り返し処理)</strong>」と「<strong>条件分岐 (if文)</strong>」について学びます。（普通だったら、ループとか条件分岐を先に勉強するんだけど、僕の資料ではリストや文字列、辞書がループやforと深く結びついていることを踏まえて、この順番でやりました）</p>
+<p>もし、リストと辞書の使い分けで迷ったり、「こんなデータ構造を作りたいんだけど、どうすればいいの？」といった具体的な疑問が出てきたりしたら、遠慮なく部長のカトに質問してくださいね。みんなで助け合いながら、スキルアップしていきましょう！</p>
+
+</body>
+</html>

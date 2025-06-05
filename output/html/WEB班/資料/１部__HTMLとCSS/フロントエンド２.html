@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フロントエンド２</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>HTMLのキホン</h1>
+<h2>1. はじめに：Webページってどうやってできてるの？</h2>
+<p>みんなが普段見ているWebサイト、例えば学校のホームページや好きなアーティストの公式サイト、ニュースサイトなどは、どうやって作られているか知っていますか？ その基本的な設計図となるのが、これから学ぶ <strong>HTML (HyperText Markup Language)</strong> なんです。</p>
+<p>HTMLは、Webページに表示したい文章や画像、リンクなどを「ここに見出しを置く」「ここに画像を貼る」「ここから別のページに飛ぶ」といった指示をコンピューターに伝えるための特別な言葉（マークアップ言語）です。</p>
+<p>家を建てるときにまず骨組みを作るように、Webページを作るときもまずHTMLで「どこに何を表示するか」という <strong>骨組み</strong> を作ります。HTMLを学ぶことで、Webページがどのように構成されているかを理解し、自分で簡単なWebページを作れるようになります。</p>
+<h2>2. HTMLのキホン：タグと要素、属性</h2>
+<p>HTMLでは、<strong>タグ</strong> と呼ばれる特別な記号を使って、コンピューターに指示を出します。</p>
+<h3>タグ (Tag)</h3>
+<p>タグは、<code>&lt;</code> と <code>&gt;</code> で囲まれた命令のことです。例えば、文章の段落を作るには <code>&lt;p&gt;</code> というタグを使います。</p>
+<p>多くの場合、タグは <strong>開始タグ</strong> (<code>&lt;p&gt;</code>) と <strong>終了タグ</strong> (<code>&lt;/p&gt;</code>) のペアで使われ、その間に内容を記述します。終了タグにはスラッシュ <code>/</code> が入るのが目印です。</p>
+<pre><code class="language-html">&lt;p&gt;これは段落です。&lt;/p&gt;
+</code></pre>
+<h3>要素 (Element)</h3>
+<p>この <strong>開始タグ + 内容 + 終了タグ</strong> のひとまとまりを <strong>要素</strong> と呼びます。上の例では <code>&lt;p&gt;これは段落です。&lt;/p&gt;</code> 全体が「p要素」です。Webページは、たくさんの要素を組み合わせて作られています。</p>
+<h3>属性 (Attribute)</h3>
+<p>タグには、追加情報（設定）を与えるための <strong>属性</strong> を指定できる場合があります。属性は、<strong>開始タグの中</strong> に <code>属性名=&quot;値&quot;</code> の形で記述します。</p>
+<p>例えば、リンクを作る <code>&lt;a&gt;</code> タグには、<code>href</code> という属性を使って、リンク先のURLを指定します。</p>
+<pre><code class="language-html">&lt;a href=&quot;https://www.nitac.jp/&quot;&gt;NITAC公式サイトへ&lt;/a&gt;
+</code></pre>
+<p>この例では、<code>&lt;a&gt;</code> がタグ、<code>href=&quot;https://www.nitac.jp/&quot;</code> が属性、<code>NITAC公式サイトへ</code> が内容です。これで「NITAC公式サイトへ」という文字をクリックすると、指定したURLにジャンプするリンクになります。</p>
+<h3>空要素 (Empty Element)</h3>
+<p>タグの中には、内容を持たず、終了タグがないものもあります。これを <strong>空要素</strong> と呼びます。例えば、画像を表示する <code>&lt;img&gt;</code> タグや、改行する <code>&lt;br&gt;</code> タグがそうです。</p>
+<pre><code class="language-html">&lt;img src=&quot;logo.png&quot; alt=&quot;ロゴ画像&quot;&gt;
+&lt;br&gt;
+</code></pre>
+<h2>3. HTML文書の骨組みを見てみよう</h2>
+<p>どんなWebページも、基本的には次のような決まった骨組み（構造）を持っています。</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;ここにページのタイトルを書きます&lt;/title&gt;
+  &lt;!-- ここにはWebページに直接表示されない情報が入ります --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;こんにちは！&lt;/h1&gt;
+  &lt;p&gt;ここにWebページに表示したい内容を書きます。&lt;/p&gt;
+  &lt;!-- 画像やリンクなどもここに入ります --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>それぞれの部分が何をしているか見てみましょう。</p>
+<ul>
+<li><strong><code>&lt;!DOCTYPE html&gt;</code></strong>: 「このファイルはHTML5という最新ルールのHTMLですよ！」と宣言するおまじないです。必ず一番最初に書きます。</li>
+<li><strong><code>&lt;html&gt;</code></strong>: HTML文書全体の始まりと終わりを示します。すべての要素はこの <code>&lt;html&gt;</code> タグの中に書きます。<ul>
+<li><code>lang=&quot;ja&quot;</code>: これは <code>html</code> タグの属性で、「このページの主な言語は日本語ですよ」と示しています。</li>
+</ul>
+</li>
+<li><strong><code>&lt;head&gt;</code></strong>: Webページそのものに関する設定情報を書く部分です。ここに書いた内容は、通常Webページには直接表示されません。人間でいうと「頭脳」のような部分です。<ul>
+<li><strong><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></strong>: 文字化けを防ぐためのおまじないです。「文字コードはUTF-8を使います」と指定しています。</li>
+<li><strong><code>&lt;title&gt;</code></strong>: Webページのタイトルを指定します。ブラウザのタブや、お気に入りに登録したときに表示される名前になります。</li>
+</ul>
+</li>
+<li><strong><code>&lt;body&gt;</code></strong>: 実際にブラウザの画面に表示される内容（見出し、文章、画像、リンクなど）を書く部分です。人間でいうと「体」にあたる、Webページのメイン部分です。</li>
+</ul>
+<p>このように、HTMLでは要素が別の要素の中に入る「入れ子構造」で全体の骨組みを作っていきます。</p>
+<h2>4. 様々な使ってみよう</h2>
+<p><code>&lt;body&gt;</code> タグの中に書く、代表的なタグをいくつか紹介します。</p>
+<p><strong>ただし、ここにあるものを全て覚える必要はありません。</strong>
+実際に、Webページを作るときは、必要なものを調べながら使っていくことが多いです。まずは「こんなタグがあるんだな」と知っておいてください。</p>
+<h3>見出し (<code>&lt;h1&gt;</code> 〜 <code>&lt;h6&gt;</code>)</h3>
+<p>文章のタイトルや小見出しを作るタグです。<code>&lt;h1&gt;</code> が一番大きな見出し（大見出し）で、<code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>... と数字が大きくなるにつれて、見出しのレベル（重要度）が下がっていきます。見出しを適切に使うことで、文章の構成が分かりやすくなります。</p>
+<pre><code class="language-html">&lt;h1&gt;一番大きな見出し (ページのタイトルなど)&lt;/h1&gt;
+&lt;h2&gt;中くらいの見出し&lt;/h2&gt;
+&lt;h3&gt;小さな見出し&lt;/h3&gt;
+&lt;p&gt;見出しを使うと、どこに何が書いてあるか分かりやすくなりますね。&lt;/p&gt;
+</code></pre>
+<h3>段落 (<code>&lt;p&gt;</code>)</h3>
+<p>文章のまとまり（段落）を作るタグです。文章は基本的にこの <code>&lt;p&gt;</code> タグで囲みます。ブラウザでは、<code>&lt;p&gt;</code> タグで囲まれた部分は前後に少しスペースが空いて表示されます。</p>
+<pre><code class="language-html">&lt;p&gt;これは最初の段落です。HTMLはWebページの骨組みを作ります。&lt;/p&gt;
+&lt;p&gt;これは二番目の段落です。タグを使って要素を配置していきます。&lt;/p&gt;
+</code></pre>
+<p><strong>注意:</strong> HTMLでは、エディタで改行しても、ブラウザ表示では改行されません。改行したい場合は、次の <code>&lt;br&gt;</code> タグを使います。</p>
+<h3>改行 (<code>&lt;br&gt;</code>)</h3>
+<p>文章の途中で強制的に改行を入れたいときに使う空要素です。<code>&lt;p&gt;</code> タグのように段落全体のスペースは空きません。</p>
+<pre><code class="language-html">&lt;p&gt;ここで改行します。&lt;br&gt;次の行です。&lt;/p&gt;
+</code></pre>
+<h3>リンク (<code>&lt;a&gt;</code>)</h3>
+<p>他のWebページや、同じページ内の別の場所にジャンプするためのリンクを作るタグです。<code>href</code> 属性で行き先のURL（Webアドレス）やファイル名を指定します。</p>
+<pre><code class="language-html">&lt;p&gt;詳しくは&lt;a href=&quot;https://developer.mozilla.org/ja/docs/Web/HTML&quot;&gt;MDNのHTML解説&lt;/a&gt;をご覧ください。&lt;/p&gt;
+
+&lt;!-- 同じフォルダにある別のHTMLファイルへのリンク --&gt;
+&lt;a href=&quot;page2.html&quot;&gt;次のページへ&lt;/a&gt;
+
+&lt;!-- クリックすると新しいタブで開くリンク --&gt;
+&lt;a href=&quot;https://example.com&quot; target=&quot;_blank&quot;&gt;新しいタブで開く&lt;/a&gt;
+</code></pre>
+<p><code>target=&quot;_blank&quot;</code> という属性を追加すると、リンクを新しいタブ（またはウィンドウ）で開くことができます。</p>
+<h3>画像 (<code>&lt;img&gt;</code>)</h3>
+<p>Webページに画像を表示するための空要素です。<code>src</code> 属性で画像の場所（ファイル名やURL）を指定し、<code>alt</code> 属性で画像が表示されなかった場合や、音声読み上げソフト用の代替テキストを指定します。</p>
+<pre><code class="language-html">&lt;!-- 同じフォルダにある画像を表示 --&gt;
+&lt;img src=&quot;dog.jpg&quot; alt=&quot;かわいい犬の写真&quot;&gt;
+
+&lt;!-- インターネット上の画像を表示 --&gt;
+&lt;img src=&quot;https://www.w3.org/html/logo/downloads/HTML5_Logo_256.png&quot; alt=&quot;HTML5のロゴ&quot;&gt;
+
+&lt;!-- サイズを指定する場合 (CSSでの指定が推奨されます) --&gt;
+&lt;img src=&quot;cat.png&quot; alt=&quot;猫&quot; width=&quot;100&quot; height=&quot;80&quot;&gt;
+</code></pre>
+<p><code>width</code>（幅）や <code>height</code>（高さ）属性で画像のサイズを指定することもできますが、通常は後で学ぶCSSで行うのが一般的です。<code>alt</code>属性は必ず指定するようにしましょう。</p>
+<h3>リスト (<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>)</h3>
+<p>項目をリスト形式で表示するタグです。</p>
+<ul>
+<li><strong><code>&lt;ul&gt;</code> (Unordered List)</strong>: 順序のない箇条書きリストを作ります。通常、点（・）などで表示されます。</li>
+<li><strong><code>&lt;ol&gt;</code> (Ordered List)</strong>: 順序のある番号付きリストを作ります。通常、1, 2, 3... と番号が付きます。</li>
+<li><strong><code>&lt;li&gt;</code> (List Item)</strong>: 各リストの項目を表します。<code>&lt;ul&gt;</code> または <code>&lt;ol&gt;</code> の中に書きます。</li>
+</ul>
+<pre><code class="language-html">&lt;h4&gt;好きな果物 (順不同)&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;りんご&lt;/li&gt;
+  &lt;li&gt;バナナ&lt;/li&gt;
+  &lt;li&gt;みかん&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;朝の準備 (順番通り)&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;起きる&lt;/li&gt;
+  &lt;li&gt;顔を洗う&lt;/li&gt;
+  &lt;li&gt;朝ごはんを食べる&lt;/li&gt;
+  &lt;li&gt;歯を磨く&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<h3>区切り線 (<code>&lt;hr&gt;</code>)</h3>
+<p>話題の区切りなどに、水平線を表示するための空要素です。</p>
+<pre><code class="language-html">&lt;p&gt;最初の話題はここまでです。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;ここから次の話題です。&lt;/p&gt;
+</code></pre>
+<h3>強調 (<code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>)</h3>
+<p>文章の中で特に強調したい部分を示すためのタグです。</p>
+<ul>
+<li><strong><code>&lt;strong&gt;</code></strong>: 重要な部分を強調するためのタグです。通常、太字で表示されます。</li>
+<li><strong><code>&lt;em&gt;</code></strong>: 強調したい部分を斜体で表示するためのタグです。通常、イタリック体（斜め文字）で表示されます。</li>
+</ul>
+<pre><code class="language-html">&lt;p&gt;この文章は&lt;strong&gt;重要な部分&lt;/strong&gt;を強調しています。&lt;/p&gt;
+&lt;p&gt;この文章は&lt;em&gt;強調したい部分&lt;/em&gt;を斜体で表示しています。&lt;/p&gt;
+</code></pre>
+<h3>下線 (<code>&lt;u&gt;</code>)</h3>
+<p>文章の中で下線を引きたい部分を示すためのタグです。通常、下線が引かれます。</p>
+<pre><code class="language-html">&lt;p&gt;この文章は&lt;u&gt;下線が引かれています&lt;/u&gt;。&lt;/p&gt;
+</code></pre>
+<h3>引用 (<code>&lt;blockquote&gt;</code>)</h3>
+<p>他の人の言葉や文章を引用するためのタグです。通常、インデント（左側に余白）が付き、引用符が表示されます。</p>
+<pre><code class="language-html">&lt;blockquote&gt;
+  &lt;p&gt;「HTMLはWebページの骨組みを作るための言語です。」&lt;/p&gt;
+  &lt;footer&gt;— W3C&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<h3>br (<code>&lt;br&gt;</code>)</h3>
+<p>改行を入れたいときに使う空要素です。文章の途中で強制的に改行を入れます。</p>
+<pre><code class="language-html">&lt;p&gt;ここで改行します。&lt;br&gt;次の行です。&lt;/p&gt;
+</code></pre>
+<h3>ボタン (<code>&lt;button&gt;</code>)</h3>
+<p>ボタンを作るためのタグです。通常、クリック可能なボタンが表示されます。</p>
+<pre><code class="language-html">&lt;button type=&quot;button&quot;&gt;クリックしてね！&lt;/button&gt;
+</code></pre>
+<h3>フォーム (<code>&lt;form&gt;</code>)</h3>
+<p>ユーザーからの入力を受け取るためのフォームを作るためのタグです。通常、テキストボックスやラジオボタン、チェックボックスなどが含まれます。</p>
+<pre><code class="language-html">&lt;form action=&quot;/submit&quot; method=&quot;post&quot;&gt;
+  &lt;label for=&quot;name&quot;&gt;名前:&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot;&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;送信&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<h3>グループ化 (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>)</h3>
+<p>これらのタグ自体は、見た目に直接影響を与えることは少ないですが、複数の要素をまとめたり、文章の一部をグループ化したりするために使います。後で学ぶCSSでデザインを適用する際に、非常に重要な役割を果たします。</p>
+<ul>
+<li><strong><code>&lt;div&gt;</code></strong>: ブロックレベル要素（通常、前後に改行が入る）をまとめるための汎用的な箱です。関連する要素群（例えば、記事全体、サイドバーなど）を囲むのによく使われます。</li>
+<li><strong><code>&lt;span&gt;</code></strong>: インライン要素（通常、前後に改行が入らない）をまとめるためのタグです。文章の一部分だけ（例えば、特定の単語）にスタイルを適用したい場合などに使います。</li>
+</ul>
+<pre><code class="language-html">&lt;div class=&quot;article&quot;&gt;
+  &lt;h2&gt;記事タイトル&lt;/h2&gt;
+  &lt;p&gt;これは記事の本文です。特に&lt;span class=&quot;important&quot;&gt;重要な部分&lt;/span&gt;はここです。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;profile&quot;&gt;
+  &lt;img src=&quot;me.jpg&quot; alt=&quot;自分の写真&quot;&gt;
+  &lt;p&gt;自己紹介文&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p><code>class=&quot;article&quot;</code> や <code>class=&quot;important&quot;</code> は属性ですが、これは主にCSSで特定の要素を指定するために使われます（今は「こういう使い方があるんだな」くらいでOKです）。</p>
+<h3>コメント (<code>&lt;!-- --&gt;</code>)</h3>
+<p><code>&lt;!--</code> と <code>--&gt;</code> で囲まれた部分はコメントとなり、ブラウザには表示されません。コードの説明を書いたり、一時的にコードの一部を無効にしたりするのに使います。</p>
+<pre><code class="language-html">&lt;!-- ここは見出しです --&gt;
+&lt;h1&gt;ページのタイトル&lt;/h1&gt;
+
+&lt;p&gt;本文です。&lt;/p&gt;
+&lt;!-- &lt;p&gt;この行は一時的に表示しません。&lt;/p&gt; --&gt;
+</code></pre>
+<h3>その他</h3>
+<ul>
+<li><strong><code>&lt;table&gt;</code></strong>: 表を作るためのタグです。行（<code>&lt;tr&gt;</code>）と列（<code>&lt;td&gt;</code>）を組み合わせて、データを整理して表示します。</li>
+<li><strong>&#39;セマンティックタグ&#39;</strong>: <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code> など、意味を持ったタグが増えてきています。より意味のある構造を持つWebページを作るために使われます。</li>
+</ul>
+<p>他にもたくさんのタグがありますが、まずはこれらの基本的なタグを覚えておくと良いでしょう。</p>
+<h2>5. まとめ：HTMLでできること</h2>
+<p>お疲れ様でした！これでHTMLの基本的な骨組みと、よく使うタグについて学ぶことができました。</p>
+<ul>
+<li>HTMLはWebページの <strong>骨組み（構造）</strong> を作るための言語です。</li>
+<li><strong>タグ</strong> を使って、見出し、段落、画像、リンクなどの要素を配置します。</li>
+<li><strong>属性</strong> を使って、タグに追加情報を与えます。</li>
+<li>HTMLだけだと、見た目はとてもシンプルです。</li>
+</ul>
+<p>HTMLはWeb制作の第一歩です。まずはこのHTMLでページの構造をしっかり作れるようになることが大切です。</p>
+<p>次のステップでは、<strong>CSS (Cascading Style Sheets)</strong> という別の言語を学びます。CSSを使うと、HTMLで作った骨組みに色を付けたり、レイアウトを整えたりして、Webページの <strong>見た目をデザイン</strong> することができます。HTMLとCSSを組み合わせることで、本格的なWebページが作れるようになります。</p>
+<h2>補足：タグの表示タイプ</h2>
+<p>HTMLのタグには、表示されるとき、主に3つの「表示され方」のタイプがあります。今後学ぶCSSの<code>display</code>というプロパティで設定され、初期値はタグによって決まっています。</p>
+<p>このプロパティよって、「改行されるか？」「幅や高さを変えられるか？」が変わります。
+特に<strong>改行についてうまくいかないときに</strong>この知識が必要になります。</p>
+<h3>1. ブロックタイプ (<code>display: block</code>)</h3>
+<p>特徴</p>
+<ul>
+<li>前後で<strong>勝手に改行</strong></li>
+<li>幅や高さを自分で決められる</li>
+<li>特に幅を指定しない場合、、左右のスペースが最大に広がる</li>
+</ul>
+<p>タグの例</p>
+<ul>
+<li><code>&lt;h1&gt;</code>～<code>&lt;h6&gt;</code> (見出し)、<code>&lt;p&gt;</code> (段落)、<code>&lt;div&gt;</code> (グループ化の箱)</li>
+<li><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code> (リスト)、<code>&lt;hr&gt;</code> (線)</li>
+<li><code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code> などのセマンティックタグ</li>
+</ul>
+<pre><code class="language-html">&lt;div style=&quot;border: 1px solid red;&quot;&gt;ブロックタイプ。改行される&lt;/div&gt;
+&lt;p style=&quot;border: 1px solid blue;&quot;&gt;ブロックタイプ 幅も高さも変えられる！&lt;/p&gt;
+&lt;!-- 自動的に縦に並んで、横幅いっぱいに広がろうとするのが特徴 --&gt;
+</code></pre>
+<h3>2. インラインタイプ (<code>display: inline</code>)</h3>
+<p>特徴</p>
+<ul>
+<li>前後で改行されず、<strong>横に並ぶ</strong></li>
+<li>幅や高さを指定しても<strong>無視される</strong>（中の文字や画像のサイズで決まる）</li>
+<li>上下の <code>margin</code>（外側の余白）は効かない（左右は効く）</li>
+<li><code>padding</code>（内側の余白）は上下左右に効くが、レイアウトに影響するのは左右のみ</li>
+</ul>
+<p>タグの例</p>
+<ul>
+<li><code>&lt;a&gt;</code> (リンク)、<code>&lt;span&gt;</code> (グループ化)</li>
+<li><code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;u&gt;</code> (文字装飾)</li>
+<li><code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;label&gt;</code> (フォーム関連の一部)</li>
+</ul>
+<pre><code class="language-html">&lt;span style=&quot;border: 1px solid green;&quot;&gt;インラインタイプ。&lt;/span&gt;
+&lt;a href=&quot;#&quot; style=&quot;border: 1px solid purple;&quot;&gt;横に並びます。&lt;/a&gt;
+&lt;span style=&quot;border: 1px solid orange; width: 200px; height: 50px; margin-top: 20px; padding: 10px;&quot;&gt;幅や高さを指定しても効かない。上下マージンも効かない。&lt;/span&gt;
+&lt;!-- 文章の一部のように、行の中に埋め込まれるイメージ --&gt;
+</code></pre>
+<p>これらは、主にブロックタイプの要素の中に入れて使います。例えば、<code>&lt;p&gt;</code> タグの中に <code>&lt;a&gt;</code> タグを入れたり、<code>&lt;div&gt;</code> タグの中に <code>&lt;span&gt;</code> タグを入れたりします。そうでないと、改行がうまくいかないことがあるので注意が必要です。</p>
+<pre><code class="language-html">&lt;p&gt;これは段落(ブロックタイプ)の中に&lt;a href=&quot;#&quot;&gt;リンク&lt;/a&gt;がある例です。&lt;/p&gt;
+</code></pre>
+<h3>3. インラインブロックタイプ (<code>display: inline-block</code>)</h3>
+<p>ブロックとインラインのいいとこ取りをしたようなタイプです。</p>
+<p>特徴</p>
+<ul>
+<li>前後で改行されず、<strong>横に並ぶ</strong>（インラインの特徴）</li>
+<li>幅や高さを<strong>自分で決められる</strong>（ブロックの特徴）</li>
+</ul>
+<p>タグの例</p>
+<ul>
+<li><code>&lt;img&gt;</code> (画像)</li>
+<li><code>&lt;button&gt;</code>, <code>&lt;input&gt;</code> (フォーム関連の一部)</li>
+</ul>
+<pre><code class="language-html">&lt;span style=&quot;display: inline-block; border: 1px solid teal; width: 150px; height: 50px; margin: 10px;&quot;&gt;インラインブロック。&lt;/span&gt;
+&lt;button style=&quot;display: inline-block; border: 1px solid brown; width: 100px; height: 50px; margin: 10px;&quot;&gt;幅も高さも指定できて、横に並ぶ！&lt;/button&gt;
+&lt;!-- 横に並べたいけど、サイズも指定したいときに便利 --&gt;
+</code></pre>
+<p>このタイプは、特に画像やボタンなど、サイズを指定したいけど横に並べたいときに便利です。例えば、複数の画像を横に並べてギャラリーのように表示したいときなどに使います。</p>
+<p>また、ブロックタイプの要素の中にインラインブロックタイプを入れることもできます。例えば、<code>&lt;div&gt;</code> タグの中に <code>&lt;span&gt;</code> タグを入れたり、<code>&lt;p&gt;</code> タグの中に <code>&lt;button&gt;</code> タグを入れたりします。</p>
+<pre><code class="language-html">&lt;div style=&quot;border: 1px solid gray;&quot;&gt;
+  &lt;p&gt;これは段落の中に&lt;button&gt;ボタン&lt;/button&gt;がある例です。&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>表示タイプのまとめ</h3>
+<p>これらの表示タイプは、CSSで <code>display</code> プロパティを使って変更することもできます。例えば、<code>&lt;a&gt;</code> タグ（インライン）をボタンのように見せるために <code>display: inline-block;</code> や <code>display: block;</code> に変更することはよくあります。</p>
+<table>
+<thead>
+<tr>
+<th align="left">タイプ (<code>display</code>)</th>
+<th align="center">改行されるか？</th>
+<th align="center">幅・高さ指定</th>
+<th align="center">横に並ぶか？</th>
+<th align="left">タグの例 (初期値)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>block</code></td>
+<td align="center">する</td>
+<td align="center">できる</td>
+<td align="center">しない</td>
+<td align="left"><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;ul&gt;</code> など</td>
+</tr>
+<tr>
+<td align="left"><code>inline</code></td>
+<td align="center">しない</td>
+<td align="center"><strong>できない</strong></td>
+<td align="center">する</td>
+<td align="left"><code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code> など</td>
+</tr>
+<tr>
+<td align="left"><code>inline-block</code></td>
+<td align="center">しない</td>
+<td align="center">できる</td>
+<td align="center">する</td>
+<td align="left"><code>&lt;img&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code> など</td>
+</tr>
+</tbody></table>
+<p>最初は混乱するかもしれませんが、「なんか表示が思った通りにならないな？」と思ったときに、この表示タイプの違いを思い出してみてください。</p>
+
+</body>
+</html>

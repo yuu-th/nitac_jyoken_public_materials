@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フロントエンド５</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>発展CSS</h1>
+<p>CSSの基本を学んで、文字の色やサイズ、背景、余白などを変えられるようになりましたね。今回は、CSSの力をさらに引き出すためのテクニックを見ていきましょう！</p>
+<p>よりピンポイントで要素を指定する方法、要素に動きや変化を与える方法、そしてCSSをもっと効率的に書くためのテクニックなどを紹介します。これらをマスターすれば、デザインの自由度が格段に上がり、より洗練された、そしてメンテナンスしやすいWebページを作れるようになります。</p>
+<h2>1. 高度なセレクタ：狙った要素を逃さない</h2>
+<p>基本的な要素セレクタ、クラスセレクタ、IDセレクタ以外にも、CSSにはもっと細かく要素を指定するためのセレクタがたくさんあります。これらを使いこなせると、「特定の条件下にある要素だけ」にスタイルを適用できるようになります。</p>
+<h3>疑似クラス (Pseudo-classes)</h3>
+<p>要素の「特定の状態」や「位置」に基づいてスタイルを適用するためのセレクタです。セレクタの後ろにコロン (<code>:</code>) を付けて記述します。</p>
+<ul>
+<li><p><strong>:hover</strong>: マウスカーソルが要素の上に乗っている状態。</p>
+<pre><code class="language-css">a:hover {
+  color: red; /* リンクにマウスを乗せると赤色に */
+  text-decoration: underline; /* 下線をつける */
+}
+button:hover {
+  opacity: 0.8; /* ボタンにマウスを乗せると少し透明に */
+}
+</code></pre>
+</li>
+<li><p><strong>:active</strong>: 要素がアクティブな状態（例: マウスでクリックされている間）。</p>
+<pre><code class="language-css">button:active {
+  transform: scale(0.95); /* クリック中に少し小さくする */
+}
+</code></pre>
+</li>
+<li><p><strong>:focus</strong>: 要素がフォーカスを受け取っている状態（例: テキスト入力欄が選択されている時、タブキーで移動した時）。</p>
+<pre><code class="language-css">input:focus {
+  outline: 2px solid blue; /* フォーカス時に青い枠線を表示 */
+  background-color: lightyellow;
+}
+</code></pre>
+</li>
+<li><p><strong>:nth-child(n)</strong>: 親要素の中でn番目の子要素。<code>n</code> には数字、<code>odd</code> (奇数番目)、<code>even</code> (偶数番目)、<code>2n+1</code> (数式) などが指定できます。</p>
+<pre><code class="language-css">/* リストの奇数番目の背景色を変える (ストライプ) */
+li:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+/* 3番目の段落だけ文字を太くする */
+p:nth-child(3) {
+  font-weight: bold;
+}
+/* 最初の2つのアイテム */
+li:nth-child(-n+2) {
+  border-top: 2px solid red;
+}
+</code></pre>
+</li>
+<li><p><strong>:first-child</strong>: 親要素の中で最初の子要素。<code>:nth-child(1)</code> と同じ。</p>
+</li>
+<li><p><strong>:last-child</strong>: 親要素の中で最後の子要素。</p>
+</li>
+<li><p><strong>:not(セレクタ)</strong>: 指定したセレクタに一致「しない」要素。</p>
+<pre><code class="language-css">/* &quot;special&quot; クラスが付いていない p 要素すべて */
+p:not(.special) {
+  color: gray;
+}
+/* 最後のリスト項目以外のリスト項目に下線を引く */
+li:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+</code></pre>
+</li>
+</ul>
+<p><strong>開発者の視点:</strong> 疑似クラス、特に <code>:hover</code> や <code>:focus</code> は、ユーザーインタラクション（操作に対する反応）を分かりやすくするために非常によく使われます。<code>:nth-child()</code> はテーブルの行を交互に色付けしたり、リストのデザインを調整したりするのに便利です。</p>
+<h3>疑似要素 (Pseudo-elements)</h3>
+<p>要素の「特定の部分」に対してスタイルを適用するためのセレクタです。セレクタの後ろにコロン2つ (<code>::</code>) を付けて記述します（古いブラウザとの互換性のために <code>:</code> 1つでも動くことが多いですが、<code>::</code> が推奨されます）。</p>
+<ul>
+<li><p><strong>::before</strong>: 要素の内容の「直前」に、CSSからコンテンツ（テキストや画像など）を挿入します。<code>content</code> プロパティが必須です。</p>
+</li>
+<li><p><strong>::after</strong>: 要素の内容の「直後」に、CSSからコンテンツを挿入します。<code>content</code> プロパティが必須です。</p>
+<pre><code class="language-css">/* 外部リンクの後ろにアイコンを表示する */
+a[target=&quot;_blank&quot;]::after {
+  content: &quot; ↗&quot;; /* contentプロパティで表示内容を指定 */
+  font-size: 0.8em;
+}
+/* 特定のセクションタイトルの前に装飾を付ける */
+h2.section-title::before {
+  content: &quot;◆ &quot;;
+  color: blue;
+}
+/* clearfix ハック (float解除の古典的なテクニック) */
+.clearfix::after {
+  content: &quot;&quot;;
+  display: block;
+  clear: both;
+}
+</code></pre>
+</li>
+<li><p><strong>::first-letter</strong>: ブロックレベル要素の最初の文字。</p>
+</li>
+<li><p><strong>::first-line</strong>: ブロックレベル要素の最初の行。</p>
+<pre><code class="language-css">p::first-letter {
+  font-size: 2em; /* 最初の文字だけ大きく */
+  color: red;
+  float: left; /* 回り込み */
+  margin-right: 0.1em;
+}
+p::first-line {
+  font-weight: bold; /* 最初の行だけ太字 */
+}
+</code></pre>
+</li>
+<li><p><strong>::selection</strong>: ユーザーがマウスなどで選択した部分。</p>
+<pre><code class="language-css">::selection {
+  background-color: yellow;
+  color: black;
+}
+</code></pre>
+</li>
+</ul>
+<p><strong>開発者の視点:</strong> <code>::before</code> と <code>::after</code> は非常に強力で、HTMLを変更せずに装飾的な要素を追加したり、レイアウトの補助に使ったりできます。<code>content</code> プロパティが必須なのを忘れずに。</p>
+<h3>属性セレクタ (Attribute Selectors)</h3>
+<p>HTML要素が持つ属性やその値に基づいて要素を選択します。</p>
+<ul>
+<li><p><code>[attribute]</code>: 指定した属性を持つ要素。</p>
+<pre><code class="language-css">/* title属性を持つすべての要素 */
+[title] {
+  border-bottom: 1px dotted gray;
+}
+</code></pre>
+</li>
+<li><p><code>[attribute=&quot;value&quot;]</code>: 指定した属性が特定の値を持つ要素。</p>
+<pre><code class="language-css">/* type=&quot;submit&quot; の input 要素 */
+input[type=&quot;submit&quot;] {
+  background-color: green;
+  color: white;
+}
+</code></pre>
+</li>
+<li><p><code>[attribute~=&quot;value&quot;]</code>: 指定した属性の値（スペース区切り）に特定の単語が含まれる要素。</p>
+<pre><code class="language-html">&lt;img src=&quot;a.jpg&quot; alt=&quot;dog cute&quot;&gt;
+&lt;img src=&quot;b.jpg&quot; alt=&quot;cat photo&quot;&gt;
+</code></pre>
+<pre><code class="language-css">/* alt属性に &quot;cute&quot; が含まれる img 要素 */
+img[alt~=&quot;cute&quot;] {
+  border: 2px solid pink;
+}
+</code></pre>
+</li>
+<li><p><code>[attribute^=&quot;value&quot;]</code>: 指定した属性の値が特定の文字列で「始まる」要素。</p>
+<pre><code class="language-css">/* href属性が &quot;https://&quot; で始まる a 要素 (外部リンク) */
+a[href^=&quot;https://&quot;] {
+  background: url(external-link.png) no-repeat right center;
+  padding-right: 15px;
+}
+</code></pre>
+</li>
+<li><p><code>[attribute$=&quot;value&quot;]</code>: 指定した属性の値が特定の文字列で「終わる」要素。</p>
+<pre><code class="language-css">/* href属性が &quot;.pdf&quot; で終わる a 要素 (PDFリンク) */
+a[href$=&quot;.pdf&quot;]::after {
+  content: &quot; (PDF)&quot;;
+}
+</code></pre>
+</li>
+<li><p><code>[attribute*=&quot;value&quot;]</code>: 指定した属性の値に特定の文字列が「含まれる」要素。</p>
+<pre><code class="language-css">/* class属性に &quot;test&quot; という文字列が含まれる要素 (例: class=&quot;button test primary&quot;) */
+[class*=&quot;test&quot;] {
+  color: red;
+}
+</code></pre>
+</li>
+</ul>
+<h3>結合子 (Combinators)</h3>
+<p>複数のセレクタを組み合わせて、要素間の関係性に基づいて選択します。</p>
+<ul>
+<li><p><strong>子孫セレクタ ( )</strong> (スペース): ある要素の「中にあるすべて」の子孫要素。</p>
+<pre><code class="language-css">/* div要素の中にあるすべてのp要素 */
+div p {
+  color: blue;
+}
+</code></pre>
+</li>
+<li><p><strong>子セレクタ (&gt;)</strong>: ある要素の「直下にある」子要素。</p>
+<pre><code class="language-css">/* ul要素の直下にあるli要素 (孫要素は対象外) */
+ul &gt; li {
+  list-style-type: square;
+}
+</code></pre>
+</li>
+<li><p><strong>隣接兄弟セレクタ (+)</strong>: ある要素の「すぐ隣にある」弟要素（同じ親を持つ）。</p>
+<pre><code class="language-css">/* h2要素のすぐ後ろにあるp要素 */
+h2 + p {
+  margin-top: 0; /* 見出し直後の段落の上マージンを詰める */
+}
+</code></pre>
+</li>
+<li><p><strong>一般兄弟セレクタ (~)</strong>: ある要素の「後ろにあるすべての」弟要素（同じ親を持つ）。</p>
+<pre><code class="language-css">/* h2要素の後ろにあるすべてのp要素 */
+h2 ~ p {
+  text-indent: 1em; /* 字下げ */
+}
+</code></pre>
+</li>
+</ul>
+<p><strong>開発者の視点:</strong> 結合子をうまく使うと、HTMLに余計なクラスを付けなくても、構造に基づいてスタイルを適用できます。ただし、深くネストした子孫セレクタ（例: <code>#main .content .box p</code>）は、CSSの特定度（Specificity）が高くなりすぎて、後で上書きしにくくなったり、HTML構造の変更に弱くなったりするので、使いすぎには注意しましょう。子セレクタ <code>&gt;</code> を使う方が影響範囲を限定できて良い場合が多いです。</p>
+<h2>2. 視覚効果とアニメーション：動きと変化を加える</h2>
+<p>CSSを使えば、要素の見た目を変化させたり、アニメーションを付けたりすることもできます。Webページがぐっと魅力的になりますよ。</p>
+<h3><code>transition</code>: 滑らかな変化</h3>
+<p>プロパティの値が変化する際に、時間をかけて滑らかに変化させる効果を追加します。<code>:hover</code> などと組み合わせることが多いです。</p>
+<ul>
+<li><code>transition-property</code>: 変化を適用するプロパティ名 (例: <code>background-color</code>, <code>opacity</code>, <code>all</code>)。</li>
+<li><code>transition-duration</code>: 変化にかかる時間 (例: <code>0.3s</code>, <code>500ms</code>)。</li>
+<li><code>transition-timing-function</code>: 変化の速度曲線 (例: <code>ease</code>, <code>linear</code>, <code>ease-in-out</code>)。</li>
+<li><code>transition-delay</code>: 変化が始まるまでの遅延時間。</li>
+</ul>
+<p>まとめて <code>transition</code> プロパティで指定するのが一般的です。</p>
+<pre><code class="language-css">button {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  /* 変化させたいプロパティ、時間、速度曲線を指定 */
+  transition: background-color 0.3s ease, transform 0.2s ease-out;
+}
+
+button:hover {
+  background-color: darkblue;
+  transform: scale(1.05); /* 少し拡大 */
+}
+</code></pre>
+<h3><code>transform</code>: 要素の変形</h3>
+<p>要素を移動、回転、拡大縮小、傾斜させることができます。レイアウトに影響を与えずに見た目を変形できるのが特徴です。</p>
+<ul>
+<li><code>translate(x, y)</code>: 水平方向(x)、垂直方向(y)に移動。<code>translateX(x)</code>, <code>translateY(y)</code> もあります。</li>
+<li><code>rotate(angle)</code>: 指定した角度だけ回転 (例: <code>45deg</code>)。</li>
+<li><code>scale(x, y)</code>: 水平方向(x)、垂直方向(y)に拡大縮小。<code>scale(1.5)</code> のように一つだけ指定すると縦横比維持。<code>scaleX(x)</code>, <code>scaleY(y)</code> もあります。</li>
+<li><code>skew(x-angle, y-angle)</code>: 水平方向(x)、垂直方向(y)に傾斜。<code>skewX(angle)</code>, <code>skewY(angle)</code> もあります。</li>
+</ul>
+<p>複数の変形はスペースで区切って指定します。</p>
+<pre><code class="language-css">img:hover {
+  transform: rotate(5deg) scale(1.1); /* 少し回転して拡大 */
+  transition: transform 0.3s ease; /* transformの変化を滑らかに */
+}
+
+.icon {
+  display: inline-block; /* transformはインライン要素には効きにくい */
+  transition: transform 0.2s ease;
+}
+.icon:active {
+  transform: translateY(2px); /* クリック時に少し下に沈む */
+}
+</code></pre>
+<h3><code>animation</code> と <code>@keyframes</code>: 複雑なアニメーション</h3>
+<p><code>transition</code> よりも複雑な、キーフレームに基づいたアニメーションを作成できます。</p>
+<ol>
+<li><strong><code>@keyframes</code> ルール</strong>: アニメーションの名前と、そのアニメーション中のどの時点（<code>0%</code> または <code>from</code>, <code>50%</code>, <code>100%</code> または <code>to</code> など）でどのようなスタイルにするかを定義します。</li>
+<li><strong><code>animation</code> プロパティ</strong>: 要素に <code>@keyframes</code> で定義したアニメーションを適用します。<ul>
+<li><code>animation-name</code>: <code>@keyframes</code> で定義した名前。</li>
+<li><code>animation-duration</code>: アニメーション1回にかかる時間。</li>
+<li><code>animation-timing-function</code>: 速度曲線。</li>
+<li><code>animation-delay</code>: 開始までの遅延時間。</li>
+<li><code>animation-iteration-count</code>: 繰り返す回数 (<code>infinite</code> で無限ループ)。</li>
+<li><code>animation-direction</code>: 再生方向 (<code>normal</code>, <code>reverse</code>, <code>alternate</code> など)。</li>
+<li><code>animation-fill-mode</code>: アニメーション開始前・終了後のスタイル (<code>none</code>, <code>forwards</code>, <code>backwards</code>, <code>both</code>)。</li>
+<li><code>animation-play-state</code>: 再生状態 (<code>running</code>, <code>paused</code>)。</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-css">/* 点滅するアニメーションを定義 */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+/* ローディングスピナーのアニメーションを定義 */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.alert {
+  /* blinkアニメーションを2秒かけて無限に繰り返す */
+  animation: blink 2s infinite;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid lightgray;
+  border-top-color: blue;
+  border-radius: 50%; /* 円形にする */
+  /* spinアニメーションを1秒で線形に無限ループ */
+  animation: spin 1s linear infinite;
+}
+</code></pre>
+<p><strong>開発者の視点:</strong> アニメーションはユーザーの注意を引きつけたり、状態変化を分かりやすく伝えたりするのに有効ですが、やりすぎると鬱陶しくなったり、パフォーマンスに影響したりします。特に <code>opacity</code> と <code>transform</code> を使ったアニメーションは比較的パフォーマンスが良いとされています。</p>
+<h3>その他の視覚効果</h3>
+<ul>
+<li><p><strong><code>filter</code></strong>: 要素に画像フィルターのような効果（ぼかし、セピア調、グレースケール、明るさ調整など）を適用します。</p>
+<pre><code class="language-css">img.blur {
+  filter: blur(5px); /* 5pxぼかす */
+}
+img.grayscale:hover {
+  filter: grayscale(0%); /* ホバーで色を戻す */
+  transition: filter 0.3s ease;
+}
+img.grayscale {
+  filter: grayscale(100%); /* 最初はグレースケール */
+}
+</code></pre>
+</li>
+<li><p><strong><code>opacity</code></strong>: 要素の透明度を指定します (<code>0</code> で完全透明、<code>1</code> で完全不透明)。</p>
+</li>
+<li><p><strong><code>box-shadow</code> / <code>text-shadow</code></strong>: 要素のボックスやテキストに影を付けます。複数の影を指定することも可能です。</p>
+<pre><code class="language-css">.card {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* 右下にぼけた影 */
+}
+h1 {
+  text-shadow: 1px 1px 2px gray; /* テキストに少し影 */
+}
+</code></pre>
+</li>
+<li><p><strong>グラデーション</strong>: <code>background-image</code> プロパティで線形 (<code>linear-gradient()</code>) や放射状 (<code>radial-gradient()</code>) のグラデーション背景を作成できます。</p>
+<pre><code class="language-css">body {
+  /* 上から下へ、白から水色へのグラデーション */
+  background-image: linear-gradient(to bottom, white, lightblue);
+}
+.button-shiny {
+  /* 左上から右下へ、明るい青から暗い青へのグラデーション */
+  background-image: linear-gradient(to bottom right, #5bc0de, #0275d8);
+  color: white;
+}
+</code></pre>
+</li>
+</ul>
+<h2>3. その他：効率化と便利な機能</h2>
+<p>CSSをより効率的に、そして柔軟に書くための機能も見てみましょう。</p>
+<h3>CSS変数 (カスタムプロパティ)</h3>
+<p>CSS内で独自の変数（カスタムプロパティ）を定義し、再利用することができます。色の設定や余白のサイズなど、サイト全体で統一したい値を一元管理するのに非常に便利です。</p>
+<ul>
+<li>変数の定義: <code>--</code> (ハイフン2つ) で始まる名前を付け、<code>:root</code> 疑似クラス（HTML文書全体を指す）や特定のセレクタ内で定義します。</li>
+<li>変数の利用: <code>var()</code> 関数を使って呼び出します。</li>
+</ul>
+<pre><code class="language-css">/* :root でグローバルな変数を定義 */
+:root {
+  --main-color: #3498db; /* メインカラー */
+  --accent-color: #f1c40f; /* アクセントカラー */
+  --base-font-size: 16px;
+  --padding-small: 8px;
+  --padding-medium: 16px;
+}
+
+body {
+  font-size: var(--base-font-size);
+}
+
+h1 {
+  color: var(--main-color);
+}
+
+button {
+  background-color: var(--main-color);
+  color: white;
+  padding: var(--padding-small) var(--padding-medium);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: darken(var(--main-color), 10%); /* Sassなどのプリプロセッサが必要な場合あり */
+  /* もしくは直接色を指定するか、ホバー用の変数を定義 */
+}
+
+.highlight {
+  background-color: var(--accent-color);
+  padding: var(--padding-small);
+}
+</code></pre>
+<p><strong>開発者の視点:</strong> CSS変数は、特に大規模なプロジェクトや、テーマ変更機能（ダークモードなど）を実装する際に絶大な効果を発揮します。色の変更などが一箇所で済むため、メンテナンス性が劇的に向上します。</p>
+<h3><code>calc()</code> 関数</h3>
+<p>CSSプロパティの値の中で計算を行うことができます。異なる単位（例: <code>%</code> と <code>px</code>）を組み合わせた計算も可能です。</p>
+<pre><code class="language-css">.container {
+  width: calc(100% - 40px); /* 全体の幅から左右20pxずつの余白を引いた幅 */
+  padding: 20px;
+  margin: 0 auto; /* 中央揃え */
+}
+
+header {
+  height: 60px;
+}
+
+main {
+  /* ヘッダーの高さを引いた残りの高さを指定 */
+  min-height: calc(100vh - 60px); /* vhはビューポートの高さに対する割合 */
+}
+
+.item {
+  /* 親要素の幅の1/3から、アイテム間のマージン分を引く */
+  width: calc(100% / 3 - 20px);
+  margin: 10px;
+}
+</code></pre>
+<h3>Webフォント</h3>
+<p>コンピューターにインストールされていないフォントでも、Webサーバーからフォントファイルを読み込んで表示させる技術です。<code>@font-face</code> ルールを使うか、Google Fonts などの外部サービスを利用するのが一般的です。</p>
+<p><strong><code>@font-face</code> の例:</strong></p>
+<pre><code class="language-css">/* フォントファイルを読み込む */
+@font-face {
+  font-family: &#39;MyCustomFont&#39;; /* フォント名を定義 */
+  src: url(&#39;myfont.woff2&#39;) format(&#39;woff2&#39;), /* 最新フォーマットから順に */
+       url(&#39;myfont.woff&#39;) format(&#39;woff&#39;);   /* 古いブラウザ向け */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 定義したフォントを使う */
+body {
+  font-family: &#39;MyCustomFont&#39;, sans-serif; /* 読み込めなかった場合の代替フォントも指定 */
+}
+</code></pre>
+<p><strong>Google Fonts の利用例 (HTML):</strong></p>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+  &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+  &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+<p><strong>Google Fonts の利用例 (CSS):</strong></p>
+<pre><code class="language-css">body {
+  font-family: &#39;Noto Sans JP&#39;, sans-serif; /* Google Fontsで指定されたフォント名 */
+}
+h1, h2 {
+  font-weight: 700; /* 読み込んだウェイトを指定 */
+}
+</code></pre>
+<p><strong>開発者の視点:</strong> Webフォントを使うとデザインの幅が広がりますが、フォントファイルの読み込みには時間がかかるため、ページの表示速度に影響を与える可能性があります。必要な文字だけを含むサブセット化されたフォントを使ったり、読み込み方法を工夫したり（<code>font-display: swap;</code> など）することが重要です。</p>
+<h3>背景の高度な設定</h3>
+<p><code>background</code> プロパティは、色だけでなく画像やサイズ、位置なども細かく指定できます。</p>
+<ul>
+<li><code>background-image</code>: 背景画像を指定 (<code>url(&#39;path/to/image.jpg&#39;)</code>)。グラデーションもここで指定。</li>
+<li><code>background-size</code>: 背景画像のサイズ (<code>cover</code>, <code>contain</code>, <code>50%</code>, <code>100px 50px</code> など)。</li>
+<li><code>background-position</code>: 背景画像の表示位置 (<code>center</code>, <code>top left</code>, <code>50% 50%</code> など)。</li>
+<li><code>background-repeat</code>: 背景画像の繰り返し (<code>no-repeat</code>, <code>repeat-x</code>, <code>repeat-y</code>, <code>repeat</code>)。</li>
+<li><code>background-attachment</code>: 背景画像をスクロールに追従させるか固定するか (<code>scroll</code>, <code>fixed</code>)。</li>
+</ul>
+<p>まとめて <code>background</code> プロパティで指定することも可能です。また、カンマ区切りで複数の背景画像を指定することもできます。</p>
+<pre><code class="language-css">body {
+  background-color: #f0f0f0;
+  background-image: url(&#39;pattern.png&#39;), linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0)); /* 画像とグラデーションを重ねる */
+  background-repeat: repeat, no-repeat;
+  background-position: top left, center;
+  background-size: auto, cover;
+}
+
+.hero-section {
+  background-image: url(&#39;hero.jpg&#39;);
+  background-size: cover; /* 要素全体を覆うように画像を拡大縮小 */
+  background-position: center; /* 画像の中央を表示 */
+  background-repeat: no-repeat;
+  height: 400px;
+  color: white;
+  display: flex; /* 中身を中央揃えするため (次の資料で解説) */
+  justify-content: center;
+  align-items: center;
+  text-shadow: 1px 1px 3px black;
+}
+</code></pre>
+<h2>4. まとめ：表現力と効率を手に入れる</h2>
+<p>今回は、CSSのさらに奥深い世界を探検しました。</p>
+<ul>
+<li><strong>高度なセレクタ</strong> (疑似クラス、疑似要素、属性セレクタ、結合子) で、狙った要素にピンポイントでスタイルを適用できるようになりました。</li>
+<li><strong><code>transition</code>, <code>transform</code>, <code>animation</code></strong> などを使って、Webページに動きや滑らかな変化、アニメーションを加える方法を学びました。</li>
+<li><strong><code>filter</code>, <code>opacity</code>, <code>box-shadow</code>, グラデーション</strong> などで、より豊かな視覚表現が可能になりました。</li>
+<li><strong>CSS変数, <code>calc()</code>, Webフォント, 背景の高度な設定</strong> など、効率的で柔軟なCSSコーディングに役立つ機能を知りました。</li>
+</ul>
+<p>これらのテクニックを駆使することで、静的なデザインだけでなく、ユーザーの操作に反応したり、動きで情報を伝えたりする、よりインタラクティブで魅力的なWebページを作成できます。</p>
+<p>特にCSS変数は、コードの保守性を高める上で非常に強力なツールです。積極的に活用していくことをお勧めします。</p>
+<p>次の資料では、いよいよ現代的なWebレイアウトの要である <strong>Flexbox</strong> と <strong>Grid</strong>、そして様々な画面サイズに対応するための <strong>レスポンシブデザイン</strong> について学んでいきます。これで、どんなデバイスでも見やすいWebページを作るスキルが身につきますよ！</p>
+
+</body>
+</html>

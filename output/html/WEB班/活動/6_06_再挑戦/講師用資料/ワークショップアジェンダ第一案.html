@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ワークショップアジェンダ第一案</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>🎯 WEB班ワークショップアジェンダ第一案</h1>
+<h2>基本フロー: 完成形から逆算実装</h2>
+<ol>
+<li><strong>完成形デモ体験</strong> → 目標の明確化</li>
+<li><strong>HTML骨組み実装</strong> → 機能要素の配置（見た目は気にしない）</li>
+<li><strong>CSS基本装飾</strong> → 完成形と同じ見た目に</li>
+<li><strong>CSSアニメーション</strong> → ホバーエフェクト等の動きを追加</li>
+<li><strong>JavaScript機能</strong> → 動的な操作を実現</li>
+</ol>
+<hr>
+<h2>📅 詳細アジェンダ（120分）</h2>
+<h3><strong>Phase 0: 完成形体験・分析（10分）</strong></h3>
+<h4>🎮 <strong>Step 0-1: デモ体験（5分）</strong></h4>
+<ul>
+<li>完成形のタスク管理アプリを実際に操作</li>
+<li>チェックボックスをクリック、ホバー、進捗確認</li>
+</ul>
+<h4>🔍 <strong>Step 0-2: 機能分解（5分）</strong></h4>
+<p><strong>問いかけ</strong>: 「今体験したサイトには、どんな要素・機能がありましたか？」</p>
+<p><strong>学習者に発見させる要素</strong>:</p>
+<ul>
+<li>ヘッダー（タイトル）</li>
+<li>進捗バー</li>
+<li>6つのタスクチェックボックス</li>
+<li>ホバーエフェクト</li>
+<li>完了時のメッセージ表示</li>
+</ul>
+<hr>
+<h3><strong>Phase 1: HTML構造実装（30分）</strong></h3>
+<h4>🏗️ <strong>Step 1-1: 要素の洗い出し（10分）</strong></h4>
+<p><strong>問いかけ</strong>: 「完成形を再現するために、HTMLでどんな要素が必要？」</p>
+<p><strong>思考プロセス</strong>:</p>
+<pre><code>完成形で見えた要素 → HTMLタグで表現
+- タイトル部分 → header? h1?
+- 進捗バー → どうやって作る？
+- タスクリスト → input? label?
+- 完了メッセージ → div?
+</code></pre>
+<h4>💻 <strong>Step 1-2: HTML実装（20分）</strong></h4>
+<p><strong>目標</strong>: 機能する骨組みを作る（見た目は一切気にしない）</p>
+<p><strong>実装戦略</strong>:</p>
+<ol>
+<li>まずは必要最小限の構造</li>
+<li>後でCSSが当てやすいようにclass/id設計</li>
+<li>セマンティックHTMLを意識</li>
+</ol>
+<p><strong>この段階の成果物</strong>:</p>
+<pre><code class="language-html">&lt;!-- 超シンプルな骨組み（装飾なし） --&gt;
+&lt;header&gt;
+  &lt;h1&gt;📚 今日の学習タスク&lt;/h1&gt;
+  &lt;p&gt;目標: CSS装飾とJavaScript動きをマスターしよう！&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;📈 学習進捗&lt;/h2&gt;
+  &lt;div class=&quot;progress-bar&quot;&gt;
+    &lt;div class=&quot;progress-fill&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;progress-text&quot;&gt;0 / 6 完了 (0%)&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;!-- タスクリスト --&gt;
+&lt;!-- 完了メッセージ --&gt;
+</code></pre>
+<hr>
+<h3><strong>Phase 2: CSS基本装飾（35分）</strong></h3>
+<h4>🎨 <strong>Step 2-1: 完成形との見た目比較（5分）</strong></h4>
+<p><strong>問いかけ</strong>: 「今のHTMLと完成形、何が違う？」</p>
+<p><strong>ギャップ分析</strong>:</p>
+<ul>
+<li>背景色</li>
+<li>カードのような白い背景</li>
+<li>適切な余白・間隔</li>
+<li>色使い</li>
+<li>フォント</li>
+</ul>
+<h4>🖌️ <strong>Step 2-2: 基本レイアウトCSS（25分）</strong></h4>
+<p><strong>目標</strong>: 完成形と同じ見た目にする（アニメーションは除く）</p>
+<p><strong>段階的実装</strong>:</p>
+<ol>
+<li><p><strong>全体設定</strong> (5分)</p>
+<pre><code class="language-css">* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #f3f4f6; font-family: sans-serif; }
+</code></pre>
+</li>
+<li><p><strong>カードレイアウト</strong> (10分)</p>
+<pre><code class="language-css">.main-header, section {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+</code></pre>
+</li>
+<li><p><strong>進捗バーとタスクアイテム</strong> (10分)</p>
+</li>
+</ol>
+<h4>🔍 <strong>Step 2-3: 完成形チェック（5分）</strong></h4>
+<p>静的な見た目が完成形と一致しているか確認</p>
+<hr>
+<h3><strong>Phase 3: CSSアニメーション（25分）</strong></h3>
+<h4>⚡ <strong>Step 3-1: アニメーション要件分析（5分）</strong></h4>
+<p><strong>問いかけ</strong>: 「完成形では、どこでアニメーションが起きていた？」</p>
+<p><strong>発見すべきアニメーション</strong>:</p>
+<ul>
+<li>タスクアイテムのホバーエフェクト</li>
+<li>進捗バーの幅変化</li>
+<li>完了メッセージの表示</li>
+</ul>
+<h4>🎭 <strong>Step 3-2: ホバーエフェクト実装（15分）</strong></h4>
+<p><strong>目標</strong>: マウスを乗せた時の反応を完成形と同じに</p>
+<p><strong>実装思考</strong>:</p>
+<pre><code class="language-css">.task-item:hover {
+  /* 何が変化してた？ */
+  /* どんな動きだった？ */
+}
+</code></pre>
+<p><strong>段階的実装</strong>:</p>
+<ol>
+<li><code>:hover</code>の基本</li>
+<li><code>transition</code>でなめらかに</li>
+<li><code>transform</code>で浮遊感</li>
+<li><code>box-shadow</code>で影</li>
+</ol>
+<h4>🎯 <strong>Step 3-3: 動作確認（5分）</strong></h4>
+<p>完成形と同じアニメーションになっているかチェック</p>
+<hr>
+<h3><strong>Phase 4: JavaScript動的機能（20分）</strong></h3>
+<h4>🧠 <strong>Step 4-1: 動的機能の特定（5分）</strong></h4>
+<p><strong>問いかけ</strong>: 「完成形で、クリックしたり操作すると何が起こっていた？」</p>
+<p><strong>発見すべき機能</strong>:</p>
+<ul>
+<li>チェックボックスをクリック → タスクの見た目変化</li>
+<li>チェックボックスをクリック → 進捗バー更新</li>
+<li>全完了 → 完了メッセージ表示</li>
+</ul>
+<h4>⚙️ <strong>Step 4-2: JavaScript実装（15分）</strong></h4>
+<p><strong>目標</strong>: 完成形と同じ動的動作を実現</p>
+<p><strong>実装戦略</strong>:</p>
+<ol>
+<li><p><strong>要素取得</strong> (3分)</p>
+<pre><code class="language-javascript">const checkboxes = document.querySelectorAll(&#39;.task-checkbox&#39;);
+const progressFill = document.getElementById(&#39;progressFill&#39;);
+</code></pre>
+</li>
+<li><p><strong>イベント処理</strong> (7分)</p>
+<pre><code class="language-javascript">checkboxes.forEach(checkbox =&gt; {
+  checkbox.addEventListener(&#39;change&#39;, function() {
+    // ここで何をする？
+  });
+});
+</code></pre>
+</li>
+<li><p><strong>進捗計算・表示</strong> (5分)</p>
+</li>
+</ol>
+<hr>
+<h2>🛠️ 各Phase間のチェックポイント</h2>
+<h3><strong>Phase間の振り返りルール</strong></h3>
+<ol>
+<li><strong>「今何ができるようになった？」</strong></li>
+<li><strong>「完成形との差は何？」</strong></li>
+<li><strong>「次に実装すべきは何？」</strong></li>
+</ol>
+<h3><strong>ベクトル修正のサポート</strong></h3>
+<ul>
+<li>各Phase開始時に完成形を再確認</li>
+<li>実装中は完成形と並べて比較</li>
+<li>「完成形では〇〇だったけど、今は△△だね」の指摘</li>
+</ul>
+<h3><strong>エンジニア思考の体験</strong></h3>
+<ul>
+<li><strong>逆算思考</strong>: 「完成形を実現するには何が必要？」</li>
+<li><strong>段階的実装</strong>: 「まず動くものを作って、徐々に完成形に近づける」</li>
+<li><strong>比較検証</strong>: 「今の状態と目標の差分は何？」</li>
+</ul>
+<hr>
+<p>このアプローチの利点は、<strong>明確なゴール（完成形）があることで学習者が迷わない</strong>点と、<strong>実際の開発現場で使われる逆算・段階的実装の思考</strong>を体験できる点です。</p>
+
+</body>
+</html>

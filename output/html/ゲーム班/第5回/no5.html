@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>no5</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>全体の調整</h1>
+<h2>タイトル画面</h2>
+<p>シーンを新しく作りましょう。プロジェクトウィンドウで右クリックからCreate &gt; Sceneで作成しましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image.png" alt=""><br>名前をTitleにしましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-1.png" alt=""><br>ダブルクリックしてシーンを開きましょう。今回はボタンを一つ配置して、それを押したらゲームをスタートできるようにしましょう。ボタンはunity上ではUIとして扱われます。ヒエラルキーで右クリックからUI &gt; Buttonでボタンを作成してください。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-2.png" alt=""><br>また、その後のポップアップは上を選択してください。読み込みが始まると思うので少し待ってください。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-3.png" alt=""><br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-4.png" alt=""><br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-5.png" alt=""><br>画像のようにヒエラルキーからText(TMP)を開いて、インスペクターウィンドウからテキスト内容をStartに変更してください。次はこのボタンが押されたときの挙動を作りましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-6.png" alt=""><br>今までと同じようにStartButtonControllerを作りましょう。ここで新しくボタンが押されたときに実行される関数を作りましょう。ここでするべき処理は今まで作ってきたMainSceneにシーンを遷移させることです。シーン遷移を実行するためには一つ前準備が必要です。左上からFile &gt; Build settingを選択して、Scenes in buildの部分に今まで作成しているシーンをすべてドラッグアンドドロップしてください。　　
+<img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-7.png" alt="">　　
+これでシーンを変えられます。StartButtonControllerを開いてください。そして新しく次の関数を書き込んでください。  </p>
+<pre><code>    public void OnPush()
+    {
+        SceneManager.LoadScene(&quot;MainScene&quot;);
+    }
+</code></pre>
+<p>この関数をボタンに設定しましょう。まず、StartButtonControllerをButtonにつけましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-8.png" alt=""><br>その後、インスペクターウィンドウのButtonの下の方にある、On Click()という部分を探してください。ここの+ボタンを押します。そうしたらこんな風になると思います。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-9.png" alt=""><br>そうしたらNone(Object)となっているところに、すぐ下にあるStartButtonControllerをドラッグアンドドロップして、No Functionとなっているところを画像のようにOnPush関数に変更してください。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-10.png" alt=""><br>プレビューを確認して、ボタンを押してみるとMainSceneに遷移できたと思います。  </p>
+<h2>リザルト画面</h2>
+<p>次は同じ要領で、ゴール後の画面も作りましょう。また、同じように新しくシーンを作成して名前をResultSceneにしましょう。　　
+<img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-11.png" alt="">　　
+とりあえず画面にゲームクリアの文字とタイトルに戻るためのボタンを設置しましょう。UIのテキストを作成しましょう。また、追加でボタンも設置しましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-12.png" alt=""><br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-13.png" alt=""><br>画像のように設定しましょう。ではタイトルに戻るボタンを作りましょう。BackButtonControllerとしましょう。ここはさっきのスタートボタンとほぼ同じなのでそのまま貼ります。また、On Clickの部分も設定しておいてください。  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class BackButtonController : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void OnPush()
+    {
+        SceneManager.LoadScene(&quot;Title&quot;);
+    }
+}
+</code></pre>
+<p><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-14.png" alt="">　　</p>
+<h2>クリア後とリスタート</h2>
+<p>クリアしたらリザルト画面に行くようにしましょう。これもさっきまでとほぼ同じです。PlayerControllerにクリア後にシーン遷移するようにしましょう。シーン遷移の為にBuildsettingsにresultSceneを追加しましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-15.png" alt=""><br>できたら次のように書き足してください。  </p>
+<pre><code>    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == &quot;Enemy&quot;)
+        {           
+            ContactPoint2D contact_face = collision.contacts[0];
+            Debug.Log(contact_face.normal.y);
+            if (contact_face.normal.y &gt;= 0.7f)
+            {
+                Destroy(collision.gameObject);
+            } else
+            {
+                Destroy(gameObject);
+            }
+        } else if(collision.gameObject.tag == &quot;Goal&quot;)
+        {
+            //ゴール検知
+            SceneManager.LoadScene(&quot;ResultScene&quot;);
+        }
+        if(collision.gameObject.tag == &quot;map&quot;)
+        {
+            is_field = true;
+        }
+    }
+</code></pre>
+<p>これで一旦プレビューを確認して、問題無ければ最後に敵に倒されたあと、リスタートできるようにしましょう。今回はRキーを押したらリスタートという形にしましょう。ここで、PlayerControllerにその処理を書き込みたくなる所ですが、敵に倒された後ということは、Playerはすでに破壊されているので、PlayerControllerは動作しません。ので、ここでは新しくオブジェクトとスクリプトを作りましょう。<br>ヒエラルキーからCreateEmptyで名前をGameManagerにしましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-16.png" alt="">　　<br>また、ファイルも新しくつくって、名前をGameManagerにしましょう。歯車マークになったら成功です。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-17.png" alt=""><br>そして、ファイルを開いて次のように書き足しましょう。  </p>
+<pre><code>    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(&quot;MainScene&quot;);
+        }
+    }
+</code></pre>
+<p>最後にこのファイルをGameManagerにつけましょう。
+これでRキーを押したらもう一度メインシーンが読み込まれて、ゲームが始めからリスタートできます。  </p>
+<h2>カメラ移動</h2>
+<p>最後にカメラがプレイヤーを追従するようにしましょう。これは、カメラの位置をプレイヤーと同じになるようにしたらいいです。とりあえずスクリプトを作成し、名前をCameraControllerとしましょう。そして、PlayerのtagをPlayerに設定しましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-23.png" alt=""><br>次にCameraControllerを編集しましょう。内容を次のように書き換えてください。  </p>
+<pre><code>public class CameraController : MonoBehaviour
+{
+    GameObject player;
+    void Start()
+    {
+        player = GameObject.FindWithTag(&quot;Player&quot;);
+    }
+
+    
+    void Update()
+    {
+        this.transform.position = new Vector3( player.transform.position.x+3, player.transform.position.y,-10);
+    }
+}
+</code></pre>
+<p>これは、シーン内のPlayerタグを持つオブジェクトを変数playerに代入し、そのオブジェクトの位置をカメラの位置にするものです。これをMainCameraにつけることでカメラが追従します。+3の部分はカメラが見やすくなるための調整の値です。</p>
+<h2>ステージ作成</h2>
+<p>これでゲーム自体は完成です。最後にステージを作りましょう。左上のWindowからTilePaletteを開いて地面を作り、敵を設置しましょう。敵はプロジェクトウィンドウからプレハブの元をシーンウィンドウにドラッグアンドドロップすることでコピーを設置できます。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-19.png" alt=""><br>これで各々ステージを作成してください。ゴールはいい感じの所に場所を変えましょう。  </p>
+<h2>ビルド</h2>
+<p>これで完成って言われたらなんか違いますよね。ので最後にこのゲームを実行ファイルに落とし込みましょう。<br>ビルドする前に設定しましょう。先ほどと同じようにbuild settingを開いて、scenes in build内で、titleシーンが一番上に来るように順番を変えましょう。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-20.png" alt=""><br>ビルドの設定はプラットフォーム以外変えなくてokです。windowsの人はwindowsをmacの人はmacを選択してBuildを選択してください。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-21.png" alt=""><br>保存場所は各々で決めてください。ビルドは少し時間がかかるので待ちましょう。ビルドが終わったら実行してみましょう。.exeのファイルを実行してください。<br><img src="nitac_jyoken_public_materials/%E3%82%B2%E3%83%BC%E3%83%A0%E7%8F%AD/%E7%AC%AC5%E5%9B%9E/image-22.png" alt=""><br>実行したらゲームが開始されます。これにて一応完成です。ですがこれは本当にギリギリゲームと呼べるレベルの物なので改造して自身の向上に利用していただけるとありがたいです。</p>
+
+</body>
+</html>

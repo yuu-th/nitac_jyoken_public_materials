@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ワークショップ説明資料案1</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>📚 WEB班ワークショップ説明資料案1</h1>
+<h2>🎯 今日のゴール</h2>
+<p><strong>完成形のタスク管理アプリを段階的に再現して、CSS装飾とJavaScript動作の実装力を身につける</strong></p>
+<hr>
+<h2>🚀 ワークショップの流れ</h2>
+<h3><strong>Step 0: 完成形を体験しよう（10分）</strong></h3>
+<p>まずは今日作るアプリを実際に触ってみましょう！</p>
+<p><strong>やること</strong>:</p>
+<ol>
+<li>完成形のタスク管理アプリを操作</li>
+<li>どんな要素・機能があるか観察</li>
+<li>「これを作るには何が必要？」を考える</li>
+</ol>
+<p><strong>発見してほしいポイント</strong>:</p>
+<ul>
+<li>📋 ヘッダー部分</li>
+<li>📊 進捗バー</li>
+<li>✅ 6つのタスクチェックボックス</li>
+<li>✨ マウスホバー時の動き</li>
+<li>🎉 全完了時のメッセージ</li>
+</ul>
+<hr>
+<h3><strong>Step 1: HTMLで骨組みを作ろう（30分）</strong></h3>
+<h4>🤔 <strong>まず考えよう（10分）</strong></h4>
+<p>「完成形を作るのに必要なHTMLタグは？」</p>
+<p><strong>思考の流れ</strong>:</p>
+<pre><code>完成形で見たもの → HTMLタグ
+├ タイトル部分 → &lt;header&gt;, &lt;h1&gt;
+├ 進捗表示 → &lt;section&gt;, &lt;div&gt;
+├ タスクリスト → &lt;input&gt;, &lt;label&gt;
+└ 完了メッセージ → &lt;div&gt;
+</code></pre>
+<h4>💻 <strong>実装しよう（20分）</strong></h4>
+<p><strong>今の目標</strong>: 見た目は気にせず、機能する骨組みを作る</p>
+<p><strong>重要なポイント</strong>:</p>
+<ul>
+<li>セマンティックなタグを使おう（header, section など）</li>
+<li>後でCSSを当てやすいようにclass/id名を付けよう</li>
+<li>進捗バーは「外側div + 内側div」の2重構造</li>
+</ul>
+<p><strong>この段階での見た目</strong>:</p>
+<ul>
+<li>ブラウザのデフォルトスタイル</li>
+<li>装飾は一切なし</li>
+<li>でも機能はする！</li>
+</ul>
+<p><strong>よくあるつまづき &amp; 解決法</strong>:
+❓ 「進捗バーってどう書くの？」
+→ <code>&lt;div class=&quot;progress-bar&quot;&gt;&lt;div class=&quot;progress-fill&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code></p>
+<p>❓ 「classとidの使い分けは？」
+→ class: 複数の要素に使う、id: 1つの要素だけ</p>
+<hr>
+<h3><strong>Step 2: CSSできれいに装飾しよう（35分）</strong></h3>
+<h4>👀 <strong>違いを見つけよう（5分）</strong></h4>
+<p>今のHTMLと完成形を比べて、「何が違う？」</p>
+<p><strong>発見するギャップ</strong>:</p>
+<ul>
+<li>背景色がない</li>
+<li>カード型の白い背景がない</li>
+<li>余白・間隔が足りない</li>
+<li>影やフォントも違う</li>
+</ul>
+<h4>🎨 <strong>段階的に装飾していこう（25分）</strong></h4>
+<p><strong>段階1: 全体の基本設定（5分）</strong></p>
+<pre><code class="language-css">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 重要！ */
+}
+
+body {
+  background: #f3f4f6; /* グレー背景 */
+  font-family: sans-serif;
+}
+</code></pre>
+<p><strong>段階2: カード型レイアウト（10分）</strong></p>
+<pre><code class="language-css">.main-header, section {
+  background: white; /* 白いカード */
+  padding: 2rem; /* 内側の余白 */
+  border-radius: 10px; /* 角丸 */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 影 */
+}
+</code></pre>
+<p><strong>段階3: 進捗バー・タスクアイテム（10分）</strong></p>
+<ul>
+<li>進捗バーの見た目</li>
+<li>タスクアイテムのレイアウト（flexbox使用）</li>
+</ul>
+<p><strong>よくあるつまづき &amp; 解決法</strong>:
+❓ 「box-shadowの数値の意味は？」
+→ <code>水平位置 垂直位置 ぼかし 色</code> の順番</p>
+<p>❓ 「rgbaって何？」
+→ 透明度付きの色指定（rgba(0,0,0,0.1) = 薄い黒）</p>
+<h4>✅ <strong>完成形チェック（5分）</strong></h4>
+<p>静的な見た目が完成形と同じになったか確認！</p>
+<hr>
+<h3><strong>Step 3: アニメーションで動きを付けよう（25分）</strong></h3>
+<h4>🔍 <strong>動きを観察しよう（5分）</strong></h4>
+<p>完成形で「どこがどう動いていた？」</p>
+<p><strong>発見する動き</strong>:</p>
+<ul>
+<li>タスクにマウスを乗せると浮き上がる</li>
+<li>進捗バーが伸びる</li>
+<li>完了メッセージが表示される</li>
+</ul>
+<h4>✨ <strong>ホバーエフェクトを作ろう（15分）</strong></h4>
+<p><strong>考える順序</strong>:</p>
+<ol>
+<li>「マウスを乗せた時」= <code>:hover</code></li>
+<li>「なめらかに変化」= <code>transition</code></li>
+<li>「浮き上がる」= <code>transform: translateY()</code></li>
+<li>「影で立体感」= <code>box-shadow</code></li>
+</ol>
+<p><strong>実装例</strong>:</p>
+<pre><code class="language-css">.task-item {
+  transition: all 0.3s ease; /* なめらか変化の準備 */
+}
+
+.task-item:hover {
+  background: #f1f5f9; /* 背景色変化 */
+  transform: translateY(-2px); /* 2px上に移動 */
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2); /* 影 */
+}
+</code></pre>
+<p><strong>よくあるつまづき &amp; 解決法</strong>:
+❓ 「:hoverは知ってるけど、何を変化させればいい？」
+→ 背景色、位置、影を組み合わせると立体感が出る</p>
+<p>❓ 「transitionって必要？」
+→ ないとパッと変わって不自然。あるとなめらか</p>
+<h4>🎯 <strong>動作確認（5分）</strong></h4>
+<p>完成形と同じアニメーションになっているかチェック！</p>
+<hr>
+<h3><strong>Step 4: JavaScriptで動的機能を作ろう（20分）</strong></h3>
+<h4>🧠 <strong>動的機能を整理しよう（5分）</strong></h4>
+<p>「クリックしたり操作すると何が起こる？」</p>
+<p><strong>実現したい機能</strong>:</p>
+<ul>
+<li>チェック → タスクの見た目変化（取り消し線）</li>
+<li>チェック → 進捗バー更新</li>
+<li>全完了 → 完了メッセージ表示</li>
+</ul>
+<h4>⚙️ <strong>段階的に実装しよう（15分）</strong></h4>
+<p><strong>段階1: 要素を取得（3分）</strong></p>
+<pre><code class="language-javascript">const checkboxes = document.querySelectorAll(&#39;.task-checkbox&#39;);
+const progressFill = document.getElementById(&#39;progressFill&#39;);
+const progressText = document.getElementById(&#39;progressText&#39;);
+</code></pre>
+<p><strong>段階2: イベント処理（7分）</strong></p>
+<pre><code class="language-javascript">checkboxes.forEach(checkbox =&gt; {
+  checkbox.addEventListener(&#39;change&#39;, function() {
+    // チェック状態が変わった時の処理
+    if (checkbox.checked) {
+      // チェックされた時
+    } else {
+      // チェック外された時
+    }
+    updateProgress(); // 進捗更新
+  });
+});
+</code></pre>
+<p><strong>段階3: 進捗計算・表示（5分）</strong></p>
+<pre><code class="language-javascript">function updateProgress() {
+  const totalTasks = checkboxes.length; // 全タスク数
+  const completedTasks = document.querySelectorAll(&#39;.task-checkbox:checked&#39;).length; // 完了数
+  const percentage = Math.round((completedTasks / totalTasks) * 100); // パーセント計算
+  
+  // 進捗バー更新
+  progressFill.style.width = percentage + &#39;%&#39;;
+  progressText.textContent = `${completedTasks} / ${totalTasks} 完了 (${percentage}%)`;
+}
+</code></pre>
+<p><strong>よくあるつまづき &amp; 解決法</strong>:
+❓ 「querySelectorAllって何？」
+→ 条件に合う全ての要素を取得（複数取得）</p>
+<p>❓ 「forEachって何？」
+→ 配列の各要素に対して同じ処理を実行</p>
+<p>❓ 「:checkedって何？」
+→ チェックされているチェックボックスだけを選択</p>
+<hr>
+<h2>🎉 完成！</h2>
+<h3><strong>できるようになったこと</strong></h3>
+<ul>
+<li>✅ HTMLで構造を設計する思考</li>
+<li>✅ CSSでカード型レイアウト</li>
+<li>✅ ホバーエフェクトの実装</li>
+<li>✅ JavaScriptでDOM操作</li>
+<li>✅ 進捗計算とリアルタイム更新</li>
+</ul>
+<h3><strong>次のステップ</strong></h3>
+<ul>
+<li>他のアニメーション効果を試してみる</li>
+<li>タスクの追加・削除機能</li>
+<li>ローカルストレージでデータ保存</li>
+<li>レスポンシブデザイン</li>
+</ul>
+<hr>
+<h2>🆘 困った時のサポート</h2>
+<h3><strong>デバッグの基本</strong></h3>
+<ol>
+<li><strong>コンソールを確認</strong>: F12 → Console</li>
+<li><strong>console.log()を活用</strong>: 変数の中身を確認</li>
+<li><strong>段階的に確認</strong>: 一つずつ動作確認</li>
+</ol>
+<h3><strong>よくあるエラー</strong></h3>
+<p>❌ 「要素が取得できない」
+→ HTML要素のclass/id名とJavaScriptが一致しているか確認</p>
+<p>❌ 「スタイルが効かない」
+→ CSSのセレクタ名が正しいか確認</p>
+<p>❌ 「JavaScriptが動かない」
+→ コンソールにエラーメッセージが出ていないか確認</p>
+<h3><strong>質問のコツ</strong></h3>
+<ul>
+<li>「〇〇がうまくいかない」ではなく</li>
+<li>「〇〇を実現したいが、△△の部分で詰まっている」と具体的に</li>
+</ul>
+<hr>
+<p><strong>Let&#39;s Code! 🚀</strong></p>
+
+</body>
+</html>

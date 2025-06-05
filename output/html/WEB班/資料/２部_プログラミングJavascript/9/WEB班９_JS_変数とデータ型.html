@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEB班９_JS_変数とデータ型</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>第2章: 変数とデータ型 – 情報の入れ物と種類</h1>
+<p>前回は、JavaScriptがどんな言語で、HTMLやCSSとどう連携するのか、そしてプログラムを書く上での基本的なお作法について学びましたね。いよいよ今回は、プログラミングの本当に基本的な部品となる「変数」と「データ型」について深く掘り下げていきます！</p>
+<p>「変数」と聞くと、なんだか数学みたいで難しそう…と感じるかもしれませんが、心配しないでください！プログラミングにおける変数は、情報を一時的にしまっておくための「名前付きの箱」のようなものなんです。そして「データ型」は、その箱にどんな種類の情報を入れられるか、というルールのようなものです。</p>
+<p>この章をマスターすれば、プログラムの中で情報を扱ったり、計算したりするための基礎がバッチリ身につきます。最初は覚えることが少し多いかもしれませんが、一つ一つ丁寧に解説していきますので、一緒に頑張りましょう！ここを乗り越えれば、JavaScriptでできることの幅がぐっと広がりますよ！</p>
+<h2>目次</h2>
+<ol>
+<li>変数ってなんだろう？ – データに名前をつけよう<ul>
+<li><code>var</code> はもう使わない？ – 歴史と注意点</li>
+<li><code>let</code> – 書き換えできる箱</li>
+<li><code>const</code> – 書き換えできない箱 (基本はコレ！)</li>
+<li><code>const</code> でオブジェクトや配列を扱うときの注意点</li>
+<li>宣言と代入 – 箱の用意と中身の投入</li>
+</ul>
+</li>
+<li>データ型っていろいろあるんだ！ – 情報の種類を知ろう<ul>
+<li>プリミティブ型 – JavaScriptの基本的な材料<ul>
+<li><code>string</code> (文字列) – 言葉や文章を扱う</li>
+<li><code>number</code> (数値) – 計算はおまかせ！</li>
+<li><code>boolean</code> (真偽値) – YesかNoか、ハッキリさせよう</li>
+<li><code>null</code> – 「何もない」ことを意図的に示す</li>
+<li><code>undefined</code> – 「まだ何もない」状態</li>
+<li><code>symbol</code> – ちょっと特別な名札 (ES6から登場)</li>
+<li><code>bigint</code> – とっても大きな数値を扱う (ES2020から登場)</li>
+</ul>
+</li>
+<li>オブジェクト型 – 複雑なものをまとめる便利な箱</li>
+</ul>
+</li>
+<li>このデータの種類は何？ – <code>typeof</code> で調べてみよう</li>
+<li>変数が使える範囲 – スコープを理解しよう<ul>
+<li>グローバルスコープ – どこからでも見える</li>
+<li>関数スコープ – 関数の中だけの秘密</li>
+<li>ブロックスコープ – <code>{}</code> の中だけの話 (<code>let</code> と <code>const</code> の得意技)</li>
+<li>スコープのイメージ図</li>
+</ul>
+</li>
+<li>変数の巻き上げ (Hoisting) – ちょっと不思議な現象<ul>
+<li><code>var</code> の場合の巻き上げ</li>
+<li><code>let</code> と <code>const</code> の場合の巻き上げ (TDZって何？)</li>
+</ul>
+</li>
+<li>型変換 – データ型が変わっちゃう！？<ul>
+<li>明示的な型変換 – 自分でハッキリ変える</li>
+<li>暗黙的な型変換 – JavaScriptが気を利かせてくれる…けど？</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>1. 変数ってなんだろう？ – データに名前をつけよう</h2>
+<p>プログラミングをしていると、例えばユーザーが入力した名前、計算結果、ウェブサイトの現在の状態など、様々な「情報」を扱います。これらの情報を一時的にコンピューターのメモリに保存しておき、後で使いたいときに取り出せるようにする仕組みが<strong>変数</strong>です。</p>
+<p>変数とは、データ（値）を入れておくための「名前付きの箱」だとイメージしてください。箱に名前を付けておくことで、後から「あの箱の中身を見たい！」とか「この箱に新しい中身を入れたい！」といった操作ができるようになります。</p>
+<p>JavaScriptで変数を使うには、まず「こんな名前の箱を用意しますよ」と宣言し、必要に応じてその箱に値を入れる（代入する）という手順を踏みます。</p>
+<h3><code>var</code> はもう使わない？ – 歴史と注意点</h3>
+<p>昔のJavaScriptでは、変数を宣言するために <code>var</code> というキーワードが使われていました。</p>
+<pre><code class="language-javascript">var oldStyleMessage = &quot;これは古いスタイルの変数です&quot;;
+console.log(oldStyleMessage);
+</code></pre>
+<p>しかし、この <code>var</code> には、少し分かりにくい挙動（例えば「巻き上げ」や「関数スコープ」といった特性）があり、それがバグの原因になることもありました。</p>
+<p>そのため、最近のJavaScript (ES2015以降) では、より安全で分かりやすい <code>let</code> と <code>const</code> という新しいキーワードを使って変数を宣言するのが一般的です。<strong>基本的に、これから皆さんが新しくコードを書くときには <code>var</code> は使わない、と覚えておいて大丈夫です。</strong> もし古いコードを読む機会があったときに「あ、これは昔の書き方だな」と分かればOKです。</p>
+<h3><code>let</code> – 書き換えできる箱</h3>
+<p><code>let</code> は、後から中身を書き換えることができる変数を宣言するときに使います。まさに「書き換え可能な箱」ですね。</p>
+<pre><code class="language-javascript">let userAge = 20; // userAgeという名前の箱を用意し、20を入れる
+console.log(&quot;現在の年齢:&quot;, userAge); // 現在の年齢: 20
+
+userAge = 21; // userAgeの箱の中身を21に書き換える
+console.log(&quot;新しい年齢:&quot;, userAge); // 新しい年齢: 21
+</code></pre>
+<p>一度宣言した変数をもう一度 <code>let</code> で宣言しようとするとエラーになります。これは、同じ名前の箱を二重に用意しようとしているようなものなので、JavaScriptが「それはできませんよ！」と教えてくれるわけです。</p>
+<pre><code class="language-javascript">let userName = &quot;高専太郎&quot;;
+// let userName = &quot;高専花子&quot;; // ここでエラー！ SyntaxError: Identifier &#39;userName&#39; has already been declared
+</code></pre>
+<h3><code>const</code> – 書き換えできない箱 (基本はコレ！)</h3>
+<p><code>const</code> は、一度値を入れたら後から中身を書き換えられない（再代入できない）変数を宣言するときに使います。「定数 (constant)」の略で、まさに「書き換え不可能な、頑丈な箱」です。</p>
+<pre><code class="language-javascript">const siteName = &quot;NITAC Web Club&quot;;
+console.log(&quot;ようこそ、&quot; + siteName + &quot;へ！&quot;);
+
+// siteName = &quot;別の名前&quot;; // ここでエラー！ TypeError: Assignment to constant variable.
+</code></pre>
+<p>「え、書き換えられない箱なんて、使い道が少ないんじゃないの？」と思うかもしれません。でも実は、プログラムの中では「この値は途中で変わってほしくない」というケースが非常に多いんです。例えば、円周率のような数学的な定数や、一度設定したら変わらない設定値などです。</p>
+<p><code>const</code> を使うことで、意図せずに値を書き換えてしまうミスを防ぐことができます。そのため、<strong>変数を宣言するときは、まず <code>const</code> で宣言できないか考え、後から値を変更する必要がある場合にのみ <code>let</code> を使う、という習慣をつけるのがおすすめです。</strong> これ、本当に大事なポイントですよ！</p>
+<h3><code>const</code> でオブジェクトや配列を扱うときの注意点</h3>
+<p>ここで一つ、<code>const</code> に関する重要な注意点があります。<code>const</code> で宣言された変数がオブジェクトや配列（これらは後で詳しく学びます）を参照している場合、そのオブジェクトや配列の「中身」は変更できてしまうんです。</p>
+<p>「えっ、<code>const</code> は書き換えられないんじゃないの？」と混乱するかもしれませんね。これは、<code>const</code> が禁止するのは「変数（箱）が指し示すもの（メモリアドレス）自体を別のものに差し替えること」だからです。箱自体を別の箱と交換するのはダメだけど、箱の中に入っているものの一部をいじるのはOK、というイメージです。</p>
+<p>とはいえ、オブジェクトはまた今後やる内容なので、軽く流してもらってもOK</p>
+<pre><code class="language-javascript">const userProfile = {
+  name: &quot;高専一郎&quot;,
+  age: 18
+};
+console.log(userProfile.name); // 高専一郎
+
+// userProfileの「中身」であるnameプロパティを変更するのはOK
+userProfile.name = &quot;高専次郎&quot;;
+console.log(userProfile.name); // 高専次郎
+
+// userProfileという箱自体を、別のオブジェクトに差し替えようとするとエラー
+// userProfile = { name: &quot;高専三郎&quot;, age: 19 }; // TypeError: Assignment to constant variable.
+
+const favoriteFruits = [&quot;りんご&quot;, &quot;バナナ&quot;, &quot;みかん&quot;];
+console.log(favoriteFruits[0]); // りんご
+
+// favoriteFruitsの「中身」である配列の要素を変更したり追加したりするのはOK
+favoriteFruits[0] = &quot;ぶどう&quot;;
+favoriteFruits.push(&quot;いちご&quot;);
+console.log(favoriteFruits); // [&quot;ぶどう&quot;, &quot;バナナ&quot;, &quot;みかん&quot;, &quot;いちご&quot;]
+
+// favoriteFruitsという箱自体を、別の配列に差し替えようとするとエラー
+// favoriteFruits = [&quot;メロン&quot;, &quot;スイカ&quot;]; // TypeError: Assignment to constant variable.
+</code></pre>
+<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image.png" alt="">
+<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-1.png" alt=""></p>
+<p>この挙動は最初は少しややこしく感じるかもしれませんが、「<code>const</code> は変数の再代入を防ぐもので、中身の変更まで完全に禁止するわけではない（特にオブジェクトや配列の場合）」と覚えておきましょう。</p>
+<h3>宣言と代入 – 箱の用意と中身の投入</h3>
+<p>変数を使う流れを整理すると、以下のようになります。</p>
+<ol>
+<li><p><strong>宣言 (Declaration)</strong>: <code>let</code> や <code>const</code> を使って、変数の名前（箱の名前）をJavaScriptに教えます。</p>
+<pre><code class="language-javascript">let score;       // scoreという名前の箱を用意 (中身はまだ空っぽ)
+const gravity = 9.8; // gravityという名前の箱を用意し、9.8を入れる (constなので宣言と同時に値を入れるのが一般的)
+</code></pre>
+</li>
+<li><p><strong>代入 (Assignment)</strong>: <code>=</code> (イコール記号) を使って、変数（箱）に値（中身）を入れます。</p>
+<pre><code class="language-javascript">score = 100;     // scoreの箱に100を入れる
+console.log(score); // 100
+</code></pre>
+</li>
+</ol>
+<p><code>let</code> の場合は、宣言と代入を別々に行うことも、同時に行うこともできます。
+<code>const</code> の場合は、宣言と同時に値を代入する必要があります。後から代入しようとするとエラーになります。</p>
+<pre><code class="language-javascript">// let の場合
+let currentTemperature; // 宣言
+currentTemperature = 25.5; // 代入
+console.log(&quot;現在の気温:&quot;, currentTemperature);
+
+let currentHumidity = 60; // 宣言と代入を同時に
+console.log(&quot;現在の湿度:&quot;, currentHumidity);
+
+// const の場合
+const PI = 3.14159; // 宣言と代入を同時に
+console.log(&quot;円周率:&quot;, PI);
+
+// const G; // エラー！ SyntaxError: Missing initializer in const declaration
+// G = 9.8;
+</code></pre>
+<hr>
+<h2>2. データ型っていろいろあるんだ！ – 情報の種類を知ろう</h2>
+<p>変数という「箱」には、様々な種類の情報（データ）を入れることができます。この情報の種類のことを<strong>データ型 (Data Type)</strong> と呼びます。JavaScriptには、いくつかの基本的なデータ型が用意されています。</p>
+<h3>プリミティブ型 – JavaScriptの基本的な材料</h3>
+<p>まずは、JavaScriptの最も基本的なデータの種類である<strong>プリミティブ型 (Primitive Types)</strong> を見ていきましょう。これらは、それ以上分解できない単一の値を表します。</p>
+<h4><code>string</code> (文字列) – 言葉や文章を扱う</h4>
+<p><code>string</code> は、文字の集まり、つまり「文字列」を表すデータ型です。シングルクォーテーション (<code>&#39;</code>)、ダブルクォーテーション (<code>&quot;</code>)、またはバッククォート (<code>`</code>) で囲んで表現します。</p>
+<pre><code class="language-javascript">let greeting = &quot;こんにちは！&quot;;
+const myName = &#39;高専太郎&#39;;
+const message = `私の名前は${myName}です。`; // バッククォートはテンプレートリテラルと呼ばれ、${}で変数を埋め込める
+
+console.log(greeting);
+console.log(myName);
+console.log(message);
+</code></pre>
+<p><strong>ポイント:</strong> シングルクォートとダブルクォートは基本的に同じように使えますが、プロジェクトやチームでどちらかに統一するのが一般的です。バッククォートは、文字列の中に変数の値を埋め込みたいときや、複数行の文字列を書きたいときに特に便利ですよ。</p>
+<h4><code>number</code> (数値) – 計算はおまかせ</h4>
+<p><code>number</code> は、整数や小数といった「数値」を表すデータ型です。</p>
+<pre><code class="language-javascript">let itemCount = 10;
+const price = 1980.5;
+let total = itemCount * price;
+
+console.log(&quot;個数:&quot;, itemCount);
+console.log(&quot;単価:&quot;, price);
+console.log(&quot;合計:&quot;, total);
+
+// 特殊な数値
+console.log(1 / 0); // Infinity (無限大)
+console.log(-1 / 0); // -Infinity (負の無限大)
+console.log(&quot;abc&quot; / 2); // NaN (Not a Number - 数値ではない)
+</code></pre>
+<p><code>Infinity</code> や <code>NaN</code> も <code>number</code> 型の一種です。計算結果が無限になったり、数値として表現できない結果になったりした場合にこれらの値が登場します。</p>
+<h4><code>boolean</code> (真偽値) – YesかNoか、ハッキリさせよう</h4>
+<p><code>boolean</code> は、「真 (true)」か「偽 (false)」のどちらかの値だけを持つデータ型です。条件分岐（もし○○なら××する、など）で非常によく使われます。</p>
+<pre><code class="language-javascript">let isLoggedIn = true;
+const isAdmin = false;
+
+if (isLoggedIn) {
+  console.log(&quot;ログイン済みです。&quot;);
+} else {
+  console.log(&quot;ログインしていません。&quot;);
+}
+
+console.log(&quot;管理者ですか？:&quot;, isAdmin);
+</code></pre>
+<h4><code>null</code> – 「何もない」ことを意図的に示す</h4>
+<p><code>null</code> は、ちょっと特殊な値で、「値が存在しない」または「空である」ことを<strong>意図的に</strong>示すために使われます。プログラマーが「ここには今、有効なデータが入っていませんよ」と明示したい場合などに使います。</p>
+<pre><code class="language-javascript">let selectedUser = null; // まだユーザーが選択されていない状態
+console.log(selectedUser); // null
+
+// 例: DOM要素の取得に失敗した場合 (これは後の章で詳しく学びます)
+// const nonExistentElement = document.getElementById(&#39;存在しないID&#39;);
+// console.log(nonExistentElement); // null (もし要素が見つからなければ)
+</code></pre>
+<h4><code>undefined</code> – 「まだ何もない」状態</h4>
+<p><code>undefined</code> もまた特殊な値で、「値がまだ代入されていない」または「定義されていない」状態を示します。変数を宣言しただけで値を代入していない場合、その変数の値は <code>undefined</code> になります。</p>
+<pre><code class="language-javascript">let userEmail; // 値を代入せずに宣言
+console.log(userEmail); // undefined
+
+function greet(name) {
+  console.log(&quot;こんにちは、&quot; + name + &quot;さん！&quot;);
+}
+greet(); // 引数を渡さなかったので、関数内のnameはundefinedになり、&quot;こんにちは、undefinedさん！&quot;と表示される
+
+const person = { name: &quot;Alice&quot; };
+console.log(person.age); // personオブジェクトにageプロパティは存在しないのでundefined
+</code></pre>
+<p><strong><code>null</code> と <code>undefined</code> の違いは少しややこしいですが、ざっくり言うと:</strong></p>
+<ul>
+<li><code>null</code>: 開発者が「ここには意図的に何も入れていません」と示す場合。</li>
+<li><code>undefined</code>: システムが「まだ値がセットされていませんよ」または「そんなものはありませんよ」と示す場合。</li>
+</ul>
+<p>最初は区別が難しいかもしれませんが、使っていくうちに感覚が掴めてくると思います。</p>
+<h4><code>symbol</code> – ちょっと特別な名札 (ES6から登場)</h4>
+<p><code>symbol</code> は、ES2015 (ES6) で追加された比較的新しいプリミティブ型で、必ず一意（ユニーク）な値を生成します。主に、オブジェクトのプロパティ名が他と衝突するのを防ぎたい場合などに使われます。</p>
+<pre><code class="language-javascript">const id1 = Symbol(&quot;id&quot;);
+const id2 = Symbol(&quot;id&quot;);
+
+console.log(id1 === id2); // false (同じ説明文字列でも、生成されるSymbolは別物)
+
+const user = {
+  name: &quot;高専花子&quot;,
+  [id1]: &quot;ユーザーID123&quot; // Symbolをオブジェクトのキーとして使う
+};
+console.log(user[id1]); // ユーザーID123
+</code></pre>
+<p><code>symbol</code> は少し高度な使い方をすることが多いので、今は「こんなものもあるんだな」くらいに知っておけば大丈夫です。</p>
+<h4><code>bigint</code> – とっても大きな数値を扱う (ES2020から登場)</h4>
+<p><code>bigint</code> は、ES2020で追加された、非常に大きな整数を扱うためのデータ型です。通常の <code>number</code> 型では安全に表現できないような大きな数値を扱いたい場合（例えば、金融計算や暗号処理の一部など）に使います。数値の末尾に <code>n</code> を付けて表現します。</p>
+<pre><code class="language-javascript">const veryLargeNumber = 1234567890123456789012345678901234567890n;
+const anotherLargeNumber = BigInt(&quot;9876543210987654321098765432109876543210&quot;);
+
+console.log(veryLargeNumber);
+console.log(anotherLargeNumber * 2n);
+
+// 通常のnumber型との演算は明示的な変換が必要
+// console.log(veryLargeNumber + 10); // エラー！ TypeError: Cannot mix BigInt and other types
+console.log(veryLargeNumber + BigInt(10)); // OK
+</code></pre>
+<p><code>bigint</code> も特定の状況で使われる型なので、初めのうちはあまり出会わないかもしれません。</p>
+<h3>オブジェクト型 – 複雑なものをまとめる便利な箱</h3>
+<p>プリミティブ型以外のデータは、基本的にすべて<strong>オブジェクト型 (Object Type)</strong> に分類されます。オブジェクトは、複数のデータ（プロパティと呼ばれる）や機能（メソッドと呼ばれる）をひとまとめにしたものです。</p>
+<p>例えば、配列（複数の値を順番に並べたもの）や関数（特定の処理を行うもの）、そして前回少し触れた「オブジェクトリテラル」で作るようなデータ構造もオブジェクト型の一種です。</p>
+<pre><code class="language-javascript">const fruits = [&quot;りんご&quot;, &quot;バナナ&quot;, &quot;みかん&quot;]; // 配列 (オブジェクト型)
+console.log(typeof fruits); // &quot;object&quot;
+
+function sayHello() { // 関数 (オブジェクト型)
+  console.log(&quot;こんにちは！&quot;);
+}
+console.log(typeof sayHello); // &quot;function&quot; (特殊なオブジェクトとして扱われる)
+
+const student = { // オブジェクトリテラル (オブジェクト型)
+  name: &quot;情報太郎&quot;,
+  grade: 3
+};
+console.log(typeof student); // &quot;object&quot;
+</code></pre>
+<p>オブジェクトについては、後の章でさらに詳しく、そして深く学んでいきますので、ここでは「プリミティブ型じゃないものは、だいたいオブジェクトなんだな」くらいに思っておいてくださいね。</p>
+<hr>
+<h2>3. このデータの種類は何？ – <code>typeof</code> で調べてみよう</h2>
+<p>変数がどんなデータ型を持っているかを確認したいときには、<code>typeof</code> 演算子を使います。</p>
+<pre><code class="language-javascript">console.log(typeof &quot;こんにちは&quot;);    // &quot;string&quot;
+console.log(typeof 123);           // &quot;number&quot;
+console.log(typeof true);          // &quot;boolean&quot;
+console.log(typeof undefined);     // &quot;undefined&quot;
+console.log(typeof Symbol(&quot;test&quot;));// &quot;symbol&quot;
+console.log(typeof 123n);          // &quot;bigint&quot;
+
+let myVariable;
+console.log(typeof myVariable);    // &quot;undefined&quot; (まだ値が代入されていない)
+
+myVariable = null;
+console.log(typeof myVariable);    // &quot;object&quot; (これは歴史的な経緯によるもので、少し注意が必要！)
+
+const myArray = [1, 2, 3];
+console.log(typeof myArray);       // &quot;object&quot;
+
+function greet() {}
+console.log(typeof greet);         // &quot;function&quot;
+</code></pre>
+<p><strong>注意点:</strong>
+<code>typeof null</code> の結果が <code>&quot;object&quot;</code> になるのは、JavaScriptの初期のバージョンからの歴史的なバグ（仕様）のようなものです。<code>null</code> はプリミティブ型の一種ですが、<code>typeof</code> で調べると <code>&quot;object&quot;</code> と表示されてしまうので、少し紛らわしいですね。
+また、配列 (<code>myArray</code>) も <code>typeof</code> では <code>&quot;object&quot;</code> と表示されます。配列かどうかを正確に判定するには、<code>Array.isArray(myArray)</code> という別の方法を使います（配列、についてもまた後で出てきます）。</p>
+<p><code>typeof</code> は、デバッグ（プログラムの間違い探し）の際などに、「あれ、この変数にはどんな種類のデータが入っているんだろう？」と確認するのに役立ちます。</p>
+<hr>
+<h2>4. 変数が使える範囲 – スコープを理解しよう</h2>
+<p>変数は、プログラムのどこでも使えるわけではなく、宣言された場所によって「有効な範囲」が決まっています。この変数が有効な範囲のことを<strong>スコープ (Scope)</strong> と呼びます。スコープを理解することは、変数が予期せぬ場所で書き換えられたり、逆に使いたい場所で使えなかったりするのを防ぐために非常に重要です。</p>
+<p>JavaScriptのスコープには、主に以下の種類があります。</p>
+<h3>グローバルスコープ – どこからでも見える</h3>
+<p>関数の外側（プログラムの最も外側のレベル）で宣言された変数は、<strong>グローバルスコープ</strong>を持ちます。グローバルスコープで宣言された変数は、プログラムのどこからでもアクセスできます。</p>
+<pre><code class="language-javascript">const globalMessage = &quot;これはグローバル変数です。&quot;; // グローバルスコープ
+
+function showMessage() {
+  console.log(globalMessage); // 関数の中からグローバル変数にアクセスできる
+}
+
+showMessage();
+console.log(globalMessage); // 関数の外からもアクセスできる
+</code></pre>
+<p>便利そうに見えますが、グローバル変数を多用すると、どこでその変数が使われているか、どこで変更されたかが分かりにくくなり、プログラムが複雑になったときに管理が難しくなることがあります。そのため、グローバル変数の使用は最小限に抑えるのが良いとされています。</p>
+<h3>関数スコープ – 関数の中だけの秘密</h3>
+<p><code>var</code> (古い書き方) で関数の中で宣言された変数は、その関数の中でのみ有効な<strong>関数スコープ</strong>を持ちます。関数の外からはアクセスできません。</p>
+<pre><code class="language-javascript">function greetUser() {
+  var functionScopedVar = &quot;これは関数スコープの変数です。&quot;; // 関数スコープ (varの場合)
+  console.log(functionScopedVar);
+}
+
+greetUser();
+// console.log(functionScopedVar); // エラー！ ReferenceError: functionScopedVar is not defined
+</code></pre>
+<h3>ブロックスコープ – <code>{}</code> の中だけの話 (<code>let</code> と <code>const</code> の得意技)</h3>
+<p><code>let</code> や <code>const</code> で宣言された変数は、<strong>ブロックスコープ</strong>を持ちます。ブロックとは、波括弧 <code>{}</code> で囲まれた範囲のことです。例えば、<code>if</code>文の <code>{}</code> や <code>for</code>ループの <code>{}</code> などがブロックにあたります。ブロックスコープで宣言された変数は、そのブロックの中でしか使えません。</p>
+<pre><code class="language-javascript">if (true) {
+  let blockScopedLet = &quot;これはブロックスコープのlet変数です。&quot;;
+  const blockScopedConst = &quot;これもブロックスコープのconst変数です。&quot;;
+  console.log(blockScopedLet);
+  console.log(blockScopedConst);
+}
+
+// console.log(blockScopedLet); // エラー！ ReferenceError: blockScopedLet is not defined
+// console.log(blockScopedConst); // エラー！ ReferenceError: blockScopedConst is not defined
+
+function testScope() {
+  if (true) {
+    let innerVar = &quot;内側のブロック&quot;;
+    console.log(innerVar);
+  }
+  // console.log(innerVar); // エラー！
+}
+testScope();
+</code></pre>
+<p>このブロックスコープのおかげで、変数が意図しない範囲に影響を与えるのを防ぎやすくなり、より安全なコードを書くことができます。<code>let</code> と <code>const</code> が推奨される大きな理由の一つです。</p>
+<h3>スコープのイメージ図</h3>
+<p>スコープの関係を視覚的にイメージすると、以下のようになります。</p>
+<p><img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-2.png" alt="">
+<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-3.png" alt="">
+<img src="nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-4.png" alt=""></p>
+<p>プログラムは、内側のスコープから外側のスコープにある変数にはアクセスできますが、外側のスコープから内側のスコープにある変数には（基本的に）アクセスできません。また、同じレベルの別のスコープにある変数にもアクセスできません。</p>
+<hr>
+<h2>5. 変数の巻き上げ (Hoisting) – ちょっと不思議な現象</h2>
+<p>JavaScriptには、<strong>巻き上げ (Hoisting)</strong> という、変数の宣言がそのスコープの先頭に「巻き上げられる」ように見える挙動があります。これは特に <code>var</code> を使っていた時代によく話題になりました。</p>
+<h3><code>var</code> の場合の巻き上げ</h3>
+<p><code>var</code> で宣言された変数は、宣言部分だけがそのスコープ（関数スコープまたはグローバルスコープ）の先頭に巻き上げられます。ただし、代入部分は巻き上げられません。</p>
+<pre><code class="language-javascript">console.log(myVar); // undefined (エラーにはならない！)
+var myVar = &quot;Hello&quot;;
+console.log(myVar); // Hello
+
+// 上のコードは、JavaScriptエンジンによって以下のように解釈されるイメージ
+// var myVar; // 宣言だけが先頭に巻き上げられる
+// console.log(myVar); // undefined
+// myVar = &quot;Hello&quot;; // 代入は元の位置
+// console.log(myVar); // Hello
+</code></pre>
+<p>このように、<code>var</code> で宣言された変数は、実際に宣言される行よりも前で参照してもエラーにならず、<code>undefined</code> となります。これが時々、予期せぬバグの原因になることがありました。</p>
+<h3><code>let</code> と <code>const</code> の場合の巻き上げ (TDZって何？)</h3>
+<p><code>let</code> や <code>const</code> で宣言された変数も、実は宣言自体はスコープの先頭に巻き上げられます。しかし、<code>var</code> とは異なり、実際に変数が宣言される行（初期化される行）よりも前でアクセスしようとすると、<strong>ReferenceError</strong> というエラーが発生します。</p>
+<p>この、変数が巻き上げられてから実際に初期化されるまでの間、その変数にアクセスできない期間のことを <strong>TDZ (Temporal Dead Zone)</strong>、日本語で「一時的死角」と呼びます。</p>
+<pre><code class="language-javascript">// console.log(myLet); // エラー！ ReferenceError: Cannot access &#39;myLet&#39; before initialization (TDZのため)
+let myLet = &quot;Hello from let&quot;;
+console.log(myLet);
+
+// console.log(myConst); // エラー！ ReferenceError: Cannot access &#39;myConst&#39; before initialization (TDZのため)
+const myConst = &quot;Hello from const&quot;;
+console.log(myConst);
+</code></pre>
+<p>TDZの存在により、<code>let</code> や <code>const</code> は <code>var</code> よりも安全で予測しやすい挙動になります。変数は必ず宣言してから使う、という基本的なルールを守っていれば、TDZで困ることはあまりありません。</p>
+<p>個人的には、巻き上げという言葉自体をあまり意識しすぎなくても、「変数は使う前に必ず <code>let</code> か <code>const</code> で宣言する！」というルールを守っていれば、大抵の場合は大丈夫だと思いますよ。</p>
+<hr>
+<h2>6. 型変換 – データ型が変わっちゃう！？</h2>
+<p>JavaScriptは<strong>動的型付け言語</strong>なので、状況に応じて自動的にデータ型を変換することがあります。また、プログラマーが意図的にデータ型を変換することもできます。</p>
+<h3>明示的な型変換 – 自分でハッキリ変える</h3>
+<p>プログラマーが意図してデータ型を変換することを<strong>明示的な型変換 (Explicit Type Conversion)</strong> と言います。JavaScriptには、そのための組み込み関数や方法が用意されています。</p>
+<ul>
+<li><p><strong>文字列への変換</strong>: <code>String()</code> 関数や <code>toString()</code> メソッドを使います。</p>
+<pre><code class="language-javascript">// filepath: (どこかのフォルダ)/explicit_conversion_string.js
+let num = 123;
+let bool = true;
+
+let strNum = String(num);
+let strBool = bool.toString();
+
+console.log(typeof strNum, strNum);   // string 123
+console.log(typeof strBool, strBool); // string true
+</code></pre>
+</li>
+<li><p><strong>数値への変換</strong>: <code>Number()</code> 関数、<code>parseInt()</code> 関数、<code>parseFloat()</code> 関数を使います。</p>
+<pre><code class="language-javascript">// filepath: (どこかのフォルダ)/explicit_conversion_number.js
+let str = &quot;456&quot;;
+let strFloat = &quot;3.14&quot;;
+let strInvalid = &quot;abc&quot;;
+let boolTrue = true;
+let boolFalse = false;
+
+let numStr = Number(str);
+let numParseInt = parseInt(strFloat); // 整数部分だけを取り出す
+let numParseFloat = parseFloat(strFloat); // 小数点以下も取り出す
+let numInvalid = Number(strInvalid); // 数値に変換できない場合はNaNになる
+let numBoolTrue = Number(boolTrue);   // trueは1になる
+let numBoolFalse = Number(boolFalse); // falseは0になる
+
+console.log(typeof numStr, numStr);             // number 456
+console.log(typeof numParseInt, numParseInt);   // number 3
+console.log(typeof numParseFloat, numParseFloat); // number 3.14
+console.log(typeof numInvalid, numInvalid);       // number NaN
+console.log(typeof numBoolTrue, numBoolTrue);     // number 1
+console.log(typeof numBoolFalse, numBoolFalse);   // number 0
+</code></pre>
+<p>  <strong>ポイント:</strong> <code>parseInt()</code> は文字列の先頭から数値として解釈できる部分だけを変換します。<code>parseFloat()</code> も同様ですが、小数点を認識します。</p>
+</li>
+<li><p><strong>真偽値への変換</strong>: <code>Boolean()</code> 関数を使います。</p>
+<pre><code class="language-javascript">// filepath: (どこかのフォルダ)/explicit_conversion_boolean.js
+console.log(Boolean(0));          // false
+console.log(Boolean(&quot;&quot;));         // false (空文字列)
+console.log(Boolean(null));       // false
+console.log(Boolean(undefined));  // false
+console.log(Boolean(NaN));        // false
+
+console.log(Boolean(123));        // true (0以外の数値)
+console.log(Boolean(&quot;hello&quot;));    // true (空でない文字列)
+console.log(Boolean({}));         // true (オブジェクト)
+console.log(Boolean([]));         // true (配列)
+</code></pre>
+<p>  <code>0</code>, 空文字列 <code>&quot;&quot;</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code> は <code>false</code> に変換され、それ以外のほとんどの値は <code>true</code> に変換されると覚えておくと便利です。これらを「falsyな値」、それ以外を「truthyな値」と呼んだりします。</p>
+</li>
+</ul>
+<h3>暗黙的な型変換 – JavaScriptが気を利かせてくれる…けど？</h3>
+<p>JavaScriptは、演算子（例えば <code>+</code> や <code>==</code> など）が使われたときに、文脈に応じて自動的にデータ型を変換することがあります。これを<strong>暗黙的な型変換 (Implicit Type Conversion)</strong> と言います。</p>
+<p>これは便利な場合もありますが、時々予期せぬ結果を引き起こすこともあるので注意が必要です。</p>
+<pre><code class="language-javascript">// 文字列と数値の + 演算
+console.log(1 + &quot;2&quot;);       // &quot;12&quot; (数値の1が文字列に変換されて結合される)
+console.log(&quot;5&quot; - 1);       // 4 (文字列の&quot;5&quot;が数値に変換されて計算される)
+console.log(&quot;5&quot; * &quot;2&quot;);       // 10 (両方数値に変換されて計算される)
+
+// == 演算子 (等価演算子)
+console.log(5 == &quot;5&quot;);      // true (型変換して比較するため)
+console.log(0 == false);    // true
+console.log(null == undefined); // true
+
+// === 演算子 (厳密等価演算子) - 型変換せずに比較する
+console.log(5 === &quot;5&quot;);     // false (型が違うため)
+console.log(0 === false);   // false
+console.log(null === undefined); // false
+</code></pre>
+<p><strong>個人的には、<code>==</code> 演算子は意図しない型変換で混乱を招くことがあるので、型と値の両方が等しいことを厳密に比較する <code>===</code> 演算子を使うことを強く推奨します！</strong></p>
+<p>他にも、トリッキーな暗黙の型変換の例があります。</p>
+<pre><code class="language-javascript">console.log(true + false); // 1 (trueが1に、falseが0に変換されて計算される)
+console.log([] + {});      // &quot;[object Object]&quot; (配列とオブジェクトが文字列に変換されて結合される)
+console.log({} + []);      // 0 または &quot;[object Object]&quot; (環境や解釈により異なる場合がある、非常に紛らわしい！)
+</code></pre>
+<p>JavaScriptは賢く型を推測しようとしますが、時にはおせっかいなこともあります。意図しない型変換に注意し、できるだけ明示的な型変換を心がけるか、<code>===</code> のように型変換を前提としない比較方法を使うのが、バグの少ないコードを書くコツですよ。</p>
+<p>もし途中で分からなくなったり、エラーが出たりしたら、遠慮なく誰かに聞いてみてくださいね</p>
+<hr>
+<h2>✏️ 本日の演習</h2>
+<p>さあ、今日学んだことを早速試してみましょう！</p>
+<ol>
+<li><strong>自己紹介変数を作ろう！</strong><ul>
+<li>自分の名前を格納する変数 <code>myName</code> を <code>const</code> で宣言し、あなたの名前を文字列で代入してください。</li>
+<li>自分の年齢を格納する変数 <code>myAge</code> を <code>let</code> で宣言し、あなたの年齢を数値で代入してください。</li>
+<li>自分が学生であるかどうかを格納する変数 <code>isStudent</code> を <code>const</code> で宣言し、真偽値 (<code>true</code> または <code>false</code>) で代入してください。</li>
+<li>これらの変数の値を <code>console.log()</code> を使って、以下のように表示してみてください。<ul>
+<li>例: <code>console.log(&quot;私の名前は&quot; + myName + &quot;です。&quot;);</code></li>
+<li>例: <code>console.log(&quot;年齢は&quot; + myAge + &quot;歳です。&quot;);</code></li>
+<li>例: <code>console.log(&quot;学生ですか？: &quot; + isStudent);</code></li>
+</ul>
+</li>
+<li>（おまけ）<code>myAge</code> の値を1増やして、再度表示してみましょう。</li>
+</ul>
+</li>
+<li><strong>データ型クイズ！</strong><ul>
+<li>以下の値のデータ型が何になるか、<code>typeof</code> を使って確認し、コンソールに表示してください。<ul>
+<li><code>&quot;NITAC&quot;</code></li>
+<li><code>2023</code></li>
+<li><code>3.14159</code></li>
+<li><code>true</code></li>
+<li><code>null</code></li>
+<li><code>undefined</code></li>
+<li><code>[&quot;apple&quot;, &quot;banana&quot;]</code> (これは配列です)</li>
+<li><code>{ school: &quot;NITAC&quot;, department: &quot;IT&quot; }</code> (これはオブジェクトです)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>型変換実験！</strong><ul>
+<li>数値の <code>100</code> を文字列に変換して、そのデータ型と値をコンソールに表示してください。</li>
+<li>文字列の <code>&quot;50&quot;</code> を数値に変換して、そのデータ型と値をコンソールに表示してください。</li>
+<li><code>0</code> と <code>1</code> と空文字列 <code>&quot;&quot;</code> と文字列 <code>&quot;hello&quot;</code> を、それぞれ <code>Boolean()</code> を使って真偽値に変換し、結果をコンソールに表示してください。何が <code>true</code> になり、何が <code>false</code> になるか確認しましょう。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<hr>
+<hr>
+<h3>演習の解答例</h3>
+<pre><code class="language-javascript">// 演習1: 自己紹介変数を作ろう！
+const myName = &quot;山田太郎&quot;; // あなたの名前に置き換えてください
+let myAge = 20; // あなたの年齢に置き換えてください
+const isStudent = true; // あなたが学生ならtrue、そうでなければfalse
+
+console.log(&quot;私の名前は&quot; + myName + &quot;です。&quot;);
+console.log(&quot;年齢は&quot; + myAge + &quot;歳です。&quot;);
+console.log(&quot;学生ですか？: &quot; + isStudent);
+
+// （おまけ）myAge の値を1増やして、再度表示
+myAge = myAge + 1; // myAge++; でも可
+console.log(&quot;1年後の年齢は&quot; + myAge + &quot;歳です。&quot;);
+
+console.log(&quot;---&quot;); // 区切り線
+
+// 演習2: データ型クイズ！
+console.log(&quot;データ型クイズ！&quot;);
+console.log(typeof &quot;NITAC&quot;);
+console.log(typeof 2023);
+console.log(typeof 3.14159);
+console.log(typeof true);
+console.log(typeof null); // &quot;object&quot; と表示されることに注意
+console.log(typeof undefined);
+console.log(typeof [&quot;apple&quot;, &quot;banana&quot;]); // &quot;object&quot; と表示されることに注意
+console.log(typeof { school: &quot;NITAC&quot;, department: &quot;IT&quot; });
+
+console.log(&quot;---&quot;); // 区切り線
+
+// 演習3: 型変換実験！
+console.log(&quot;型変換実験！&quot;);
+
+// 数値の 100 を文字列に変換
+let numToConvert = 100;
+let strFromNum = String(numToConvert);
+console.log(&quot;100を文字列に変換:&quot;, typeof strFromNum, strFromNum);
+
+// 文字列の &quot;50&quot; を数値に変換
+let strToConvert = &quot;50&quot;;
+let numFromStr = Number(strToConvert);
+console.log(&quot;\&quot;50\&quot;を数値に変換:&quot;, typeof numFromStr, numFromStr);
+
+// 様々な値をBooleanに変換
+console.log(&quot;0 をBooleanに変換:&quot;, Boolean(0));
+console.log(&quot;1 をBooleanに変換:&quot;, Boolean(1));
+console.log(&quot;\&quot;\&quot; (空文字列) をBooleanに変換:&quot;, Boolean(&quot;&quot;));
+console.log(&quot;\&quot;hello\&quot; をBooleanに変換:&quot;, Boolean(&quot;hello&quot;));
+</code></pre>
+<hr>
+<h2>まとめと次回予告</h2>
+<p>お疲れ様でした！今回は、プログラミングの基本中の基本である「変数」と「データ型」、そしてそれらに関連する「スコープ」や「型変換」について学びましたね。</p>
+<ul>
+<li>変数はデータを入れておくための<strong>名前付きの箱</strong>であること。</li>
+<li>変数の宣言には、基本的に**<code>const</code><strong>（書き換え不可）を使い、必要な場合のみ</strong><code>let</code>**（書き換え可）を使うこと。</li>
+<li>JavaScriptには、<strong><code>string</code></strong>, <strong><code>number</code></strong>, <strong><code>boolean</code></strong>, <strong><code>null</code></strong>, <strong><code>undefined</code></strong>, <strong><code>symbol</code></strong>, <strong><code>bigint</code></strong> といったプリミティブ型と、<strong>オブジェクト型</strong>があること。</li>
+<li><strong><code>typeof</code></strong> 演算子でデータ型を確認できること。</li>
+<li>変数が使える範囲である<strong>スコープ</strong>（グローバル、関数、ブロック）の概念。</li>
+<li>意図した型変換（<strong>明示的型変換</strong>）と、自動で行われる型変換（<strong>暗黙的型変換</strong>）があり、特に暗黙の型変換には注意が必要なこと。</li>
+</ul>
+<p>たくさんの新しい言葉や概念が出てきて大変だったかもしれませんが、これらの知識は今後のJavaScript学習の土台となります。実際に手を動かしてコードを書いてみることで、少しずつ体に染み込んでいきますよ。</p>
+<p>次回は、計算や比較を行うための「<strong>演算子</strong>」と、複数の情報をまとめて扱うための基本的なデータ構造である「<strong>配列</strong>」と「<strong>オブジェクト</strong>」について詳しく見ていきます。プログラムでできることが、さらにぐっと広がりますので、お楽しみに！</p>
+
+</body>
+</html>

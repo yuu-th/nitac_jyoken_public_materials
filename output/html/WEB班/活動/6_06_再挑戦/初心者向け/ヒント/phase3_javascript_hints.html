@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>phase3_javascript_hints</title>
+<link rel="stylesheet" href="nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>Phase 3: JavaScript機能実装のヒント集</h1>
+<h2>💡 JavaScript基本概念</h2>
+<h3>ヒント1: 要素の取得方法</h3>
+<pre><code class="language-javascript">// HTMLの要素を取得
+const element = document.getElementById(&#39;要素のID&#39;);
+const element = document.querySelector(&#39;.クラス名&#39;);
+const element = document.querySelector(&#39;#ID名&#39;);
+</code></pre>
+<h3>ヒント2: イベントリスナーの設定</h3>
+<pre><code class="language-javascript">// ボタンがクリックされた時の処理
+button.addEventListener(&#39;click&#39;, function() {
+    // ここに実行したい処理を書く
+});
+
+// Enterキーが押された時の処理
+input.addEventListener(&#39;keypress&#39;, function(event) {
+    if (event.key === &#39;Enter&#39;) {
+        // ここに実行したい処理を書く
+    }
+});
+</code></pre>
+<h3>ヒント3: HTML要素の作成と追加</h3>
+<pre><code class="language-javascript">// 新しい要素を作成
+const newElement = document.createElement(&#39;li&#39;);
+
+// テキストを設定
+newElement.textContent = &#39;新しいタスク&#39;;
+
+// 親要素に追加
+parentElement.appendChild(newElement);
+</code></pre>
+<h2>🔧 タスク管理アプリの実装ポイント</h2>
+<h3>ヒント4: タスクの追加機能</h3>
+<pre><code class="language-javascript">function addTask() {
+    // 1. 入力欄の値を取得
+    const taskText = inputElement.value;
+    
+    // 2. 空の場合は何もしない
+    if (taskText.trim() === &#39;&#39;) {
+        return;
+    }
+    
+    // 3. 新しいタスクを作成
+    // 4. リストに追加
+    // 5. 入力欄をクリア
+}
+</code></pre>
+<h3>ヒント5: タスクの削除機能</h3>
+<pre><code class="language-javascript">// 削除ボタンを作成
+const deleteButton = document.createElement(&#39;button&#39;);
+deleteButton.textContent = &#39;削除&#39;;
+deleteButton.addEventListener(&#39;click&#39;, function() {
+    // このタスクを削除
+    taskItem.remove();
+});
+</code></pre>
+<h3>ヒント6: 入力値の取得とクリア</h3>
+<pre><code class="language-javascript">// 入力欄の値を取得
+const value = inputElement.value;
+
+// 入力欄をクリア
+inputElement.value = &#39;&#39;;
+
+// 空白を除去して確認
+const trimmedValue = value.trim();
+if (trimmedValue === &#39;&#39;) {
+    // 空の場合の処理
+}
+</code></pre>
+<h2>🚨 よくある間違いとその解決法</h2>
+<h3>間違い1: 要素が取得できない</h3>
+<p>❌ <strong>問題例:</strong></p>
+<pre><code class="language-javascript">const button = document.getElementById(&#39;add-btn&#39;);
+// buttonがnullになってしまう
+</code></pre>
+<p><strong>原因と解決法:</strong></p>
+<ul>
+<li>HTMLのIDが間違っている → HTMLを確認</li>
+<li>JavaScriptがHTMLより先に読み込まれている → DOMContentLoadedを使用</li>
+</ul>
+<p>✅ <strong>正しい例:</strong></p>
+<pre><code class="language-javascript">document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    const button = document.getElementById(&#39;add-btn&#39;);
+    // ここで要素を使用
+});
+</code></pre>
+<h3>間違い2: イベントが発生しない</h3>
+<p>❌ <strong>問題例:</strong></p>
+<pre><code class="language-javascript">button.onclick = addTask();  // 関数を実行している
+</code></pre>
+<p>✅ <strong>正しい例:</strong></p>
+<pre><code class="language-javascript">button.addEventListener(&#39;click&#39;, addTask);  // 関数を渡している
+// または
+button.addEventListener(&#39;click&#39;, function() {
+    addTask();
+});
+</code></pre>
+<h3>間違い3: 入力値が取得できない</h3>
+<p>❌ <strong>問題例:</strong></p>
+<pre><code class="language-javascript">const taskText = input.innerHTML;  // innerHTMLは不適切
+</code></pre>
+<p>✅ <strong>正しい例:</strong></p>
+<pre><code class="language-javascript">const taskText = input.value;  // inputの値はvalueプロパティ
+</code></pre>
+<h2>📝 段階別チェックポイント</h2>
+<h3>Step 1: 基本的な要素取得ができているか？</h3>
+<ul>
+<li><input disabled="" type="checkbox"> 入力欄の要素が取得できている</li>
+<li><input disabled="" type="checkbox"> 追加ボタンの要素が取得できている</li>
+<li><input disabled="" type="checkbox"> タスクリストの要素が取得できている</li>
+</ul>
+<h3>Step 2: イベントリスナーが設定されているか？</h3>
+<ul>
+<li><input disabled="" type="checkbox"> ボタンクリックで関数が呼ばれる</li>
+<li><input disabled="" type="checkbox"> Enterキーで関数が呼ばれる</li>
+<li><input disabled="" type="checkbox"> エラーが発生していない</li>
+</ul>
+<h3>Step 3: タスクの追加機能ができているか？</h3>
+<ul>
+<li><input disabled="" type="checkbox"> 入力欄の値が取得できる</li>
+<li><input disabled="" type="checkbox"> 新しいli要素が作成される</li>
+<li><input disabled="" type="checkbox"> リストに追加される</li>
+<li><input disabled="" type="checkbox"> 入力欄がクリアされる</li>
+</ul>
+<h3>Step 4: タスクの削除機能ができているか？</h3>
+<ul>
+<li><input disabled="" type="checkbox"> 各タスクに削除ボタンがある</li>
+<li><input disabled="" type="checkbox"> 削除ボタンで該当タスクが削除される</li>
+</ul>
+<h2>🐛 デバッグのコツ</h2>
+<h3>コンソールを活用しよう</h3>
+<pre><code class="language-javascript">// 変数の値を確認
+console.log(&#39;taskText:&#39;, taskText);
+
+// 要素が取得できているか確認
+console.log(&#39;button:&#39;, button);
+
+// 関数が呼ばれているか確認
+console.log(&#39;addTask関数が呼ばれました&#39;);
+</code></pre>
+<h3>よく確認すべきポイント</h3>
+<ol>
+<li><strong>要素のIDやクラス名</strong>: HTMLとJavaScriptで一致しているか</li>
+<li><strong>タイプミス</strong>: 変数名や関数名に間違いがないか</li>
+<li><strong>ブラウザのコンソール</strong>: エラーメッセージが出ていないか</li>
+</ol>
+<h2>🎯 完成目標</h2>
+<ul>
+<li>タスクの追加ができる</li>
+<li>タスクの削除ができる</li>
+<li>エラーが発生しない</li>
+<li>完成版と同じ動作をする</li>
+</ul>
+<p><strong>動作確認方法:</strong></p>
+<ol>
+<li>テキストを入力して「追加」ボタンを押す</li>
+<li>Enterキーでも追加できる</li>
+<li>各タスクの削除ボタンで削除できる</li>
+<li>空の入力では何も起こらない</li>
+</ol>
+
+</body>
+</html>

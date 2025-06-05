@@ -1,0 +1,131 @@
+/* 全体の背景色とフォント設定 */
+body {
+  margin: 15px;
+  padding: 0;
+}
+
+* {
+  background-color: #fdf6e3; /* 白に近い暖色系 */
+  color: #333; /* 読みやすい濃いグレー */
+  font-family: "Roboto", sans-serif; /* モダンなフォント */
+  line-height: 1.6;
+}
+
+/* ヘッダーのスタイル */
+h1 {
+  color: #2a2a72;
+  background: linear-gradient(90deg, #fdfbfb 0%, #ebedee 100%);
+  padding: 15px;
+  font-size: 2.5em;
+  font-weight: bold;
+  border-left: 8px solid #2a2a72;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #3a6186;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(58, 97, 134, 0.1) 100%);
+  padding: 10px 15px;
+  font-size: 2em;
+  font-weight: bold;
+  border-bottom: 3px solid #3a6186;
+}
+
+h3 {
+  color: #4a6fa5;
+  padding: 8px 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  position: relative;
+}
+
+h3:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 3px;
+  background: #4a6fa5;
+}
+
+/* リンクのスタイル */
+a {
+  color: #ff7043;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ボタンのスタイル */
+button {
+  background-color: #ff7043;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #e64a19;
+}
+
+/* ボックスやセクションのスタイル */
+section {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0;
+}
+
+/* リストのスタイル */
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+/* 画像のスタイル */
+img {
+  max-width: 90%;
+  height: auto;
+  margin: 20px auto;
+  display: block;
+  border-radius: 3px;
+  padding: 15px;
+  background: linear-gradient(45deg, #f3f3f3, #ffffff);
+  box-shadow: 0 3px 5px rgba(105, 105, 105, 0.05), 0 6px 6px rgba(105, 105, 105, 0.05);
+  border-left: 5px solid #2a2a72;
+  border-bottom: 5px solid #2a2a72;
+  position: relative;
+}
+
+img::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-right: 3px solid #2a2a72;
+  border-top: 3px solid #2a2a72;
+  opacity: 0.7;
+}
+
+img::before {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  border-left: 3px solid #2a2a72;
+  border-bottom: 3px solid #2a2a72;
+  opacity: 0.7;
+}
