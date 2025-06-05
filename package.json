@@ -20,6 +20,7 @@
   "dependencies": {
     "@marp-team/marp-cli": "^4.1.2",
     "@marp-team/marp-core": "^4.1.0",
+    "jsdom": "^26.1.0",
     "marked": "^15.0.12",
     "puppeteer": "^22.10.0"
   }
