@@ -66,6 +66,6 @@ jobs:
 
       - name: Commit changes
         run: |
-          git add output/ index.html
+          git add output/
           git commit -m "Convert Markdown to HTML and PDF [automated]" || echo "No changes to commit"
           git push origin HEAD:${GITHUB_REF#refs/heads/}
