@@ -80,8 +80,10 @@ async function main() {
     // await exec('npm install marked @marp-team/marp-cli');
     // console.log('Installed marked and @marp-team/marp-cli');
     await main();
+    console.log("Exiting process..."); // 追加: 終了前のログ
+    process.exit(0); // 追加: 正常終了
   } catch (err) {
     console.error("Failed to install dependencies or run main function:", err);
-    process.exit(1);
+    process.exit(1); // エラー終了
   }
 })();
