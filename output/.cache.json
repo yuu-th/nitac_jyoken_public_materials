@@ -1,262 +1,262 @@
 {
-  "AI班\\活動\\6_04\\oop.md": {
-    "hash": "342459c73cbf94d5ff427b95c600019e",
-    "lastProcessed": "2025-06-05T08:39:43.704Z"
-  },
-  "AI班\\活動\\6_04\\practice_answer.md": {
-    "hash": "9597ab875b7f1613488348fd5d7f4b98",
-    "lastProcessed": "2025-06-05T08:39:46.387Z"
-  },
-  "AI班\\活動\\6_04\\practice.md": {
-    "hash": "4a53e24577e20177e1fc25360c97ccb0",
-    "lastProcessed": "2025-06-05T08:39:50.663Z"
-  },
-  "AI班\\講義\\AI最先端理解\\技術レポート.md": {
-    "hash": "e7fadc1603472d0e9226c9b6fe19bf9c",
-    "lastProcessed": "2025-06-05T08:39:57.431Z"
-  },
-  "AI班\\講義\\AI最先端理解\\非CS学生向けAI教育資料_序章.md": {
-    "hash": "2299feb690ac467be94691221e838aeb",
-    "lastProcessed": "2025-06-05T08:40:01.861Z"
-  },
-  "AI班\\講義\\AI最先端理解\\非CS学生向けAI教育資料_第1章.md": {
-    "hash": "147bc5367efb0c5c42de6df7ed1960c8",
-    "lastProcessed": "2025-06-05T08:40:06.454Z"
-  },
-  "AI班\\講義\\AI最先端理解\\非CS学生向けAI教育資料方針.md": {
-    "hash": "fccdfb1583050d79003d64db41cb3158",
-    "lastProcessed": "2025-06-05T08:40:11.666Z"
-  },
-  "AI班\\資料\\1\\AI班１_環境構築_HelloWorld.md": {
-    "hash": "8672d959e463c2decf726da4aa10a0d6",
-    "lastProcessed": "2025-06-05T08:40:17.963Z"
-  },
-  "AI班\\資料\\2\\AI班２_変数_データ型_演算.md": {
-    "hash": "c5aab88ee4083cf1153fcd8f8b407b24",
-    "lastProcessed": "2025-06-05T08:40:22.471Z"
-  },
-  "AI班\\資料\\3\\AI班３_文字列操作.md": {
-    "hash": "bc7b83d459a1ce7a96a1020c157ef0c7",
-    "lastProcessed": "2025-06-05T08:40:27.775Z"
-  },
-  "AI班\\資料\\4\\AI班４_リスト_辞書.md": {
-    "hash": "23362085148b7da09b993491605f2fdf",
-    "lastProcessed": "2025-06-05T08:40:32.793Z"
-  },
-  "AI班\\資料\\5\\AI班５_条件分岐_ループ.md": {
-    "hash": "5c75067a0e70e5ae6d87f804646861a3",
-    "lastProcessed": "2025-06-05T08:40:39.335Z"
-  },
-  "AI班\\資料\\6\\AI班６_関数_エラーハンドリング_標準ライブラリ.md": {
-    "hash": "27f465c2039ce28a1338d82eabb4f271",
-    "lastProcessed": "2025-06-05T08:40:44.314Z"
-  },
-  "AI班\\資料\\7\\AI班7_Python総整理.md": {
-    "hash": "5dda111e45005496c9f031fe67471061",
-    "lastProcessed": "2025-06-05T08:40:48.677Z"
-  },
-  "AI班\\体験\\index.md": {
-    "hash": "2cb4f7cad3ae5b00800084efceef287a",
-    "lastProcessed": "2025-06-05T08:40:52.047Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\講師用資料\\プロジェクト進行.md": {
-    "hash": "33e0323be810823c07a9308e02e82fb2",
-    "lastProcessed": "2025-06-05T08:40:55.960Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\講師用資料\\ワークショップアジェンダ第一案.md": {
-    "hash": "776b3491290bc8cb9050f1c078dfcb09",
-    "lastProcessed": "2025-06-05T08:41:00.182Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\講師用資料\\講師用指導ガイド.md": {
-    "hash": "7d51b24ce594adc65738efb9e108fc43",
-    "lastProcessed": "2025-06-05T08:41:04.965Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\講師用資料\\対象者視点シミュレーション.md": {
-    "hash": "f259cb026f02e73109c0991199a30756",
-    "lastProcessed": "2025-06-05T08:41:09.327Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\初心者向け\\ヒント\\phase1_html_hints.md": {
-    "hash": "d9d8b2c9863aeb3990a95f4f44897a84",
-    "lastProcessed": "2025-06-05T08:41:11.688Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\初心者向け\\ヒント\\phase2_css_hints.md": {
-    "hash": "631392b02ba8d32bbb2d87706088adc3",
-    "lastProcessed": "2025-06-05T08:41:14.119Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\初心者向け\\ヒント\\phase3_javascript_hints.md": {
-    "hash": "cb033c89448f476f7eb4b6e77788cb5c",
-    "lastProcessed": "2025-06-05T08:41:16.573Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\初心者向け\\説明資料\\ワークショップ説明資料案2.md": {
-    "hash": "1c0a2e03342f0f8f7f2e41b87fb01150",
-    "lastProcessed": "2025-06-05T08:41:21.252Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\上級者向け\\説明資料\\ワークショップ説明資料案1.md": {
-    "hash": "4c4b2b3ea92b8b324eed8921a3f45f85",
-    "lastProcessed": "2025-06-05T08:41:25.461Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\中級者向け\\説明資料\\ワークショップ説明資料案3.md": {
-    "hash": "0938d0761b50864fecf2a535df25d527",
-    "lastProcessed": "2025-06-05T08:41:30.167Z"
-  },
-  "WEB班\\活動\\6_06_再挑戦\\README.md": {
-    "hash": "e48f13c001f5f0d254ab2a945f0116e9",
-    "lastProcessed": "2025-06-05T08:41:34.560Z"
-  },
-  "WEB班\\資料\\１部__HTMLとCSS\\ミッション\\ミッション.md": {
-    "hash": "4256a3e8c890a0cd7eb5c02dffc1979d",
-    "lastProcessed": "2025-06-05T08:41:37.435Z"
-  },
-  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド１.md": {
-    "hash": "74b33437b243f9858627223d1b7f9c78",
-    "lastProcessed": "2025-06-05T08:41:40.944Z"
-  },
-  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド２.md": {
-    "hash": "db01e6314398324dbf25dc21ef2a6024",
-    "lastProcessed": "2025-06-05T08:41:45.483Z"
-  },
-  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド３.md": {
-    "hash": "9f4822844be86e23bc08793b94fa6d87",
-    "lastProcessed": "2025-06-05T08:41:48.182Z"
-  },
-  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド４.md": {
-    "hash": "be93e03c251c0437799807e2bfb86c21",
-    "lastProcessed": "2025-06-05T08:41:52.622Z"
-  },
-  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド５.md": {
-    "hash": "e0ca890a22c9a3db8d01315fb65e72f2",
-    "lastProcessed": "2025-06-05T08:41:55.672Z"
-  },
-  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド６.md": {
-    "hash": "3ec61d15d114f4be3475e13f4818432e",
-    "lastProcessed": "2025-06-05T08:41:59.983Z"
-  },
-  "WEB班\\資料\\２部_プログラミングJavascript\\10\\WEB班１０_JS_演算子とデータ構造.md": {
-    "hash": "5907c602516daf611854912f7c536b1d",
-    "lastProcessed": "2025-06-05T08:42:05.093Z"
-  },
-  "WEB班\\資料\\２部_プログラミングJavascript\\11\\WEB班１１_JS_制御_条件分岐とループ.md": {
-    "hash": "d6572677787333c36ba1dd53bb2a209e",
-    "lastProcessed": "2025-06-05T08:42:11.596Z"
-  },
-  "WEB班\\資料\\２部_プログラミングJavascript\\12\\WEB班１２_JS_関数とエラー処理.md": {
-    "hash": "51b6b1a8951fce2b8550f4f2c41b1ac8",
-    "lastProcessed": "2025-06-05T08:42:16.745Z"
-  },
-  "WEB班\\資料\\２部_プログラミングJavascript\\7\\WEB班７_JS_序章.md": {
-    "hash": "5b63b6f72c133946feb8d99279405f73",
-    "lastProcessed": "2025-06-05T08:42:23.391Z"
-  },
-  "WEB班\\資料\\２部_プログラミングJavascript\\8\\WEB班８_JS_最初の導入.md": {
-    "hash": "7a2904bd905b6ed3be0f108c0eb1e248",
-    "lastProcessed": "2025-06-05T08:42:28.170Z"
-  },
-  "WEB班\\資料\\２部_プログラミングJavascript\\9\\WEB班９_JS_変数とデータ型.md": {
-    "hash": "596b9f61fe126471dee8aae04fd449a4",
-    "lastProcessed": "2025-06-05T08:42:33.360Z"
-  },
-  "WEB班\\資料\\３部_ウェブページとJavascript\\13\\WEB班 １３_JS_DOM.md": {
-    "hash": "a53f55561a98f420fac48a069a27b83e",
-    "lastProcessed": "2025-06-05T08:42:39.780Z"
-  },
-  "WEB班\\体験\\index.md": {
-    "hash": "12e507843c7e9efe11a2680ec00f99bc",
-    "lastProcessed": "2025-06-05T08:42:46.447Z"
-  },
-  "WEB班\\計画.md": {
-    "hash": "a21f52adb5cc093709a9ad26fc88224e",
-    "lastProcessed": "2025-06-05T08:42:52.629Z"
-  },
-  "ゲーム班\\1\\ゲーム班１.md": {
-    "hash": "f189a3985a556e7310f50bdf6b63fd5c",
-    "lastProcessed": "2025-06-05T08:42:57.592Z"
-  },
-  "ゲーム班\\2\\ゲーム班２.md": {
-    "hash": "9608efded3fd030155ae8c1044bd490f",
-    "lastProcessed": "2025-06-05T08:43:07.050Z"
-  },
-  "ゲーム班\\3\\ゲーム班３.md": {
-    "hash": "55201536a6680ec7367b557e724dc6fa",
-    "lastProcessed": "2025-06-05T08:43:12.438Z"
-  },
-  "ゲーム班\\4\\ゲーム班４.md": {
-    "hash": "e9d2840d6c6c13a817ec27dc96fe6c6f",
-    "lastProcessed": "2025-06-05T08:43:15.541Z"
-  },
-  "ゲーム班\\体験\\index.md": {
-    "hash": "bda43f85f95ff8192d9624bcc88fb5fb",
-    "lastProcessed": "2025-06-05T08:43:17.716Z"
-  },
-  "ゲーム班\\第２回\\ゲームアイデア発表について.md": {
-    "hash": "9bb74cde271b844bf4ea0f1813043093",
-    "lastProcessed": "2025-06-05T08:43:20.060Z"
-  },
-  "ゲーム班\\第3回\\no3.md": {
-    "hash": "351ddee63107a1fb10a1138cd3443e1c",
-    "lastProcessed": "2025-06-05T08:43:26.107Z"
-  },
-  "ゲーム班\\第4回\\no4.md": {
-    "hash": "3c9058a557bc01dd9c80cbf88f9c0531",
-    "lastProcessed": "2025-06-05T08:43:29.299Z"
-  },
-  "ゲーム班\\第5回\\no5.md": {
-    "hash": "29c9d17ac36edc6323d9562771e6c68a",
-    "lastProcessed": "2025-06-05T08:43:33.329Z"
-  },
-  "公式\\プロジェクトマニュアル.md": {
-    "hash": "2385bfa192f4c35735d176c149d77339",
-    "lastProcessed": "2025-06-05T08:43:37.365Z"
-  },
-  "README.md": {
-    "hash": "8b88d17bc22c8c863b754b0e0936aff8",
-    "lastProcessed": "2025-06-05T08:43:39.144Z"
-  },
   "AI班\\活動\\5_28\\28.marp.md": {
     "hash": "67cfa875cff19a492f0bfadb364c23af",
-    "lastProcessed": "2025-06-05T09:32:41.994Z"
+    "lastProcessed": "2025-06-06T02:17:32.328Z"
   },
   "AI班\\活動\\6_04\\oop_slides.marp.md": {
     "hash": "7060687fba6d60411ad7f542075e7efa",
-    "lastProcessed": "2025-06-05T09:32:54.005Z"
+    "lastProcessed": "2025-06-06T02:17:47.805Z"
+  },
+  "AI班\\活動\\6_04\\oop.md": {
+    "hash": "342459c73cbf94d5ff427b95c600019e",
+    "lastProcessed": "2025-06-06T02:17:51.193Z"
+  },
+  "AI班\\活動\\6_04\\practice_answer.md": {
+    "hash": "9597ab875b7f1613488348fd5d7f4b98",
+    "lastProcessed": "2025-06-06T02:17:53.703Z"
+  },
+  "AI班\\活動\\6_04\\practice.md": {
+    "hash": "4a53e24577e20177e1fc25360c97ccb0",
+    "lastProcessed": "2025-06-06T02:17:56.123Z"
+  },
+  "AI班\\講義\\AI最先端理解\\技術レポート.md": {
+    "hash": "e7fadc1603472d0e9226c9b6fe19bf9c",
+    "lastProcessed": "2025-06-06T02:18:02.137Z"
   },
   "AI班\\講義\\AI最先端理解\\非CS学生向けAI教育資料_序章.marp.md": {
     "hash": "f32543263bb2165f5dd7c974ef619229",
-    "lastProcessed": "2025-06-05T09:33:03.350Z"
+    "lastProcessed": "2025-06-06T02:18:14.838Z"
+  },
+  "AI班\\講義\\AI最先端理解\\非CS学生向けAI教育資料_序章.md": {
+    "hash": "2299feb690ac467be94691221e838aeb",
+    "lastProcessed": "2025-06-06T02:18:17.270Z"
   },
   "AI班\\講義\\AI最先端理解\\非CS学生向けAI教育資料_第1章.marp.md": {
     "hash": "f2226a0d919f939c57ef02ada175a470",
-    "lastProcessed": "2025-06-05T09:33:11.723Z"
+    "lastProcessed": "2025-06-06T02:18:29.400Z"
+  },
+  "AI班\\講義\\AI最先端理解\\非CS学生向けAI教育資料_第1章.md": {
+    "hash": "147bc5367efb0c5c42de6df7ed1960c8",
+    "lastProcessed": "2025-06-06T02:18:31.690Z"
+  },
+  "AI班\\講義\\AI最先端理解\\非CS学生向けAI教育資料方針.md": {
+    "hash": "fccdfb1583050d79003d64db41cb3158",
+    "lastProcessed": "2025-06-06T02:18:34.283Z"
+  },
+  "AI班\\資料\\1\\AI班１_環境構築_HelloWorld.md": {
+    "hash": "8672d959e463c2decf726da4aa10a0d6",
+    "lastProcessed": "2025-06-06T02:18:38.102Z"
+  },
+  "AI班\\資料\\2\\AI班２_変数_データ型_演算.md": {
+    "hash": "c5aab88ee4083cf1153fcd8f8b407b24",
+    "lastProcessed": "2025-06-06T02:18:42.942Z"
+  },
+  "AI班\\資料\\3\\AI班３_文字列操作.md": {
+    "hash": "bc7b83d459a1ce7a96a1020c157ef0c7",
+    "lastProcessed": "2025-06-06T02:18:46.336Z"
+  },
+  "AI班\\資料\\4\\AI班４_リスト_辞書.md": {
+    "hash": "23362085148b7da09b993491605f2fdf",
+    "lastProcessed": "2025-06-06T02:18:49.750Z"
+  },
+  "AI班\\資料\\5\\AI班５_条件分岐_ループ.md": {
+    "hash": "5c75067a0e70e5ae6d87f804646861a3",
+    "lastProcessed": "2025-06-06T02:18:55.878Z"
+  },
+  "AI班\\資料\\6\\AI班６_関数_エラーハンドリング_標準ライブラリ.md": {
+    "hash": "27f465c2039ce28a1338d82eabb4f271",
+    "lastProcessed": "2025-06-06T02:19:00.441Z"
+  },
+  "AI班\\資料\\7\\AI班7_Python総整理.md": {
+    "hash": "5dda111e45005496c9f031fe67471061",
+    "lastProcessed": "2025-06-06T02:19:03.033Z"
+  },
+  "AI班\\体験\\index.md": {
+    "hash": "2cb4f7cad3ae5b00800084efceef287a",
+    "lastProcessed": "2025-06-06T02:19:06.238Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\講師用資料\\プロジェクト進行.md": {
+    "hash": "33e0323be810823c07a9308e02e82fb2",
+    "lastProcessed": "2025-06-06T02:19:08.279Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\講師用資料\\ワークショップアジェンダ第一案.md": {
+    "hash": "776b3491290bc8cb9050f1c078dfcb09",
+    "lastProcessed": "2025-06-06T02:19:10.828Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\講師用資料\\講師用指導ガイド.md": {
+    "hash": "7d51b24ce594adc65738efb9e108fc43",
+    "lastProcessed": "2025-06-06T02:19:13.213Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\講師用資料\\対象者視点シミュレーション.md": {
+    "hash": "f259cb026f02e73109c0991199a30756",
+    "lastProcessed": "2025-06-06T02:19:15.390Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\初心者向け\\ヒント\\phase1_html_hints.md": {
+    "hash": "d9d8b2c9863aeb3990a95f4f44897a84",
+    "lastProcessed": "2025-06-06T02:19:17.400Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\初心者向け\\ヒント\\phase2_css_hints.md": {
+    "hash": "631392b02ba8d32bbb2d87706088adc3",
+    "lastProcessed": "2025-06-06T02:19:19.678Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\初心者向け\\ヒント\\phase3_javascript_hints.md": {
+    "hash": "cb033c89448f476f7eb4b6e77788cb5c",
+    "lastProcessed": "2025-06-06T02:19:21.800Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\初心者向け\\説明資料\\ワークショップ説明資料案2.md": {
+    "hash": "1c0a2e03342f0f8f7f2e41b87fb01150",
+    "lastProcessed": "2025-06-06T02:19:26.008Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\上級者向け\\説明資料\\ワークショップ説明資料案1.md": {
+    "hash": "4c4b2b3ea92b8b324eed8921a3f45f85",
+    "lastProcessed": "2025-06-06T02:19:29.514Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\中級者向け\\説明資料\\ワークショップ説明資料案3.md": {
+    "hash": "0938d0761b50864fecf2a535df25d527",
+    "lastProcessed": "2025-06-06T02:19:32.182Z"
+  },
+  "WEB班\\活動\\6_06_再挑戦\\README.md": {
+    "hash": "e48f13c001f5f0d254ab2a945f0116e9",
+    "lastProcessed": "2025-06-06T02:19:34.713Z"
   },
   "WEB班\\活動\\第１回\\WEB班１.marp.md": {
     "hash": "ceb5561cceb473d830928b86db32cf4c",
-    "lastProcessed": "2025-06-05T09:33:20.624Z"
+    "lastProcessed": "2025-06-06T02:19:46.298Z"
+  },
+  "WEB班\\資料\\１部__HTMLとCSS\\ミッション\\ミッション.md": {
+    "hash": "4256a3e8c890a0cd7eb5c02dffc1979d",
+    "lastProcessed": "2025-06-06T02:19:48.737Z"
+  },
+  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド１.md": {
+    "hash": "74b33437b243f9858627223d1b7f9c78",
+    "lastProcessed": "2025-06-06T02:19:51.357Z"
+  },
+  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド２.md": {
+    "hash": "db01e6314398324dbf25dc21ef2a6024",
+    "lastProcessed": "2025-06-06T02:19:53.867Z"
+  },
+  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド３.md": {
+    "hash": "9f4822844be86e23bc08793b94fa6d87",
+    "lastProcessed": "2025-06-06T02:19:56.181Z"
+  },
+  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド４.md": {
+    "hash": "be93e03c251c0437799807e2bfb86c21",
+    "lastProcessed": "2025-06-06T02:19:58.526Z"
+  },
+  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド５.md": {
+    "hash": "e0ca890a22c9a3db8d01315fb65e72f2",
+    "lastProcessed": "2025-06-06T02:20:01.066Z"
+  },
+  "WEB班\\資料\\１部__HTMLとCSS\\フロントエンド６.md": {
+    "hash": "3ec61d15d114f4be3475e13f4818432e",
+    "lastProcessed": "2025-06-06T02:20:03.568Z"
+  },
+  "WEB班\\資料\\２部_プログラミングJavascript\\10\\WEB班１０_JS_演算子とデータ構造.md": {
+    "hash": "5907c602516daf611854912f7c536b1d",
+    "lastProcessed": "2025-06-06T02:20:07.087Z"
+  },
+  "WEB班\\資料\\２部_プログラミングJavascript\\11\\WEB班１１_JS_制御_条件分岐とループ.md": {
+    "hash": "d6572677787333c36ba1dd53bb2a209e",
+    "lastProcessed": "2025-06-06T02:20:12.760Z"
+  },
+  "WEB班\\資料\\２部_プログラミングJavascript\\12\\WEB班１２_JS_関数とエラー処理.md": {
+    "hash": "51b6b1a8951fce2b8550f4f2c41b1ac8",
+    "lastProcessed": "2025-06-06T02:20:15.886Z"
+  },
+  "WEB班\\資料\\２部_プログラミングJavascript\\7\\WEB班７_JS_序章.md": {
+    "hash": "5b63b6f72c133946feb8d99279405f73",
+    "lastProcessed": "2025-06-06T02:20:21.590Z"
+  },
+  "WEB班\\資料\\２部_プログラミングJavascript\\8\\WEB班８_JS_最初の導入.md": {
+    "hash": "7a2904bd905b6ed3be0f108c0eb1e248",
+    "lastProcessed": "2025-06-06T02:20:24.270Z"
+  },
+  "WEB班\\資料\\２部_プログラミングJavascript\\9\\WEB班９_JS_変数とデータ型.md": {
+    "hash": "596b9f61fe126471dee8aae04fd449a4",
+    "lastProcessed": "2025-06-06T02:20:29.000Z"
+  },
+  "WEB班\\資料\\３部_ウェブページとJavascript\\13\\WEB班 １３_JS_DOM.md": {
+    "hash": "a53f55561a98f420fac48a069a27b83e",
+    "lastProcessed": "2025-06-06T02:20:33.013Z"
+  },
+  "WEB班\\体験\\index.md": {
+    "hash": "12e507843c7e9efe11a2680ec00f99bc",
+    "lastProcessed": "2025-06-06T02:20:37.564Z"
+  },
+  "WEB班\\計画.md": {
+    "hash": "a21f52adb5cc093709a9ad26fc88224e",
+    "lastProcessed": "2025-06-06T02:20:42.752Z"
+  },
+  "ゲーム班\\1\\ゲーム班１.md": {
+    "hash": "f189a3985a556e7310f50bdf6b63fd5c",
+    "lastProcessed": "2025-06-06T02:20:46.318Z"
+  },
+  "ゲーム班\\2\\ゲーム班２.md": {
+    "hash": "9608efded3fd030155ae8c1044bd490f",
+    "lastProcessed": "2025-06-06T02:20:52.336Z"
+  },
+  "ゲーム班\\3\\ゲーム班３.md": {
+    "hash": "55201536a6680ec7367b557e724dc6fa",
+    "lastProcessed": "2025-06-06T02:20:55.615Z"
+  },
+  "ゲーム班\\4\\ゲーム班４.md": {
+    "hash": "e9d2840d6c6c13a817ec27dc96fe6c6f",
+    "lastProcessed": "2025-06-06T02:20:58.398Z"
+  },
+  "ゲーム班\\体験\\index.md": {
+    "hash": "bda43f85f95ff8192d9624bcc88fb5fb",
+    "lastProcessed": "2025-06-06T02:21:00.240Z"
   },
   "ゲーム班\\第２回\\ゲームアイデア発表について.marp.md": {
     "hash": "b5771cbf9d6ffd13a4f55b317cdcf9ec",
-    "lastProcessed": "2025-06-05T09:33:29.264Z"
+    "lastProcessed": "2025-06-06T02:21:11.275Z"
+  },
+  "ゲーム班\\第２回\\ゲームアイデア発表について.md": {
+    "hash": "9bb74cde271b844bf4ea0f1813043093",
+    "lastProcessed": "2025-06-06T02:21:13.433Z"
+  },
+  "ゲーム班\\第3回\\no3.md": {
+    "hash": "351ddee63107a1fb10a1138cd3443e1c",
+    "lastProcessed": "2025-06-06T02:21:18.654Z"
+  },
+  "ゲーム班\\第4回\\no4.md": {
+    "hash": "3c9058a557bc01dd9c80cbf88f9c0531",
+    "lastProcessed": "2025-06-06T02:21:21.204Z"
+  },
+  "ゲーム班\\第5回\\no5.md": {
+    "hash": "29c9d17ac36edc6323d9562771e6c68a",
+    "lastProcessed": "2025-06-06T02:21:24.337Z"
+  },
+  "公式\\プロジェクトマニュアル.md": {
+    "hash": "2385bfa192f4c35735d176c149d77339",
+    "lastProcessed": "2025-06-06T02:21:26.669Z"
   },
   "部集会\\5_30\\git_github_lecture.marp.md": {
     "hash": "530965181e2c48703d5d8b6da6a3e4f9",
-    "lastProcessed": "2025-06-05T09:33:39.120Z"
+    "lastProcessed": "2025-06-06T02:21:38.964Z"
   },
   "部集会\\5_30\\project_preparation.marp.md": {
     "hash": "be7fc3767fae64c46ac469a5c0f5de05",
-    "lastProcessed": "2025-06-05T09:33:45.894Z"
+    "lastProcessed": "2025-06-06T02:21:49.595Z"
   },
   "部集会\\第１回\\部会第１回.marp.md": {
     "hash": "448bd2fb259d05b2c54b156caa861af1",
-    "lastProcessed": "2025-06-05T09:33:54.189Z"
+    "lastProcessed": "2025-06-06T02:22:01.463Z"
   },
   "部集会\\第２回\\部会２.marp.md": {
     "hash": "8462f6d763ce12d2e9274bbad1e86a2c",
-    "lastProcessed": "2025-06-05T09:34:02.957Z"
+    "lastProcessed": "2025-06-06T02:22:15.916Z"
   },
   "部集会\\第３回\\部会第３回.marp.md": {
     "hash": "63c38715bf0fe3823d8ed32fad9dcfdd",
-    "lastProcessed": "2025-06-05T09:34:11.867Z"
+    "lastProcessed": "2025-06-06T02:22:31.376Z"
   },
   "部集会\\第４回\\部会第４回.marp.md": {
     "hash": "72aa1aba27522da2683108407f9e5a2e",
-    "lastProcessed": "2025-06-05T09:34:19.784Z"
+    "lastProcessed": "2025-06-06T02:22:44.383Z"
+  },
+  "README.md": {
+    "hash": "8b88d17bc22c8c863b754b0e0936aff8",
+    "lastProcessed": "2025-06-06T02:22:46.069Z"
   }
 }
