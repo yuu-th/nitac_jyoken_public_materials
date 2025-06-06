@@ -48,7 +48,7 @@ jobs:
             libxdamage1 \
             libxfixes3 \
             libxrandr2 \
-            libasound2
+            libasound2t64 # Changed from libasound2
           echo "System dependencies installed."
 
       - name: Convert Markdown files
