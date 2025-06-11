@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WEB班１２_JS_関数とエラー処理</title>
-<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
 </head>
 <body class="markdown-body">
 <h1>第5章: 関数とスコープ、エラー処理 – 処理の部品化とその周辺知識</h1>
@@ -347,9 +347,9 @@ const oldSolutionObject = {
 oldSolutionObject.greet();
 </code></pre>
 <p>従来の関数の場合
-<img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image.png" alt=""></p>
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image.png" alt=""></p>
 <p>アロー関数の場合
-<img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-1.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-1.png" alt="">
 (従来の関数であれば、objを返すところが、arrowを定義したところでのthis=windowが与えられている)</p>
 <p><strong><code>this</code> の挙動はJavaScriptの中でも特に難しい部分の一つです。</strong>
 アロー関数は、コールバック関数（他の関数に渡される関数）の中で、外側の <code>this</code> をそのまま使いたい場合に非常に便利です。一方、オブジェクトのメソッドを定義する場合は、通常、従来の関数式を使った方が意図通りに <code>this</code> がそのオブジェクトを指すため、適切です。</p>
@@ -616,8 +616,8 @@ outerFunc();
 </code></pre>
 <p><code>innerFunc</code> は <code>outerFunc</code> の中で定義されているため、<code>innerFunc</code> は <code>outerFunc</code> のスコープ（<code>y</code> がある場所）と、さらにその外側のグローバルスコープ（<code>x</code> がある場所）にアクセスできます。
 この「関数が定義された場所でスコープが決まる」という性質が、先ほど説明したクロージャの基礎にもなっています。</p>
-<p><img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-2.png" alt="">
-<img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-3.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-2.png" alt="">
+<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/12/image-3.png" alt=""></p>
 <hr>
 <h2>5. 即時実行関数 (IIFE) – ちょっと特殊な関数の使い方</h2>
 <p><strong>即時実行関数 (Immediately Invoked Function Expression, IIFE)</strong> とは、関数を定義すると同時に実行する書き方です。</p>
