@@ -1,131 +1,804 @@
-/* 全体の背景色とフォント設定 */
-body {
-  margin: 15px;
+/* Material 3 Expressive - Student Fresh Style - v3.1 (Enhanced for Documentation Engagement) */
+
+/* 1. Root Variables (Colors, Typography, Spacing, Shape) */
+:root {
+  /* Color Palette (Adjusted for contrast and vibrancy) */
+  --md-sys-color-primary: #4285f4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #dcebff;
+  --md-sys-color-on-primary-container: #001a35; /* Darkened for better contrast */
+
+  --md-sys-color-secondary: #ffbb00;
+  --md-sys-color-on-secondary: #332300; /* Darkened significantly for WCAG AA on #FFBB00 */
+  --md-sys-color-secondary-container: #fff0c7;
+  --md-sys-color-on-secondary-container: #251a00;
+
+  --md-sys-color-tertiary: #ea4335;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #ffdad6;
+  --md-sys-color-on-tertiary-container: #410002;
+
+  --md-sys-color-error: #b3261e;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #f9dedc;
+  --md-sys-color-on-error-container: #410e0b;
+
+  /* New: Surface container colors for subtle background variations */
+  --md-sys-color-surface-container-lowest: #ffffff; /* Could be same as surface or slightly lighter/different */
+  --md-sys-color-surface-container-low: #f8f9fa; /* Slightly darker than lowest */
+  --md-sys-color-surface-container: #eff1f4; /* Default container bg */
+  --md-sys-color-surface-container-high: #e8eaed; /* Slightly lighter than highest */
+  --md-sys-color-surface-container-highest: #e1e3e6; /* Darkest container bg before inverse */
+
+  --md-sys-color-background: #f0f2f5;
+  --md-sys-color-on-background: #1c1b1f;
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-on-surface: #1c1b1f;
+  --md-sys-color-surface-variant: #e7e0ec;
+  --md-sys-color-on-surface-variant: #49454f;
+  --md-sys-color-outline: #79747e;
+  --md-sys-color-outline-variant: #cac4d0; /* Softer outline for decorative purposes */
+  --md-sys-color-shadow: #000000;
+
+  /* Typography */
+  --md-sys-font-family-display: "Roboto Flex", "Google Sans Text", sans-serif;
+  --md-sys-font-family-body: "Roboto", "Noto Sans JP", sans-serif;
+  --md-sys-font-family-code: "Roboto Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; /* Added dedicated code font */
+
+  /* Display */
+  --md-sys-typescale-display-large-font-family-name: var(--md-sys-font-family-display);
+  --md-sys-typescale-display-large-font-weight: 400;
+  --md-sys-typescale-display-large-font-size: 57px;
+  --md-sys-typescale-display-large-line-height: 64px;
+  --md-sys-typescale-display-large-letter-spacing: -0.25px;
+
+  /* Headline */
+  --md-sys-typescale-headline-medium-font-family-name: var(--md-sys-font-family-display);
+  --md-sys-typescale-headline-medium-font-weight: 700;
+  --md-sys-typescale-headline-medium-font-size: 32px;
+  --md-sys-typescale-headline-medium-line-height: 40px;
+  --md-sys-typescale-headline-medium-letter-spacing: 0px;
+
+  /* Title */
+  --md-sys-typescale-title-large-font-family-name: var(--md-sys-font-family-display);
+  --md-sys-typescale-title-large-font-weight: 600;
+  --md-sys-typescale-title-large-font-size: 22px;
+  --md-sys-typescale-title-large-line-height: 28px;
+  --md-sys-typescale-title-large-letter-spacing: 0px;
+
+  /* Body */
+  --md-sys-typescale-body-large-font-family-name: var(--md-sys-font-family-body);
+  --md-sys-typescale-body-large-font-weight: 400;
+  --md-sys-typescale-body-large-font-size: 16px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-large-letter-spacing: 0.5px;
+
+  /* Label */
+  --md-sys-typescale-label-medium-font-family-name: var(--md-sys-font-family-body);
+  --md-sys-typescale-label-medium-font-weight: 500;
+  --md-sys-typescale-label-medium-font-size: 12px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-medium-letter-spacing: 0.5px;
+
+  /* New: Code typography */
+  --md-sys-typescale-code-font-family-name: var(--md-sys-font-family-code);
+  --md-sys-typescale-code-font-size: 0.9em; /* Relative to parent */
+  --md-sys-typescale-code-line-height: 1.6;
+
+  /* Shape */
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 9999px;
+
+  /* Spacing */
+  --md-sys-spacing-1: 0.25rem; /* 4px */
+  --md-sys-spacing-2: 0.5rem; /* 8px */
+  --md-sys-spacing-3: 0.75rem; /* 12px */
+  --md-sys-spacing-4: 1rem; /* 16px */
+  --md-sys-spacing-5: 1.25rem; /* 20px */
+  --md-sys-spacing-6: 1.5rem; /* 24px */
+  --md-sys-spacing-7: 1.75rem; /* 28px */
+  --md-sys-spacing-8: 2rem; /* 32px */
+
+  /* Elevation (Shadows) */
+  --md-sys-elevation-level0: none;
+  --md-sys-elevation-level1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* 2. Base Styles (Reset, Body, Global Elements) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
   padding: 0;
 }
 
-* {
-  background-color: #fdf6e3; /* 白に近い暖色系 */
-  color: #333; /* 読みやすい濃いグレー */
-  font-family: "Roboto", sans-serif; /* モダンなフォント */
-  line-height: 1.6;
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
-/* ヘッダーのスタイル */
+body {
+  display: flex; /* For sticky footer */
+  flex-direction: column; /* For sticky footer */
+  min-height: 100vh; /* For sticky footer */
+  font-family: var(--md-sys-font-family-body);
+  font-size: var(--md-sys-typescale-body-large-font-size);
+  line-height: var(--md-sys-typescale-body-large-line-height);
+  letter-spacing: var(--md-sys-typescale-body-large-letter-spacing);
+  color: var(--md-sys-color-on-background);
+  /* background-color: var(--md-sys-color-background); */
+  background: linear-gradient(175deg, var(--md-sys-color-surface-container-lowest) 0%, var(--md-sys-color-background) 300px); /* Subtle gradient background */
+  padding: var(--md-sys-spacing-4);
+}
+
+/* Import Fonts (Roboto, Roboto Flex, and Roboto Mono from Google Fonts) */
+/* Added Roboto Mono and display=swap */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500;700&display=swap");
+
+/* Headings - Adjusted margins and colors for expressiveness */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--md-sys-font-family-display);
+  /* color: var(--md-sys-color-primary); Default, will be overridden per level */
+}
+
 h1 {
-  color: #2a2a72;
-  background: linear-gradient(90deg, #fdfbfb 0%, #ebedee 100%);
-  padding: 15px;
-  font-size: 2.5em;
-  font-weight: bold;
-  border-left: 8px solid #2a2a72;
-  border-radius: 0 10px 10px 0;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  color: var(--md-sys-color-primary);
+  font-size: var(--md-sys-typescale-display-large-font-size);
+  /* font-weight: var(--md-sys-typescale-display-large-font-weight); */ /* Roboto Flexで調整 */
+  font-variation-settings: "wght" 450; /* 少しウェイトを上げる */
+  line-height: var(--md-sys-typescale-display-large-line-height);
+  letter-spacing: var(--md-sys-typescale-display-large-letter-spacing);
+  margin-bottom: var(--md-sys-spacing-6);
+  padding-bottom: var(--md-sys-spacing-3);
+  /* border-bottom: 4px solid var(--md-sys-color-primary); */
+  border-bottom: 4px solid transparent;
+  border-image: linear-gradient(to right, var(--md-sys-color-primary), color-mix(in srgb, var(--md-sys-color-primary) 60%, transparent)) 1;
+  /* Optional: background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 50%, transparent); */
+  /* Optional: text-shadow: 1px 1px 2px color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent); */
 }
 
 h2 {
-  color: #3a6186;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(58, 97, 134, 0.1) 100%);
-  padding: 10px 15px;
-  font-size: 2em;
-  font-weight: bold;
-  border-bottom: 3px solid #3a6186;
+  color: var(--md-sys-color-secondary);
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
+  /* font-weight: 600; */ /* Roboto Flexで調整 */
+  font-variation-settings: "wght" 650, "wdth" 110; /* ウェイトを維持しつつ幅を少し広げる */
+  line-height: var(--md-sys-typescale-headline-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-headline-medium-letter-spacing);
+  margin-top: var(--md-sys-spacing-8);
+  margin-bottom: var(--md-sys-spacing-4);
+  padding-bottom: var(--md-sys-spacing-2);
+  border-bottom: 3px solid color-mix(in srgb, var(--md-sys-color-secondary-container) 80%, transparent);
 }
 
 h3 {
-  color: #4a6fa5;
-  padding: 8px 0;
-  font-size: 1.5em;
-  font-weight: bold;
-  position: relative;
+  color: var(--md-sys-color-primary); /* Back to primary or consider tertiary for specific emphasis */
+  font-size: var(--md-sys-typescale-title-large-font-size);
+  /* font-weight: 500; */ /* Roboto Flexで調整 */
+  font-variation-settings: "wght" 550, "slnt" -5; /* ウェイトを維持しつつわずかに傾斜 */
+  line-height: var(--md-sys-typescale-title-large-line-height);
+  letter-spacing: var(--md-sys-typescale-title-large-letter-spacing);
+  margin-top: var(--md-sys-spacing-6);
+  margin-bottom: var(--md-sys-spacing-3);
+  padding-left: var(--md-sys-spacing-2);
+  border-left: 3px solid var(--md-sys-color-tertiary);
 }
 
-h3:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 50px;
-  height: 3px;
-  background: #4a6fa5;
+h4 {
+  color: var(--md-sys-color-on-surface-variant); /* More neutral for lower levels */
+  font-size: calc(var(--md-sys-typescale-title-large-font-size) * 0.85);
+  font-weight: 600;
+  margin-top: var(--md-sys-spacing-4);
+  margin-bottom: var(--md-sys-spacing-2);
 }
 
-/* リンクのスタイル */
+h5,
+h6 {
+  color: var(--md-sys-color-outline);
+  font-size: calc(var(--md-sys-typescale-title-large-font-size) * 0.75);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: var(--md-sys-spacing-4);
+  margin-bottom: var(--md-sys-spacing-2);
+}
+
+p {
+  margin-bottom: var(--md-sys-spacing-5); /* Slightly increased bottom margin */
+  max-width: 75ch; /* Improve readability for long paragraphs */
+  text-indent: 1.5em; /* First line indent */
+}
+
+p:first-of-type {
+  text-indent: 0; /* No indent for the very first paragraph */
+}
+
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p {
+  text-indent: 0; /* No indent for paragraphs directly following a heading */
+}
+
 a {
-  color: #ff7043;
+  color: var(--md-sys-color-primary);
+  text-decoration: underline wavy var(--md-sys-color-secondary) 1.5px; /* Wavy underline by default */
+  text-underline-offset: 3px; /* Adjust offset for wavy line */
+  font-weight: var(--md-sys-typescale-label-medium-font-weight);
+  border-radius: var(--md-sys-shape-corner-extra-small);
+  transition: background-color 0.2s ease-out, color 0.2s ease-out, text-decoration-color 0.2s ease-out, text-decoration-style 0.2s ease-out;
+}
+
+a:hover,
+a:focus {
+  color: var(--md-sys-color-secondary);
+  background-color: color-mix(in srgb, var(--md-sys-color-secondary) 15%, transparent);
+  text-decoration: underline solid var(--md-sys-color-secondary) 2px;
+  text-underline-offset: 2px;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--md-sys-color-secondary) 30%, transparent); /* 浮き上がるような効果 */
+}
+
+/* Enhanced emphasis styling */
+strong,
+b {
+  /* font-weight: 700; */ /* Roboto Flexで調整 */
+  font-variation-settings: "wght" 750; /* Slightly bolder */
+  color: var(--md-sys-color-on-tertiary-container); /* Ensure contrast on new bg */
+  background-color: color-mix(in srgb, var(--md-sys-color-tertiary-container) 85%, transparent); /* Darker, more prominent background */
+  padding: 0.15em 0.45em; /* Adjusted padding */
+  border-radius: var(--md-sys-shape-corner-small); /* Slightly larger radius */
+  text-shadow: 1px 1px 1px color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent); /* Subtle shadow for depth */
+}
+
+em,
+i {
+  font-style: italic;
+  font-variation-settings: "slnt" -10; /* More pronounced slant if Roboto Flex is used */
+  color: var(--md-sys-color-primary); /* Changed to primary for more pop */
+  text-decoration: underline dotted var(--md-sys-color-primary) 1px; /* Dotted underline */
+  text-underline-offset: 2px;
+  padding: 0.05em 0.2em; /* Minimal padding to not disrupt flow too much */
+}
+
+/* Style for <mark> tag (often used for highlighting, e.g., ==text== in some Markdown flavors) */
+mark {
+  background-color: var(--md-sys-color-secondary); /* Brighter, more like a highlighter */
+  color: var(--md-sys-color-on-secondary); /* Ensure contrast */
+  padding: 0.2em 0.5em; /* Increased padding */
+  border-radius: var(--md-sys-shape-corner-small); /* Softer edges */
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-secondary) 80%, black); /* Defined border */
+  box-shadow: 2px 2px 5px color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent); /* Highlighter shadow effect */
+}
+
+/* Documentation Specific Elements */
+blockquote {
+  margin: var(--md-sys-spacing-7) 0; /* Increased top/bottom margin */
+  padding: var(--md-sys-spacing-5) var(--md-sys-spacing-6) var(--md-sys-spacing-5) var(--md-sys-spacing-8); /* Adjusted padding: top right bottom left - increased left for quote */
+  border-left: 8px solid var(--md-sys-color-primary); /* Thicker border */
+  background-color: var(--md-sys-color-surface-container-low); /* Different background */
+  color: var(--md-sys-color-on-surface-variant); /* Adjusted for new background */
+  border-radius: var(--md-sys-shape-corner-large); /* Larger radius */
+  position: relative;
+  box-shadow: var(--md-sys-elevation-level2); /* Slightly more pronounced shadow */
+}
+
+blockquote p {
+  margin-bottom: var(--md-sys-spacing-3); /* Consistent paragraph spacing within blockquote */
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+blockquote::before {
+  content: "\201C";
+  font-family: "Georgia", serif;
+  font-size: 2rem; /* Larger quote mark */
+  font-weight: bold;
+  color: color-mix(in srgb, var(--md-sys-color-primary) 25%, transparent); /* Softer, more integrated */
+  position: absolute;
+  left: var(--md-sys-spacing-1); /* Adjusted position */
+  top: -var(--md-sys-spacing-3); /* Adjusted top position, may need fine-tuning */
+  line-height: 1;
+  opacity: 0.7; /* Adjusted opacity */
+  z-index: 0;
+  text-shadow: -2px 2px 4px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent); /* Shadow for quote mark */
+}
+
+blockquote > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Horizontal Rule */
+hr {
+  border: 0;
+  height: 4px; /* 高さを少し持たせる */
+  background-image: linear-gradient(to right, transparent, var(--md-sys-color-secondary) 20%, var(--md-sys-color-primary) 50%, var(--md-sys-color-tertiary) 80%, transparent);
+  margin: var(--md-sys-spacing-8) 0;
+  border-radius: var(--md-sys-shape-corner-full);
+}
+
+/* Lists */
+ul,
+ol {
+  margin-left: var(--md-sys-spacing-5); /* インデント調整 */
+  margin-bottom: var(--md-sys-spacing-4);
+  padding-left: var(--md-sys-spacing-3); /* マーカーとテキストの間隔 */
+}
+
+ul li {
+  margin-bottom: var(--md-sys-spacing-2);
+}
+
+ol li {
+  margin-bottom: var(--md-sys-spacing-2);
+}
+
+ul li::marker {
+  color: var(--md-sys-color-secondary);
+  /* content: "■ "; */ /* 例: 四角形マーカー (フォントによっては表示が異なる) */
+  font-size: 1.2em; /* マーカーサイズ調整 */
+}
+
+ol li::marker {
+  color: var(--md-sys-color-primary);
+  font-weight: bold;
+}
+
+/* Nested lists */
+ul ul,
+ol ol,
+ul ol,
+ol ul {
+  margin-top: var(--md-sys-spacing-2);
+  margin-bottom: var(--md-sys-spacing-2);
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: var(--md-sys-spacing-5); /* Added top margin */
+  margin-bottom: var(--md-sys-spacing-6); /* Increased bottom margin */
+  border-spacing: 0;
+}
+
+th,
+td {
+  border: 1px solid var(--md-sys-color-outline-variant);
+  padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); /* Adjusted padding for better spacing */
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background-color: var(--md-sys-color-primary-container); /* Changed */
+  color: var(--md-sys-color-on-primary-container); /* Changed */
+  font-weight: 600;
+}
+
+tbody tr:nth-child(odd) td {
+  background-color: var(--md-sys-color-surface-container-lowest); /* Added for striping */
+}
+
+/* Responsive table wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: var(--md-sys-spacing-5); /* Mirrored table's top margin */
+  margin-bottom: var(--md-sys-spacing-6); /* Mirrored table's bottom margin */
+}
+
+/* Code Blocks */
+pre {
+  background-color: var(--md-sys-color-surface-container-lowest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-medium);
+  padding: 0;
+  overflow-x: auto;
+  margin-top: var(--md-sys-spacing-7);
+  margin-bottom: var(--md-sys-spacing-7);
+  position: relative;
+  font-size: 0.92em;
+  line-height: var(--md-sys-typescale-code-line-height);
+  box-shadow: var(--md-sys-elevation-level2); /* More pronounced shadow */
+}
+
+pre code {
+  display: block;
+  padding: var(--md-sys-spacing-4);
+  background-color: transparent;
+  border: none;
+  font-size: inherit;
+  color: var(--md-sys-color-on-surface); /* Text color for code */
+}
+
+/* Inline Code `code` */
+code:not(pre code) {
+  /* Target inline code, not code within pre blocks */
+  font-family: var(--md-sys-font-family-code);
+  font-size: var(--md-sys-typescale-code-font-size);
+  line-height: var(--md-sys-typescale-code-line-height);
+  color: var(--md-sys-color-on-tertiary-container);
+  background-color: var(--md-sys-color-tertiary-container);
+  padding: 0.25em 0.5em; /* Slightly increased padding */
+  border-radius: var(--md-sys-shape-corner-small); /* Slightly larger radius */
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-tertiary-container) 70%, black); /* Softened border */
+  display: inline-block; /* Helps with vertical alignment and padding */
+  margin: 0 0.1em; /* Add tiny horizontal margin to prevent touching adjacent text */
+}
+
+/* 3. Layout Components (Container, Header, Footer, Sections) */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--md-sys-spacing-4) 0;
+}
+
+header {
+  background-color: var(--md-sys-color-surface);
+  padding: var(--md-sys-spacing-4) 0;
+  box-shadow: var(--md-sys-elevation-level2);
+  margin-bottom: var(--md-sys-spacing-6);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-family: var(--md-sys-font-family-display);
+  font-size: var(--md-sys-typescale-title-large-font-size);
+  font-weight: var(--md-sys-typescale-title-large-font-weight);
+  color: var(--md-sys-color-primary);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: var(--md-sys-spacing-4);
+}
+
+nav a {
+  font-size: var(--md-sys-typescale-label-medium-font-size);
+  text-transform: uppercase;
+}
+
+main {
+  flex-grow: 1; /* For sticky footer */
+}
+
+section {
+  padding: var(--md-sys-spacing-6) 0;
+}
+
+footer {
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
+  padding: var(--md-sys-spacing-6) 0;
+  text-align: center;
+  margin-top: var(--md-sys-spacing-8); /* Can be adjusted if sticky footer makes it too large */
+}
+
+/* 4. UI Components (Buttons, Cards, Forms) */
+
+/* Buttons - Adjusted shapes and hover as per feedback */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
+  font-family: var(--md-sys-font-family-body);
+  font-size: var(--md-sys-typescale-label-medium-font-size);
+  font-weight: var(--md-sys-typescale-label-medium-font-weight);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1px;
+  transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
+.btn-primary {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--md-sys-elevation-level1);
+  border-radius: var(--md-sys-shape-corner-full); /* Pill shape for primary CTA */
 }
 
-/* ボタンのスタイル */
-button {
-  background-color: #ff7043;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 85%, black);
+  box-shadow: var(--md-sys-elevation-level3); /* Increased shadow on hover */
+  color: var(--md-sys-color-on-primary);
+  text-decoration: none;
 }
 
-button:hover {
-  background-color: #e64a19;
+.btn-secondary {
+  background-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+  box-shadow: var(--md-sys-elevation-level1);
+  border-radius: var(--md-sys-shape-corner-large); /* Large rounding for secondary */
 }
 
-/* ボックスやセクションのスタイル */
-section {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 20px 0;
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-secondary) 85%, black);
+  box-shadow: var(--md-sys-elevation-level3);
+  color: var(--md-sys-color-on-secondary);
+  text-decoration: none;
 }
 
-/* リストのスタイル */
-ul {
-  list-style-type: disc;
-  margin-left: 20px;
+.btn-outline {
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-medium); /* Medium rounding for outline */
 }
 
-/* 画像のスタイル */
-img {
-  max-width: 90%;
-  height: auto;
-  margin: 20px auto;
+.btn-outline:hover,
+.btn-outline:focus {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-color: var(--md-sys-color-primary);
+  box-shadow: var(--md-sys-elevation-level1);
+  text-decoration: none;
+}
+
+/* Cards - Added hover effect */
+.card {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border-radius: var(--md-sys-shape-corner-medium);
+  padding: var(--md-sys-spacing-4);
+  box-shadow: var(--md-sys-elevation-level1);
+  margin-bottom: var(--md-sys-spacing-4);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease-out, transform 0.2s ease-out; /* Added transition */
+  /* New: Adding a subtle border that can be emphasized on interaction or for specific card types */
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.card:hover {
+  box-shadow: var(--md-sys-elevation-level3); /* Increased shadow on hover */
+  /* transform: translateY(-2px); */ /* Example: remove transform if considered an "animation/change" */
+}
+
+.card-header {
+  padding-bottom: var(--md-sys-spacing-3);
+  margin-bottom: var(--md-sys-spacing-3);
+  border-bottom: 1px solid var(--md-sys-color-outline);
+}
+
+.card-title {
+  font-size: var(--md-sys-typescale-title-large-font-size);
+  font-weight: var(--md-sys-typescale-title-large-font-weight);
+  color: var(--md-sys-color-primary);
+}
+
+.card-content p:last-child {
+  margin-bottom: 0;
+}
+
+.card-actions {
+  padding-top: var(--md-sys-spacing-3);
+  margin-top: var(--md-sys-spacing-3);
+  border-top: 1px solid var(--md-sys-color-outline);
+  display: flex;
+  justify-content: flex-end; /* Align actions to the right */
+  gap: var(--md-sys-spacing-2);
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: var(--md-sys-spacing-4);
+}
+
+.form-label {
   display: block;
-  border-radius: 3px;
-  padding: 15px;
-  background: linear-gradient(45deg, #f3f3f3, #ffffff);
-  box-shadow: 0 3px 5px rgba(105, 105, 105, 0.05), 0 6px 6px rgba(105, 105, 105, 0.05);
-  border-left: 5px solid #2a2a72;
-  border-bottom: 5px solid #2a2a72;
-  position: relative;
+  font-family: var(--md-sys-font-family-body);
+  font-size: var(--md-sys-typescale-label-medium-font-size);
+  font-weight: var(--md-sys-typescale-label-medium-font-weight);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: var(--md-sys-spacing-1);
 }
 
-img::after {
-  content: "";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  border-right: 3px solid #2a2a72;
-  border-top: 3px solid #2a2a72;
-  opacity: 0.7;
+.form-control {
+  display: block;
+  width: 100%;
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-3);
+  font-family: var(--md-sys-font-family-body);
+  font-size: var(--md-sys-typescale-body-large-font-size);
+  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-small);
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
-img::before {
-  content: "";
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 30px;
-  height: 30px;
-  border-left: 3px solid #2a2a72;
-  border-bottom: 3px solid #2a2a72;
-  opacity: 0.7;
+.form-control:focus {
+  outline: none;
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
 }
+
+/* 5. Utility Classes (Optional, e.g., text alignment, margins) */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: var(--md-sys-spacing-1);
+}
+.mt-2 {
+  margin-top: var(--md-sys-spacing-2);
+}
+/* ... add more spacing utilities as needed */
+
+.mb-1 {
+  margin-bottom: var(--md-sys-spacing-1);
+}
+.mb-2 {
+  margin-bottom: var(--md-sys-spacing-2);
+}
+/* ... add more spacing utilities as needed */
+
+/* Add new utility class for alternative section backgrounds */
+.section-bg-alt {
+  background-color: var(--md-sys-color-surface-container-lowest);
+  padding: 1.5rem; /* Add some padding for better visual separation */
+  border-radius: var(--md-sys-shape-corner-medium); /* Consistent corner styling */
+  margin-bottom: 1.5rem; /* Space below the section */
+}
+
+/* 6. Responsive Design (Media Queries) */
+@media (max-width: 768px) {
+  /* Tablet and smaller */
+  body {
+    padding: var(--md-sys-spacing-3);
+  }
+
+  .container {
+    width: 95%;
+  }
+
+  h1 {
+    font-size: calc(var(--md-sys-typescale-display-large-font-size) * 0.8);
+    line-height: calc(var(--md-sys-typescale-display-large-line-height) * 0.8);
+  }
+
+  h2 {
+    font-size: calc(var(--md-sys-typescale-headline-medium-font-size) * 0.85);
+    line-height: calc(var(--md-sys-typescale-headline-medium-line-height) * 0.85);
+  }
+
+  header .container {
+    flex-direction: column;
+    gap: var(--md-sys-spacing-3);
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--md-sys-spacing-2);
+  }
+
+  /* Responsive tables: make them scrollable */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid var(--md-sys-color-outline-variant);
+    margin-bottom: var(--md-sys-spacing-2);
+    border-radius: var(--md-sys-shape-corner-small);
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid var(--md-sys-color-surface-container-high);
+    position: relative;
+    padding-left: 50%; /* Space for the label */
+    white-space: normal;
+    text-align: left;
+  }
+
+  td:before {
+    position: absolute;
+    top: var(--md-sys-spacing-2);
+    left: var(--md-sys-spacing-2);
+    width: 45%;
+    padding-right: var(--md-sys-spacing-2);
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    content: attr(data-label); /* Add data-label attribute to your td for this to work */
+  }
+  tbody tr:nth-child(even) {
+    /* Remove striping for stacked rows */
+    background-color: var(--md-sys-color-surface);
+  }
+  tbody tr:hover {
+    background-color: var(--md-sys-color-surface-container-low);
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile */
+  body {
+    padding: var(--md-sys-spacing-2);
+  }
+
+  h1 {
+    font-size: calc(var(--md-sys-typescale-display-large-font-size) * 0.7);
+    line-height: calc(var(--md-sys-typescale-display-large-line-height) * 0.7);
+  }
+
+  .btn {
+    padding: var(--md-sys-spacing-2) var(--md-sys-spacing-3); /* Slightly smaller padding on mobile */
+    font-size: calc(var(--md-sys-typescale-label-medium-font-size) * 0.95);
+  }
+
+  .card {
+    padding: var(--md-sys-spacing-3);
+  }
+}
+
+/* Add new component style for info boxes */
+.info-box {
+  background-color: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-medium);
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--md-sys-color-on-surface-variant); /* Ensure good contrast */
+}
+
+.info-box h1,
+.info-box h2,
+.info-box h3,
+.info-box h4,
+.info-box h5,
+.info-box h6 {
+  color: var(--md-sys-color-on-surface); /* Heading color within info-box */
+  margin-top: 0;
+}
+
+.info-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* End of style.css v3.1 */

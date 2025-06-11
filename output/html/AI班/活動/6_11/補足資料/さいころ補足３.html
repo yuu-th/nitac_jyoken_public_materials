@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>さいころ補足３</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>Pythonプログラミング補足資料３：オブジェクト指向はじめの一歩 (新題材版)</h1>
+<p>この資料は、「Pythonサイコロゲームで学ぶ！基礎からオブジェクト指向プログラミング (3/3)」の演習（オブジェクト指向プログラミング）を進める上で重要な、OOPの基本的な概念について、サイコロゲームとは異なる題材を用いて解説します。</p>
+<h2>1. オブジェクト指向プログラミング（OOP）とは？</h2>
+<p>オブジェクト指向プログラミング（Object-Oriented Programming, OOP）は、プログラムを現実世界の「モノ（オブジェクト）」のように捉え、それらの「モノ」が持つ情報（データ）と、それらが行う操作（処理）をひとまとめにして扱う考え方です。</p>
+<ul>
+<li><p><strong>オブジェクトとは？</strong></p>
+<ul>
+<li>例えば、「車」「本」「従業員」など、具体的な「モノ」をプログラム上で表現したものです。</li>
+<li>各オブジェクトは、自身に関する<strong>データ（属性）</strong>（例：車の色、本のタイトル、従業員の名前）と、そのデータを操作したり、オブジェクト自身が行う<strong>処理（メソッド）</strong>（例：車が走る、本を開く、従業員が働く）を持っています。</li>
+</ul>
+</li>
+<li><p><strong>なぜOOPを使うのか？</strong></p>
+<ul>
+<li><strong>整理整頓:</strong> 関連するデータと処理を「クラス」という設計図にまとめることで、コードが部品化され、見通しが良くなります。</li>
+<li><strong>再利用性:</strong> 一度作ったクラス（設計図）から、同じ種類のオブジェクト（実体）を効率的に何個も作れます。</li>
+<li><strong>保守性:</strong> 機能の変更や修正が、関連するクラスの内部に限定されやすいため、プログラム全体への影響を抑えられます。</li>
+<li><strong>拡張性:</strong> 既存のクラスを元にして新しい機能を持つクラスを作りやすいため、プログラムの成長に対応しやすくなります。</li>
+</ul>
+</li>
+</ul>
+<h2>2. クラスとインスタンス</h2>
+<ul>
+<li><p><strong>クラス (Class):</strong></p>
+<ul>
+<li>オブジェクトの「設計図」や「型枠」です。どのような属性を持ち、どのようなメソッド（操作）ができるかを定義します。</li>
+<li>例：<code>Car</code> クラスは、「車」という種類のオブジェクトが共通して持つべき特徴（色、最高速度など）や操作（加速する、停止するなど）を定義します。</li>
+</ul>
+<pre><code class="language-python">class Car: # &quot;Car&quot;という名前のクラスを定義
+    # クラスの属性（クラス変数） - このクラスの全ての車に共通
+    maker_country = &quot;Japan&quot;
+
+    def __init__(self, color, max_speed): # コンストラクタ
+        # インスタンスの属性（インスタンス変数） - 各車ごとに異なる
+        self.color = color
+        self.max_speed = max_speed
+        self.current_speed = 0 # 初期速度は0
+
+    def accelerate(self, amount): # メソッド
+        if self.current_speed + amount &lt;= self.max_speed:
+            self.current_speed += amount
+        else:
+            self.current_speed = self.max_speed
+        print(f&quot;{self.color}の車が {self.current_speed} km/h に加速しました。&quot;)
+
+    def brake(self): # メソッド
+        self.current_speed = 0
+        print(f&quot;{self.color}の車が停止しました。&quot;)
+</code></pre>
+</li>
+<li><p><strong>インスタンス (Instance):</strong></p>
+<ul>
+<li>クラスという設計図に基づいて実際に作られた「モノ」の実体です。オブジェクトとも呼ばれます。</li>
+<li><code>my_car = Car(&quot;Red&quot;, 180)</code> のようにして作られた <code>my_car</code> は、<code>Car</code> クラスのインスタンス（赤い色で最高速度180km/hの具体的な車）です。</li>
+</ul>
+<pre><code class="language-python"># Carクラスのインスタンスを作成
+car1 = Car(&quot;Blue&quot;, 200)
+car2 = Car(&quot;Silver&quot;, 150)
+
+car1.accelerate(50) # Blueの車が 50 km/h に加速しました。
+car2.accelerate(30) # Silverの車が 30 km/h に加速しました。
+print(f&quot;car1の色: {car1.color}, car2のメーカー国: {car2.maker_country}&quot;)
+# 出力: car1の色: Blue, car2のメーカー国: Japan
+</code></pre>
+</li>
+<li><p><strong><code>__init__</code> メソッド (コンストラクタ):</strong></p>
+<ul>
+<li>クラスのインスタンスが作成されるときに、<strong>自動的に呼び出される特別なメソッド</strong>です。</li>
+<li>主に、インスタンスが持つべき初期データ（属性）を設定するために使われます。</li>
+</ul>
+</li>
+<li><p><strong><code>self</code>:</strong></p>
+<ul>
+<li>クラスのメソッド内で、<strong>そのメソッドを呼び出しているインスタンス自身</strong>を指す特別な第一引数です。</li>
+<li><code>self.属性名</code> や <code>self.メソッド名()</code> のようにして、インスタンスの属性や他のメソッドにアクセスします。</li>
+</ul>
+</li>
+<li><p><strong>インスタンス変数 (属性 Attribute):</strong></p>
+<ul>
+<li>各インスタンスが個別に持つデータのことです（例: <code>car1</code> の <code>self.color</code> は &quot;Blue&quot;、<code>car2</code> の <code>self.color</code> は &quot;Silver&quot;）。</li>
+</ul>
+</li>
+<li><p><strong>メソッド (Method):</strong></p>
+<ul>
+<li>クラスに属する関数で、インスタンスの属性を操作したり、特定の処理を行ったりします（例: <code>accelerate()</code> メソッド）。</li>
+</ul>
+</li>
+</ul>
+<h2>3. 継承 (Inheritance)</h2>
+<ul>
+<li><p><strong>継承とは？</strong></p>
+<ul>
+<li>既存のクラス（<strong>親クラス</strong>、基底クラス、スーパークラス）の特性（属性やメソッド）を引き継いで、新しいクラス（<strong>子クラス</strong>、派生クラス、サブクラス）を作成する仕組みです。</li>
+<li>子クラスは親クラスの機能を再利用しつつ、独自の機能を追加したり、親の機能を上書き（オーバーライド）したりできます。</li>
+<li>例：<code>ElectricCar</code> クラスが <code>Car</code> クラスを継承し、バッテリー容量という属性や充電メソッドを追加する。</li>
+</ul>
+<pre><code class="language-python">class Vehicle: # 親クラス
+    def __init__(self, brand):
+        self.brand = brand
+        self.is_moving = False
+
+    def start_engine(self):
+        print(f&quot;{self.brand}のエンジンが始動しました。&quot;)
+        self.is_moving = True
+
+    def stop_engine(self):
+        print(f&quot;{self.brand}のエンジンが停止しました。&quot;)
+        self.is_moving = False
+
+class ElectricCar(Vehicle): # Vehicleクラスを継承する子クラス
+    def __init__(self, brand, battery_capacity):
+        super().__init__(brand) # 親クラスの__init__を呼び出す
+        self.battery_capacity = battery_capacity # 子クラス独自の属性
+
+    def charge(self):
+        print(f&quot;{self.brand} (バッテリー: {self.battery_capacity}kWh) を充電中です。&quot;)
+
+    # 親クラスのメソッドをオーバーライド（上書き）
+    def start_engine(self):
+        print(f&quot;{self.brand}の電気モーターが起動しました。静かです！&quot;)
+        self.is_moving = True
+
+my_ev = ElectricCar(&quot;Tesla&quot;, 75)
+my_ev.start_engine() # Teslaの電気モーターが起動しました。静かです！
+my_ev.charge()       # Tesla (バッテリー: 75kWh) を充電中です。
+my_ev.stop_engine()  # Teslaのエンジンが停止しました。 (親クラスのメソッドを利用)
+</code></pre>
+</li>
+<li><p><strong><code>super()</code>:</strong> 子クラスから親クラスのメソッドを呼び出す際に使います。特に <code>__init__</code> で親クラスの初期化処理を呼び出すのによく使われます。</p>
+</li>
+</ul>
+<h2>4. カプセル化とアクセス制御</h2>
+<ul>
+<li><p><strong>カプセル化 (Encapsulation):</strong></p>
+<ul>
+<li>オブジェクトの内部データ（属性）を外部から直接アクセスできないように隠蔽し、データの操作は公開されたメソッドを通じてのみ行うようにする考え方です。</li>
+<li>これにより、データの不正な変更を防ぎ、オブジェクトの整合性を保ちます。</li>
+</ul>
+</li>
+<li><p><strong>Pythonにおける「プライベート」の慣習:</strong></p>
+<ul>
+<li>属性名やメソッド名の前に<strong>アンダースコア <code>_</code> を1つ</strong>付ける（例: <code>_balance</code>）:<ul>
+<li>「これは内部用なので、外部から直接変更しないでください」という開発者間の目印（紳士協定）。技術的にはアクセス可能。</li>
+</ul>
+</li>
+<li>属性名やメソッド名の前に<strong>アンダースコア <code>__</code> を2つ</strong>付ける（例: <code>__secret_code</code>）:<ul>
+<li>Pythonが名前を自動的に変更（名前マングリング）し、外部からその名前で直接アクセスしにくくする。より強い隠蔽。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">class BankAccount:
+    def __init__(self, owner_name, initial_deposit):
+        self.owner_name = owner_name
+        self._balance = initial_deposit # アンダースコア1つで「保護された」属性を示す
+
+    def deposit(self, amount):
+        if amount &gt; 0:
+            self._balance += amount
+            print(f&quot;{amount}円入金しました。残高: {self._balance}円&quot;)
+        else:
+            print(&quot;入金額は0より大きい値を指定してください。&quot;)
+
+    def withdraw(self, amount):
+        if 0 &lt; amount &lt;= self._balance:
+            self._balance -= amount
+            print(f&quot;{amount}円出金しました。残高: {self._balance}円&quot;)
+        else:
+            print(&quot;出金額が不正か、残高が不足しています。&quot;)
+
+    def get_balance(self): # 残高確認用の公開メソッド
+        return self._balance
+
+account = BankAccount(&quot;山田太郎&quot;, 50000)
+# account._balance = -10000 # 直接変更すべきではない (できてしまうが非推奨)
+account.deposit(10000)
+print(f&quot;{account.owner_name}さんの残高: {account.get_balance()}円&quot;)
+</code></pre>
+</li>
+</ul>
+<h2>5. プロパティ (<code>@property</code>)</h2>
+<ul>
+<li><strong><code>@property</code> デコレータ:</strong><ul>
+<li>メソッドを、まるで属性（インスタンス変数）のようにアクセスできるようにするための仕組みです。</li>
+<li>主に、属性へのアクセスを制御したい場合（例: 読み取り専用にする、値を取得する際に計算を挟む）に使います。</li>
+</ul>
+<pre><code class="language-python">import math
+
+class Circle:
+    def __init__(self, radius):
+        if radius &lt;= 0:
+            raise ValueError(&quot;半径は正の値でなければなりません。&quot;)
+        self._radius = radius # 実際の半径は _radius に保存
+
+    @property # これを付けると radius メソッドが属性のように扱える
+    def radius(self):
+        &quot;&quot;&quot;円の半径（読み取り専用）&quot;&quot;&quot;
+        return self._radius
+
+    @property
+    def diameter(self):
+        &quot;&quot;&quot;円の直径（計算によって求められる読み取り専用プロパティ）&quot;&quot;&quot;
+        return self._radius * 2
+
+    @property
+    def area(self):
+        &quot;&quot;&quot;円の面積（計算によって求められる読み取り専用プロパティ）&quot;&quot;&quot;
+        return math.pi * (self._radius ** 2)
+
+    # 半径を変更するためのセッターメソッド (オプション)
+    # @radius.setter
+    # def radius(self, value):
+    #     if value &lt;= 0:
+    #         raise ValueError(&quot;半径は正の値でなければなりません。&quot;)
+    #     self._radius = value
+
+my_circle = Circle(5)
+print(f&quot;半径: {my_circle.radius}&quot;)     # my_circle.radius() ではなく属性のようにアクセス
+print(f&quot;直径: {my_circle.diameter}&quot;)   # 計算結果が返る
+print(f&quot;面積: {my_circle.area:.2f}&quot;)
+
+# my_circle.radius = 10 # @propertyだけでは書き込み不可 (セッターがない場合)
+# my_circle.diameter = 20 # エラー！プロパティには直接代入できない
+</code></pre>
+<p><code>@property</code> を使うことで、メソッド呼び出しの <code>()</code> を書かずに済むため、コードがより自然に見えることがあります。また、内部の実装を変更しても、外部からのアクセス方法を変えずに済む利点もあります。</p>
+</li>
+</ul>
+<h2>6. オブジェクト指向設計の恩恵</h2>
+<p>オブジェクト指向でプログラムを設計すると、特にプログラムが大きくなったり、機能が複雑になったりした場合に、以下のような多くの利点があります。</p>
+<ul>
+<li><strong>変更の局所化:</strong><ul>
+<li>ある機能の変更が、関連するクラスの内部に留まりやすく、他の部分への予期せぬ影響を減らせます。</li>
+<li>例：<code>BankAccount</code> クラスの利息計算ロジックを変更しても、他のクラス（例えば <code>Customer</code> クラス）には影響が出にくい。</li>
+</ul>
+</li>
+<li><strong>コードの再利用:</strong><ul>
+<li><code>Vehicle</code> クラスを一度作れば、それを継承して <code>Truck</code> クラス、<code>Bus</code> クラスなど、様々な種類の乗り物クラスを効率的に作れます。</li>
+</ul>
+</li>
+<li><strong>責任の明確化:</strong><ul>
+<li>各クラスが特定の役割や責任を持つため、プログラム全体の構造が理解しやすくなります。「何をするクラスなのか」が明確になります。</li>
+</ul>
+</li>
+<li><strong>拡張性:</strong><ul>
+<li>新しい種類の「モノ」や新しい「機能」を追加する際に、既存のクラスを継承したり、新しいクラスを既存のクラスと連携させたりすることで、柔軟に対応できます。</li>
+<li>例：オンラインショップシステムで、<code>Product</code> クラスを基に新しい商品カテゴリ（<code>BookProduct</code>, <code>ElectronicsProduct</code>）を追加するのが容易になる。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>これらの概念は、より複雑で大規模なプログラムを構築するための基礎となります。演習を通じて、オブジェクト指向の考え方に慣れていきましょう。</p>
+
+</body>
+</html>

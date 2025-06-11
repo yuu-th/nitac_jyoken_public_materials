@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>material3_expressive_design_guide</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>Material 3 Expressive デザインガイド</h1>
+<h2>1. Material 3 Expressive デザインの基本原則</h2>
+<p>Material 3 (M3) Expressive は、よりパーソナルで、文脈に応じた、表現力豊かなデザインを可能にするためのデザインシステムです。基本的な原則は以下の通りです。</p>
+<h3>色 (Color)</h3>
+<p>==a==</p>
+<ul>
+<li><strong>ダイナミックカラー:</strong> ユーザーの壁紙やテーマから色を抽出し、UI全体に調和のとれたカラーパレットを動的に適用します。これにより、よりパーソナルな体験を提供します。</li>
+<li><strong>アクセントカラーの強調:</strong> アクションを促す要素や重要な情報に対して、より大胆で鮮やかなアクセントカラーを使用します。</li>
+<li><strong>トーンの多様性:</strong> プライマリー、セカンダリー、ターシャリーといった基本的な色に加え、それぞれの色のトーン（明るさや彩度）を細かく調整し、UIの奥行きや階層を表現します。</li>
+<li><strong>サーフェスカラー:</strong> 背景やコンポーネントの表面には、ニュートラルな色やわずかに色づいた色を使用し、コンテンツの視認性を高めます。</li>
+</ul>
+<h3>タイポグラフィ (Typography)</h3>
+<ul>
+<li><strong>表現力豊かなフォントファミリー:</strong> Google Fonts などで提供される多様なフォントファミリーを活用し、ブランドの個性やコンテンツの雰囲気に合わせて選択します。</li>
+<li><strong>可変フォントの活用:</strong> ウェイト（太さ）、幅、傾きなどを柔軟に調整できる可変フォントを利用し、より細かいニュアンスの表現や、レスポンシブデザインへの対応を容易にします。</li>
+<li><strong>読みやすい階層構造:</strong> Display, Headline, Title, Body, Label といった明確なタイポスケール（フォントサイズ、ウェイト、行間の組み合わせ）を定義し、情報の重要度や役割を視覚的に伝えます。</li>
+<li><strong>行間と文字間:</strong> 適切な行間 (leading) と文字間 (tracking) を設定し、可読性を向上させます。</li>
+</ul>
+<h3>シェイプ (Shape)</h3>
+<ul>
+<li><strong>角の丸みのカスタマイズ:</strong> UI要素（ボタン、カード、ダイアログなど）の角の丸みを、円形に近いものから角張ったものまで、ブランドイメージやコンテンツの特性に合わせて調整します。</li>
+<li><strong>形状の多様性:</strong> 単純な四角形だけでなく、切り欠き (cut corners) や非対称な形状など、より多様な形状を取り入れ、視覚的な面白さや個性を加えます。</li>
+<li><strong>コンポーネントごとのシェイプ設定:</strong> 各コンポーネントの役割や重要度に応じて、異なるシェイプカテゴリ（例: Small, Medium, Large）を適用します。</li>
+</ul>
+<h3>レイアウト (Layout)</h3>
+<ul>
+<li><strong>アダプティブレイアウト:</strong> スマートフォン、タブレット、デスクトップなど、さまざまな画面サイズやデバイスの種類に応じて、レイアウトが最適化されるように設計します。</li>
+<li><strong>グリッドシステムの活用:</strong> 8dpグリッドシステムを基本とし、要素の配置や間隔を統一することで、視覚的な一貫性と秩序を生み出します。</li>
+<li><strong>コンポーネントの配置と間隔:</strong> UI要素間のスペース（パディングやマージン）を適切に設定し、情報のグルーピングや視線の流れをコントロールします。</li>
+<li><strong>快適な密度:</strong> 情報量と余白のバランスを取り、ユーザーが情報を処理しやすい快適な密度を保ちます。</li>
+</ul>
+<h2>2. 今回のプロジェクトへの応用</h2>
+<p><strong>コンセプト:</strong> 「学生らしいフレッシュな雰囲気」を Material 3 Expressive で表現する。</p>
+<h3>カラースキーム</h3>
+<ul>
+<li><strong>プライマリーカラー:</strong> 明るく爽やかな青系 (例: <code>#4285F4</code> - Google Blue や、それを少し明るくした色合い) を基調とし、若々しさや知性を表現します。</li>
+<li><strong>セカンダリーカラー:</strong> プライマリーカラーと相性が良く、フレッシュさを引き立てる柑橘系の色 (例: <code>#FFBB00</code> - Amber や <code>#34A853</code> - Green) をアクセントとして部分的に使用します。</li>
+<li><strong>アクセントカラー (Tertiary):</strong> 活動的でエネルギッシュな印象を与える暖色系 (例: <code>#EA4335</code> - Red) を、重要なアクションや通知などに限定的に使用します。</li>
+<li><strong>ニュートラルカラー/サーフェスカラー:</strong> 白 (<code>#FFFFFF</code>) やごく薄いグレー (<code>#F0F2F5</code>) をベースに、清潔感と軽やかさを演出します。テキストカラーは濃いグレー (<code>#202124</code>) や黒に近い色で可読性を確保します。</li>
+</ul>
+<h3>タイポグラフィ</h3>
+<ul>
+<li><strong>フォントファミリー:</strong><ul>
+<li>見出し (Display, Headline, Title): <code>Roboto Flex</code> や <code>Google Sans Text</code> のような、モダンで読みやすく、かつ表現力のある可変フォントを検討します。ウェイトを調整してメリハリをつけます。</li>
+<li>本文 (Body, Label): <code>Roboto</code> や <code>Noto Sans JP</code> のような、可読性が高く、親しみやすいサンセリフ体を使用します。</li>
+</ul>
+</li>
+<li><strong>タイポスケール:</strong> Material 3 のデフォルトのタイポスケールを参考にしつつ、「学生らしい」というテーマに合わせて、全体的に少し大きめのフォントサイズや、遊び心のあるウェイトの組み合わせも検討します。<ul>
+<li>例:<ul>
+<li>Display Large: 57sp</li>
+<li>Headline Medium: 32sp</li>
+<li>Title Large: 22sp</li>
+<li>Body Large: 16sp</li>
+<li>Label Medium: 12sp</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>行間:</strong> <code>1.5</code> 程度を基本とし、読みやすさを重視します。</li>
+</ul>
+<h3>シェイプ</h3>
+<ul>
+<li><strong>角の丸み:</strong><ul>
+<li>ボタンやカードなどの主要なUI要素には、中程度の角丸 (例: 8dp〜16dp) を適用し、親しみやすく現代的な印象を与えます。</li>
+<li>入力フォームやダイアログなども同様に、適度な丸みを持たせます。</li>
+</ul>
+</li>
+<li><strong>形状:</strong> 基本的には標準的な角丸四角形をベースにしつつ、特定のセクションや情報カードなどで、一部アシンメトリーな形状や、一部だけ角丸の度合いを変えるなどの遊び心を取り入れることを検討します（過度にならない範囲で）。</li>
+</ul>
+<h3>レイアウト</h3>
+<ul>
+<li><strong>全体構成:</strong><ul>
+<li>ヘッダー: サイトタイトルや主要ナビゲーションを配置。シンプルで分かりやすいデザイン。</li>
+<li>コンテンツエリア: グリッドシステムに基づいて情報を整理。カード型レイアウトやセクション区切りを効果的に使用。</li>
+<li>フッター: コピーライト情報や関連リンクなどを配置。</li>
+</ul>
+</li>
+<li><strong>余白:</strong> 要素間の余白を十分に確保し、窮屈な印象を与えないようにします。特に、テキストコンテンツの周りには十分なパディングを設けます。</li>
+<li><strong>カードデザイン:</strong> 情報を整理して見せるためにカードUIを積極的に活用します。カードには適度なシャドウをつけ、立体感を演出します（Material 3 の Elevation を参考）。</li>
+<li><strong>レスポンシブ対応:</strong> モバイルファーストで設計し、PC、タブレット、スマートフォンで最適な表示になるようにします。</li>
+</ul>
+<hr>
+<p>このガイドラインを基に、具体的なCSSの実装を進めます。</p>
+
+</body>
+</html>

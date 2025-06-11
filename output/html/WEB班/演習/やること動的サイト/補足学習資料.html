@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>補足学習資料</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>📚 「やること動的サイト」演習のための補足学習資料</h1>
+<p>この資料は、「やること動的サイト」の演習を進める上で役立つHTML、CSS、JavaScriptの重要な概念について解説します。演習中の穴埋め問題で迷ったときや、さらに理解を深めたいときに参照してください。</p>
+<h2>HTML編：文書の骨格を作る</h2>
+<h4>1. 基本的なHTML構造</h4>
+<ul>
+<li><code>&lt;!DOCTYPE html&gt;</code>: 文書型宣言。これがHTML5文書であることをブラウザに伝えます。</li>
+<li><code>&lt;html lang=&quot;ja&quot;&gt;</code>: HTML文書全体のルート（根っこ）となる要素です。<code>lang=&quot;ja&quot;</code> は、このページの主要言語が日本語であることを示します。</li>
+<li><code>&lt;head&gt;</code>: このHTML文書に関するメタ情報（ブラウザや検索エンジン向けの裏設定）を記述する部分です。ページには直接表示されません。<ul>
+<li><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code>: 文字エンコーディングをUTF-8に指定します。これにより、日本語などの多言語が正しく表示されます。</li>
+<li><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code>: スマートフォンやタブレットなど、さまざまなデバイスでページが適切に表示されるようにするための設定です（レスポンシブデザインの基本）。</li>
+<li><code>&lt;title&gt;</code>: ブラウザのタブやブックマーク、検索結果のタイトルとして表示されるテキストを指定します。</li>
+<li><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;</code>: このHTMLファイルに適用するCSSファイルを指定します。<code>href</code>属性でCSSファイルの場所を指定します。</li>
+</ul>
+</li>
+<li><code>&lt;body&gt;</code>: 実際にブラウザのウィンドウに表示されるすべてのコンテンツ（テキスト、画像、リンクなど）を記述する部分です。</li>
+<li><code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>: JavaScriptファイルを読み込みます。通常、<code>&lt;/body&gt;</code> タグの直前に記述することで、HTML要素の読み込みが完了した後にスクリプトが実行されるようにし、エラーを防ぎます。</li>
+</ul>
+<h4>2. セマンティックHTML</h4>
+<ul>
+<li><strong>意味を持つタグを使うことの重要性</strong>:
+HTMLタグは、コンテンツの「意味」や「役割」を示すために使います。例えば、<code>&lt;header&gt;</code>はページのヘッダー部分、<code>&lt;nav&gt;</code>はナビゲーションメニュー、<code>&lt;main&gt;</code>は主要なコンテンツ、<code>&lt;footer&gt;</code>はフッター部分といった具体的な意味を持ちます。</li>
+<li><strong>なぜ使うの？</strong>:<ul>
+<li><strong>検索エンジン最適化 (SEO)</strong>: Googleなどの検索エンジンがページの内容を正しく理解しやすくなり、検索結果で上位に表示されやすくなる可能性があります。</li>
+<li><strong>アクセシビリティの向上</strong>: スクリーンリーダー（視覚障碍者がウェブページを読むためのソフト）などがコンテンツの構造を理解しやすくなり、より多くの人が情報にアクセスできるようになります。</li>
+<li><strong>コードの可読性・保守性の向上</strong>: <code>&lt;div&gt;</code>タグばかりで構成されたページよりも、意味のあるタグで構成されたページの方が、開発者にとって構造が理解しやすく、後からの修正や機能追加が容易になります。</li>
+</ul>
+</li>
+<li><strong>代表的なセマンティックタグ</strong>:<ul>
+<li><code>&lt;header&gt;</code>: ページやセクションのヘッダー（導入部）。</li>
+<li><code>&lt;nav&gt;</code>: ナビゲーションリンクのグループ。</li>
+<li><code>&lt;main&gt;</code>: 文書の主要なコンテンツ。1ページに1つだけ使用します。</li>
+<li><code>&lt;article&gt;</code>: 独立した自己完結型のコンテンツ（ブログ記事、ニュース記事など）。</li>
+<li><code>&lt;section&gt;</code>: 文書内のテーマごとの区切り。通常、見出し（<code>&lt;h1&gt;</code>～<code>&lt;h6&gt;</code>）を含みます。</li>
+<li><code>&lt;aside&gt;</code>: メインコンテンツとは間接的に関連する補足情報（サイドバー、広告など）。</li>
+<li><code>&lt;footer&gt;</code>: ページやセクションのフッター（著者情報、コピーライトなど）。</li>
+</ul>
+</li>
+</ul>
+<h4>3. <code>class</code> と <code>id</code> の違い</h4>
+<ul>
+<li><code>class</code> (クラス):<ul>
+<li>複数の要素に同じスタイルを適用したり、同じグループとして扱いたい場合に使用します。</li>
+<li>1つのHTML文書内で同じクラス名を複数の要素に使用できます。</li>
+<li>1つの要素に複数のクラス名をスペースで区切って指定することも可能です (例: <code>&lt;div class=&quot;card featured&quot;&gt;</code>)。</li>
+<li>CSSやJavaScriptでスタイルや動作をまとめて指定するのに便利です。</li>
+</ul>
+</li>
+<li><code>id</code> (アイディー):<ul>
+<li>HTML文書内で特定の要素を一意に識別するために使用します。</li>
+<li><strong>1つのHTML文書内で同じID名を複数の要素に使用してはいけません。必ずユニーク（唯一）である必要があります。</strong></li>
+<li>主にJavaScriptから特定の要素を直接操作したり、ページ内リンクの飛び先として使用されます。</li>
+</ul>
+</li>
+</ul>
+<h4>4. フォーム要素: <code>&lt;input type=&quot;checkbox&quot;&gt;</code> と <code>&lt;label&gt;</code></h4>
+<ul>
+<li><code>&lt;input type=&quot;checkbox&quot;&gt;</code>: チェックボックスを作成します。ユーザーがオン/オフを選択できます。</li>
+<li><code>&lt;label for=&quot;ID名&quot;&gt;</code>: <code>input</code> 要素と関連付けるラベル（説明テキスト）を作成します。<ul>
+<li><code>for</code>属性の値は、関連付けたい <code>input</code> 要素の <code>id</code>属性の値と一致させます。</li>
+<li>これにより、ラベルテキストをクリックしても、対応するチェックボックスがオン/オフされるようになり、操作性が向上します。
+```html</li>
+</ul>
+<input type="checkbox" id="task1" class="task-checkbox">
+<label for="task1">HTMLの基本構造を理解する</label>
+\`\`\`</li>
+</ul>
+<h3>CSS編：見た目を美しく整える</h3>
+<h4>1. CSSの基本構文</h4>
+<ul>
+<li>CSSは「セレクタ」「プロパティ」「値」の3つの要素で構成されます。
+```css
+セレクタ {
+  プロパティ: 値;
+  プロパティ2: 値2;
+}
+```</li>
+<li><strong>セレクタ</strong>: スタイルを適用したいHTML要素を指定します。 (例: <code>body</code>, <code>.main-header</code>, <code>#task1</code>)</li>
+<li><strong>プロパティ</strong>: 変更したいスタイルの種類を指定します。 (例: <code>color</code>, <code>font-size</code>, <code>background-color</code>)</li>
+<li><strong>値</strong>: プロパティに設定する具体的な内容を指定します。 (例: <code>red</code>, <code>16px</code>, <code>#ffffff</code>)</li>
+</ul>
+<h4>2. <code>box-sizing: border-box;</code></h4>
+<ul>
+<li>要素の <code>width</code> (幅) や <code>height</code> (高さ) の計算方法を指定する重要なプロパティです。</li>
+<li>デフォルト (<code>content-box</code>) では、<code>width</code> や <code>height</code> はコンテンツ領域のみのサイズを示し、<code>padding</code> (内側の余白) や <code>border</code> (枠線) の幅はそれに加算されます。</li>
+<li><code>border-box</code> を指定すると、<code>width</code> や <code>height</code> に <code>padding</code> と <code>border</code> の幅が含まれるようになります。これにより、要素の最終的な表示サイズが指定した <code>width</code> や <code>height</code> と一致するため、レイアウト計算が直感的になり、扱いやすくなります。
+```css<ul>
+<li>{ /* 全ての要素に適用 */
+box-sizing: border-box;
+}
+```</li>
+</ul>
+</li>
+</ul>
+<h4>3. CSSの単位</h4>
+<ul>
+<li><code>px</code> (ピクセル): 絶対単位。画面上の1ピクセルに対応します。</li>
+<li><code>rem</code> (root em): ルート要素 (<code>&lt;html&gt;</code>) のフォントサイズを基準とする相対単位。ユーザーがブラウザの基本フォントサイズを変更した場合にも柔軟に対応できるため、アクセシビリティに配慮したサイト制作でよく使われます。</li>
+<li><code>%</code> (パーセント): 親要素の同じプロパティの値を基準とする相対単位。</li>
+<li><code>vh</code> (viewport height): ビューポート（ブラウザの表示領域）の高さに対する割合。<code>100vh</code> はビューポートの高さ全体を意味します。</li>
+<li><code>vw</code> (viewport width): ビューポートの幅に対する割合。</li>
+</ul>
+<h4>4. <code>display: flex;</code> (Flexbox)</h4>
+<ul>
+<li>要素を柔軟に配置するための強力なレイアウトモードです。アイテムを横並びにしたり、間隔を調整したり、中央揃えにしたりするのが容易になります。</li>
+<li>親要素に <code>display: flex;</code> を指定すると、その子要素（フレックスアイテム）がFlexboxのレイアウトに従います。</li>
+<li><code>align-items: center;</code>: フレックスアイテムを交差軸（デフォルトでは垂直方向）の中央に配置します。</li>
+<li><code>justify-content: space-between;</code>: フレックスアイテムを主軸（デフォルトでは水平方向）に沿って均等に配置し、最初と最後のアイテムは両端に寄せます。</li>
+<li><code>flex: 1;</code>: フレックスアイテムがコンテナ内の余剰スペースをどれだけ占めるかを指定します。<code>1</code> を指定すると、他のアイテムがスペースを占めた残りの部分をすべて使おうとします。</li>
+</ul>
+<h4>5. <code>position</code> プロパティと <code>z-index</code></h4>
+<ul>
+<li><code>position</code>: 要素の配置方法を指定します。<ul>
+<li><code>static</code> (デフォルト): 通常のHTMLのフローに従って配置されます。<code>top</code>, <code>left</code> などは効きません。</li>
+<li><code>relative</code>: 通常のフローに従いつつ、<code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code> プロパティで相対的な位置調整が可能です。</li>
+<li><code>absolute</code>: 最も近い <code>position</code> が <code>static</code> 以外の上位要素（親要素など）を基準に配置されます。そのような上位要素がない場合は、<code>body</code> 要素が基準になります。</li>
+<li><code>fixed</code>: ビューポート（ブラウザの表示領域）を基準に固定配置されます。ページをスクロールしても位置が変わりません。（例: 画面上部に固定されるヘッダー、モーダルウィンドウなど）</li>
+</ul>
+</li>
+<li><code>z-index</code>: 要素の重なり順を指定します。<code>position</code> が <code>static</code> 以外の場合に有効です。数値が大きいほど手前（上）に表示されます。</li>
+</ul>
+<h4>6. <code>:hover</code> 擬似クラスと <code>transition</code> プロパティ</h4>
+<ul>
+<li><code>:hover</code>: マウスカーソルが要素の上に乗ったときのスタイルを指定するための擬似クラスです。
+```css
+.button:hover {
+  background-color: lightblue;
+}
+```</li>
+<li><code>transition</code>: CSSプロパティの値が変化する際に、アニメーション効果（滑らかな変化）を付けるためのプロパティです。<ul>
+<li><code>transition-property</code>: アニメーションを適用するCSSプロパティ名 (例: <code>background-color</code>, <code>transform</code>, <code>all</code> ですべてのプロパティ)。</li>
+<li><code>transition-duration</code>: アニメーションにかかる時間 (例: <code>0.3s</code>, <code>500ms</code>)。</li>
+<li><code>transition-timing-function</code>: アニメーションの速度変化のパターン (例: <code>ease</code> (ゆっくり始まってゆっくり終わる), <code>linear</code> (一定速度), <code>ease-in-out</code>)。</li>
+<li><code>transition-delay</code>: アニメーションが始まるまでの遅延時間。
+```css
+.task-item {
+background-color: white;
+transition: background-color 0.3s ease; /* background-colorが0.3秒かけて滑らかに変化 */
+}
+.task-item:hover {
+background-color: #f0f0f0;
+}
+```</li>
+</ul>
+</li>
+</ul>
+<h4>7. レスポンシブデザインと <code>@media</code> クエリ</h4>
+<ul>
+<li><code>@media</code> クエリは、画面の幅や高さ、デバイスの種類など、特定の条件に応じて異なるCSSスタイルを適用するための仕組みです。これにより、スマートフォン、タブレット、デスクトップなど、さまざまな画面サイズでウェブページが見やすくなるように調整できます（レスポンシブデザイン）。
+   ```css
+   /* 基本のスタイル（主にデスクトップ向け） */
+   .container {
+width: 960px;
+margin: 0 auto;
+   }</li>
+</ul>
+<p>   /* 画面幅が768px以下の場合に適用されるスタイル（主にタブレット向け） <em>/
+   @media (max-width: 768px) {
+     .container {
+       width: 90%; /</em> 幅を可変にする */
+     }
+   }</p>
+<p>   /* 画面幅が480px以下の場合に適用されるスタイル（主にスマートフォン向け） <em>/
+   @media (max-width: 480px) {
+     body {
+       font-size: 14px; /</em> 文字サイズを少し小さくする */
+     }
+     .main-header h1 {
+       font-size: 1.8rem;
+     }
+   }
+   ```</p>
+<h3>JavaScript編：ウェブページに動きと対話性を加える</h3>
+<h4>1. DOM (Document Object Model)</h4>
+<ul>
+<li>ブラウザがHTML文書を読み込むと、その内容をツリー構造のオブジェクトとしてメモリ上に展開します。このオブジェクト構造のことをDOMと呼びます。</li>
+<li>JavaScriptは、このDOMを介してHTMLの要素を取得したり、内容を変更したり、新しい要素を追加したり、イベントを処理したりすることができます。つまり、ウェブページを動的に操作するためのインターフェースです。</li>
+</ul>
+<h4>2. <code>DOMContentLoaded</code> イベント</h4>
+<ul>
+<li>HTML文書が完全に読み込まれ、DOMツリーの構築が完了した時点で発生するイベントです。</li>
+<li>画像やCSSファイルなどの外部リソースの読み込み完了を待たずに実行されるため、スクリプトがDOM要素を操作しようとして、まだその要素が存在しないためにエラーになるのを防ぐのに役立ちます。</li>
+<li>JavaScriptのコードは、このイベントが発生した後に実行されるようにするのが一般的です。
+   ```javascript
+   document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+// この中にDOM操作を行うコードを記述する
+console.log(&#39;DOMの準備ができました！&#39;);
+   });
+   ```</li>
+</ul>
+<h4>3. HTML要素の取得</h4>
+<ul>
+<li>JavaScriptでHTML要素を操作するには、まず対象の要素を取得する必要があります。</li>
+<li><code>document.getElementById(&#39;id名&#39;)</code>: 指定された <code>id</code> 属性を持つ要素を1つ取得します。IDはページ内で一意なので、確実に特定の要素を取得できます。
+```javascript
+const mainTitle = document.getElementById(&#39;main-title&#39;);
+```</li>
+<li><code>document.querySelector(&#39;CSSセレクタ&#39;)</code>: 指定されたCSSセレクタに一致する最初の要素を1つ取得します。複雑な条件で要素を指定できます。
+```javascript
+const firstTaskItem = document.querySelector(&#39;.task-item&#39;);
+```</li>
+<li><code>document.querySelectorAll(&#39;CSSセレクタ&#39;)</code>: 指定されたCSSセレクタに一致するすべての要素を<code>NodeList</code>（配列のようなもの）として取得します。複数の要素をまとめて操作したい場合に使用します。
+```javascript
+const allCheckboxes = document.querySelectorAll(&#39;.task-checkbox&#39;);
+```</li>
+<li><code>element.closest(&#39;CSSセレクタ&#39;)</code>: <code>element</code> 自身を含め、その祖先要素をたどっていき、指定されたCSSセレクタに最初に一致した要素を返します。イベントが発生した要素から特定の親要素を見つけるのに便利です。
+```javascript
+// checkboxがクリックされたとき、その親の.task-item要素を取得する
+checkbox.addEventListener(&#39;change&#39;, function() {
+  const taskItem = this.closest(&#39;.task-item&#39;);
+});
+```</li>
+</ul>
+<h4>4. イベントリスナー (<code>addEventListener</code>)</h4>
+<ul>
+<li>ユーザーのアクション（クリック、マウスオーバー、キー入力など）やブラウザの出来事（ページの読み込み完了など）を「イベント」と呼びます。</li>
+<li><code>element.addEventListener(&#39;イベント名&#39;, コールバック関数);</code> は、特定の要素で指定したイベントが発生したときに、指定した関数（コールバック関数）を実行するように登録するメソッドです。<ul>
+<li><code>&#39;click&#39;</code>: 要素がクリックされたとき。</li>
+<li><code>&#39;change&#39;</code>: フォーム要素（<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>など）の値が変更されたとき。チェックボックスのオン/オフもこれに該当します。</li>
+<li><code>&#39;input&#39;</code>: テキスト入力フィールドの値が変更されるたび（一文字ごとなど）。</li>
+<li><code>&#39;mouseover&#39;</code>: マウスカーソルが要素の上に乗ったとき。</li>
+<li><code>&#39;mouseout&#39;</code>: マウスカーソルが要素の上から離れたとき。
+ ```javascript
+ const myButton = document.getElementById(&#39;myButton&#39;);
+ myButton.addEventListener(&#39;click&#39;, function() {
+alert(&#39;ボタンがクリックされました！&#39;);
+ });
+ ```</li>
+</ul>
+</li>
+</ul>
+<h4>5. クラスの操作 (<code>element.classList</code>)</h4>
+<ul>
+<li>JavaScriptを使ってHTML要素のクラスを動的に追加、削除、確認することができます。これにより、CSSと連携して要素の見た目を変更できます。</li>
+<li><code>element.classList.add(&#39;クラス名&#39;)</code>: 指定したクラスを要素に追加します。</li>
+<li><code>element.classList.remove(&#39;クラス名&#39;)</code>: 指定したクラスを要素から削除します。</li>
+<li><code>element.classList.toggle(&#39;クラス名&#39;)</code>: 指定したクラスが要素になければ追加し、あれば削除します。</li>
+<li><code>element.classList.contains(&#39;クラス名&#39;)</code>: 要素が指定したクラスを持っているかどうかを真偽値 (<code>true</code> / <code>false</code>) で返します。
+   ```javascript
+   const messageDiv = document.getElementById(&#39;message&#39;);
+   messageDiv.classList.add(&#39;highlight&#39;); // &#39;highlight&#39;クラスを追加
+   if (messageDiv.classList.contains(&#39;error&#39;)) { // &#39;error&#39;クラスを持っているか確認
+console.log(&#39;エラーメッセージです&#39;);
+   }
+   ```</li>
+</ul>
+<h4>6. スタイルの直接変更 (<code>element.style</code>)</h4>
+<ul>
+<li><code>element.style.プロパティ名 = &#39;値&#39;;</code> の形で、JavaScriptから直接要素のインラインスタイルを変更できます。</li>
+<li>CSSのプロパティ名がハイフンを含む場合 (例: <code>background-color</code>)、JavaScriptではキャメルケース (例: <code>backgroundColor</code>) で記述します。
+   ```javascript
+   const titleElement = document.getElementById(&#39;page-title&#39;);
+   titleElement.style.color = &#39;blue&#39;;
+   titleElement.style.fontSize = &#39;24px&#39;;
+   titleElement.style.backgroundColor = &#39;#f0f0f0&#39;; // background-color -&gt; backgroundColor
+   ```</li>
+<li>ただし、多くのスタイル変更はCSSクラスの付け外しで行う方が、コードの分離（関心事の分離）や保守性の観点から推奨されます。</li>
+</ul>
+<h4>7. テキストコンテンツの変更</h4>
+<ul>
+<li><code>element.textContent = &#39;新しいテキスト&#39;;</code>: 要素内のテキストコンテンツを取得したり、設定したりします。HTMLタグは解釈されず、そのまま文字列として扱われます。セキュリティ的に安全です。</li>
+<li><code>element.innerHTML = &#39;新しいHTMLコンテンツ&#39;;</code>: 要素内のHTMLコンテンツを取得したり、設定したりします。HTMLタグは解釈されて表示に反映されます。ユーザーからの入力をそのまま <code>innerHTML</code> に設定すると、クロスサイトスクリプティング (XSS) の脆弱性を生む可能性があるため、取り扱いに注意が必要です。
+   ```javascript
+   const userNameElement = document.getElementById(&#39;user-name&#39;);
+   userNameElement.textContent = &#39;山田太郎&#39;; // テキストとして設定</li>
+</ul>
+<p>   const greetingElement = document.getElementById(&#39;greeting&#39;);
+   // greetingElement.innerHTML = &#39;<strong>こんにちは！</strong>&#39;; // HTMLとして設定 (注意して使用)
+   ```</p>
+<h4>8. <code>forEach</code> ループ (NodeListに対して)</h4>
+<ul>
+<li><code>document.querySelectorAll()</code> で取得した <code>NodeList</code> は配列に似ていますが、一部の古いブラウザでは配列のすべてのメソッドが使えないことがあります。しかし、<code>forEach</code> メソッドは多くのモダンブラウザで <code>NodeList</code> に対しても使用できます。</li>
+<li><code>NodeList</code> の各要素に対して、指定した関数を一度ずつ実行します。
+   ```javascript
+   const allTaskItems = document.querySelectorAll(&#39;.task-item&#39;);
+   allTaskItems.forEach(function(item, index) {
+// item は現在の要素, index はそのインデックス番号
+item.style.borderLeft = `5px solid hsl(${index * 60}, 70%, 50%)`;
+   });
+   ```</li>
+</ul>
+<h4>9. 条件分岐 (<code>if...else</code>)</h4>
+<ul>
+<li>特定の条件が真 (true) か偽 (false) かによって、実行する処理を分岐させます。
+   ```javascript
+   const score = 75;
+   if (score &gt;= 80) {
+console.log(&#39;素晴らしい！合格です。&#39;);
+   } else if (score &gt;= 60) {
+console.log(&#39;合格です。&#39;);
+   } else {
+console.log(&#39;残念ながら不合格です。&#39;);
+   }</li>
+</ul>
+<p>   // チェックボックスの状態を確認
+   const myCheckbox = document.getElementById(&#39;my-checkbox&#39;);
+   if (myCheckbox.checked) { // .checked プロパティでチェック状態を取得 (true/false)
+     console.log(&#39;チェックされています&#39;);
+   } else {
+     console.log(&#39;チェックされていません&#39;);
+   }
+   ```</p>
+
+</body>
+</html>

@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>さいころ演習３</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>Pythonサイコロゲームで学ぶ！基礎からオブジェクト指向プログラミング (3/3)</h1>
+<p>この資料は、Pythonプログラミングの初学者を対象とし、サイコロゲームを題材に基礎からオブジェクト指向プログラミング（OOP）までを段階的に理解してもらうことを目的としています。
+<strong>___や日本語になっている部分を埋めてください</strong></p>
+<hr>
+<h2>ステップ12: オブジェクト指向プログラミング（OOP）でクラスを作ってみよう</h2>
+<p>これまでのプログラムは関数を中心とした構造でしたが、より大きなプログラムでは**オブジェクト指向プログラミング（OOP）**が威力を発揮します。
+このステップでは、**クラス（class）**を使って、データとそれを操作する処理をまとめて管理する方法を学びましょう。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# 結果の定数を定義
+PLAYER_WIN = &quot;player&quot;
+COMPUTER_WIN = &quot;computer&quot;
+DRAW = &quot;draw&quot;
+
+class Die:
+    &quot;&quot;&quot;サイコロを表すクラス&quot;&quot;&quot;
+    def __init__(self, sides=6):
+        # サイコロの面数を保存するインスタンス変数
+        self.sides = ___
+    
+    def roll(self):
+        # 1からself.sidesまでのランダムな整数を返す
+        return random.randint(1, ___)
+
+class GameConfig:
+    &quot;&quot;&quot;ゲームで共有する設定を管理するクラス&quot;&quot;&quot;
+    def __init__(self, die_sides=6):
+        # サイコロの面数を保存
+        self.die_sides = ___
+        # メッセージを辞書で保存
+        self.messages = {
+            ___: &quot;あなたの勝ち！&quot;,
+            ___: &quot;コンピュータの勝ち！&quot;,
+            ___: &quot;引き分け！&quot;
+        }
+
+class DiceGame:
+    &quot;&quot;&quot;ゲーム共通の機能を持つ基底クラス&quot;&quot;&quot;
+    def __init__(self, config: GameConfig):
+        # 設定オブジェクトを保存
+        self.config = ___
+        # プレイヤー用とコンピュータ用のサイコロを作成
+        self.player_die = ___(config.die_sides)
+        self.computer_die = ___(config.die_sides)
+    
+    def ask_continue(self, prompt=&quot;もう一度振りますか？ (y/n): &quot;) -&gt; bool:
+        &quot;&quot;&quot;続行するかどうかをユーザーに確認するメソッド&quot;&quot;&quot;
+        while True:
+            ans = input(prompt).lower()
+            if ans in (&quot;y&quot;, &quot;n&quot;):
+                return ans == &quot;y&quot;
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+    
+    def print_history(self, history: list[int]):
+        &quot;&quot;&quot;履歴を表示するメソッド&quot;&quot;&quot;
+        print(&quot;これまでの出た目:&quot;)
+        for i, v in enumerate(history, start=1):
+            print(f&quot; {i}回目: {v}&quot;)
+        print(&quot;合計:&quot;, sum(history))
+
+class SoloGame(___):
+    &quot;&quot;&quot;ソロプレイを行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def play(self):
+        &quot;&quot;&quot;ソロプレイのメインメソッド&quot;&quot;&quot;
+        history = []
+        while True:
+            # プレイヤーのサイコロを振る
+            v = ___.roll()
+            history.append(v)
+            print(f&quot;出た目は {v} です。&quot;)
+            
+            # 続行するかどうか確認
+            if not ___(&quot;もう一度振りますか？ (y/n): &quot;):
+                print(&quot;ゲームを終了します。&quot;)
+                break
+        
+        # 履歴を表示
+        ___(history)
+
+class VsComputerGame(___):
+    &quot;&quot;&quot;コンピュータ対戦を行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def play_one_round(self):
+        &quot;&quot;&quot;1回分の対戦を行うメソッド&quot;&quot;&quot;
+        # プレイヤーとコンピュータのサイコロを振る
+        player_roll = ___.roll()
+        computer_roll = ___.roll()
+        
+        print(f&quot;あなた:{player_roll} vs コンピュータ:{computer_roll}&quot;)
+        
+        # 勝敗を判定
+        if player_roll &gt; computer_roll:
+            result = ___
+        elif player_roll &lt; computer_roll:
+            result = ___
+        else:
+            result = ___
+        
+        # 結果メッセージを設定から取得して表示
+        print(___.messages[result])
+        return player_roll, computer_roll, result
+
+    # 対戦履歴の詳細統計を表示する関数
+    def print_match_statistics(self,match_history):
+        if not match_history:
+            print(&quot;対戦履歴がありません。&quot;)
+            return
+        
+        print(&quot;\n---詳細な対戦履歴---&quot;)
+        for i, match in enumerate(match_history, start=1):
+            player_roll, computer_roll, result = match
+            print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+        
+        print(&quot;\n---統計情報---&quot;)
+        
+        player_rolls = [match[0] for match in match_history]
+        computer_rolls = [match[1] for match in match_history]
+        
+        print(f&quot;あなたの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+        
+        print(f&quot;コンピュータの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+        
+        # 勝敗数を辞書で管理
+        win_counts = {PLAYER_WIN: 0, COMPUTER_WIN: 0, DRAW: 0}
+        
+        for match in match_history:
+            _, _, winner = match
+            win_counts[winner] += 1
+        
+        print(f&quot;\n最終結果:&quot;)
+        print(f&quot;  あなたの勝利: {win_counts[PLAYER_WIN]}回&quot;)
+        print(f&quot;  コンピュータの勝利: {win_counts[COMPUTER_WIN]}回&quot;)
+        print(f&quot;  引き分け: {win_counts[DRAW]}回&quot;)
+
+
+    def play(self):
+        &quot;&quot;&quot;対戦のメインメソッド&quot;&quot;&quot;
+        match_history = []  # 各対戦の詳細情報を保存するリスト
+        while True:
+            # 1回分の対戦を実行
+            player_roll, computer_roll, result = self.play_one_round()
+            match_history.append((player_roll, computer_roll, result))
+                        
+            # 続行するかどうか確認
+            if not ___(&quot;もう一度対戦しますか？ (y/n): &quot;):
+                print(&quot;対戦を終了します。&quot;)
+                break
+        
+        match_historyを引数にprint_match_staticsを呼び出す
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    # ゲーム設定を作成
+    game_config = ___(die_sides=6)
+    
+    print(&quot;モード選択: 1=ソロプレイ, 2=対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    
+    if mode == &quot;1&quot;:
+        # ソロゲームのインスタンスを作成
+        game = ___(game_config)
+    elif mode == &quot;2&quot;:
+        # 対戦ゲームのインスタンスを作成
+        game = ___(game_config)
+    else:
+        print(&quot;無効な選択です。&quot;)
+        exit()
+    
+    # ゲームを開始
+    game.___()
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li><code>self</code> は、そのクラスのインスタンス（実体）自身を指します。</li>
+<li><code>__init__</code> メソッドは、クラスのインスタンスを作成するときに自動的に呼ばれる特別なメソッドです。</li>
+<li>クラスを継承すると、親クラスのメソッドを子クラスで使うことができます。</li>
+<li><code>Die</code> クラスのインスタンスを作成するには <code>Die(面数)</code> と書きます。</li>
+<li>メソッドを呼び出すには <code>オブジェクト.メソッド名()</code> の形式を使います。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# 結果の定数を定義
+PLAYER_WIN = &quot;player&quot;
+COMPUTER_WIN = &quot;computer&quot;
+DRAW = &quot;draw&quot;
+
+class Die:
+    &quot;&quot;&quot;サイコロを表すクラス&quot;&quot;&quot;
+    def __init__(self, sides=6):
+        # サイコロの面数を保存するインスタンス変数
+        self.sides = sides
+    
+    def roll(self):
+        # 1からself.sidesまでのランダムな整数を返す
+        return random.randint(1, self.sides)
+
+class GameConfig:
+    &quot;&quot;&quot;ゲームで共有する設定を管理するクラス&quot;&quot;&quot;
+    def __init__(self, die_sides=6):
+        # サイコロの面数を保存
+        self.die_sides = die_sides
+        # メッセージを辞書で保存
+        self.messages = {
+            PLAYER_WIN: &quot;あなたの勝ち！&quot;,
+            COMPUTER_WIN: &quot;コンピュータの勝ち！&quot;,
+            DRAW: &quot;引き分け！&quot;
+        }
+
+class DiceGame:
+    &quot;&quot;&quot;ゲーム共通の機能を持つ基底クラス&quot;&quot;&quot;
+    def __init__(self, config: GameConfig):
+        # 設定オブジェクトを保存
+        self.config = config
+        # プレイヤー用とコンピュータ用のサイコロを作成
+        self.player_die = Die(config.die_sides)
+        self.computer_die = Die(config.die_sides)
+    
+    def ask_continue(self, prompt=&quot;もう一度振りますか？ (y/n): &quot;) -&gt; bool:
+        &quot;&quot;&quot;続行するかどうかをユーザーに確認するメソッド&quot;&quot;&quot;
+        while True:
+            ans = input(prompt).lower()
+            if ans in (&quot;y&quot;, &quot;n&quot;):
+                return ans == &quot;y&quot;
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+    
+    def print_history(self, history: list[int]):
+        &quot;&quot;&quot;履歴を表示するメソッド&quot;&quot;&quot;
+        print(&quot;これまでの出た目:&quot;)
+        for i, v in enumerate(history, start=1):
+            print(f&quot; {i}回目: {v}&quot;)
+        print(&quot;合計:&quot;, sum(history))
+
+class SoloGame(DiceGame):
+    &quot;&quot;&quot;ソロプレイを行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def play(self):
+        &quot;&quot;&quot;ソロプレイのメインメソッド&quot;&quot;&quot;
+        history = []
+        while True:
+            # プレイヤーのサイコロを振る
+            v = self.player_die.roll()
+            history.append(v)
+            print(f&quot;出た目は {v} です。&quot;)
+            
+            # 続行するかどうか確認
+            if not self.ask_continue(&quot;もう一度振りますか？ (y/n): &quot;):
+                print(&quot;ゲームを終了します。&quot;)
+                break
+        
+        # 履歴を表示
+        self.print_history(history)
+
+class VsComputerGame(DiceGame):
+    &quot;&quot;&quot;コンピュータ対戦を行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def play_one_round(self):
+        &quot;&quot;&quot;1回分の対戦を行うメソッド&quot;&quot;&quot;
+        # プレイヤーとコンピュータのサイコロを振る
+        player_roll = self.player_die.roll()
+        computer_roll = self.computer_die.roll()
+        
+        print(f&quot;あなた:{player_roll} vs コンピュータ:{computer_roll}&quot;)
+        
+        # 勝敗を判定
+        if player_roll &gt; computer_roll:
+            result = PLAYER_WIN
+        elif player_roll &lt; computer_roll:
+            result = COMPUTER_WIN
+        else:
+            result = DRAW
+        
+        # 結果メッセージを設定から取得して表示
+        print(self.config.messages[result])
+        return player_roll, computer_roll, result
+
+    # 対戦履歴の詳細統計を表示する関数
+    def print_match_statistics(self,match_history):
+        if not match_history:
+            print(&quot;対戦履歴がありません。&quot;)
+            return
+        
+        print(&quot;\n---詳細な対戦履歴---&quot;)
+        for i, match in enumerate(match_history, start=1):
+            player_roll, computer_roll, result = match
+            print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+        
+        print(&quot;\n---統計情報---&quot;)
+        
+        player_rolls = [match[0] for match in match_history]
+        computer_rolls = [match[1] for match in match_history]
+        
+        print(f&quot;あなたの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+        
+        print(f&quot;コンピュータの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+        
+        # 勝敗数を辞書で管理
+        win_counts = {PLAYER_WIN: 0, COMPUTER_WIN: 0, DRAW: 0}
+        
+        for match in match_history:
+            _, _, winner = match
+            win_counts[winner] += 1
+        
+        print(f&quot;\n最終結果:&quot;)
+        print(f&quot;  あなたの勝利: {win_counts[PLAYER_WIN]}回&quot;)
+        print(f&quot;  コンピュータの勝利: {win_counts[COMPUTER_WIN]}回&quot;)
+        print(f&quot;  引き分け: {win_counts[DRAW]}回&quot;)の詳細統計を表示する関数
+
+
+
+    def play(self):
+        &quot;&quot;&quot;対戦のメインメソッド&quot;&quot;&quot;
+        match_history = []  # 各対戦の詳細情報を保存するリスト
+
+        while True:
+            # 1回分の対戦を実行
+            player_roll, computer_roll, result = self.play_one_round()
+            
+            # 履歴に追加
+            match_history.append((player_roll, computer_roll, result))
+
+            # 続行するかどうか確認
+            if not self.ask_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+                print(&quot;対戦を終了します。&quot;)
+                break
+        
+        # 結果を表示
+        self.print_match_statistics(match_history)
+
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    # ゲーム設定を作成
+    game_config = GameConfig(die_sides=6)
+    
+    print(&quot;モード選択: 1=ソロプレイ, 2=対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    
+    if mode == &quot;1&quot;:
+        # ソロゲームのインスタンスを作成
+        game = SoloGame(game_config)
+    elif mode == &quot;2&quot;:
+        # 対戦ゲームのインスタンスを作成
+        game = VsComputerGame(game_config)
+    else:
+        print(&quot;無効な選択です。&quot;)
+        exit()
+    
+    # ゲームを開始
+    game.play()
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong>クラス（class）</strong>: 関連するデータ（属性）と処理（メソッド）をまとめた設計図のようなもの。</li>
+<li><strong>インスタンス</strong>: クラスから作られた実際のオブジェクト。<code>Die(6)</code> でDieクラスのインスタンスを作成。</li>
+<li><strong><code>__init__</code> メソッド</strong>: クラスのインスタンスを作成するときに自動で呼ばれる特別なメソッド（コンストラクタ）。</li>
+<li><strong><code>self</code></strong>: そのインスタンス自身を指す特別な変数。メソッド内でインスタンス変数にアクセスするときに使用。</li>
+<li><strong>継承</strong>: <code>class SoloGame(DiceGame):</code> のように書くことで、親クラス（DiceGame）の機能を子クラス（SoloGame）が受け継ぐ。</li>
+<li><strong>カプセル化</strong>: 関連するデータと処理をクラス内にまとめることで、コードの整理と再利用性が向上。</li>
+</ul>
+<blockquote>
+<p>コラム
+<strong>オブジェクト指向の3大要素</strong></p>
+<ol>
+<li><strong>カプセル化</strong>: 関連するデータと処理をまとめる（今回学習）</li>
+<li><strong>継承</strong>: 既存のクラスの機能を受け継いで新しいクラスを作る（今回学習）</li>
+<li><strong>ポリモーフィズム</strong>: 同じメソッド名でも、クラスによって異なる動作をする</li>
+</ol>
+<p>今回のコードでは、<code>SoloGame</code> と <code>VsComputerGame</code> が両方とも <code>play()</code> メソッドを持っていますが、それぞれ異なる動作をします。これがポリモーフィズムの例です！</p>
+</blockquote>
+<blockquote>
+<p>コラム
+<strong>なぜクラスを使うのか？</strong></p>
+<p>関数だけでもプログラムは作れますが、クラスを使うことで：</p>
+<ul>
+<li><strong>コードの整理</strong>: 関連する機能がまとめられる</li>
+<li><strong>再利用性</strong>: 同じクラスから複数のインスタンスを作成可能</li>
+<li><strong>拡張性</strong>: 継承により既存の機能を活用して新機能を追加しやすい</li>
+<li><strong>保守性</strong>: 変更する場所が明確になり、バグを減らせる</li>
+</ul>
+</blockquote>
+<hr>
+<h2>ステップ13: プライベート変数・メソッドでクラスの安全性を高めよう</h2>
+<p>ステップ12でクラスを作成しましたが、実は現在のコードには大きな問題があります。
+このステップでは、その問題を発見し、<strong>プライベート変数・メソッド</strong>と**@propertyデコレータ**を使って解決する方法を学びましょう。</p>
+<h3>まず問題を発見してみよう</h3>
+<p>現在のコードには、外部から勝手にクラスの内部データを変更できてしまうという問題があります。
+例えば、以下のような「いじわる」なコードを書くことができてしまいます：</p>
+<pre><code class="language-python"># メイン処理で、ゲーム開始前に...
+game = VsComputerGame(game_config)
+
+# いじわる：プレイヤーのサイコロを100面にして、コンピュータのサイコロを1面にする
+game.player_die = Die(sides=100)  # プレイヤーは常に大きな数
+game.computer_die = Die(sides=1)  # コンピュータは常に1
+
+game.play()  # これではゲームが成り立たない！
+</code></pre>
+<p>このように、クラスの外部から重要なデータを自由に変更できてしまうと、ゲームの公平性が保てません。
+そこで、<strong>外部からアクセスすべきでない変数やメソッドを隠す</strong>必要があります。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# 結果の定数を定義
+PLAYER_WIN = &quot;player&quot;
+COMPUTER_WIN = &quot;computer&quot;
+DRAW = &quot;draw&quot;
+
+class Die:
+    &quot;&quot;&quot;サイコロを表すクラス&quot;&quot;&quot;
+    def __init__(self, sides=6):
+        # プライベート変数：外部から直接変更されたくない
+        self._sides = ___  # sidesの前に_を付けてプライベート化
+    
+    def roll(self):
+        # プライベート変数を使用
+        return random.randint(1, ___)
+    
+    @property
+    def sides(self):
+        &quot;&quot;&quot;面数を取得（読み取り専用）&quot;&quot;&quot;
+        # プライベート変数の値を返す
+        return ___
+
+class GameConfig:
+    &quot;&quot;&quot;ゲームで共有する設定を管理するクラス&quot;&quot;&quot;
+    def __init__(self, die_sides=6):
+        # プライベート変数にする
+        self._die_sides = ___
+        self._messages = {
+            PLAYER_WIN: &quot;あなたの勝ち！&quot;,
+            COMPUTER_WIN: &quot;コンピュータの勝ち！&quot;,
+            DRAW: &quot;引き分け！&quot;
+        }
+    
+    @property
+    def die_sides(self):
+        &quot;&quot;&quot;サイコロの面数を取得（読み取り専用）&quot;&quot;&quot;
+        return ___
+    
+    @property  
+    def messages(self):
+        &quot;&quot;&quot;メッセージ辞書を取得（読み取り専用）&quot;&quot;&quot;
+        return ___
+
+class DiceGame:
+    &quot;&quot;&quot;ゲーム共通の機能を持つ基底クラス&quot;&quot;&quot;
+    def __init__(self, config: GameConfig):
+        # すべてプライベート変数にする
+        self._config = ___
+        self._player_die = ___(config.die_sides)
+        self._computer_die = ___(config.die_sides)
+    
+    def _ask_continue(self, prompt=&quot;もう一度振りますか？ (y/n): &quot;) -&gt; bool:
+        &quot;&quot;&quot;プライベートメソッド：外部から直接呼ばれたくない内部処理&quot;&quot;&quot;
+        while True:
+            ans = input(prompt).lower()
+            if ans in (&quot;y&quot;, &quot;n&quot;):
+                return ans == &quot;y&quot;
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+    
+    # この関数はどこから呼ばれるべきでしょうか？ private or public?
+    def ___(self, history: list[int]):
+        &quot;&quot;&quot;プライベートメソッド：内部でのみ使用する履歴表示処理&quot;&quot;&quot;
+        print(&quot;これまでの出た目:&quot;)
+        for i, v in enumerate(history, start=1):
+            print(f&quot; {i}回目: {v}&quot;)
+        print(&quot;合計:&quot;, sum(history))
+
+class SoloGame(DiceGame):
+    &quot;&quot;&quot;ソロプレイを行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def play(self):
+        &quot;&quot;&quot;パブリックメソッド：外部から呼び出されることを想定&quot;&quot;&quot;
+        history = []
+        while True:
+            # プライベート変数を使用
+            v = ___.roll()
+            history.append(v)
+            print(f&quot;出た目は {v} です。&quot;)
+            
+            # プライベートメソッドを呼び出し
+            if not ___(&quot;もう一度振りますか？ (y/n): &quot;):
+                print(&quot;ゲームを終了します。&quot;)
+                break
+        
+        # プライベートメソッドを呼び出し
+        ___(history)
+
+class VsComputerGame(DiceGame):
+    &quot;&quot;&quot;コンピュータ対戦を行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def _play_one_round(self):
+        &quot;&quot;&quot;プライベートメソッド：1回分の対戦処理（内部でのみ使用）&quot;&quot;&quot;
+        # プライベート変数を使用
+        player_roll = ___.roll()
+        computer_roll = ___.roll()
+        
+        print(f&quot;あなた:{player_roll} vs コンピュータ:{computer_roll}&quot;)
+        
+        # 勝敗を判定
+        if player_roll &gt; computer_roll:
+            result = PLAYER_WIN
+        elif player_roll &lt; computer_roll:
+            result = COMPUTER_WIN
+        else:
+            result = DRAW
+        
+        # プライベート変数を使用してメッセージを取得
+        print(___.messages[result])
+        return player_roll, computer_roll, result
+
+    def _print_match_statistics(self, match_history):
+        &quot;&quot;&quot;プライベートメソッド：対戦統計を表示（内部でのみ使用）&quot;&quot;&quot;
+        if not match_history:
+            print(&quot;対戦履歴がありません。&quot;)
+            return
+        
+        print(&quot;\n---詳細な対戦履歴---&quot;)
+        for i, match in enumerate(match_history, start=1):
+            player_roll, computer_roll, result = match
+            print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+        
+        print(&quot;\n---統計情報---&quot;)
+        
+        player_rolls = [match[0] for match in match_history]
+        computer_rolls = [match[1] for match in match_history]
+        
+        print(f&quot;あなたの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+        
+        print(f&quot;コンピュータの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+        
+        win_counts = {PLAYER_WIN: 0, COMPUTER_WIN: 0, DRAW: 0}
+        
+        for match in match_history:
+            _, _, winner = match
+            win_counts[winner] += 1
+        
+        print(f&quot;\n最終結果:&quot;)
+        print(f&quot;  あなたの勝利: {win_counts[PLAYER_WIN]}回&quot;)
+        print(f&quot;  コンピュータの勝利: {win_counts[COMPUTER_WIN]}回&quot;)
+        print(f&quot;  引き分け: {win_counts[DRAW]}回&quot;)
+
+    def play(self):
+        &quot;&quot;&quot;パブリックメソッド：外部から呼び出されることを想定&quot;&quot;&quot;
+        match_history = []
+        
+        while True:
+            # プライベートメソッドを呼び出し
+            player_roll, computer_roll, result = ___()
+            match_history.append([player_roll, computer_roll, result])
+            
+            # プライベートメソッドを呼び出し
+            if not ___(&quot;もう一度対戦しますか？ (y/n): &quot;):
+                print(&quot;対戦を終了します。&quot;)
+                break
+        
+        # プライベートメソッドを呼び出し
+        ___(match_history)
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    # ゲーム設定を作成
+    game_config = GameConfig(die_sides=6)
+    
+    print(&quot;モード選択: 1=ソロプレイ, 2=対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    
+    if mode == &quot;1&quot;:
+        game = SoloGame(game_config)
+    elif mode == &quot;2&quot;:
+        game = VsComputerGame(game_config)
+    else:
+        print(&quot;無効な選択です。&quot;)
+        exit()
+    
+    # もう「いじわる」はできない！
+    # game.player_die = Die(sides=100)  # エラー：_player_dieはプライベート
+    # game._player_die = Die(sides=100)  # 技術的には可能だが「触るな」の意味
+    
+    # 読み取り専用でアクセスはできる
+    print(f&quot;サイコロの面数: {game._config.die_sides}&quot;)
+    
+    game.play()
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>プライベート変数・メソッドには名前の前に <code>_</code> を付けます。</li>
+<li><code>@property</code> デコレータを使うと、メソッドを変数のようにアクセスできる読み取り専用プロパティになります。</li>
+<li>プライベートメソッドは <code>self._メソッド名()</code> で呼び出します。(クラス内部でのみ)</li>
+<li>プライベート変数は <code>self._変数名</code> でアクセスします。(クラス内部でのみ)</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# 結果の定数を定義
+PLAYER_WIN = &quot;player&quot;
+COMPUTER_WIN = &quot;computer&quot;
+DRAW = &quot;draw&quot;
+
+class Die:
+    &quot;&quot;&quot;サイコロを表すクラス&quot;&quot;&quot;
+    def __init__(self, sides=6):
+        # プライベート変数：外部から直接変更されたくない
+        self._sides = sides
+    
+    def roll(self):
+        # プライベート変数を使用
+        return random.randint(1, self._sides)
+    
+    @property
+    def sides(self):
+        &quot;&quot;&quot;面数を取得（読み取り専用）&quot;&quot;&quot;
+        # プライベート変数の値を返す
+        return self._sides
+
+class GameConfig:
+    &quot;&quot;&quot;ゲームで共有する設定を管理するクラス&quot;&quot;&quot;
+    def __init__(self, die_sides=6):
+        # プライベート変数にする
+        self._die_sides = die_sides
+        self._messages = {
+            PLAYER_WIN: &quot;あなたの勝ち！&quot;,
+            COMPUTER_WIN: &quot;コンピュータの勝ち！&quot;,
+            DRAW: &quot;引き分け！&quot;
+        }
+    
+    @property
+    def die_sides(self):
+        &quot;&quot;&quot;サイコロの面数を取得（読み取り専用）&quot;&quot;&quot;
+        return self._die_sides
+    
+    @property  
+    def messages(self):
+        &quot;&quot;&quot;メッセージ辞書を取得（読み取り専用）&quot;&quot;&quot;
+        return self._messages
+
+class DiceGame:
+    &quot;&quot;&quot;ゲーム共通の機能を持つ基底クラス&quot;&quot;&quot;
+    def __init__(self, config: GameConfig):
+        # すべてプライベート変数にする
+        self._config = config
+        self._player_die = Die(config.die_sides)
+        self._computer_die = Die(config.die_sides)
+    
+    def _ask_continue(self, prompt=&quot;もう一度振りますか？ (y/n): &quot;) -&gt; bool:
+        &quot;&quot;&quot;プライベートメソッド：外部から直接呼ばれたくない内部処理&quot;&quot;&quot;
+        while True:
+            ans = input(prompt).lower()
+            if ans in (&quot;y&quot;, &quot;n&quot;):
+                return ans == &quot;y&quot;
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+    
+    def _print_history(self, history: list[int]):
+        &quot;&quot;&quot;プライベートメソッド：内部でのみ使用する履歴表示処理&quot;&quot;&quot;
+        print(&quot;これまでの出た目:&quot;)
+        for i, v in enumerate(history, start=1):
+            print(f&quot; {i}回目: {v}&quot;)
+        print(&quot;合計:&quot;, sum(history))
+
+class SoloGame(DiceGame):
+    &quot;&quot;&quot;ソロプレイを行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def play(self):
+        &quot;&quot;&quot;パブリックメソッド：外部から呼び出されることを想定&quot;&quot;&quot;
+        history = []
+        while True:
+            # プライベート変数を使用
+            v = self._player_die.roll()
+            history.append(v)
+            print(f&quot;出た目は {v} です。&quot;)
+            
+            # プライベートメソッドを呼び出し
+            if not self._ask_continue(&quot;もう一度振りますか？ (y/n): &quot;):
+                print(&quot;ゲームを終了します。&quot;)
+                break
+        
+        # プライベートメソッドを呼び出し
+        self._print_history(history)
+
+class VsComputerGame(DiceGame):
+    &quot;&quot;&quot;コンピュータ対戦を行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def _play_one_round(self):
+        &quot;&quot;&quot;プライベートメソッド：1回分の対戦処理（内部でのみ使用）&quot;&quot;&quot;
+        # プライベート変数を使用
+        player_roll = self._player_die.roll()
+        computer_roll = self._computer_die.roll()
+        
+        print(f&quot;あなた:{player_roll} vs コンピュータ:{computer_roll}&quot;)
+        
+        # 勝敗を判定
+        if player_roll &gt; computer_roll:
+            result = PLAYER_WIN
+        elif player_roll &lt; computer_roll:
+            result = COMPUTER_WIN
+        else:
+            result = DRAW
+        
+        # プライベート変数を使用してメッセージを取得
+        print(self._config.messages[result])
+        return player_roll, computer_roll, result
+
+    def _print_match_statistics(self, match_history):
+        &quot;&quot;&quot;プライベートメソッド：対戦統計を表示（内部でのみ使用）&quot;&quot;&quot;
+        if not match_history:
+            print(&quot;対戦履歴がありません。&quot;)
+            return
+        
+        print(&quot;\n---詳細な対戦履歴---&quot;)
+        for i, match in enumerate(match_history, start=1):
+            player_roll, computer_roll, result = match
+            print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+        
+        print(&quot;\n---統計情報---&quot;)
+        
+        player_rolls = [match[0] for match in match_history]
+        computer_rolls = [match[1] for match in match_history]
+        
+        print(f&quot;あなたの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+        
+        print(f&quot;コンピュータの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+        
+        win_counts = {PLAYER_WIN: 0, COMPUTER_WIN: 0, DRAW: 0}
+        
+        for match in match_history:
+            _, _, winner = match
+            win_counts[winner] += 1
+        
+        print(f&quot;\n最終結果:&quot;)
+        print(f&quot;  あなたの勝利: {win_counts[PLAYER_WIN]}回&quot;)
+        print(f&quot;  コンピュータの勝利: {win_counts[COMPUTER_WIN]}回&quot;)
+        print(f&quot;  引き分け: {win_counts[DRAW]}回&quot;)
+
+    def play(self):
+        &quot;&quot;&quot;パブリックメソッド：外部から呼び出されることを想定&quot;&quot;&quot;
+        match_history = []
+        
+        while True:
+            # プライベートメソッドを呼び出し
+            player_roll, computer_roll, result = self._play_one_round()
+            match_history.append([player_roll, computer_roll, result])
+            
+            # プライベートメソッドを呼び出し
+            if not self._ask_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+                print(&quot;対戦を終了します。&quot;)
+                break
+        
+        # プライベートメソッドを呼び出し
+        self._print_match_statistics(match_history)
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    # ゲーム設定を作成
+    game_config = GameConfig(die_sides=6)
+    
+    print(&quot;モード選択: 1=ソロプレイ, 2=対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    
+    if mode == &quot;1&quot;:
+        game = SoloGame(game_config)
+    elif mode == &quot;2&quot;:
+        game = VsComputerGame(game_config)
+    else:
+        print(&quot;無効な選択です。&quot;)
+        exit()
+    
+    # もう「いじわる」はできない！
+    # game.player_die = Die(sides=100)  # エラー：_player_dieはプライベート
+    # game._player_die = Die(sides=100)  # 技術的には可能だが「触るな」の意味
+    
+    # 読み取り専用でアクセスはできる
+    print(f&quot;サイコロの面数: {game._config.die_sides}&quot;)
+    
+    game.play()
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong>プライベート変数</strong>: 名前の前に <code>_</code> を付けることで、「外部から直接アクセスすべきでない」ことを示します。</li>
+<li><strong>プライベートメソッド</strong>: 内部でのみ使用される処理には <code>_</code> を付けて、外部インターフェースと区別します。</li>
+<li><strong>@propertyデコレータ</strong>: メソッドを変数のようにアクセスできる読み取り専用プロパティを作成できます。</li>
+<li><strong>カプセル化の実現</strong>: クラスの内部実装を隠蔽し、外部には必要最小限のインターフェースのみを公開します。</li>
+<li><strong>アクセス制御</strong>: 重要なデータを不正な変更から保護し、プログラムの安全性を高めます。</li>
+<li><strong>インターフェースの明確化</strong>: 外部から呼び出すべきメソッド（<code>play()</code>）と内部処理用メソッド（<code>_play_one_round()</code>）が明確に区別されます。</li>
+</ul>
+<blockquote>
+<p>コラム
+<strong>Pythonにおける2つのプライベート化手法</strong></p>
+<ol>
+<li><p><strong>シングルアンダースコア (<code>_</code>)</strong>：慣習的なプライベート化</p>
+<ul>
+<li>技術的にはアクセス可能だが、「触らない」という約束</li>
+<li>開発者同士の暗黙の了解</li>
+</ul>
+</li>
+<li><p><strong>ダブルアンダースコア (<code>__</code>)</strong>：名前マングリング</p>
+<ul>
+<li>Pythonが自動的に名前を変更し、外部からのアクセスを困難にする</li>
+<li>より強力だが、デバッグ時に分かりにくくなることも</li>
+</ul>
+</li>
+</ol>
+<p>一般的には、シングルアンダースコアがよく使われます。</p>
+</blockquote>
+<blockquote>
+<p>コラム
+<strong>@propertyの威力</strong></p>
+<p><code>@property</code> を使うことで：</p>
+<pre><code class="language-python"># 通常のメソッド呼び出し
+print(die.get_sides())  # メソッドとして呼び出す
+
+# @propertyを使った場合
+print(die.sides)  # 変数のようにアクセス
+</code></pre>
+<p>より自然で読みやすいコードが書けます。また、将来的に内部実装を変更しても、外部のコードに影響を与えません。</p>
+</blockquote>
+<blockquote>
+<p>コラム
+<strong>なぜプライベート化が重要なのか？</strong></p>
+<ol>
+<li><strong>データの整合性</strong>: 重要なデータが勝手に変更されることを防ぐ</li>
+<li><strong>バグの防止</strong>: 想定外の使われ方によるバグを減らす</li>
+<li><strong>保守性の向上</strong>: 内部実装を変更しても外部に影響しない</li>
+<li><strong>使いやすさ</strong>: 外部の人は公開されたメソッドだけに注意すればよい</li>
+</ol>
+<p>大きなプログラムになるほど、この重要性は増していきます。</p>
+</blockquote>
+<hr>
+<h2>ステップ14: オブジェクト指向の恩恵：難易度設定機能を簡単に追加しよう</h2>
+<p>ステップ13でプライベート化によってクラスの安全性を高めました。
+このステップでは、<strong>オブジェクト指向プログラミングの真価</strong>を体感しましょう。既存のコードをほとんど変更することなく、新しい機能（難易度設定）を追加してみます。</p>
+<h3>追加したい機能</h3>
+<p>ゲームに<strong>3つの難易度</strong>を追加したいと思います：</p>
+<ul>
+<li><strong>初級（Easy）</strong>: プレイヤーは1〜9面サイコロ、コンピュータは1〜6面サイコロ（プレイヤー有利）</li>
+<li><strong>中級（Normal）</strong>: 両方とも1〜6面サイコロ（通常のゲーム）</li>
+<li><strong>上級（Hard）</strong>: プレイヤーは1〜4面サイコロ、コンピュータは1〜6面サイコロ（プレイヤー不利）</li>
+</ul>
+<p>関数ベースの実装では多くの関数を修正する必要がありますが、オブジェクト指向では最小限の変更で実現できます！</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# 結果の定数を定義
+PLAYER_WIN = &quot;player&quot;
+COMPUTER_WIN = &quot;computer&quot;
+DRAW = &quot;draw&quot;
+
+# 難易度レベルの定数を定義
+EASY = &quot;easy&quot;
+NORMAL = &quot;normal&quot;
+HARD = &quot;hard&quot;
+
+class Die:
+    &quot;&quot;&quot;サイコロを表すクラス&quot;&quot;&quot;
+    def __init__(self, sides=6):
+        self._sides = sides
+    
+    def roll(self):
+        return random.randint(1, self._sides)
+    
+    @property
+    def sides(self):
+        &quot;&quot;&quot;面数を取得（読み取り専用）&quot;&quot;&quot;
+        return self._sides
+
+class GameConfig:
+    &quot;&quot;&quot;ゲームで共有する設定を管理するクラス&quot;&quot;&quot;
+    def __init__(self, difficulty=NORMAL):
+        # 難易度に応じてサイコロの面数を設定
+        self._difficulty = ___
+        self._difficulty_settings = {
+            ___: {&quot;player_sides&quot;: 9, &quot;computer_sides&quot;: 6, &quot;name&quot;: &quot;初級（プレイヤー有利）&quot;},
+            ___: {&quot;player_sides&quot;: 6, &quot;computer_sides&quot;: 6, &quot;name&quot;: &quot;中級（通常）&quot;},
+            ___: {&quot;player_sides&quot;: 4, &quot;computer_sides&quot;: 6, &quot;name&quot;: &quot;上級（プレイヤー不利）&quot;}
+        }
+        
+        # 現在の難易度設定を取得
+        current_setting = ___[difficulty]
+        self._player_die_sides = current_setting[&quot;player_sides&quot;]
+        self._computer_die_sides = current_setting[&quot;computer_sides&quot;]
+        self._difficulty_name = current_setting[&quot;name&quot;]
+        
+        self._messages = {
+            PLAYER_WIN: &quot;あなたの勝ち！&quot;,
+            COMPUTER_WIN: &quot;コンピュータの勝ち！&quot;,
+            DRAW: &quot;引き分け！&quot;
+        }
+    
+    @property
+    def difficulty(self):
+        &quot;&quot;&quot;現在の難易度を取得&quot;&quot;&quot;
+        return ___
+    
+    @property
+    def difficulty_name(self):
+        &quot;&quot;&quot;難易度の日本語名を取得&quot;&quot;&quot;
+        return ___
+    
+    @property
+    def player_die_sides(self):
+        &quot;&quot;&quot;プレイヤーのサイコロ面数を取得&quot;&quot;&quot;
+        return ___
+    
+    @property
+    def computer_die_sides(self):
+        &quot;&quot;&quot;コンピュータのサイコロ面数を取得&quot;&quot;&quot;
+        return ___
+    
+    @property
+    def messages(self):
+        &quot;&quot;&quot;メッセージ辞書を取得（読み取り専用）&quot;&quot;&quot;
+        return self._messages
+
+class DiceGame:
+    &quot;&quot;&quot;ゲーム共通の機能を持つ基底クラス&quot;&quot;&quot;
+    def __init__(self, config: GameConfig):
+        self._config = config
+        # 難易度に応じて異なる面数のサイコロを作成
+        self._player_die = ___(config.player_die_sides)
+        self._computer_die = ___(config.computer_die_sides)
+    
+    def _ask_continue(self, prompt=&quot;もう一度振りますか？ (y/n): &quot;) -&gt; bool:
+        &quot;&quot;&quot;プライベートメソッド：外部から直接呼ばれたくない内部処理&quot;&quot;&quot;
+        while True:
+            ans = input(prompt).lower()
+            if ans in (&quot;y&quot;, &quot;n&quot;):
+                return ans == &quot;y&quot;
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+    
+    def _print_history(self, history: list[int]):
+        &quot;&quot;&quot;プライベートメソッド：内部でのみ使用する履歴表示処理&quot;&quot;&quot;
+        print(&quot;これまでの出た目:&quot;)
+        for i, v in enumerate(history, start=1):
+            print(f&quot; {i}回目: {v}&quot;)
+        print(&quot;合計:&quot;, sum(history))
+    
+
+class SoloGame(DiceGame):
+    &quot;&quot;&quot;ソロプレイを行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def play(self):
+        &quot;&quot;&quot;パブリックメソッド：外部から呼び出されることを想定&quot;&quot;&quot;
+        # ゲーム情報を表示
+        ___()
+        
+        history = []
+        while True:
+            v = self._player_die.roll()
+            history.append(v)
+            print(f&quot;出た目は {v} です。&quot;)
+            
+            if not self._ask_continue(&quot;もう一度振りますか？ (y/n): &quot;):
+                print(&quot;ゲームを終了します。&quot;)
+                break
+        
+        self._print_history(history)
+
+class VsComputerGame(DiceGame):
+    &quot;&quot;&quot;コンピュータ対戦を行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def _play_one_round(self):
+        &quot;&quot;&quot;プライベートメソッド：1回分の対戦処理（内部でのみ使用）&quot;&quot;&quot;
+        player_roll = self._player_die.roll()
+        computer_roll = self._computer_die.roll()
+
+        print(f&quot;あなた:{player_roll} vs コンピュータ:{computer_roll}&quot;)
+
+
+        # 勝敗を判定
+        if player_roll &gt; computer_roll:
+            result = PLAYER_WIN
+        elif player_roll &lt; computer_roll:
+            result = COMPUTER_WIN
+        else:
+            result = DRAW
+        
+        print(self._config.messages[result])
+        return player_roll, computer_roll, result
+
+    def _print_match_statistics(self, match_history):
+        &quot;&quot;&quot;プライベートメソッド：対戦統計を表示（内部でのみ使用）&quot;&quot;&quot;
+        if not match_history:
+            print(&quot;対戦履歴がありません。&quot;)
+            return
+        
+        print(&quot;\n---詳細な対戦履歴---&quot;)
+        for i, match in enumerate(match_history, start=1):
+            player_roll, computer_roll, result = match
+            print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+        
+        print(&quot;\n---統計情報---&quot;)
+        
+        player_rolls = [match[0] for match in match_history]
+        computer_rolls = [match[1] for match in match_history]
+        
+        print(f&quot;あなたの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+        
+        print(f&quot;コンピュータの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+        
+        win_counts = {PLAYER_WIN: 0, COMPUTER_WIN: 0, DRAW: 0}
+        
+        for match in match_history:
+            _, _, winner = match
+            win_counts[winner] += 1
+        
+        print(f&quot;\n最終結果:&quot;)
+        print(f&quot;  あなたの勝利: {win_counts[PLAYER_WIN]}回&quot;)
+        print(f&quot;  コンピュータの勝利: {win_counts[COMPUTER_WIN]}回&quot;)
+        print(f&quot;  引き分け: {win_counts[DRAW]}回&quot;)
+        
+
+    def play(self):
+        &quot;&quot;&quot;パブリックメソッド：外部から呼び出されることを想定&quot;&quot;&quot;
+        # ゲーム情報を表示
+        ___()
+        
+        match_history = []
+        
+        while True:
+            player_roll, computer_roll, result = self._play_one_round()
+            match_history.append([player_roll, computer_roll, result])
+            
+            if not self._ask_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+                print(&quot;対戦を終了します。&quot;)
+                break
+        
+        self._print_match_statistics(match_history)
+
+def select_difficulty():
+    &quot;&quot;&quot;難易度を選択する関数&quot;&quot;&quot;
+    print(&quot;難易度を選択してください:&quot;)
+    print(&quot; 1: 初級（プレイヤー有利 - あなた1〜9面 vs コンピュータ1〜6面）&quot;)
+    print(&quot; 2: 中級（通常 - 両方とも1〜6面）&quot;)
+    print(&quot; 3: 上級（プレイヤー不利 - あなた1〜4面 vs コンピュータ1〜6面）&quot;)
+    
+    while True:
+        choice = input(&quot;選択 (1/2/3): &quot;)
+        if choice == &quot;1&quot;:
+            return ___
+        elif choice == &quot;2&quot;:
+            return ___
+        elif choice == &quot;3&quot;:
+            return ___
+        else:
+            print(&quot;無効な選択です。1、2、3のいずれかを入力してください。&quot;)
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    # まず難易度を選択
+    difficulty = ___()
+    
+    # 選択した難易度でゲーム設定を作成
+    game_config = ___(difficulty=difficulty)
+    
+    print(f&quot;\n選択された難易度: {game_config.difficulty_name}&quot;)
+    print(&quot;モード選択: 1=ソロプレイ, 2=対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    
+    if mode == &quot;1&quot;:
+        game = SoloGame(game_config)
+    elif mode == &quot;2&quot;:
+        game = VsComputerGame(game_config)
+    else:
+        print(&quot;無効な選択です。&quot;)
+        exit()
+    
+    game.play()
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>難易度の定数（<code>EASY</code>, <code>NORMAL</code>, <code>HARD</code>）を辞書のキーとして使用します。</li>
+<li><code>GameConfig</code> クラスのコンストラクタで、難易度に応じて異なるサイコロ面数を設定します。</li>
+<li>既存のメソッド（<code>_print_game_info()</code> など）は <code>self._メソッド名()</code> で呼び出します。</li>
+<li><code>@property</code> デコレータで作られたプロパティは、<code>self._config.プロパティ名</code> でアクセスできます。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# 結果の定数を定義
+PLAYER_WIN = &quot;player&quot;
+COMPUTER_WIN = &quot;computer&quot;
+DRAW = &quot;draw&quot;
+
+# 難易度レベルの定数を定義
+EASY = &quot;easy&quot;
+NORMAL = &quot;normal&quot;
+HARD = &quot;hard&quot;
+
+class Die:
+    &quot;&quot;&quot;サイコロを表すクラス&quot;&quot;&quot;
+    def __init__(self, sides=6):
+        self._sides = sides
+    
+    def roll(self):
+        return random.randint(1, self._sides)
+    
+    @property
+    def sides(self):
+        &quot;&quot;&quot;面数を取得（読み取り専用）&quot;&quot;&quot;
+        return self._sides
+
+class GameConfig:
+    &quot;&quot;&quot;ゲームで共有する設定を管理するクラス&quot;&quot;&quot;
+    def __init__(self, difficulty=NORMAL):
+        # 難易度に応じてサイコロの面数を設定
+        self._difficulty = difficulty
+        self._difficulty_settings = {
+            EASY: {&quot;player_sides&quot;: 9, &quot;computer_sides&quot;: 6, &quot;name&quot;: &quot;初級（プレイヤー有利）&quot;},
+            NORMAL: {&quot;player_sides&quot;: 6, &quot;computer_sides&quot;: 6, &quot;name&quot;: &quot;中級（通常）&quot;},
+            HARD: {&quot;player_sides&quot;: 4, &quot;computer_sides&quot;: 6, &quot;name&quot;: &quot;上級（プレイヤー不利）&quot;}
+        }
+        
+        # 現在の難易度設定を取得
+        current_setting = self._difficulty_settings[difficulty]
+        self._player_die_sides = current_setting[&quot;player_sides&quot;]
+        self._computer_die_sides = current_setting[&quot;computer_sides&quot;]
+        self._difficulty_name = current_setting[&quot;name&quot;]
+        
+        self._messages = {
+            PLAYER_WIN: &quot;あなたの勝ち！&quot;,
+            COMPUTER_WIN: &quot;コンピュータの勝ち！&quot;,
+            DRAW: &quot;引き分け！&quot;
+        }
+    
+    @property
+    def difficulty(self):
+        &quot;&quot;&quot;現在の難易度を取得&quot;&quot;&quot;
+        return self._difficulty
+    
+    @property
+    def difficulty_name(self):
+        &quot;&quot;&quot;難易度の日本語名を取得&quot;&quot;&quot;
+        return self._difficulty_name
+    
+    @property
+    def player_die_sides(self):
+        &quot;&quot;&quot;プレイヤーのサイコロ面数を取得&quot;&quot;&quot;
+        return self._player_die_sides
+    
+    @property
+    def computer_die_sides(self):
+        &quot;&quot;&quot;コンピュータのサイコロ面数を取得&quot;&quot;&quot;
+        return self._computer_die_sides
+    
+    @property
+    def messages(self):
+        &quot;&quot;&quot;メッセージ辞書を取得（読み取り専用）&quot;&quot;&quot;
+        return self._messages
+
+class DiceGame:
+    &quot;&quot;&quot;ゲーム共通の機能を持つ基底クラス&quot;&quot;&quot;
+    def __init__(self, config: GameConfig):
+        self._config = config
+        # 難易度に応じて異なる面数のサイコロを作成
+        self._player_die = Die(config.player_die_sides)
+        self._computer_die = Die(config.computer_die_sides)
+    
+    def _ask_continue(self, prompt=&quot;もう一度振りますか？ (y/n): &quot;) -&gt; bool:
+        &quot;&quot;&quot;プライベートメソッド：外部から直接呼ばれたくない内部処理&quot;&quot;&quot;
+        while True:
+            ans = input(prompt).lower()
+            if ans in (&quot;y&quot;, &quot;n&quot;):
+                return ans == &quot;y&quot;
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+    
+    def _print_history(self, history: list[int]):
+        &quot;&quot;&quot;プライベートメソッド：内部でのみ使用する履歴表示処理&quot;&quot;&quot;
+        print(&quot;これまでの出た目:&quot;)
+        for i, v in enumerate(history, start=1):
+            print(f&quot; {i}回目: {v}&quot;)
+        print(&quot;合計:&quot;, sum(history))
+    
+
+class SoloGame(DiceGame):
+    &quot;&quot;&quot;ソロプレイを行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def play(self):
+        &quot;&quot;&quot;パブリックメソッド：外部から呼び出されることを想定&quot;&quot;&quot;
+        
+        history = []
+        while True:
+            v = self._player_die.roll()
+            history.append(v)
+            print(f&quot;出た目は {v} です。&quot;)
+            
+            if not self._ask_continue(&quot;もう一度振りますか？ (y/n): &quot;):
+                print(&quot;ゲームを終了します。&quot;)
+                break
+        
+        self._print_history(history)
+
+class VsComputerGame(DiceGame):
+    &quot;&quot;&quot;コンピュータ対戦を行うクラス（DiceGameを継承）&quot;&quot;&quot;
+    def _play_one_round(self):
+        &quot;&quot;&quot;プライベートメソッド：1回分の対戦処理（内部でのみ使用）&quot;&quot;&quot;
+        player_roll = self._player_die.roll()
+        computer_roll = self._computer_die.roll()
+
+        print(f&quot;あなた:{player_roll} vs コンピュータ:{computer_roll}&quot;)
+
+
+        # 勝敗を判定
+        if player_roll &gt; computer_roll:
+            result = PLAYER_WIN
+        elif player_roll &lt; computer_roll:
+            result = COMPUTER_WIN
+        else:
+            result = DRAW
+        
+        print(self._config.messages[result])
+        return player_roll, computer_roll, result
+
+    def _print_match_statistics(self, match_history):
+        &quot;&quot;&quot;プライベートメソッド：対戦統計を表示（内部でのみ使用）&quot;&quot;&quot;
+        if not match_history:
+            print(&quot;対戦履歴がありません。&quot;)
+            return
+        
+        print(&quot;\n---詳細な対戦履歴---&quot;)
+        for i, match in enumerate(match_history, start=1):
+            player_roll, computer_roll, result = match
+            print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+        
+        print(&quot;\n---統計情報---&quot;)
+        
+        player_rolls = [match[0] for match in match_history]
+        computer_rolls = [match[1] for match in match_history]
+        
+        print(f&quot;あなたの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+        
+        print(f&quot;コンピュータの出目統計:&quot;)
+        print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+        print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+        print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+        
+        win_counts = {PLAYER_WIN: 0, COMPUTER_WIN: 0, DRAW: 0}
+        
+        for match in match_history:
+            _, _, winner = match
+            win_counts[winner] += 1
+        
+        print(f&quot;\n最終結果:&quot;)
+        print(f&quot;  あなたの勝利: {win_counts[PLAYER_WIN]}回&quot;)
+        print(f&quot;  コンピュータの勝利: {win_counts[COMPUTER_WIN]}回&quot;)
+        print(f&quot;  引き分け: {win_counts[DRAW]}回&quot;)
+
+
+    def play(self):
+        &quot;&quot;&quot;パブリックメソッド：外部から呼び出されることを想定&quot;&quot;&quot;
+        
+        match_history = []
+        
+        while True:
+            player_roll, computer_roll, result = self._play_one_round()
+            match_history.append([player_roll, computer_roll, result])
+            
+            if not self._ask_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+                print(&quot;対戦を終了します。&quot;)
+                break
+        
+        self._print_match_statistics(match_history)
+
+def select_difficulty():
+    &quot;&quot;&quot;難易度を選択する関数&quot;&quot;&quot;
+    print(&quot;難易度を選択してください:&quot;)
+    print(&quot; 1: 初級（プレイヤー有利 - あなた1〜9面 vs コンピュータ1〜6面）&quot;)
+    print(&quot; 2: 中級（通常 - 両方とも1〜6面）&quot;)
+    print(&quot; 3: 上級（プレイヤー不利 - あなた1〜4面 vs コンピュータ1〜6面）&quot;)
+    
+    while True:
+        choice = input(&quot;選択 (1/2/3): &quot;)
+        if choice == &quot;1&quot;:
+            return EASY
+        elif choice == &quot;2&quot;:
+            return NORMAL
+        elif choice == &quot;3&quot;:
+            return HARD
+        else:
+            print(&quot;無効な選択です。1、2、3のいずれかを入力してください。&quot;)
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    # まず難易度を選択
+    difficulty = select_difficulty()
+    
+    # 選択した難易度でゲーム設定を作成
+    game_config = GameConfig(difficulty=difficulty)
+    
+    print(f&quot;\n選択された難易度: {game_config.difficulty_name}&quot;)
+    print(&quot;モード選択: 1=ソロプレイ, 2=対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    
+    if mode == &quot;1&quot;:
+        game = SoloGame(game_config)
+    elif mode == &quot;2&quot;:
+        game = VsComputerGame(game_config)
+    else:
+        print(&quot;無効な選択です。&quot;)
+        exit()
+    
+    game.play()
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong>最小限の変更で大きな機能追加</strong>: 既存のクラス構造を活用し、主に <code>GameConfig</code> クラスの修正だけで難易度機能を実現しました。</li>
+<li><strong>設定の一元管理</strong>: 難易度情報を辞書で管理することで、新しい難易度の追加も簡単になります。</li>
+<li><strong>@propertyの活用</strong>: 設定値への安全なアクセスを提供し、外部から設定を変更される心配がありません。</li>
+<li><strong>カプセル化の効果</strong>: 各クラスの責任が明確で、設定変更の影響範囲を限定できます。</li>
+<li><strong>拡張性</strong>: 新しい難易度（例：「超上級」）を追加する場合も、辞書に1行追加するだけで済みます。</li>
+</ul>
+<blockquote>
+<p>コラム
+<strong>関数ベースの実装と比較してみよう</strong></p>
+<p>もし関数ベースの実装で同じ機能を追加しようとすると：</p>
+<pre><code class="language-python"># すべての関数に難易度パラメータを追加する必要がある
+def roll_die(sides=6, is_player=True, difficulty=&quot;normal&quot;):
+    # 難易度判定のロジックを各所に追加
+
+def play_vs_computer(difficulty=&quot;normal&quot;):
+    # 難易度に応じた分岐処理を多数追加
+
+def print_match_statistics(match_history, difficulty=&quot;normal&quot;):
+    # 統計表示も難易度に応じて変更
+</code></pre>
+<p>オブジェクト指向では、設定クラスに集約することで、コードの重複を避け、変更を最小限に抑えられます。</p>
+</blockquote>
+<blockquote>
+<p>コラム
+<strong>さらなる拡張の可能性</strong></p>
+<p>このクラス設計なら、以下のような機能も簡単に追加できます：</p>
+<ol>
+<li><strong>カスタム難易度</strong>: ユーザーが自由にサイコロ面数を設定</li>
+<li><strong>ハンディキャップ機能</strong>: プレイヤーに+1ボーナスなど</li>
+<li><strong>特殊サイコロ</strong>: 特定の面が出やすいサイコロ</li>
+<li><strong>ゲーム履歴の保存</strong>: 過去の成績を記録・表示</li>
+</ol>
+<p>オブジェクト指向の設計により、機能追加が容易になっています！</p>
+</blockquote>
+<blockquote>
+<p>コラム
+<strong>オブジェクト指向プログラミングの恩恵まとめ</strong></p>
+<p>今回の難易度機能追加を通じて、以下のOOPの恩恵を実感できました：</p>
+<ol>
+<li><strong>変更の局所化</strong>: 主に <code>GameConfig</code> クラスだけを変更すれば済む</li>
+<li><strong>コードの再利用</strong>: 既存のクラス・メソッドをそのまま活用</li>
+<li><strong>責任の分離</strong>: 各クラスが明確な役割を持ち、理解しやすい</li>
+<li><strong>拡張の容易性</strong>: 新機能の追加が既存コードに与える影響を最小化</li>
+<li><strong>保守性の向上</strong>: バグ修正や改良の際に影響範囲が明確</li>
+</ol>
+<p>大規模なプログラム開発では、これらの恩恵はさらに重要になります！</p>
+</blockquote>
+
+</body>
+</html>

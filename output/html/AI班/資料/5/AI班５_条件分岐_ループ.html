@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI班５_条件分岐_ループ</title>
-<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
 </head>
 <body class="markdown-body">
 <h1>条件分岐、ループ</h1>
@@ -172,11 +172,11 @@ if temperature &gt; 28:
 <li><code>:</code> (コロン): 条件式の後には必ずコロンをつけます。忘れやすいので注意！</li>
 <li><strong>インデント (字下げ)</strong>: <code>if</code>文の次の行から、条件が成り立った時に実行したい処理を書きますが、この部分は必ず<strong>インデント</strong>（半角スペース4つ分が一般的）を入れます。Pythonではこのインデントが非常に重要で、処理のまとまり（ブロック）を示します。インデントが正しくないと、エラーになったり、意図しない動きをしたりするので、しっかり意識してくださいね。</li>
 </ul>
-<p><img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-1.png" alt="">
-<img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-2.png" alt="">
-<img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-3.png" alt="">
-<img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-5.png" alt="">
-<img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-4.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-1.png" alt="">
+<img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-2.png" alt="">
+<img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-3.png" alt="">
+<img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-5.png" alt="">
+<img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-4.png" alt=""></p>
 <p>例えば、ある数値がプラスかどうかを判定するプログラムはこう書けます。</p>
 <pre><code class="language-python">number = 10
 if number &gt; 0:
@@ -233,11 +233,11 @@ elif signal == &quot;blue&quot;: # 地域によっては &quot;green&quot;
 else:
     print(f&quot;&#39;{signal}&#39; は信号の色として認識できません。&quot;)
 </code></pre>
-<p><img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-6.png" alt="">
-<img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-7.png" alt="">
-<img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-8.png" alt="">
-<img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-10.png" alt="">
-<img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-9.png" alt="">
+<p><img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-6.png" alt="">
+<img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-7.png" alt="">
+<img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-8.png" alt="">
+<img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-10.png" alt="">
+<img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-9.png" alt="">
 <strong>ポイント：</strong> <code>if</code>, <code>elif</code>, <code>else</code> のブロックでは、条件に一致した最初のブロックだけが実行され、残りのブロックは無視されます。</p>
 <h3>条件式を組み立てるコツ (比較演算子、論理演算子、<code>in</code>演算子)</h3>
 <p><code>if</code>文の「条件式」には、結果が <code>True</code> か <code>False</code> になるような式を書きます。<strong>比較演算子</strong>や<strong>論理演算子</strong>です。</p>
@@ -302,7 +302,7 @@ if entered_id == user_id:
 else:
     print(&quot;IDが間違っています。&quot;)
 </code></pre>
-<p><img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image.png" alt=""></p>
 <p>ネストした<code>if</code>文を使うと、より複雑な条件分岐を表現できますが、あまり深くネストしすぎるとコードが読みにくくなることがあります。そんな時は、処理を関数に分けたり、条件式を見直したりすると良いでしょう。（関数については次回以降で学びます！）</p>
 <h3>ちょっと便利：条件式を1行で書く (三項演算子)</h3>
 <p>簡単な <code>if-else</code> の処理を1行で簡潔に書きたい場合があります。そんな時に使えるのが「<strong>三項演算子 (conditional expression)</strong>」です。</p>
@@ -563,7 +563,7 @@ print(&quot;ループが終了しました。&quot;)
 </code></pre>
 <p>もしプログラムが無限ループに陥ってしまって、VSCodeのターミナルで実行が止まらなくなったら、慌てずにキーボードの <strong><code>Ctrl</code>キーを押しながら <code>C</code>キー</strong> を押してください (<code>Ctrl+C</code>)。これで実行中のPythonプログラムを強制的に停止させることができます。
 これは非常に重要なショートカットなので、絶対に覚えておきましょう！「あれ、プログラムが止まらない！」と思ったら、まずは <code>Ctrl+C</code> です！</p>
-<p><img src="/nitac_jyoken_public_materials/AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-11.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials /AI%E7%8F%AD/%E8%B3%87%E6%96%99/5/image-11.png" alt=""></p>
 <hr>
 <h2>3. ループを自在にコントロール</h2>
 <p>ループ処理の途中で、「もうここでループを抜けたい！」とか「今回はこの処理を飛ばして次に進みたい！」と思うことがありますよね。そんな時に役立つのが <code>break</code> と <code>continue</code> という命令です。</p>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>さいころ補足１</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>Pythonプログラミング補足資料１：基本のキ</h1>
+<p>この資料は、「Pythonサイコロゲームで学ぶ！基礎からオブジェクト指向プログラミング (1/3)」の演習を進める上で、特に最初のステップでつまずきやすいPythonの基本的なルールや用語について解説します。</p>
+<h2>1. Pythonプログラムの実行方法</h2>
+<p>Pythonのコードを実行するには、いくつかの方法があります。</p>
+<ul>
+<li><strong>Pythonインタプリタの対話モード:</strong>
+ターミナル（WindowsではコマンドプロンプトやPowerShell）で <code>python</code> と入力すると起動します。1行ずつコードを入力してすぐに結果を確認できます。ちょっとした動作確認に便利です。<pre><code class="language-bash">python
+&gt;&gt;&gt; print(&quot;こんにちは&quot;)
+こんにちは
+&gt;&gt;&gt; 1 + 2
+3
+&gt;&gt;&gt; exit()
+</code></pre>
+</li>
+<li><strong>スクリプトファイルとして実行:</strong>
+テキストエディタ（VS Codeなど）で <code>.py</code> という拡張子のファイルにコードを保存し、ターミナルで <code>python ファイル名.py</code> と入力して実行します。演習では主にこの方法を使います。<pre><code class="language-bash">python myscript.py
+</code></pre>
+VS Codeを使っている場合は、エディタの実行ボタン（通常は右上の再生マークのようなアイコン）からも実行できます。</li>
+</ul>
+<h2>2. Pythonの基本ルール</h2>
+<ul>
+<li><strong>コメント:</strong>
+コード中に <code>#</code> を書くと、その行の <code>#</code> 以降の部分はプログラムの動作に影響しない「コメント」になります。メモや説明を残すのに使います。<pre><code class="language-python"># これはコメントです
+x = 10 # これもコメント
+</code></pre>
+</li>
+<li><strong>インデント（字下げ）:</strong>
+Pythonでは、行頭のスペース（インデント）が非常に重要です。<code>if</code>文や<code>while</code>ループ、関数の定義など、コードのまとまり（ブロック）を表すのに使われます。インデントが正しくないとエラーになります。通常はスペース4つで1つのインデントレベルとします。<pre><code class="language-python"># 正しい例
+if x &gt; 0:
+    print(&quot;xは正です&quot;) # ifブロックの中（インデントされている）
+else:
+    print(&quot;xは0以下です&quot;) # elseブロックの中（インデントされている）
+
+# 間違った例 (IndentationError)
+# if x &gt; 0:
+# print(&quot;xは正です&quot;) # インデントがない
+</code></pre>
+</li>
+</ul>
+<h2>3. モジュールと <code>import</code></h2>
+<p>Pythonには便利な機能がたくさん詰まった「モジュール」という部品があります。
+<code>import モジュール名</code> と書くことで、そのモジュールの機能を使えるようになります。
+演習では <code>random</code> モジュールを使い、ランダムな数値を生成します。</p>
+<pre><code class="language-python">import random # randomモジュールを使えるようにする
+
+# 1から6までのランダムな整数を生成
+dice_roll = random.randint(1, 6)
+print(f&quot;サイコロの目は {dice_roll} です&quot;)
+</code></pre>
+<h2>4. 変数とデータ型</h2>
+<ul>
+<li><p><strong>変数:</strong>
+数値や文字列などのデータに名前を付けて保存しておくためのものです。箱のようなイメージです。</p>
+<pre><code class="language-python">my_name = &quot;AIプログラマー&quot; # &quot;AIプログラマー&quot; という文字列を my_name という変数に保存
+age = 20                 # 20 という数値を age という変数に保存
+</code></pre>
+</li>
+<li><p><strong>データ型:</strong>
+変数が扱うデータの種類のことです。Pythonは自動で型を判別してくれますが、主なものを覚えておきましょう。</p>
+<ul>
+<li><strong>整数 (<code>int</code>):</strong> <code>1</code>, <code>100</code>, <code>-5</code> のような小数点のない数値。</li>
+<li><strong>浮動小数点数 (<code>float</code>):</strong> <code>3.14</code>, <code>-0.5</code> のような小数点のある数値。</li>
+<li><strong>文字列 (<code>str</code>):</strong> <code>\&quot;こんにちは\&quot;</code>, <code>\&#39;Python\&#39;</code> のように文字の並びを <code>\&#39; \&#39;</code> や <code>\&quot; \&quot;</code> で囲んだもの。</li>
+<li><strong>ブール値 (<code>bool</code>):</strong> <code>True</code> (真) または <code>False</code> (偽) のどちらかの値。条件分岐などで使われます。</li>
+</ul>
+</li>
+<li><p><strong>型変換:</strong>
+あるデータ型を別のデータ型に変換することです。</p>
+<ul>
+<li><code>str(数値)</code>: 数値を文字列に変換します。 <code>print()</code> で数値と文字列を連結する際によく使います。<pre><code class="language-python">age = 20
+print(&quot;私の年齢は&quot; + str(age) + &quot;歳です&quot;) # str(20) は \&quot;20\&quot; になる
+</code></pre>
+</li>
+<li><code>int(文字列)</code>: 文字列を整数に変換します。<code>input()</code> で受け取った文字列を数値として扱いたい場合に使います。<pre><code class="language-python">num_str = &quot;10&quot;
+num_int = int(num_str) # \&quot;10\&quot; が 10 になる
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2>5. 基本的な入出力</h2>
+<ul>
+<li><strong>画面への出力 (<code>print()</code>):</strong>
+カッコ <code>()</code> の中に指定した値や変数の内容を画面に表示します。<pre><code class="language-python">print(&quot;Hello, Python!&quot;)
+x = 10
+print(x)
+print(&quot;xの値は&quot;, x, &quot;です&quot;) # カンマで区切ると半角スペースで連結される
+print(f&quot;xの値は {x} です&quot;) # f-string (演習資料のコラム参照)
+</code></pre>
+</li>
+<li><strong>キーボードからの入力 (<code>input()</code>):</strong>
+ユーザーにキーボードから値を入力してもらい、その値を文字列として受け取ります。<pre><code class="language-python">user_name = input(&quot;お名前を入力してください: &quot;)
+print(f&quot;こんにちは、{user_name}さん！&quot;)
+
+age_str = input(&quot;年齢を入力してください: &quot;)
+age_int = int(age_str) # 文字列として受け取るので、数値として使う場合はint()で変換
+print(f&quot;{age_int}歳なんですね！&quot;)
+</code></pre>
+</li>
+</ul>
+<h2>6. 条件分岐 (<code>if</code>文)</h2>
+<p>「もし○○ならば△△する、そうでなければ□□する」というように、条件によって処理を変えたい場合に使います。</p>
+<ul>
+<li><strong>基本構造:</strong><pre><code class="language-python">if 条件式1:
+    # 条件式1がTrueの場合に実行される処理
+elif 条件式2: # \&quot;else if\&quot; の略
+    # 条件式1がFalseで、条件式2がTrueの場合に実行される処理
+else:
+    # すべての条件式がFalseの場合に実行される処理
+</code></pre>
+</li>
+<li><strong>比較演算子:</strong> 条件式でよく使われます。<ul>
+<li><code>==</code> : 等しい</li>
+<li><code>!=</code> : 等しくない</li>
+<li><code>&gt;</code> : より大きい</li>
+<li><code>&lt;</code> : より小さい</li>
+<li><code>&gt;=</code>: 以上</li>
+<li><code>&lt;=</code>: 以下</li>
+</ul>
+<pre><code class="language-python">score = 85
+if score &gt;= 80:
+    print(&quot;合格です！&quot;)
+elif score &gt;= 60:
+    print(&quot;追試です。&quot;)
+else:
+    print(&quot;不合格です。&quot;)
+</code></pre>
+</li>
+</ul>
+<h2>7. 繰り返し (<code>while</code>ループ)</h2>
+<p>特定の条件が満たされている間、同じ処理を繰り返したい場合に使います。</p>
+<ul>
+<li><p><strong>基本構造:</strong></p>
+<pre><code class="language-python">while 条件式:
+    # 条件式がTrueの間、繰り返し実行される処理
+</code></pre>
+</li>
+<li><p><strong><code>break</code>:</strong> ループを途中で強制的に終了します。</p>
+</li>
+<li><p><strong><code>continue</code>:</strong> ループの現在の回の残りの処理をスキップし、次の回の条件判定に進みます。</p>
+<pre><code class="language-python">count = 0
+while count &lt; 3:
+    print(f&quot;カウント: {count}&quot;)
+    count += 1 # count = count + 1 と同じ
+print(&quot;ループ終了&quot;)
+
+# \&#39;q\&#39; が入力されるまで入力を促す例
+while True: # 無限ループ (breakで抜ける必要がある)
+    user_input = input(&quot;何か入力してください (\&#39;q\&#39;で終了): &quot;)
+    if user_input == \&#39;q\&#39;:
+        print(&quot;終了します。&quot;)
+        break # ループを抜ける
+    print(f&quot;入力されたのは: {user_input} です。&quot;)
+</code></pre>
+</li>
+</ul>
+
+</body>
+</html>
