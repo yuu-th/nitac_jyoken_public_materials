@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>python_dice_game_tutorial_part1</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>Pythonサイコロゲームで学ぶ！基礎からオブジェクト指向プログラミング (1/3)</h1>
+<p>この資料では、簡単なサイコロゲームを作りながら、Pythonプログラミングの基礎からオブジェクト指向（OOP）の考え方までを学びます。</p>
+<p><strong>___や日本語になっている部分を埋めてください</strong></p>
+<hr>
+<h2>ステップ1: サイコロを振って結果を表示する</h2>
+<p>まずは、コンピュータにサイコロを1回振ってもらい、その結果を表示するプログラムを作りましょう。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+roll = random.randint(1, 6)  # 1から6の間のランダムな整数を生成
+出た目は~ですと出力
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li><code>print()</code> で文字と数値を一緒に出すときは、数値を <code>str()</code> を使って文字列に変換する必要があります。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを振る
+roll = random.randint(1, 6)
+print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><code>import random</code>: <code>random</code> モジュールを使えるようにする。</li>
+<li><code>random.randint(1, 6)</code>: 1から6までのランダムな整数を生成する。</li>
+<li>変数 <code>roll</code>: 生成されたサイコロの目を保存する。</li>
+<li><code>print()</code>: 文字列や変数の値を画面に表示する。</li>
+<li><code>str(roll)</code>: 数値である <code>roll</code> を文字列に変換する。</li>
+<li><code>#</code>: 「コメント」と言い、プログラムの説明などを書くために使います。<code>#</code> から行末まではプログラムの動作に影響しません。</li>
+</ul>
+<blockquote>
+<p>コラム
+print(f&quot;出た目は{roll}です。&quot;) のように書いても同じです。(f-string)。より簡潔な記法なので、覚えよう！</p>
+</blockquote>
+<hr>
+<h2>ステップ2: もう一度振るか聞いてみる (if文)</h2>
+<p>次に、サイコロを振った後、ユーザーにもう一度振るかどうかを尋ね、その答えによって動作を変えるようにしてみましょう。
+ここでは <code>if</code> 文という、条件によって処理を分ける方法を学びます。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを振る
+roll = random.randint(1, 6)
+print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+
+# もう一度振るかどうか確認
+y_or_n = ____(&quot;もう一度振りますか？ (y/n): &quot;) # ユーザーからの入力を受け取る
+
+もしy_or_nが &quot;y&quot; だったら:
+    roll = random.randint(1, 6)
+    print(&quot;二回目の出た目は&quot;+str(roll)+&quot;です。&quot;)
+そうではなくもしy_or_nが &quot;n&quot; だったら:
+    print(&quot;ゲームを終了します。&quot;)
+それ以外の場合:
+    print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>ユーザーにキーボードから文字を入力してもらうには <code>input(&quot;表示するメッセージ&quot;)</code> を使います。</li>
+<li><code>if 条件:</code>: もし「条件」が正しい場合に、次の行からの処理（インデントされたブロック）を実行します。</li>
+<li><code>elif 条件:</code>: <code>if</code> の条件が正しくなく、こちらの「条件」が正しい場合に処理を実行します。</li>
+<li><code>else:</code>: <code>if</code> や <code>elif</code> のどの条件にも当てはまらなかった場合に処理を実行します。</li>
+<li><code>==</code>: 「等しいかどうか」を比べるための記号です。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを振る
+roll = random.randint(1, 6)
+print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+
+# もう一度振るかどうか確認
+y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+
+if y_or_n == &quot;y&quot;:
+    roll = random.randint(1, 6)
+    print(&quot;二回目の出た目は&quot;+str(roll)+&quot;です。&quot;)
+elif y_or_n == &quot;n&quot;:
+    print(&quot;ゲームを終了します。&quot;)
+else:
+    print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><code>input()</code>: ユーザーからのキーボード入力を受け取る。入力されたものは文字列になる。</li>
+<li><code>if</code> 文: 条件によって処理を分岐させる。<ul>
+<li><code>if 条件1:</code></li>
+<li><code>elif 条件2:</code> (else if の略)</li>
+<li><code>else:</code></li>
+</ul>
+</li>
+<li>インデント（字下げ）: Pythonでは、<code>if</code>文などで処理のまとまりを表すのに重要。</li>
+</ul>
+<hr>
+<h2>ステップ3: 何度でも振れるようにする (whileループ)</h2>
+<p>「y」と答えている間は何度でもサイコロを振れるように、繰り返し処理を導入しましょう。
+ここでは <code>while</code> ループという、特定の条件が満たされている間、処理を繰り返す方法を学びます。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+ずっと繰り返す:
+    roll = random.randint(1,6)
+    print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+    y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+    if y_or_n == &quot;y&quot;:
+        ループの最初に戻って処理を続ける
+    elif y_or_n == &quot;n&quot;:
+        print(&quot;ゲームを終了します。&quot;)
+        ループを抜ける
+    else:
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。無効なのでゲームを終了します。&quot;)
+        ループを抜ける
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li><code>while 条件:</code>: 「条件」が正しい間、次の行からの処理（インデントされたブロック）を繰り返します。<code>True</code> を条件にすると無限に繰り返します（ループを抜ける処理が必要）。</li>
+<li><code>continue</code>: <code>while</code> ループの中で使うと、それ以降の処理を飛ばして、ループの最初（条件判定）に戻ります。</li>
+<li><code>break</code>: <code>while</code> ループの中で使うと、ループを強制的に終了します。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+while True:
+    roll = random.randint(1,6)
+    print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+    y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+    if y_or_n == &quot;y&quot;:
+        continue
+    elif y_or_n == &quot;n&quot;:
+        print(&quot;ゲームを終了します。&quot;)
+        break
+    else:
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。無効なのでゲームを終了します。&quot;)
+        break
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><code>while</code> ループ: 条件が真の間、処理を繰り返す。</li>
+<li><code>True</code>: 「真」を表す特別な値。<code>while True</code> で無限ループを作れる。</li>
+<li><code>continue</code>: ループの現在の回を中断し、次の回の先頭へ進む。</li>
+<li><code>break</code>: ループを即座に終了する。</li>
+</ul>
+<hr>
+<h2>ステップ4: 出た目を記録する (リスト)</h2>
+<p>これまでのサイコロの出た目をすべて記録し、最後にまとめて表示できるようにしましょう。
+複数の値をまとめて管理するには「リスト」を使います。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+roll_history_list = ____  # 出た目を記録するための空のリストを用意
+
+while True:
+    roll = random.randint(1, 6)
+    roll_history_list.____(roll)  # 出た目をリストの末尾に追加
+    print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+    y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+    if y_or_n == &quot;y&quot;:
+        continue
+    elif y_or_n == &quot;n&quot;:
+        print(&quot;ゲームを終了します。&quot;)
+        break
+    else:
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。無効なのでゲームを終了します。&quot;)
+        break
+
+print(&quot;これまでの出た目:&quot;, roll_history_list) # 記録したリスト全体を表示
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>リストは <code>[]</code> で作ります。空のリストは <code>[]</code> です。</li>
+<li>リストに要素を追加するには、<code>リスト名.append(追加する要素)</code> というメソッドを使います。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+roll_history_list = []  # 出た目を記録するリスト
+
+while True:
+    roll = random.randint(1, 6)
+    roll_history_list.append(roll)  # 出た目をリストに追加
+    print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+    y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+    if y_or_n == &quot;y&quot;:
+        continue
+    elif y_or_n == &quot;n&quot;:
+        print(&quot;ゲームを終了します。&quot;)
+        break
+    else:
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。無効なのでゲームを終了します。&quot;)
+        break
+
+print(&quot;これまでの出た目:&quot;, roll_history_list)
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li>リスト: 複数のデータを順番に格納できるデータ構造。<code>[]</code> で作成。</li>
+<li><code>roll_history_list = []</code>: 空のリストを作成し、変数 <code>roll_history_list</code> に代入。</li>
+<li><code>roll_history_list.append(roll)</code>: <code>roll_history_list</code> の末尾に <code>roll</code> の値を追加する。</li>
+<li>リストの表示: <code>print(リスト名)</code> でリストの内容を表示できる。</li>
+</ul>
+<hr>
+<hr>
+<h2>ステップ5: forループを使って、出た目の履歴を見やすく表示しよう</h2>
+<p>これまでのステップでは、サイコロを振った結果をリストに保存しました。このステップでは、保存された履歴を <code>for</code> ループを使って、より分かりやすく表示する方法を学びます。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+roll_history_list = []  # 出た目を記録するリスト
+
+while True:
+    roll = random.randint(1, 6)
+    roll_history_list.append(roll)  # 出た目をリストに追加
+    print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+    y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+    if y_or_n == &quot;y&quot;:
+        continue
+    elif y_or_n == &quot;n&quot;:
+        print(&quot;ゲームを終了します。&quot;)
+        break
+    else:
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。無効なのでゲームを終了します。&quot;)
+        break
+
+print(&quot;これまでの出た目:&quot;)
+iを 0 から roll_history_list の長さ - 1 までの範囲で繰り返す:
+   「i+1 回目: (roll_history_listのi番目の値)」という形式で出力する
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>リストの長さを取得するには <code>len()</code> 関数を使います。</li>
+<li><code>for</code> ループと <code>range()</code> 関数を組み合わせることで、特定の回数だけ処理を繰り返せます。</li>
+<li>リストの要素には <code>リスト名[インデックス]</code> でアクセスできます。インデックスは0から始まります。</li>
+<li>f-string <code>f&quot;文字列 {変数}&quot;</code> を使うと、文字列の中に変数の値を埋め込めて便利です。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+roll_history_list = []  # 出た目を記録するリスト
+
+while True:
+    roll = random.randint(1, 6)
+    roll_history_list.append(roll)  # 出た目をリストに追加
+    print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+    y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+    if y_or_n == &quot;y&quot;:
+        continue
+    elif y_or_n == &quot;n&quot;:
+        print(&quot;ゲームを終了します。&quot;)
+        break
+    else:
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。無効なのでゲームを終了します。&quot;)
+        break
+
+print(&quot;これまでの出た目:&quot;)
+for i in range(len(roll_history_list)):
+    print(f&quot; {i+1}回目: {roll_history_list[i]}&quot;)
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong><code>for i in range(len(リスト名)):</code></strong>: リストの各要素に順番にアクセスするための一般的な方法です。<code>i</code> は0から始まり、リストの最後の要素のインデックスまで変化します。</li>
+<li><strong><code>リスト名[i]</code></strong>: リストの <code>i</code> 番目の要素を取得します。</li>
+<li><strong>f-string</strong>: <code>f&quot; {i+1}回目: {roll_history_list[i]}&quot;</code> のように、文字列に変数の値を埋め込むことで、見やすい出力を作成できます。<code>i+1</code> とすることで、回数表示を1から始めることができます。</li>
+</ul>
+<blockquote>
+<p>コラム
+<code>enumerate</code> 関数を使うと、リストのインデックスと要素を同時に取得できて便利です。</p>
+<pre><code class="language-python">print(&quot;これまでの出た目:&quot;)
+for i, roll in enumerate(roll_history_list, start=1):
+    print(f&quot; {i}回目: {roll}&quot;)
+</code></pre>
+<p><code>start=1</code> を指定することで、インデックス <code>i</code> が1から始まります。この方が <code>i+1</code> と書くよりもスッキリしますね。</p>
+</blockquote>
+<hr>
+<h2>ステップ6: forループを使って、出た目の合計値を計算しよう</h2>
+<p>リストに保存された出た目の履歴を使って、今度はそれらの合計値を計算してみましょう。ここでも <code>for</code> ループが活躍します。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+roll_history_list = []  # 出た目を記録するリスト
+
+while True:
+    roll = random.randint(1, 6)
+    roll_history_list.append(roll)  # 出た目をリストに追加
+    print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+    y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+    if y_or_n == &quot;y&quot;:
+        continue
+    elif y_or_n == &quot;n&quot;:
+        print(&quot;ゲームを終了します。&quot;)
+        break
+    else:
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。無効なのでゲームを終了します。&quot;)
+        break
+
+print(&quot;これまでの出た目:&quot;)
+for i in range(len(roll_history_list)):
+    print(f&quot; {i+1}回目: {roll_history_list[i]}&quot;)
+
+total = 0
+roll_history_list の中の各要素を roll に取り出すループ:
+    total += roll
+print(&quot;これまでの出た目の合計は:&quot;, total)
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>合計を計算し始める前に、合計値を保存する変数を <code>0</code> で初期化します。</li>
+<li><code>for 変数名 in リスト名:</code> という構文を使うと、リストの各要素を順番に取り出して処理できます。</li>
+<li><code>変数 += 値</code> は <code>変数 = 変数 + 値</code> と同じ意味で、変数に値を加算します。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+roll_history_list = []  # 出た目を記録するリスト
+
+while True:
+    roll = random.randint(1, 6)
+    roll_history_list.append(roll)  # 出た目をリストに追加
+    print(&quot;出た目は&quot;+str(roll)+&quot;です。&quot;)
+    y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+    if y_or_n == &quot;y&quot;:
+        continue
+    elif y_or_n == &quot;n&quot;:
+        print(&quot;ゲームを終了します。&quot;)
+        break
+    else:
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。無効なのでゲームを終了します。&quot;)
+        break
+
+print(&quot;これまでの出た目:&quot;)
+for i in range(len(roll_history_list)):
+    print(f&quot; {i+1}回目: {roll_history_list[i]}&quot;)
+
+# 合計値を計算
+total = 0
+for roll in roll_history_list:
+    total += roll
+print(&quot;これまでの出た目の合計は:&quot;, total)
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong>変数の初期化</strong>: 合計やカウントなど、値を累積していく変数は、ループの前に適切な初期値（通常は0や空のリストなど）で初期化することが重要です。</li>
+<li><strong><code>for 要素 in リスト名:</code></strong>: リストの各要素を順番に取り出して <code>要素</code> という変数に代入し、ループ内の処理を実行します。ステップ5の <code>range(len())</code> を使う方法よりもシンプルに書けます。</li>
+<li><strong>累算代入演算子 <code>+=</code></strong>: <code>total = total + roll</code> を短く書いたもので、変数に値を足しこむ際によく使われます。</li>
+</ul>
+<blockquote>
+<p>コラム
+Pythonには、リストなどの数値の集まりの合計を簡単に計算できる <code>sum()</code> 関数があります。</p>
+<pre><code class="language-python">total = sum(roll_history_list)
+print(&quot;これまでの出た目の合計は:&quot;, total)
+</code></pre>
+<p>このように書けば、<code>for</code> ループを使って自分で合計を計算するコードを書く必要がありません。とても便利ですね！</p>
+</blockquote>
+<hr>
+<h2>ステップ7: 関数を使って処理をまとめよう</h2>
+<p>これまでのコードは長くなってきましたね。同じような処理を何度も書いたり、どこで何をしているのか分かりにくくなったりしていませんか？
+このステップでは、「関数」という機能を使って、処理を部品のようにまとめ、コードをスッキリさせます。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを1個振って、出た目を返す関数
+def roll_die()-&gt; int:
+    # 1から6までのランダムな整数を生成して返す
+    return ___
+
+# 「もう一度振りますか？」と聞いて、&quot;y&quot;ならTrue、&quot;n&quot;ならFalseを返す関数
+def ask_and_check_if_continue()-&gt;bool:
+    while True:
+        # 「もう一度振りますか？ (y/n): 」と表示し、ユーザーの入力を受け取る
+        y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+        if y_or_n == &quot;y&quot;:
+            # &quot;y&quot;が入力されたらTrueを返す
+            return ___
+        elif y_or_n == &quot;n&quot;:
+            # &quot;n&quot;が入力されたらFalseを返す
+            return ___
+        else:
+            # それ以外の入力ならエラーメッセージを表示
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    # enumerateを使って、インデックスと値を同時に取得して表示
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    # sumを使って合計値を計算して表示
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        # roll_die関数を呼び出してサイコロを振る
+        roll = ___
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+
+        # ask_and_check_if_continue関数を呼び出して続けるか確認
+        if not ___:
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    
+    # print_history関数を呼び出して履歴を表示
+    ___(roll_history_list)
+
+# このスクリプトが直接実行されたときに、solo_play関数を呼び出す
+if __name__ == &quot;__main__&quot;:
+    ___
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>関数を定義するには <code>def 関数名():</code> のように書きます。</li>
+<li>関数の中で行う処理は、インデント（字下げ）します。</li>
+<li>関数を呼び出すには <code>関数名()</code> のように書きます。</li>
+<li>関数から値を返すには <code>return 値</code> のように書きます。</li>
+<li><code>if __name__ == &quot;__main__&quot;:</code> は、このPythonファイルが他のファイルから読み込まれたのではなく、直接実行された場合にのみ、その中の処理を実行するためのおまじないです。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを1個振って、出た目を返す関数
+def roll_die()-&gt;int:
+    # 1から6までのランダムな整数を生成して返す
+    return random.randint(1, 6)
+
+# 「もう一度振りますか？」と聞いて、&quot;y&quot;ならTrue、&quot;n&quot;ならFalseを返す関数
+def ask_and_check_if_continue()-&gt;bool:
+    while True:
+        # 「もう一度振りますか？ (y/n): 」と表示し、ユーザーの入力を受け取る
+        y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+        if y_or_n == &quot;y&quot;:
+            # &quot;y&quot;が入力されたらTrueを返す
+            return True
+        elif y_or_n == &quot;n&quot;:
+            # &quot;n&quot;が入力されたらFalseを返す
+            return False
+        else:
+            # それ以外の入力ならエラーメッセージを表示
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    # enumerateを使って、インデックスと値を同時に取得して表示
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    # sumを使って合計値を計算して表示
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        # roll_die関数を呼び出してサイコロを振る
+        roll = roll_die()
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+
+        # ask_and_check_if_continue関数を呼び出して続けるか確認
+        if not ask_and_check_if_continue():
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    
+    # print_history関数を呼び出して履歴を表示
+    print_history(roll_history_list)
+
+# このスクリプトが直接実行されたときに、solo_play関数を呼び出す
+if __name__ == &quot;__main__&quot;:
+    solo_play()
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong>関数</strong>を使うと、特定の処理をひとつの「部品」としてまとめることができます。</li>
+<li>関数には<strong>名前</strong>をつけ、その名前を使って何度も呼び出すことができます（<strong>再利用性</strong>）。</li>
+<li>コードの役割分担が明確になり、<strong>見通しが良く</strong>なります。</li>
+<li><code>def</code> キーワードを使って関数を定義します。</li>
+<li>関数に情報を渡すことを「<strong>引数 (ひきすう)</strong> を渡す」と言います。例: <code>print_history(roll_history_list)</code> の <code>roll_history_list</code></li>
+<li>関数から結果を受け取ることを「<strong>戻り値 (もどりち)</strong> を受け取る」と言います。例: <code>roll = roll_die()</code> の <code>roll</code></li>
+<li><code>if __name__ == &quot;__main__&quot;:</code> は、Pythonスクリプトが「プログラムとして直接実行された」場合にのみ、そのブロック内のコードを実行するための決まり文句です。他のPythonファイルから部品として呼び出された場合には実行されません。</li>
+</ul>
+<blockquote>
+<p>コラム
+関数定義の際に、引数や戻り値の「型ヒント」を書くことがあります。例えば <code>def roll_die() -&gt; int:</code> のように書くと、「この関数は整数(int)を返す」という意味になります。これはコードの可読性を高め、間違いを減らすのに役立ちますが、必須ではありません。
+また、関数の最初の行に <code>&quot;&quot;&quot;関数の説明文&quot;&quot;&quot;</code> のように三重クォートで囲んで説明文（docstring）を書く習慣もあります。これも他の人がコードを理解しやすくするために役立ちます。</p>
+</blockquote>
+<hr>
+
+</body>
+</html>

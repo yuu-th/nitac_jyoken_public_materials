@@ -312,7 +312,24 @@
     "lastProcessed": "2025-06-11T06:34:08.509Z"
   },
   "README.md": {
+<<<<<<< HEAD
     "hash": "8b88d17bc22c8c863b754b0e0936aff8",
     "lastProcessed": "2025-06-11T06:34:10.187Z"
+=======
+    "hash": "87fa8a5c2de0c06a72582064d3a18668",
+    "lastProcessed": "2025-06-06T02:36:14.902Z"
+  },
+  "AI班/活動/6_11/python_dice_game_tutorial_part1.md": {
+    "hash": "75917f7586a13724e580dcf45d0ca757",
+    "lastProcessed": "2025-06-09T11:39:50.155Z"
+  },
+  "AI班/活動/6_11/python_dice_game_tutorial_part2.md": {
+    "hash": "0eb28fca3fae6a2baabe0dc04cb74d61",
+    "lastProcessed": "2025-06-09T11:39:51.623Z"
+  },
+  "AI班/活動/6_11/python_dice_game_tutorial_part3.md": {
+    "hash": "e4dd01bb496b8e9660dee0aaf19bcd7b",
+    "lastProcessed": "2025-06-09T11:39:53.190Z"
+>>>>>>> 03646fc9648cdd8566fb57111e3c3e88cf6b40e0
   }
 }
