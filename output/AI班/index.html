@@ -1,727 +1,755 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI班 - ドキュメント一覧</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #2563eb;
-      --secondary-color: #1e40af;
-      --accent-color: #3b82f6;
-      --success-color: #10b981;
-      --warning-color: #f59e0b;
-      --danger-color: #ef4444;
-      --dark-color: #1f2937;
-      --light-color: #f8fafc;
-      --border-color: #e5e7eb;
-      --text-primary: #1f2937;
-      --text-secondary: #6b7280;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI班 - ドキュメント一覧</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #3b82f6;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --dark-color: #1f2937;
+        --light-color: #f8fafc;
+        --border-color: #e5e7eb;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      line-height: 1.6;
-      color: var(--text-primary);
-      background-color: var(--light-color);
-    }
+      body {
+        font-family: "Noto Sans JP", sans-serif;
+        line-height: 1.6;
+        color: var(--text-primary);
+        background-color: var(--light-color);
+      }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* ヘッダー */
-    .header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      padding: 2rem 0;
-      margin-bottom: 2rem;
-      box-shadow: var(--shadow-md);
-    }
-
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-
-    /* ブレッドクラム */
-    .breadcrumb {
-      background: white;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: var(--shadow-sm);
-      margin-bottom: 2rem;
-      font-size: 0.9rem;
-    }
-
-    .breadcrumb-link {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .breadcrumb-link:hover {
-      text-decoration: underline;
-    }
-
-    .breadcrumb-separator {
-      margin: 0 0.5rem;
-      color: var(--text-secondary);
-    }
-
-    .breadcrumb-current {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    /* サブディレクトリナビゲーション */
-    .subdirectory-nav {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: var(--shadow-md);
-      margin-bottom: 2rem;
-    }
-
-    .subdirectory-nav h3 {
-      color: var(--text-primary);
-      margin-bottom: 1rem;
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-
-    .subdirectory-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-
-    .subdirectory-card {
-      display: flex;
-      align-items: center;
-      padding: 1rem;
-      background: var(--light-color);
-      border: 2px solid var(--border-color);
-      border-radius: 8px;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: all 0.2s ease;
-    }
-
-    .subdirectory-card:hover {
-      border-color: var(--primary-color);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .subdirectory-icon {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-right: 1rem;
-    }
-
-    .subdirectory-info h4 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .subdirectory-info p {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    /* ファイルセクション */
-    .files-section {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: var(--shadow-md);
-      margin-bottom: 2rem;
-    }
-
-    .files-section h3 {
-      color: var(--text-primary);
-      margin-bottom: 1rem;
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-
-    .file-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1rem;
-    }
-
-    .file-card {
-      background: var(--light-color);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      transition: all 0.2s ease;
-    }
-
-    .file-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .file-info {
-      margin-bottom: 1rem;
-    }
-
-    .file-name {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .file-icon {
-      color: var(--primary-color);
-    }
-
-    .file-path {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.5rem;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      margin-right: 0.5rem;
-    }
-
-    .marp-tag {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .path-tag {
-      background: #dbeafe;
-      color: #1e40af;
-    }
-
-    .file-actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .action-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-html {
-      background: var(--primary-color);
-      color: white;
-    }
-
-    .btn-html:hover {
-      background: var(--secondary-color);
-    }
-
-    .btn-pdf {
-      background: var(--danger-color);
-      color: white;
-    }
-
-    .btn-pdf:hover {
-      background: #dc2626;
-    }
-
-    /* レスポンシブ */
-    @media (max-width: 768px) {
       .container {
-        padding: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* ヘッダー */
+      .header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
       }
 
       .header h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+
+      /* ブレッドクラム */
+      .breadcrumb {
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+      }
+
+      .breadcrumb-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .breadcrumb-link:hover {
+        text-decoration: underline;
+      }
+
+      .breadcrumb-separator {
+        margin: 0 0.5rem;
+        color: var(--text-secondary);
+      }
+
+      .breadcrumb-current {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      /* サブディレクトリナビゲーション */
+      .subdirectory-nav {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 2rem;
+      }
+
+      .subdirectory-nav h3 {
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        font-weight: 600;
       }
 
       .subdirectory-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .subdirectory-card {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background: var(--light-color);
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.2s ease;
+      }
+
+      .subdirectory-card:hover {
+        border-color: var(--primary-color);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+
+      .subdirectory-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-right: 1rem;
+      }
+
+      .subdirectory-info h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .subdirectory-info p {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+
+      /* ファイルセクション */
+      .files-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 2rem;
+      }
+
+      .files-section h3 {
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        font-weight: 600;
       }
 
       .file-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+      }
+
+      .file-card {
+        background: var(--light-color);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem;
+        transition: all 0.2s ease;
+      }
+
+      .file-card:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+
+      .file-info {
+        margin-bottom: 1rem;
+      }
+
+      .file-name {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .file-icon {
+        color: var(--primary-color);
+      }
+
+      .file-path {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+      }
+
+      .marp-tag {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .path-tag {
+        background: #dbeafe;
+        color: #1e40af;
       }
 
       .file-actions {
-        flex-direction: column;
+        display: flex;
+        gap: 0.5rem;
       }
-    }
 
-    .fade-in {
-      animation: fadeIn 0.5s ease-in;
-    }
+      .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+      }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
+      .btn-html {
+        background: var(--primary-color);
+        color: white;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      .btn-html:hover {
+        background: var(--secondary-color);
       }
-    }
-  </style>
-</head>
-<body>
-  <header class="header">
+
+      .btn-pdf {
+        background: var(--danger-color);
+        color: white;
+      }
+
+      .btn-pdf:hover {
+        background: #dc2626;
+      }
+
+      /* レスポンシブ */
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .subdirectory-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .file-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .file-actions {
+          flex-direction: column;
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1><i class="fas fa-folder-open"></i> ドキュメント一覧</h1>
+      </div>
+    </header>
+
     <div class="container">
-      <h1><i class="fas fa-folder-open"></i> ドキュメント一覧</h1>
+      <nav class="breadcrumb"><a href="../index.html" class="breadcrumb-link">ルート</a> <span class="breadcrumb-separator">&gt;</span> <span class="breadcrumb-current">AI班</span></nav>
+
+      <div class="subdirectory-nav">
+        <h3><i class="fas fa-folder"></i> サブディレクトリ</h3>
+        <div class="subdirectory-grid">
+          <a href="体験/index.html" class="subdirectory-card">
+            <div class="subdirectory-icon">
+              <i class="fas fa-folder-open"></i>
+            </div>
+            <div class="subdirectory-info">
+              <h4>体験</h4>
+              <p>1 ファイル</p>
+            </div>
+          </a>
+
+          <a href="活動/index.html" class="subdirectory-card">
+            <div class="subdirectory-icon">
+              <i class="fas fa-folder"></i>
+            </div>
+            <div class="subdirectory-info">
+              <h4>活動</h4>
+              <p>12 ファイル</p>
+            </div>
+          </a>
+
+          <a href="講義/index.html" class="subdirectory-card">
+            <div class="subdirectory-icon">
+              <i class="fas fa-folder"></i>
+            </div>
+            <div class="subdirectory-info">
+              <h4>講義</h4>
+              <p>6 ファイル</p>
+            </div>
+          </a>
+
+          <a href="資料/index.html" class="subdirectory-card">
+            <div class="subdirectory-icon">
+              <i class="fas fa-folder"></i>
+            </div>
+            <div class="subdirectory-info">
+              <h4>資料</h4>
+              <p>7 ファイル</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="files-section">
+        <h3><i class="fas fa-sitemap"></i> すべての配下ファイル</h3>
+        <div class="file-grid">
+          <div class="file-card fade-in" data-name="index" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                index
+              </h4>
+              <p class="file-path">体験/AI班/体験/index.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 体験</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/体験/index.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/体験/index.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="28.marp" data-category="marp">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-chalkboard-teacher file-icon"></i>
+                <span class="tag marp-tag"><i class="fas fa-star"></i> Marp</span>28.marp
+              </h4>
+              <p class="file-path">活動/5_28/AI班/活動/5_28/28.marp.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/5_28</span>
+            </div>
+            <div class="file-actions">
+              <a href="../marp/html/AI班/活動/5_28/28.marp.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../marp/pdf/AI班/活動/5_28/28.marp.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="oop" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                oop
+              </h4>
+              <p class="file-path">活動/6_04/AI班/活動/6_04/oop.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_04</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_04/oop.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_04/oop.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="practice_answer" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                practice_answer
+              </h4>
+              <p class="file-path">活動/6_04/AI班/活動/6_04/practice_answer.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_04</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_04/practice_answer.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_04/practice_answer.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="practice" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                practice
+              </h4>
+              <p class="file-path">活動/6_04/AI班/活動/6_04/practice.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_04</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_04/practice.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_04/practice.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="oop_slides.marp" data-category="marp">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-chalkboard-teacher file-icon"></i>
+                <span class="tag marp-tag"><i class="fas fa-star"></i> Marp</span>oop_slides.marp
+              </h4>
+              <p class="file-path">活動/6_04/AI班/活動/6_04/oop_slides.marp.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_04</span>
+            </div>
+            <div class="file-actions">
+              <a href="../marp/html/AI班/活動/6_04/oop_slides.marp.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../marp/pdf/AI班/活動/6_04/oop_slides.marp.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="最初に見て！" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                最初に見て！
+              </h4>
+              <p class="file-path">活動/6_11/AI班/活動/6_11/最初に見て！.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_11/最初に見て！.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_11/最初に見て！.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="さいころ演習１" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                さいころ演習１
+              </h4>
+              <p class="file-path">活動/6_11/演習資料/AI班/活動/6_11/演習資料/さいころ演習１.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/演習資料</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_11/演習資料/さいころ演習１.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_11/演習資料/さいころ演習１.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="さいころ演習２" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                さいころ演習２
+              </h4>
+              <p class="file-path">活動/6_11/演習資料/AI班/活動/6_11/演習資料/さいころ演習２.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/演習資料</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_11/演習資料/さいころ演習２.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_11/演習資料/さいころ演習２.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="さいころ演習３" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                さいころ演習３
+              </h4>
+              <p class="file-path">活動/6_11/演習資料/AI班/活動/6_11/演習資料/さいころ演習３.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/演習資料</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_11/演習資料/さいころ演習３.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_11/演習資料/さいころ演習３.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="さいころ補足１" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                さいころ補足１
+              </h4>
+              <p class="file-path">活動/6_11/補足資料/AI班/活動/6_11/補足資料/さいころ補足１.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/補足資料</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_11/補足資料/さいころ補足１.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_11/補足資料/さいころ補足１.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="さいころ補足２" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                さいころ補足２
+              </h4>
+              <p class="file-path">活動/6_11/補足資料/AI班/活動/6_11/補足資料/さいころ補足２.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/補足資料</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_11/補足資料/さいころ補足２.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_11/補足資料/さいころ補足２.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="さいころ補足３" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                さいころ補足３
+              </h4>
+              <p class="file-path">活動/6_11/補足資料/AI班/活動/6_11/補足資料/さいころ補足３.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/補足資料</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/活動/6_11/補足資料/さいころ補足３.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/活動/6_11/補足資料/さいころ補足３.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="技術レポート" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                技術レポート
+              </h4>
+              <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/技術レポート.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/講義/AI最先端理解/技術レポート.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/講義/AI最先端理解/技術レポート.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="非cs学生向けai教育資料_序章" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                非CS学生向けAI教育資料_序章
+              </h4>
+              <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="非cs学生向けai教育資料_第1章" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                非CS学生向けAI教育資料_第1章
+              </h4>
+              <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="非cs学生向けai教育資料方針" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                非CS学生向けAI教育資料方針
+              </h4>
+              <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料方針.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料方針.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料方針.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="非cs学生向けai教育資料_序章.marp" data-category="marp">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-chalkboard-teacher file-icon"></i>
+                <span class="tag marp-tag"><i class="fas fa-star"></i> Marp</span>非CS学生向けAI教育資料_序章.marp
+              </h4>
+              <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.marp.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
+            </div>
+            <div class="file-actions">
+              <a href="../marp/html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.marp.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../marp/pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.marp.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="非cs学生向けai教育資料_第1章.marp" data-category="marp">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-chalkboard-teacher file-icon"></i>
+                <span class="tag marp-tag"><i class="fas fa-star"></i> Marp</span>非CS学生向けAI教育資料_第1章.marp
+              </h4>
+              <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.marp.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
+            </div>
+            <div class="file-actions">
+              <a href="../marp/html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.marp.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../marp/pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.marp.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="ai班１_環境構築_helloworld" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                AI班１_環境構築_HelloWorld
+              </h4>
+              <p class="file-path">資料/1/AI班/資料/1/AI班１_環境構築_HelloWorld.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 資料/1</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/資料/1/AI班１_環境構築_HelloWorld.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/資料/1/AI班１_環境構築_HelloWorld.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="ai班２_変数_データ型_演算" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                AI班２_変数_データ型_演算
+              </h4>
+              <p class="file-path">資料/2/AI班/資料/2/AI班２_変数_データ型_演算.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 資料/2</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/資料/2/AI班２_変数_データ型_演算.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/資料/2/AI班２_変数_データ型_演算.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="ai班３_文字列操作" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                AI班３_文字列操作
+              </h4>
+              <p class="file-path">資料/3/AI班/資料/3/AI班３_文字列操作.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 資料/3</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/資料/3/AI班３_文字列操作.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/資料/3/AI班３_文字列操作.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="ai班４_リスト_辞書" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                AI班４_リスト_辞書
+              </h4>
+              <p class="file-path">資料/4/AI班/資料/4/AI班４_リスト_辞書.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 資料/4</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/資料/4/AI班４_リスト_辞書.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/資料/4/AI班４_リスト_辞書.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="ai班５_条件分岐_ループ" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                AI班５_条件分岐_ループ
+              </h4>
+              <p class="file-path">資料/5/AI班/資料/5/AI班５_条件分岐_ループ.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 資料/5</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/資料/5/AI班５_条件分岐_ループ.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/資料/5/AI班５_条件分岐_ループ.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="ai班６_関数_エラーハンドリング_標準ライブラリ" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                AI班６_関数_エラーハンドリング_標準ライブラリ
+              </h4>
+              <p class="file-path">資料/6/AI班/資料/6/AI班６_関数_エラーハンドリング_標準ライブラリ.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 資料/6</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/資料/6/AI班６_関数_エラーハンドリング_標準ライブラリ.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/資料/6/AI班６_関数_エラーハンドリング_標準ライブラリ.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+
+          <div class="file-card fade-in" data-name="ai班7_python総整理" data-category="regular">
+            <div class="file-info">
+              <h4 class="file-name">
+                <i class="fas fa-file-alt file-icon"></i>
+                AI班7_Python総整理
+              </h4>
+              <p class="file-path">資料/7/AI班/資料/7/AI班7_Python総整理.md</p>
+              <span class="path-tag"><i class="fas fa-folder"></i> 資料/7</span>
+            </div>
+            <div class="file-actions">
+              <a href="../html/AI班/資料/7/AI班7_Python総整理.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
+              <a href="../pdf/AI班/資料/7/AI班7_Python総整理.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </header>
-
-  <div class="container">
-    <nav class="breadcrumb">
-      <a href="../index.html" class="breadcrumb-link">ルート</a> <span class="breadcrumb-separator">&gt;</span> <span class="breadcrumb-current">AI班</span>
-    </nav>
-
-    <div class="subdirectory-nav"><h3><i class="fas fa-folder"></i> サブディレクトリ</h3><div class="subdirectory-grid">
-        <a href="体験/index.html" class="subdirectory-card">
-          <div class="subdirectory-icon">
-            <i class="fas fa-folder-open"></i>
-          </div>
-          <div class="subdirectory-info">
-            <h4>体験</h4>
-            <p>1 ファイル</p>
-          </div>
-        </a>
-      
-        <a href="活動/index.html" class="subdirectory-card">
-          <div class="subdirectory-icon">
-            <i class="fas fa-folder"></i>
-          </div>
-          <div class="subdirectory-info">
-            <h4>活動</h4>
-            <p>12 ファイル</p>
-          </div>
-        </a>
-      
-        <a href="講義/index.html" class="subdirectory-card">
-          <div class="subdirectory-icon">
-            <i class="fas fa-folder"></i>
-          </div>
-          <div class="subdirectory-info">
-            <h4>講義</h4>
-            <p>6 ファイル</p>
-          </div>
-        </a>
-      
-        <a href="資料/index.html" class="subdirectory-card">
-          <div class="subdirectory-icon">
-            <i class="fas fa-folder"></i>
-          </div>
-          <div class="subdirectory-info">
-            <h4>資料</h4>
-            <p>7 ファイル</p>
-          </div>
-        </a>
-      </div></div>
-
-    
-
-    <div class="files-section"><h3><i class="fas fa-sitemap"></i> すべての配下ファイル</h3><div class="file-grid">
-      <div class="file-card fade-in" data-name="index" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            index
-          </h4>
-          <p class="file-path">体験/AI班/体験/index.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 体験</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/体験/index.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/体験/index.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="28.marp" data-category="marp">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-chalkboard-teacher file-icon"></i>
-            <span class="tag marp-tag"><i class="fas fa-star"></i> Marp</span>28.marp
-          </h4>
-          <p class="file-path">活動/5_28/AI班/活動/5_28/28.marp.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/5_28</span>
-        </div>
-        <div class="file-actions">
-          <a href="../marp/html/AI班/活動/5_28/28.marp.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../marp/pdf/AI班/活動/5_28/28.marp.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="oop" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            oop
-          </h4>
-          <p class="file-path">活動/6_04/AI班/活動/6_04/oop.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_04</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_04/oop.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_04/oop.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="practice_answer" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            practice_answer
-          </h4>
-          <p class="file-path">活動/6_04/AI班/活動/6_04/practice_answer.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_04</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_04/practice_answer.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_04/practice_answer.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="practice" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            practice
-          </h4>
-          <p class="file-path">活動/6_04/AI班/活動/6_04/practice.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_04</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_04/practice.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_04/practice.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="oop_slides.marp" data-category="marp">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-chalkboard-teacher file-icon"></i>
-            <span class="tag marp-tag"><i class="fas fa-star"></i> Marp</span>oop_slides.marp
-          </h4>
-          <p class="file-path">活動/6_04/AI班/活動/6_04/oop_slides.marp.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_04</span>
-        </div>
-        <div class="file-actions">
-          <a href="../marp/html/AI班/活動/6_04/oop_slides.marp.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../marp/pdf/AI班/活動/6_04/oop_slides.marp.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="最初に見て！" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            最初に見て！
-          </h4>
-          <p class="file-path">活動/6_11/AI班/活動/6_11/最初に見て！.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_11/最初に見て！.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_11/最初に見て！.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="さいころ演習１" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            さいころ演習１
-          </h4>
-          <p class="file-path">活動/6_11/演習資料/AI班/活動/6_11/演習資料/さいころ演習１.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/演習資料</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_11/演習資料/さいころ演習１.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_11/演習資料/さいころ演習１.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="さいころ演習２" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            さいころ演習２
-          </h4>
-          <p class="file-path">活動/6_11/演習資料/AI班/活動/6_11/演習資料/さいころ演習２.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/演習資料</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_11/演習資料/さいころ演習２.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_11/演習資料/さいころ演習２.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="さいころ演習３" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            さいころ演習３
-          </h4>
-          <p class="file-path">活動/6_11/演習資料/AI班/活動/6_11/演習資料/さいころ演習３.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/演習資料</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_11/演習資料/さいころ演習３.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_11/演習資料/さいころ演習３.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="さいころ補足１" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            さいころ補足１
-          </h4>
-          <p class="file-path">活動/6_11/補足資料/AI班/活動/6_11/補足資料/さいころ補足１.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/補足資料</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_11/補足資料/さいころ補足１.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_11/補足資料/さいころ補足１.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="さいころ補足２" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            さいころ補足２
-          </h4>
-          <p class="file-path">活動/6_11/補足資料/AI班/活動/6_11/補足資料/さいころ補足２.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/補足資料</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_11/補足資料/さいころ補足２.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_11/補足資料/さいころ補足２.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="さいころ補足３" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            さいころ補足３
-          </h4>
-          <p class="file-path">活動/6_11/補足資料/AI班/活動/6_11/補足資料/さいころ補足３.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 活動/6_11/補足資料</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/活動/6_11/補足資料/さいころ補足３.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/活動/6_11/補足資料/さいころ補足３.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="技術レポート" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            技術レポート
-          </h4>
-          <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/技術レポート.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/講義/AI最先端理解/技術レポート.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/講義/AI最先端理解/技術レポート.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="非cs学生向けai教育資料_序章" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            非CS学生向けAI教育資料_序章
-          </h4>
-          <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="非cs学生向けai教育資料_第1章" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            非CS学生向けAI教育資料_第1章
-          </h4>
-          <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="非cs学生向けai教育資料方針" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            非CS学生向けAI教育資料方針
-          </h4>
-          <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料方針.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料方針.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料方針.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="非cs学生向けai教育資料_序章.marp" data-category="marp">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-chalkboard-teacher file-icon"></i>
-            <span class="tag marp-tag"><i class="fas fa-star"></i> Marp</span>非CS学生向けAI教育資料_序章.marp
-          </h4>
-          <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.marp.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
-        </div>
-        <div class="file-actions">
-          <a href="../marp/html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.marp.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../marp/pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_序章.marp.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="非cs学生向けai教育資料_第1章.marp" data-category="marp">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-chalkboard-teacher file-icon"></i>
-            <span class="tag marp-tag"><i class="fas fa-star"></i> Marp</span>非CS学生向けAI教育資料_第1章.marp
-          </h4>
-          <p class="file-path">講義/AI最先端理解/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.marp.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 講義/AI最先端理解</span>
-        </div>
-        <div class="file-actions">
-          <a href="../marp/html/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.marp.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../marp/pdf/AI班/講義/AI最先端理解/非CS学生向けAI教育資料_第1章.marp.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="ai班１_環境構築_helloworld" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            AI班１_環境構築_HelloWorld
-          </h4>
-          <p class="file-path">資料/1/AI班/資料/1/AI班１_環境構築_HelloWorld.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 資料/1</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/資料/1/AI班１_環境構築_HelloWorld.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/資料/1/AI班１_環境構築_HelloWorld.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="ai班２_変数_データ型_演算" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            AI班２_変数_データ型_演算
-          </h4>
-          <p class="file-path">資料/2/AI班/資料/2/AI班２_変数_データ型_演算.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 資料/2</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/資料/2/AI班２_変数_データ型_演算.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/資料/2/AI班２_変数_データ型_演算.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="ai班３_文字列操作" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            AI班３_文字列操作
-          </h4>
-          <p class="file-path">資料/3/AI班/資料/3/AI班３_文字列操作.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 資料/3</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/資料/3/AI班３_文字列操作.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/資料/3/AI班３_文字列操作.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="ai班４_リスト_辞書" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            AI班４_リスト_辞書
-          </h4>
-          <p class="file-path">資料/4/AI班/資料/4/AI班４_リスト_辞書.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 資料/4</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/資料/4/AI班４_リスト_辞書.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/資料/4/AI班４_リスト_辞書.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="ai班５_条件分岐_ループ" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            AI班５_条件分岐_ループ
-          </h4>
-          <p class="file-path">資料/5/AI班/資料/5/AI班５_条件分岐_ループ.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 資料/5</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/資料/5/AI班５_条件分岐_ループ.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/資料/5/AI班５_条件分岐_ループ.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="ai班６_関数_エラーハンドリング_標準ライブラリ" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            AI班６_関数_エラーハンドリング_標準ライブラリ
-          </h4>
-          <p class="file-path">資料/6/AI班/資料/6/AI班６_関数_エラーハンドリング_標準ライブラリ.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 資料/6</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/資料/6/AI班６_関数_エラーハンドリング_標準ライブラリ.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/資料/6/AI班６_関数_エラーハンドリング_標準ライブラリ.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    
-      <div class="file-card fade-in" data-name="ai班7_python総整理" data-category="regular">
-        <div class="file-info">
-          <h4 class="file-name">
-            <i class="fas fa-file-alt file-icon"></i>
-            AI班7_Python総整理
-          </h4>
-          <p class="file-path">資料/7/AI班/資料/7/AI班7_Python総整理.md</p>
-          <span class="path-tag"><i class="fas fa-folder"></i> 資料/7</span>
-        </div>
-        <div class="file-actions">
-          <a href="../html/AI班/資料/7/AI班7_Python総整理.html" class="action-btn btn-html" target="_blank"><i class="fas fa-file-code"></i> HTML</a>
-          <a href="../pdf/AI班/資料/7/AI班7_Python総整理.pdf" class="action-btn btn-pdf" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
-        </div>      </div>
-    </div></div>
-  </div>
-</body>
+  </body>
 </html>

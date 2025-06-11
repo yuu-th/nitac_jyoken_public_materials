@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>python_dice_game_tutorial_part2</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>Pythonサイコロゲームで学ぶ！基礎からオブジェクト指向プログラミング (2/3)</h1>
+<p>この資料は、Pythonプログラミングの初学者を対象とし、サイコロゲームを題材に基礎からオブジェクト指向プログラミング（OOP）までを段階的に理解してもらうことを目的としています。
+<strong>___や日本語になっている部分を埋めてください</strong></p>
+<h2>ステップ8: コンピュータと1回だけ対戦してみよう</h2>
+<p>これまでは一人でサイコロを振るゲームでしたが、ここからはコンピュータと対戦する機能を追加していきます。
+まずは、1回だけコンピュータとサイコロの出目を比べて勝敗を決めるプログラムを作成しましょう。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを1個振って、出た目を返す関数
+def roll_die()-&gt;int:
+    return random.randint(1, 6)
+
+# 「もう一度振りますか？」と聞いて、&quot;y&quot;ならTrue、&quot;n&quot;ならFalseを返す関数
+def ask_and_check_if_continue()-&gt;bool:
+    while True:
+        y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+        if y_or_n == &quot;y&quot;:
+            return True
+        elif y_or_n == &quot;n&quot;:
+            return False
+        else:
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        roll = roll_die()
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+        if not ask_and_check_if_continue():
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    print_history(roll_history_list)
+
+# コンピュータと1回だけ対戦する関数
+def one_match():
+    # プレイヤーのサイコロを振る
+    player_die = ___
+    # コンピュータのサイコロを振る
+    computer_die = ___
+
+    # それぞれの出目を表示する
+    print(f&quot;あなたの出た目は {player_die} です。コンピュータの出た目は {computer_die} です。&quot;)
+
+    # プレイヤーの出目とコンピュータの出目を比較して勝敗を判定する
+    もしプレイヤーが勝ちの場合:
+        # プレイヤーの勝ちの場合のメッセージを表示
+        print(&quot;あなたの勝ち！&quot;)
+    もしプレイヤーが負け、コンピュータが勝った場合:
+        # コンピュータの勝ちの場合のメッセージを表示
+        print(&quot;コンピュータの勝ち！&quot;)
+    else:
+        # 引き分けの場合のメッセージを表示
+        print(&quot;引き分け！&quot;)
+
+# このスクリプトが直接実行されたときに、one_match関数を呼び出す
+if __name__ == &quot;__main__&quot;:
+    # one_match関数を実行する
+    ___
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>プレイヤーとコンピュータ、それぞれサイコロを振る処理が必要です。</li>
+<li><code>if</code>、<code>elif</code>、<code>else</code> を使って、出目の大小を比較し、結果を表示します。</li>
+<li>勝ち、負け、引き分けの3つのパターンを考えましょう。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを1個振って、出た目を返す関数
+def roll_die():
+    return random.randint(1, 6)
+
+# 「もう一度振りますか？」と聞いて、&quot;y&quot;ならTrue、&quot;n&quot;ならFalseを返す関数
+def ask_and_check_if_continue():
+    while True:
+        y_or_n = input(&quot;もう一度振りますか？ (y/n): &quot;)
+        if y_or_n == &quot;y&quot;:
+            return True
+        elif y_or_n == &quot;n&quot;:
+            return False
+        else:
+            print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        roll = roll_die()
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+        if not ask_and_check_if_continue():
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    print_history(roll_history_list)
+
+# コンピュータと1回だけ対戦する関数
+def one_match():
+    # プレイヤーのサイコロを振る
+    player_die = roll_die()
+    # コンピュータのサイコロを振る
+    computer_die = roll_die()
+
+    # それぞれの出目を表示する
+    print(f&quot;あなたの出た目は {player_die} です。コンピュータの出た目は {computer_die} です。&quot;)
+
+    # プレイヤーの出目とコンピュータの出目を比較して勝敗を判定する
+    if player_die &gt; computer_die:
+        # プレイヤーの勝ちの場合のメッセージを表示
+        print(&quot;あなたの勝ち！&quot;)
+    elif player_die &lt; computer_die:
+        # コンピュータの勝ちの場合のメッセージを表示
+        print(&quot;コンピュータの勝ち！&quot;)
+    else:
+        # 引き分けの場合のメッセージを表示
+        print(&quot;引き分け！&quot;)
+
+# このスクリプトが直接実行されたときに、one_match関数を呼び出す
+if __name__ == &quot;__main__&quot;:
+    # one_match関数を実行する
+    one_match()
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li>新しく <code>one_match</code> という関数を作成し、その中で対戦処理を記述しました。</li>
+<li>プレイヤーとコンピュータがそれぞれ <code>roll_die()</code> 関数を使ってサイコロを振ります。</li>
+<li><strong>条件分岐 (<code>if</code>, <code>elif</code>, <code>else</code>)</strong> を使って、出目の結果に応じたメッセージを表示します。</li>
+<li><code>if __name__ == &quot;__main__&quot;:</code> のブロックで <code>one_match()</code> を呼び出すことで、スクリプト実行時に一回対戦が行われます。</li>
+</ul>
+<blockquote>
+<p>コラム
+今回はコンピュータもプレイヤーも同じ <code>roll_die()</code> 関数を使っています。もし将来的に「コンピュータは少しイカサマをする」といった特別なルールを加えたくなった場合、コンピュータ専用のサイコロを振る関数を別途作成することも考えられますね。</p>
+</blockquote>
+<hr>
+<h2>ステップ9: コンピュータと連続対戦できるようにしよう</h2>
+<p>これまでのステップでは、1回だけコンピュータと対戦する機能を作成しました。
+このステップでは、複数回対戦できるように機能を拡張します。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを振って目を返す
+def roll_die(sides=6):
+    return random.randint(1, sides)
+
+# 続行確認
+def ask_and_check_if_continue(prompt=&quot;もう一度振りますか？ (y/n): &quot;)-&gt; bool:
+    while True:
+        ans = input(prompt).lower()
+        if ans in (&quot;y&quot;, &quot;n&quot;):
+            return ans == &quot;y&quot;
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+def print_history(history):
+    ...
+
+def solo_play():
+    ...
+
+def one_match()-&gt;[int,int, str]:
+    &quot;&quot;&quot;コンピュータとの対戦&quot;&quot;&quot;
+    player_die = roll_die()
+    computer_die = roll_die()
+    print(f&quot;あなたの出た目は {player_die} です。コンピュータの出た目は {computer_die} です。&quot;)
+    winner = &quot;&quot;
+    if player_die &gt; computer_die:
+        print(&quot;あなたの勝ち！&quot;)
+        winner = &quot;player&quot;
+    elif player_die &lt; computer_die:
+        print(&quot;コンピュータの勝ち！&quot;)
+        winner = &quot;computer&quot;
+    else:
+        print(&quot;引き分け！&quot;)
+        winner = &quot;draw&quot;
+    return ___, ___, ___
+
+# コンピュータとの対戦
+def play_vs_computer():
+
+    player_win_count = 0
+    computer_win_count = 0
+    draw_count = 0
+
+    while True:
+        player_die, computer_die, winner = ___()
+
+        if winner == &quot;player&quot;:
+            ___
+        elif: winner ==&quot;computer&quot;&quot;:
+            ___
+        else:
+            ___
+
+        if not ask_and_check_if_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+            print(&quot;対戦を終了します。&quot;)
+            break
+
+    print(&quot;対戦結果:&quot;)
+    print(&quot;あなたの勝利数:&quot;, player_win_count)
+    print(&quot;コンピュータの勝利数:&quot;, computer_win_count)
+    print(&quot;引き分け数:&quot;, draw_count)
+
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    print(&quot;モードを選択してください:\n 1: ソロプレイ\n 2: コンピュータと対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    if mode == &quot;1&quot;:
+        ___()
+    elif mode == &quot;2&quot;:
+        ___()
+    else:
+        print(&quot;無効な選択です。&quot;)
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>対戦結果を記録するために、勝利数や引き分け数をカウントする変数を用意します。</li>
+<li><code>while True:</code> ループを使って、ユーザーが続ける限り対戦を繰り返します。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを振って目を返す
+def roll_die(sides=6):
+    return random.randint(1, sides)
+
+# 続行確認
+def ask_and_check_if_continue(prompt=&quot;もう一度振りますか？ (y/n): &quot;)-&gt; bool:
+    while True:
+        ans = input(prompt).lower()
+        if ans in (&quot;y&quot;, &quot;n&quot;):
+            return ans == &quot;y&quot;
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        roll = roll_die()
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+        if not ask_and_check_if_continue():
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    print_history(roll_history_list)
+
+
+def one_match()-&gt;[int, int, str]:
+    &quot;&quot;&quot;コンピュータとの対戦&quot;&quot;&quot;
+    player_die = roll_die()
+    computer_die = roll_die()
+    print(f&quot;あなたの出た目は {player_die} です。コンピュータの出た目は {computer_die} です。&quot;)
+    winner = &quot;&quot;
+    if player_die &gt; computer_die:
+        print(&quot;あなたの勝ち！&quot;)
+        winner = &quot;player&quot;
+    elif player_die &lt; computer_die:
+        print(&quot;コンピュータの勝ち！&quot;)
+        winner = &quot;computer&quot;
+    else:
+        print(&quot;引き分け！&quot;)
+        winner = &quot;draw&quot;
+    return player_die, computer_die, winner
+
+# コンピュータとの対戦
+def play_vs_computer():
+
+    player_win_count = 0
+    computer_win_count = 0
+    draw_count = 0
+
+    while True:
+        player_die, computer_die, winner = one_match()
+
+        if winner == &quot;player&quot;:
+            player_win_count += 1
+        elif winner == &quot;computer&quot;:
+            computer_win_count += 1
+        else:
+            draw_count += 1
+
+        if not ask_and_check_if_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+            print(&quot;対戦を終了します。&quot;)
+            break
+
+    print(&quot;対戦結果:&quot;)
+    print(&quot;あなたの勝利数:&quot;, player_win_count)
+    print(&quot;コンピュータの勝利数:&quot;, computer_win_count)
+    print(&quot;引き分け数:&quot;, draw_count)
+
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    print(&quot;モードを選択してください:\n 1: ソロプレイ\n 2: コンピュータと対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    if mode == &quot;1&quot;:
+        solo_play()
+    elif mode == &quot;2&quot;:
+        play_vs_computer()
+    else:
+        print(&quot;無効な選択です。&quot;)
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong>対戦結果のカウント</strong>: プレイヤーの勝利数、コンピュータの勝利数、引き分け数をそれぞれカウントする変数を用意しました。</li>
+<li><strong><code>while True:</code> ループ</strong>: ユーザーが続ける限り対戦を繰り返すために使用します。<code>ask_and_check_if_continue()</code> 関数でユーザーの入力を確認し、続行するかどうかを判断します。</li>
+<li><strong>関数の再利用</strong>: <code>one_match()</code> 関数を使って、対戦のロジックをまとめました。これにより、コードがスッキリし、再利用性が高まります。</li>
+</ul>
+<hr>
+<h2>ステップ10: リストを使って対戦履歴をもっと充実させよう</h2>
+<p>ステップ9では対戦の勝敗数を記録しました。
+このステップでは、リストをより効果的に活用して、対戦履歴をもっと詳細に記録し、統計情報も表示できるようにしましょう。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを振って目を返す
+def roll_die(sides=6):
+    return random.randint(1, sides)
+
+# 続行確認
+def ask_and_check_if_continue(prompt=&quot;もう一度振りますか？ (y/n): &quot;):
+    while True:
+        ans = input(prompt).lower()
+        if ans in (&quot;y&quot;, &quot;n&quot;):
+            return ans == &quot;y&quot;
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        roll = roll_die()
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+        if not ask_and_check_if_continue():
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    print_history(roll_history_list)
+
+def one_match():
+    &quot;&quot;&quot;コンピュータとの対戦&quot;&quot;&quot;
+    player_die = roll_die()
+    computer_die = roll_die()
+    print(f&quot;あなたの出た目は {player_die} です。コンピュータの出た目は {computer_die} です。&quot;)
+    
+    winner = &quot;&quot;
+    if player_die &gt; computer_die:
+        print(&quot;あなたの勝ち！&quot;)
+        winner = &quot;player&quot;
+    elif player_die &lt; computer_die:
+        print(&quot;コンピュータの勝ち！&quot;)
+        winner = &quot;computer&quot;
+    else:
+        print(&quot;引き分け！&quot;)
+        winner = &quot;draw&quot;
+    
+    return player_die, computer_die, winner
+
+# 対戦履歴の詳細統計を表示する関数
+def print_match_statistics(match_history:list[int,int,str]):
+    &quot;&quot;&quot;
+    match_history: 各要素が [プレイヤー出目, コンピュータ出目, 勝者] のリスト
+    &quot;&quot;&quot;
+    if not match_history:
+        print(&quot;対戦履歴がありません。&quot;)
+        return
+    
+    print(&quot;\n---詳細な対戦履歴---&quot;)
+
+    for i, match in ___(match_history, start=1): # iには0,1,2,3... matchにはmatch_historyの一つの要素である、[player_dice, computer_dice, winner]のリストが入る
+        player_roll, computer_roll, result = ___ # matchの要素を取り出す
+        print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+    
+    print(&quot;\n---統計情報---&quot;)
+    
+    # プレイヤーの出目だけを抽出してリストにする
+    player_rolls = ___  # match_historyから各matchの0番目の要素（プレイヤーの出目）を取り出してリストにする
+    # コンピュータの出目だけを抽出してリストにする  
+    computer_rolls = ___  # match_historyから各matchの1番目の要素（コンピュータの出目）を取り出してリストにする
+    
+    # プレイヤーの統計情報を表示
+    print(f&quot;あなたの出目統計:&quot;)
+    print(f&quot;  最高出目: {___(player_rolls)}&quot;)
+    print(f&quot;  最低出目: {___(player_rolls)}&quot;)
+    print(f&quot;  平均出目: {sum(player_rolls) / ___(player_rolls):.2f}&quot;)
+    
+    # コンピュータの統計情報を表示
+    print(f&quot;コンピュータの出目統計:&quot;)
+    print(f&quot;  最高出目: {___(computer_rolls)}&quot;)
+    print(f&quot;  最低出目: {___(computer_rolls)}&quot;)
+    print(f&quot;  平均出目: {sum(computer_rolls) / ___(computer_rolls):.2f}&quot;)
+    
+    # 勝敗数を集計
+    player_win_count = 0
+    computer_win_count = 0
+    draw_count = 0
+    
+    # match_historyの各要素をループして勝敗数をカウント
+    for match in match_history:
+        _, _, winner = match
+        if winner == &quot;player&quot;:
+            ___  # player_win_countを1増やす
+        elif winner == &quot;computer&quot;:
+            ___  # computer_win_countを1増やす
+        else:
+            ___  # draw_countを1増やす
+    
+    print(f&quot;\n最終結果:&quot;)
+    print(f&quot;  あなたの勝利: {player_win_count}回&quot;)
+    print(f&quot;  コンピュータの勝利: {computer_win_count}回&quot;) 
+    print(f&quot;  引き分け: {draw_count}回&quot;)
+
+# コンピュータとの対戦（履歴記録機能付き）
+def play_vs_computer():
+    match_history = []  # 各対戦の詳細情報を保存するリスト
+    
+    while True:
+        player_die, computer_die, winner = one_match()
+        
+        # 対戦結果を詳細履歴に追加（リストの形で）
+        ___  # match_historyに [player_die, computer_die, winner] を追加
+        
+        if not ask_and_check_if_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+            print(&quot;対戦を終了します。&quot;)
+            break
+    
+    # 詳細統計を表示
+    ___))
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    print(&quot;モードを選択してください:\n 1: ソロプレイ\n 2: コンピュータと対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    if mode == &quot;1&quot;:
+        solo_play()
+    elif mode == &quot;2&quot;:
+        play_vs_computer()
+    else:
+        print(&quot;無効な選択です。&quot;)
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li><code>enumerate</code>を使って、リストのインデックスと要素を同時に取得できます。</li>
+<li>リスト内包表記を使って、特定の要素だけを抽出できます。例：<code>[match[0] for match in match_history]</code></li>
+<li><code>max()</code>, <code>min()</code>, <code>sum()</code>, <code>len()</code> 関数を使って統計情報を計算できます。</li>
+<li>各対戦の情報を <code>[プレイヤー出目, コンピュータ出目, 勝者]</code> の形のリストとして保存します。</li>
+<li>リストの <code>append()</code> メソッドを使って、新しい対戦結果を履歴に追加します。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# サイコロを振って目を返す
+def roll_die(sides=6):
+    return random.randint(1, sides)
+
+# 続行確認
+def ask_and_check_if_continue(prompt=&quot;もう一度振りますか？ (y/n): &quot;):
+    while True:
+        ans = input(prompt).lower()
+        if ans in (&quot;y&quot;, &quot;n&quot;):
+            return ans == &quot;y&quot;
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        roll = roll_die()
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+        if not ask_and_check_if_continue():
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    print_history(roll_history_list)
+
+def one_match():
+    &quot;&quot;&quot;コンピュータとの対戦&quot;&quot;&quot;
+    player_die = roll_die()
+    computer_die = roll_die()
+    print(f&quot;あなたの出た目は {player_die} です。コンピュータの出た目は {computer_die} です。&quot;)
+    
+    winner = &quot;&quot;
+    if player_die &gt; computer_die:
+        print(&quot;あなたの勝ち！&quot;)
+        winner = &quot;player&quot;
+    elif player_die &lt; computer_die:
+        print(&quot;コンピュータの勝ち！&quot;)
+        winner = &quot;computer&quot;
+    else:
+        print(&quot;引き分け！&quot;)
+        winner = &quot;draw&quot;
+    
+    return player_die, computer_die, winner
+
+# 対戦履歴の詳細統計を表示する関数
+def print_match_statistics(match_history):
+    &quot;&quot;&quot;
+    match_history: 各要素が [プレイヤー出目, コンピュータ出目, 勝者] のリスト
+    &quot;&quot;&quot;
+    if not match_history:
+        print(&quot;対戦履歴がありません。&quot;)
+        return
+    
+    print(&quot;\n---詳細な対戦履歴---&quot;)
+    # enumerateを使って各対戦の詳細を表示
+    for i, match in enumerate(match_history, start=1):
+        player_roll, computer_roll, result = match
+        print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+    
+    print(&quot;\n---統計情報---&quot;)
+    
+    # プレイヤーの出目だけを抽出してリストにする
+    player_rolls = [match[0] for match in match_history]
+    # コンピュータの出目だけを抽出してリストにする  
+    computer_rolls = [match[1] for match in match_history]
+    
+    # プレイヤーの統計情報を表示
+    print(f&quot;あなたの出目統計:&quot;)
+    print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+    print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+    print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+    
+    # コンピュータの統計情報を表示
+    print(f&quot;コンピュータの出目統計:&quot;)
+    print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+    print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+    print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+    
+    # 勝敗数を集計
+    player_win_count = 0
+    computer_win_count = 0
+    draw_count = 0
+    
+    # match_historyの各要素をループして勝敗数をカウント
+    for match in match_history:
+        _, _, winner = match
+        if winner == &quot;player&quot;:
+            player_win_count += 1
+        elif winner == &quot;computer&quot;:
+            computer_win_count += 1
+        else:
+            draw_count += 1
+    
+    print(f&quot;\n最終結果:&quot;)
+    print(f&quot;  あなたの勝利: {player_win_count}回&quot;)
+    print(f&quot;  コンピュータの勝利: {computer_win_count}回&quot;) 
+    print(f&quot;  引き分け: {draw_count}回&quot;)
+
+# コンピュータとの対戦（履歴記録機能付き）
+def play_vs_computer():
+    match_history = []  # 各対戦の詳細情報を保存するリスト
+    
+    while True:
+        player_die, computer_die, winner = one_match()
+        
+        # 対戦結果を詳細履歴に追加（リストの形で）
+        match_history.append([player_die, computer_die, winner])
+        
+        if not ask_and_check_if_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+            print(&quot;対戦を終了します。&quot;)
+            break
+    
+    # 詳細統計を表示
+    print_match_statistics(match_history)
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    print(&quot;モードを選択してください:\n 1: ソロプレイ\n 2: コンピュータと対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    if mode == &quot;1&quot;:
+        solo_play()
+    elif mode == &quot;2&quot;:
+        play_vs_computer()
+    else:
+        print(&quot;無効な選択です。&quot;)
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong><code>enumerate</code>の活用</strong>: <code>enumerate</code> を使うことで、リストのインデックスと要素を同時に取得できます。これにより、対戦履歴を表示する際に、何戦目かを簡単に表示できます。</li>
+<li><strong>リスト内包表記</strong>: <code>[match[0] for match in match_history]</code> のように書くことで、リストの各要素から特定の部分だけを抽出して新しいリストを作成できます。これは非常に便利でPythonらしい書き方です。</li>
+<li><strong>ネストしたリスト</strong>: <code>match_history</code> は「リストのリスト」という構造になっています。各対戦の情報を <code>[プレイヤー出目, コンピュータ出目, 勝者]</code> の形で保存し、それらをまとめて一つの大きなリストで管理します。</li>
+<li><strong>統計関数の活用</strong>: <code>max()</code>, <code>min()</code>, <code>sum()</code>, <code>len()</code> といったPython標準の関数を使って、簡単に統計情報を計算できます。</li>
+<li><strong>関数の分離</strong>: 統計表示機能を <code>print_match_statistics()</code> という独立した関数にすることで、コードの見通しが良くなり、テストもしやすくなります。</li>
+</ul>
+<hr>
+<h2>ステップ11: 辞書（dict）を使ってゲーム設定を一元管理しよう</h2>
+<p>これまでのプログラムでは、サイコロの面数（6）やメッセージ（&quot;あなたの勝ち！&quot;など）がコード内に直接書かれていました。
+このステップでは、<strong>辞書（dictionary）</strong> を使ってこれらの設定を一元管理し、より保守しやすいコードに改良しましょう。</p>
+<p><strong>考えてみよう（コードの穴埋め）:</strong></p>
+<pre><code class="language-python">import random
+
+# 結果の定数を定義
+PLAYER_WIN = &quot;player&quot;
+COMPUTER_WIN = &quot;computer&quot;
+DRAW = &quot;draw&quot;
+
+# ゲーム設定を辞書で一元管理
+game_config = {
+    &quot;sides&quot;: ___,  # サイコロの面数
+    &quot;messages&quot;: {
+        ___: &quot;あなたの勝ち！&quot;,
+        ___: &quot;コンピュータの勝ち！&quot;, 
+        ___: &quot;引き分け！&quot;
+    }
+}
+
+# サイコロを振って目を返す（面数は設定から取得）
+def roll_die(sides=None):
+    if sides is None:
+        # game_configから面数を取得
+        sides = ___
+    return random.randint(1, sides)
+
+# 続行確認
+def ask_and_check_if_continue(prompt=&quot;もう一度振りますか？ (y/n): &quot;):
+    while True:
+        ans = input(prompt).lower()
+        if ans in (&quot;y&quot;, &quot;n&quot;):
+            return ans == &quot;y&quot;
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        roll = roll_die()
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+        if not ask_and_check_if_continue():
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    print_history(roll_history_list)
+
+# 一回の対戦を実行して結果を返す
+def one_match():
+    player_die = roll_die()
+    computer_die = roll_die()
+    print(f&quot;あなたの出た目は {player_die} です。コンピュータの出た目は {computer_die} です。&quot;)
+    
+    if player_die &gt; computer_die:
+        result = ___  # PLAYER_WINを設定
+    elif player_die &lt; computer_die:
+        result = ___  # COMPUTER_WINを設定
+    else:
+        result = ___  # DRAWを設定
+    
+    # 結果メッセージをgame_configから取得して表示
+    message = ___
+    print(message)
+    
+    return player_die, computer_die, result
+
+# 対戦履歴の詳細統計を表示する関数
+def print_match_statistics(match_history):
+    if not match_history:
+        print(&quot;対戦履歴がありません。&quot;)
+        return
+    
+    print(&quot;\n---詳細な対戦履歴---&quot;)
+    for i, match in enumerate(match_history, start=1):
+        player_roll, computer_roll, result = match
+        print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+    
+    print(&quot;\n---統計情報---&quot;)
+    
+    player_rolls = [match[0] for match in match_history]
+    computer_rolls = [match[1] for match in match_history]
+    
+    print(f&quot;あなたの出目統計:&quot;)
+    print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+    print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+    print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+    
+    print(f&quot;コンピュータの出目統計:&quot;)
+    print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+    print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+    print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+    
+    # 勝敗数を辞書で管理
+    win_counts = {___: 0, ___: 0, ___: 0}  # PLAYER_WIN, COMPUTER_WIN, DRAWのキーで初期化
+    
+    for match in match_history:
+        winner = match[2]
+        ___  # win_counts[winner] を1増やす
+    
+    print(f&quot;\n最終結果:&quot;)
+    print(f&quot;  あなたの勝利: {win_counts[___]}回&quot;)      # PLAYER_WINのカウントを表示
+    print(f&quot;  コンピュータの勝利: {win_counts[___]}回&quot;)  # COMPUTER_WINのカウントを表示
+    print(f&quot;  引き分け: {win_counts[___]}回&quot;)         # DRAWのカウントを表示
+
+# コンピュータとの対戦（辞書による設定管理版）
+def play_vs_computer():
+    match_history = []
+    
+    while True:
+        player_die, computer_die, winner = one_match()
+        match_history.append([player_die, computer_die, winner])
+        
+        if not ask_and_check_if_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+            print(&quot;対戦を終了します。&quot;)
+            break
+    
+    print_match_statistics(match_history)
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    print(&quot;モードを選択してください:\n 1: ソロプレイ\n 2: コンピュータと対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    if mode == &quot;1&quot;:
+        solo_play()
+    elif mode == &quot;2&quot;:
+        play_vs_computer()
+    else:
+        print(&quot;無効な選択です。&quot;)
+</code></pre>
+<p><strong>ヒント:</strong></p>
+<ul>
+<li>定数 <code>PLAYER_WIN</code>, <code>COMPUTER_WIN</code>, <code>DRAW</code> を辞書のキーとして使用します。</li>
+<li><code>game_config[&quot;messages&quot;][結果]</code> でメッセージを取得できます。</li>
+<li><code>game_config[&quot;sides&quot;]</code> でサイコロの面数を取得できます。</li>
+<li>辞書の初期化では、各キーに対して値0を設定します。</li>
+<li><code>辞書名[キー] += 1</code> で辞書の値を増やすことができます。</li>
+</ul>
+<p><strong>解答例:</strong></p>
+<pre><code class="language-python">import random
+
+# 結果の定数を定義
+PLAYER_WIN = &quot;player&quot;
+COMPUTER_WIN = &quot;computer&quot;
+DRAW = &quot;draw&quot;
+
+# ゲーム設定を辞書で一元管理
+game_config = {
+    &quot;sides&quot;: 6,  # サイコロの面数
+    &quot;messages&quot;: {
+        PLAYER_WIN: &quot;あなたの勝ち！&quot;,
+        COMPUTER_WIN: &quot;コンピュータの勝ち！&quot;, 
+        DRAW: &quot;引き分け！&quot;
+    }
+}
+
+# サイコロを振って目を返す（面数は設定から取得）
+def roll_die(sides=None):
+    if sides is None:
+        # game_configから面数を取得
+        sides = game_config[&quot;sides&quot;]
+    return random.randint(1, sides)
+
+# 続行確認
+def ask_and_check_if_continue(prompt=&quot;もう一度振りますか？ (y/n): &quot;):
+    while True:
+        ans = input(prompt).lower()
+        if ans in (&quot;y&quot;, &quot;n&quot;):
+            return ans == &quot;y&quot;
+        print(&quot;無効な入力です。&#39;y&#39; または &#39;n&#39; を入力してください。&quot;)
+
+# 出た目の履歴リストを受け取って、見やすく表示する関数
+def print_history(history_list):
+    print(&quot;---これまでの出た目---&quot;)
+    for i, roll in enumerate(history_list, start=1):
+        print(f&quot;{i}回目: {roll}&quot;)
+    print(&quot;--------------------&quot;)
+    print(f&quot;合計: {sum(history_list)}&quot;)
+
+# サイコロゲームのソロプレイを実行する関数
+def solo_play():
+    roll_history_list = []
+    while True:
+        roll = roll_die()
+        roll_history_list.append(roll)
+        print(f&quot;出た目は {roll} です。&quot;)
+        if not ask_and_check_if_continue():
+            print(&quot;ゲームを終了します。&quot;)
+            break
+    print_history(roll_history_list)
+
+# 一回の対戦を実行して結果を返す
+def one_match():
+    player_die = roll_die()
+    computer_die = roll_die()
+    print(f&quot;あなたの出た目は {player_die} です。コンピュータの出た目は {computer_die} です。&quot;)
+    
+    if player_die &gt; computer_die:
+        result = PLAYER_WIN
+    elif player_die &lt; computer_die:
+        result = COMPUTER_WIN
+    else:
+        result = DRAW
+    
+    # 結果メッセージをgame_configから取得して表示
+    message = game_config[&quot;messages&quot;][result]
+    print(message)
+    
+    return player_die, computer_die, result
+
+# 対戦履歴の詳細統計を表示する関数
+def print_match_statistics(match_history):
+    if not match_history:
+        print(&quot;対戦履歴がありません。&quot;)
+        return
+    
+    print(&quot;\n---詳細な対戦履歴---&quot;)
+    for i, match in enumerate(match_history, start=1):
+        player_roll, computer_roll, result = match
+        print(f&quot;{i}戦目: あなた:{player_roll}, コンピュータ:{computer_roll}, 結果:{result}&quot;)
+    
+    print(&quot;\n---統計情報---&quot;)
+    
+    player_rolls = [match[0] for match in match_history]
+    computer_rolls = [match[1] for match in match_history]
+    
+    print(f&quot;あなたの出目統計:&quot;)
+    print(f&quot;  最高出目: {max(player_rolls)}&quot;)
+    print(f&quot;  最低出目: {min(player_rolls)}&quot;)
+    print(f&quot;  平均出目: {sum(player_rolls) / len(player_rolls):.2f}&quot;)
+    
+    print(f&quot;コンピュータの出目統計:&quot;)
+    print(f&quot;  最高出目: {max(computer_rolls)}&quot;)
+    print(f&quot;  最低出目: {min(computer_rolls)}&quot;)
+    print(f&quot;  平均出目: {sum(computer_rolls) / len(computer_rolls):.2f}&quot;)
+    
+    # 勝敗数を辞書で管理
+    win_counts = {PLAYER_WIN: 0, COMPUTER_WIN: 0, DRAW: 0}
+    
+    for match in match_history:
+        _, _, winner = match
+        win_counts[winner] += 1
+    
+    print(f&quot;\n最終結果:&quot;)
+    print(f&quot;  あなたの勝利: {win_counts[PLAYER_WIN]}回&quot;)
+    print(f&quot;  コンピュータの勝利: {win_counts[COMPUTER_WIN]}回&quot;)
+    print(f&quot;  引き分け: {win_counts[DRAW]}回&quot;)
+
+# コンピュータとの対戦（辞書による設定管理版）
+def play_vs_computer():
+    match_history = []
+    
+    while True:
+        player_die, computer_die, winner = one_match()
+        match_history.append([player_die, computer_die, winner])
+        
+        if not ask_and_check_if_continue(&quot;もう一度対戦しますか？ (y/n): &quot;):
+            print(&quot;対戦を終了します。&quot;)
+            break
+    
+    print_match_statistics(match_history)
+
+# メイン処理
+if __name__ == &quot;__main__&quot;:
+    print(&quot;モードを選択してください:\n 1: ソロプレイ\n 2: コンピュータと対戦&quot;)
+    mode = input(&quot;選択 (1/2): &quot;)
+    if mode == &quot;1&quot;:
+        solo_play()
+    elif mode == &quot;2&quot;:
+        play_vs_computer()
+    else:
+        print(&quot;無効な選択です。&quot;)
+</code></pre>
+<p><strong>ポイント:</strong></p>
+<ul>
+<li><strong>定数の活用</strong>: <code>PLAYER_WIN</code>, <code>COMPUTER_WIN</code>, <code>DRAW</code> として文字列リテラルを定数化し、タイプミスを防ぎ、保守性を向上させました。<strong>マジックナンバー</strong>とも呼ばれる重要な概念</li>
+<li><strong>辞書による設定管理</strong>: <code>game_config</code> 辞書を使って、サイコロの面数やメッセージを一元管理しています。</li>
+<li><strong>ネストした辞書</strong>: <code>game_config[&quot;messages&quot;]</code> は辞書の中に辞書を持つ構造になっています。</li>
+<li><strong>マジックナンバーの排除</strong>: 直接 <code>6</code> を書く代わりに <code>game_config[&quot;sides&quot;]</code> を使用しています。</li>
+<li><strong>辞書によるカウント</strong>: <code>win_counts</code> 辞書を使って、各結果の回数を効率的に管理しています。</li>
+<li><strong>拡張性</strong>: 設定を変更したい場合は、<code>game_config</code> を修正するだけで済みます。</li>
+</ul>
+<blockquote>
+<p>コラム
+設定を変更してみよう！</p>
+<pre><code class="language-python"># 10面サイコロに変更
+game_config[&quot;sides&quot;] = 10
+
+# メッセージをカスタマイズ
+game_config[&quot;messages&quot;][PLAYER_WIN] = &quot;やったね！君の勝ちだ！&quot;
+</code></pre>
+<p>このように、辞書を使うことで、コードの他の部分を変更することなく、簡単に設定を変更できます。これが「設定の一元管理」の威力です！</p>
+</blockquote>
+<blockquote>
+<p>コラム
+<strong>zip関数での履歴表示</strong></p>
+<p>2つのリストを同時にループしたい場合、<code>zip()</code> 関数が便利です：</p>
+<pre><code class="language-python"># 従来の方法
+for i in range(len(player_history)):
+    print(f&quot;{i+1}回戦: あなた {player_history[i]} - コンピュータ {comp_history[i]}&quot;)
+
+# zipとenumerateを組み合わせた方法
+for i, (p, c) in enumerate(zip(player_history, comp_history), start=1):
+    print(f&quot;{i}回戦: あなた {p} - コンピュータ {c}&quot;)
+</code></pre>
+<p>より簡潔で読みやすいコードになります！</p>
+</blockquote>
+
+</body>
+</html>
