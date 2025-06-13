@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作成手順_アジャイル版</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>演習資料「ローカル永続化やることサイト」作成手順（アジャイル版）</h1>
+<h2>フェーズ0: 準備と計画</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>ゴール設定の再確認</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> <code>作成方針.md</code> をレビューし、演習の目的、対象者、学習目標をチームで再確認する。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>リスク</strong>: ゴールの認識齟齬 → <strong>対策</strong>: 具体的な完成イメージを共有。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>ベース資材の準備</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> 既存の「やること動的サイト」のHTML、CSS、JavaScriptの最終的な解答例コードを、<code>c:\\Users\\e2210\\ProgrammingProject\\nitac_jyoken_public_materials\\WEB班\\演習\\ローカル永続化やることサイト\\演習用ベースコード\\</code> フォルダ内にコピーし、これを演習の出発点とする。</li>
+<li><input checked="" disabled="" type="checkbox"> フォルダ構成案の確認・決定:<ul>
+<li><code>ローカル永続化やることサイト/</code><ul>
+<li><code>演習資料/</code> (Markdownファイルなどを格納)</li>
+<li><code>解答例/</code><ul>
+<li><code>step1_save/</code></li>
+<li><code>step2_load/</code></li>
+<li>...</li>
+<li><code>final/</code></li>
+</ul>
+</li>
+<li><code>演習用ベースコード/</code> (受講者が開始時に使うコード)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>タスクの洗い出しと優先順位付け (初回スプリント計画)</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> <code>作成方針.md</code> の「3. 作成する主な機能」を元に、資料作成のタスクを細分化する。<ul>
+<li>例: 「1.1 タスク保存機能のJS実装方法解説」「1.2 localStorageとは何か説明」</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> 各タスクの重要度と緊急度から優先順位を設定する (例: まずは保存と読み込みのコア機能から)。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>リスク</strong>: 初期計画の見積もり違い → <strong>対策</strong>: スプリント期間を短めに設定し、早期にフィードバックを得る。</li>
+</ul>
+</li>
+</ul>
+<h2>フェーズ1: スプリント実行 (反復開発)</h2>
+<h3>スプリント (例: 1週間単位、または機能単位)</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>スプリント計画</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> 今回のスプリントで作成する資料の範囲を決定する。</li>
+<li><input checked="" disabled="" type="checkbox"> 例: 「タスクのlocalStorageへの保存機能」と「ページ読み込み時のタスク復元機能」に関する資料作成。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>資料作成 (各機能ステップごと)</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>導入</strong>: このステップで何を学ぶのか、なぜそれが必要なのかを説明。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>事前知識の確認</strong>: 必要に応じて、関連するJavaScriptの基本知識（配列操作、オブジェクト、JSONなど）へのリンクや簡単な復習を挿入。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>具体的な手順</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> 変更・追加するHTML/CSSコード（差分が分かりやすいように）。</li>
+<li><input checked="" disabled="" type="checkbox"> 変更・追加するJavaScriptコード（関数単位、処理ブロック単位で丁寧に）。</li>
+<li><input checked="" disabled="" type="checkbox"> コードの意図、各API（<code>localStorage.setItem()</code> など）の役割と使い方を解説。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>図解</strong>: データ構造の変化（配列→JSON文字列→localStorageなど）を図で示すと理解しやすい。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>演習課題</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> 受講者が実際に手を動かす部分（穴埋め、特定の関数の実装など）。</li>
+<li><input checked="" disabled="" type="checkbox"> ヒントや考えるべきポイントを提示。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>動作確認の方法</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> ブラウザの開発者ツール（コンソール、ストレージタブ）を使った確認手順を具体的に示す。</li>
+<li><input checked="" disabled="" type="checkbox"> 期待される動作、よくあるエラーとその対処法。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>リスク</strong>: 説明が一方的で分かりにくい → <strong>対策</strong>: 受講者視点での「なぜ？」「どうやって？」を意識。Q&amp;A形式のコラムを挟む。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>解答例の作成</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> そのステップ完了時点での完全なHTML、CSS、JavaScriptコードを <code>解答例/stepX/</code> に用意する。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>内部レビューとテスト (今回は省略)</strong>:<ul>
+<li><input checked="" disabled="" type="checkbox"> 作成した資料と解答例を使って、自分自身で演習を試行する。</li>
+<li><input checked="" disabled="" type="checkbox"> 誤字脱字、説明の矛盾、コードのバグなどをチェック。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>リスク</strong>: 品質低下 → <strong>対策</strong>: チェックリストを作成し、機械的に確認できる項目はそれで担保。</li>
+</ul>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 成果物（資料、コード）の内部レビュー（今回はシミュレーションで実施）</li>
+<li><input checked="" disabled="" type="checkbox"> スプリントレビューと次のスプリント計画<ul>
+<li><input checked="" disabled="" type="checkbox"> スプリント1の目標達成度の評価</li>
+<li><input checked="" disabled="" type="checkbox"> スプリント1で発生した問題点や課題の共有</li>
+<li><input checked="" disabled="" type="checkbox"> 次のスプリント（スプリント2）の目標設定</li>
+<li><input checked="" disabled="" type="checkbox"> スプリント2のタスク洗い出しと担当割り当て（今回は個人開発なので自己管理）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>スプリント2: タスクの完了と削除機能の実装</strong><ul>
+<li><input checked="" disabled="" type="checkbox"> スプリント計画</li>
+<li><input checked="" disabled="" type="checkbox"> 資料作成 (<code>ステップ4_タスクの完了と削除機能.md</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> 解答例コード作成 (<code>解答例/step4_complete_delete/</code> フォルダ作成)</li>
+<li><input checked="" disabled="" type="checkbox"> 内部レビューとテスト (資料・解答例を試行)</li>
+<li><input disabled="" type="checkbox"> スプリントレビューと次のスプリント計画<ul>
+<li><input disabled="" type="checkbox"> スプリント2の目標達成度の評価</li>
+<li><input disabled="" type="checkbox"> スプリント3のタスク洗い出しと担当割り当て</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>スプリント3: タスク編集機能の実装 (発展)</strong><ul>
+<li><input checked="" disabled="" type="checkbox"> 資料作成 (<code>ステップ5_タスク内容の編集機能と保存.md</code>)<ul>
+<li><input checked="" disabled="" type="checkbox"> 基本機能（編集ボタン、promptでの編集、保存、再描画）</li>
+<li><input checked="" disabled="" type="checkbox"> データフロー図 (Mermaid)</li>
+<li><input checked="" disabled="" type="checkbox"> インライン編集のサンプルコード追加</li>
+<li><input checked="" disabled="" type="checkbox"> エラーハンドリング例の追加</li>
+<li><input checked="" disabled="" type="checkbox"> Q&amp;Aセクションの追加</li>
+<li><input checked="" disabled="" type="checkbox"> テスト観点の追加</li>
+<li><input checked="" disabled="" type="checkbox"> よくあるエラーと対処法の追加</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> 解答例作成 (<code>解答例/step5_edit</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> 内部レビューとテスト (資料・解答例を試行)<ul>
+<li><input checked="" disabled="" type="checkbox"> Persona A (初心者) によるレビュー</li>
+<li><input checked="" disabled="" type="checkbox"> Persona B (中級者) によるレビュー</li>
+<li><input checked="" disabled="" type="checkbox"> 指摘事項の反映</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> スプリントレビューと次のスプリント計画<ul>
+<li><input checked="" disabled="" type="checkbox"> スプリント3の目標達成度の評価（編集機能に関する資料作成と言語化の完了）</li>
+<li><input checked="" disabled="" type="checkbox"> フェーズ2（統合と最終調整）への移行準備</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>フェーズ2: 統合と最終調整</h2>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+<strong>全体通しでのレビュー</strong> (開始: 2025-06-12):</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> ステップ1～5の資料とコードを一か所にまとめ、実施順に確認（完了: 2025-06-12）</li>
+<li><input checked="" disabled="" type="checkbox"> ドキュメントの見出し・表記ゆれをチェック（完了: 2025-06-12）</li>
+<li><input checked="" disabled="" type="checkbox"> 図版やサンプルコードの整合性を確認（完了: 2025-06-12）<blockquote>
+<p><strong>リスク</strong>: 説明と実装にズレが発生しやすい → <strong>対策</strong>: 資料とコードを同時表示・レビュー</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<strong>最終テスト</strong> (開始: 2025-06-13, 完了: 2025-06-13):</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <code>演習用ベースコード</code> から教材手順通りに実施し、解答例どおり動作するかを検証（完了: 2025-06-13）</li>
+<li><input checked="" disabled="" type="checkbox"> Chrome、Firefox、Edgeなど複数ブラウザで動作確認（完了: 2025-06-13）</li>
+<li><input checked="" disabled="" type="checkbox"> 少量/大量のタスク登録でlocalStorage容量制限テスト（完了: 2025-06-13）<blockquote>
+<p><strong>リスク</strong>: ブラウザ依存・localStorage容量制限 → <strong>対策</strong>: 複数ブラウザでテスト、データ量を段階的に増減</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<strong>資料のパッケージング</strong> (開始: 2025-06-14, 完了: 2025-06-14):</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Markdown、画像、コードを配布用フォルダに整理（完了: 2025-06-14）</li>
+<li><input checked="" disabled="" type="checkbox"> PDF化およびZIP化を実施（完了: 2025-06-14）</li>
+<li><input checked="" disabled="" type="checkbox"> 自動化スクリプトでリンク検証を実行（完了: 2025-06-14）<blockquote>
+<p><strong>リスク</strong>: ファイル漏れ・リンク切れ → <strong>対策</strong>: パッケージ後に自動スクリプトで検証</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2>継続的な改善 (演習実施後)</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 継続的改善キックオフミーティングを開催 (完了: 2025-06-12)</li>
+<li><input disabled="" type="checkbox"> 実際に演習を実施した後、受講者からのフィードバックを収集する。</li>
+<li><input disabled="" type="checkbox"> 分かりにくかった点、改善してほしい点などを元に、資料をアップデートしていく。</li>
+<li><input disabled="" type="checkbox"> フィードバック収集方法を設計 (アンケートフォーム作成) (予定: 2025-06-20)</li>
+<li><input disabled="" type="checkbox"> フィードバック期間: 2025-06-21 ～ 2025-06-30</li>
+<li><input disabled="" type="checkbox"> 結果分析と改善項目抽出 (期限: 2025-07-05)</li>
+<li><input disabled="" type="checkbox"> 更新サイクル計画策定 (期限: 2025-07-07)</li>
+<li><input disabled="" type="checkbox"> 改善版リリース (予定: 2025-07-10)</li>
+</ul>
+
+</body>
+</html>

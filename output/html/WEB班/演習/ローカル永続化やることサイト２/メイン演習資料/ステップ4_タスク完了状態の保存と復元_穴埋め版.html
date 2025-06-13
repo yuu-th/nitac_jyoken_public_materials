@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ4_タスク完了状態の保存と復元_穴埋め版</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ4: タスク完了状態の保存と復元 (完了状態の永続化)（穴埋め版）</h1>
+<h2>導入・問題提起</h2>
+<p>前回のステップ3で「タスクの追加と復元」機能を実装しました。
+しかし、現在はタスクの完了状態（チェックボックス）を切り替えても、その状態がlocalStorageに保存されません。</p>
+<p>今回は、タスクの完了状態を切り替えた時も自動的にlocalStorageに保存し、ページを再読み込みしても完了状態が維持される機能を実装します。</p>
+<p><strong>現在の問題:</strong></p>
+<ul>
+<li>タスクを追加 → ✅ localStorage保存される</li>
+<li>ページ再読み込み → ✅ タスク一覧が復元される  </li>
+<li>タスクの完了切り替え → ❌ <strong>localStorage保存されない</strong></li>
+<li>ページ再読み込み → ❌ <strong>完了状態がリセットされる</strong></li>
+</ul>
+<p><strong>実装後の状態:</strong></p>
+<ul>
+<li>タスクの完了状態を切り替え → ✅ localStorage保存される</li>
+<li>ページ再読み込み → ✅ 完了状態も含めて完全復元される</li>
+</ul>
+<h2>このステップの目標</h2>
+<ul>
+<li>タスクの完了/未完了状態がlocalStorageに正しく保存・復元されることを理解する</li>
+<li>オブジェクトのプロパティが変更されても自動保存されない理由を学ぶ</li>
+<li>イベントハンドラー内での手動保存の必要性を理解する</li>
+<li>完全なデータ永続化の仕組みを習得する</li>
+</ul>
+<h2>考えてみよう</h2>
+<h3>手順1: 現在のtoggleTask関数の確認</h3>
+<p>まず、現在のtoggleTask関数がどのように動作しているかを確認します。</p>
+<pre><code class="language-javascript">// 現在のtoggleTask関数（localStorage保存なし）
+function toggleTask(id) {
+    // 指定されたIDのタスクを見つけて完了状態を切り替え
+    tasks.forEach(function (task) {
+        if (task.id === id) {
+            task.completed = !task.completed;
+            console.log(`🔄 タスク「${task.text}」の完了状態を切り替えました`);
+        }
+    });
+
+    // 画面表示を更新
+    renderTasks();
+    updateProgress();
+}
+</code></pre>
+<h3>手順2: localStorage保存機能の追加</h3>
+<p>toggleTask関数にlocalStorage保存機能を追加します。</p>
+<pre><code class="language-javascript">function toggleTask(id) {
+    // 指定されたIDのタスクを見つけて完了状態を切り替え
+    tasks.forEach(function (task) {
+        if (task.id === id) {
+            task.completed = !task.completed;
+            console.log(`🔄 タスク「${task.text}」の完了状態を${task.completed ? &#39;完了&#39; : &#39;未完了&#39;}に切り替えました`);
+        }
+    });
+
+    // 【穴埋め①】完了状態の変更をlocalStorageに保存する関数を呼び出す（20文字）
+    ____________________;
+
+    // 画面表示を更新
+    renderTasks();
+    updateProgress();
+
+    console.log(&quot;💾 完了状態の変更をlocalStorageに保存しました&quot;);
+}
+</code></pre>
+<h3>手順3: 動作確認</h3>
+<p>実装完了後、以下の手順で動作確認を行います。</p>
+<ol>
+<li><strong>タスクを追加</strong>（例：「買い物」）</li>
+<li><strong>チェックボックスをクリック</strong>して完了状態にする</li>
+<li><strong>DevToolsのConsole</strong>で保存メッセージを確認</li>
+<li><strong>ページを再読み込み</strong></li>
+<li><strong>結果確認</strong>：タスクが完了状態で復元されることを確認</li>
+</ol>
+<h2>✨ 最小限ヒント</h2>
+<ul>
+<li>ステップ2で作成した<code>saveTasksToStorage()</code>関数を再利用します。</li>
+<li>データの状態（この場合はタスクの<code>completed</code>プロパティ）が変更された直後に、<code>saveTasksToStorage()</code>を呼び出してlocalStorageに最新の状態を保存する必要があります。</li>
+<li><code>toggleTask</code>関数内で、<code>task.completed = !task.completed;</code> の行のすぐ後が適切な呼び出し場所です。</li>
+<li><a href="%E3%82%B9%E3%83%86%E3%83%83%E3%83%972_%E3%82%BF%E3%82%B9%E3%82%AF%E8%BF%BD%E5%8A%A0%E6%99%82%E3%81%AE%E8%87%AA%E5%8B%95%E4%BF%9D%E5%AD%98%E6%A9%9F%E8%83%BD_%E7%A9%B4%E5%9F%8B%E3%82%81%E7%89%88.md">ステップ2_タスク追加時の自動保存機能_穴埋め版.md</a>の<code>addTask</code>関数での<code>saveTasksToStorage()</code>の使われ方も参考にしてください。</li>
+</ul>
+<h2>解答例</h2>
+<pre><code class="language-javascript">function toggleTask(id) {
+    // 指定されたIDのタスクを見つけて完了状態を切り替え
+    tasks.forEach(function (task) {
+        if (task.id === id) {
+            task.completed = !task.completed;
+            console.log(`🔄 タスク「${task.text}」の完了状態を${task.completed ? &#39;完了&#39; : &#39;未完了&#39;}に切り替えました`);
+        }
+    });
+
+    // 完了状態の変更をlocalStorageに保存
+    saveTasksToStorage(); // この行を追加
+
+    // 画面表示を更新
+    renderTasks();
+    updateProgress();
+
+    console.log(&quot;💾 完了状態の変更をlocalStorageに保存しました&quot;);
+}
+</code></pre>
+<h2>ポイント解説</h2>
+<h3>① 完全な永続化への一歩</h3>
+<p>このステップの修正により、タスクの「完了状態」もlocalStorageに保存・復元されるようになり、アプリケーションのデータ永続性がさらに向上しました。ユーザーがタスクのチェック状態を変更した後、ページを再読み込みしてもその状態が保持されます。</p>
+<h3>② オブジェクトプロパティ変更時の明示的な保存</h3>
+<p>JavaScriptの配列やオブジェクトの内容（例えば、タスクオブジェクトの<code>completed</code>プロパティ）を変更した場合、その変更をlocalStorageに反映させるためには、再度<code>JSON.stringify()</code>で全体のデータを文字列化し、<code>localStorage.setItem()</code>で保存し直す必要があります。<code>saveTasksToStorage()</code>関数がこの役割を担っています。</p>
+<h3>③ ユーザー操作とデータ同期の原則</h3>
+<p>ユーザーが行う操作（タスク追加、完了状態の切り替え、タスク削除など）によってアプリケーションのデータが変更される場合、その都度<code>saveTasksToStorage()</code>のような関数を呼び出して、変更後の最新データをlocalStorageと同期させることが、データの一貫性を保つための基本です。</p>
+<h2>補足資料への誘導</h2>
+<ul>
+<li><strong>localStorageの挙動と注意点</strong>: <code>補足資料/localStorage_API詳解.md</code></li>
+<li><strong>オブジェクトと配列のJSON変換</strong>: <code>補足資料/JSON操作詳解.md</code></li>
+<li><strong>イベント処理とデータ更新</strong>: <code>補足資料/イベント駆動プログラミング基礎.md</code> (もしあれば)</li>
+</ul>
+<h2>動作確認チェックリスト</h2>
+<p>実装が完了したら、以下の手順で動作を確認しましょう。</p>
+<ol>
+<li><strong>タスクをいくつか追加</strong>します（例: 「牛乳を買う」「レポートを書く」「運動する」）。</li>
+<li><strong>いずれかのタスクのチェックボックスをクリック</strong>して、完了状態にしてみましょう。<ul>
+<li><input disabled="" type="checkbox"> Consoleに <code>🔄 タスク「（タスク名）」の完了状態を完了に切り替えました</code> と表示されるか。</li>
+<li><input disabled="" type="checkbox"> Consoleに <code>💾 完了状態の変更をlocalStorageに保存しました</code> と表示されるか。</li>
+<li><input disabled="" type="checkbox"> ApplicationタブのLocal Storageで、該当タスクの <code>completed</code> プロパティが <code>true</code> に更新されているか。</li>
+</ul>
+</li>
+<li><strong>別のタスクのチェックボックスを何度かクリック</strong>して、完了・未完了を切り替えてみましょう。<ul>
+<li><input disabled="" type="checkbox"> その都度、Consoleに適切なメッセージが表示され、Local Storageの内容も更新されるか。</li>
+</ul>
+</li>
+<li>**ページを再読み込み（F5キー）**します。<ul>
+<li><input disabled="" type="checkbox"> ページ再読み込み後、各タスクの完了状態（チェックボックスの状態）が、再読み込み前の最後の状態どおりに復元されているか。</li>
+<li><input disabled="" type="checkbox"> 進捗バーが、復元されたタスクの完了状態を正しく反映しているか。</li>
+</ul>
+</li>
+<li><strong>全てのタスクを完了状態に</strong>してみてください。<ul>
+<li><input disabled="" type="checkbox"> 進捗バーが100%になり、「全てのタスク完了！」と表示されるか。</li>
+<li><input disabled="" type="checkbox"> この状態でページを再読み込みしても、全てのタスクが完了状態で復元され、進捗バーも100%のままか。</li>
+</ul>
+</li>
+</ol>
+<h2>次のステップへの案内</h2>
+<p>ステップ4でタスク完了状態の永続化ができました。次のステップ5では、タスク削除操作もlocalStorageに正しく反映させ、CRUD操作（作成・読み取り・更新・削除）の全てでlocalStorageとの同期を完成させます。</p>
+
+</body>
+</html>

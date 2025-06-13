@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事前準備</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>事前準備：ローカル永続化やることサイト２ 設計文書</h1>
+<p><strong>作成日</strong>: 2024年12月19日<br><strong>演習作成マニュアル</strong>: 6.1 事前準備に基づく設計</p>
+<h2>1. テーマと学習目標の明確化</h2>
+<h3>演習テーマ</h3>
+<p><strong>「ローカル永続化やることサイト２」</strong> - JavaScriptとlocalStorage APIを使用したタスク管理アプリの永続化機能実装</p>
+<h3>最終学習目標</h3>
+<p><strong>JavaScriptでのlocalStorage操作を理解し、タスク管理アプリにデータ永続化機能を実装できるようになる</strong></p>
+<h4>具体的な習得目標</h4>
+<ol>
+<li><strong>localStorage API</strong>の基本操作（setItem, getItem, removeItem, clear）の理解と実践</li>
+<li><strong>JSON変換</strong>（stringify/parse）を用いたオブジェクトデータの保存・復元</li>
+<li><strong>エラーハンドリング</strong>を含む安全なlocalStorage操作の実装</li>
+<li><strong>ブラウザストレージ</strong>の概念と適切な使い分けの理解</li>
+</ol>
+<h3>対象者設定（演習作成マニュアル1.3準拠）</h3>
+<ul>
+<li><strong>プログラミング経験</strong>: 0〜3ヶ月程度</li>
+<li><strong>前提知識</strong>: <ul>
+<li>HTML/CSS基礎知識</li>
+<li>JavaScript基本構文（変数、関数、DOM操作）</li>
+<li>「やること動的サイト」レベルの実装経験</li>
+</ul>
+</li>
+<li><strong>localStorage経験</strong>: 初体験</li>
+</ul>
+<h2>2. 全体のストーリー設計</h2>
+<h3>学習の流れ（段階的習得）</h3>
+<pre><code>ベースアプリ → localStorage基本体験 → 自動保存 → 復元 → 完了状態保存 → 削除連携
+</code></pre>
+<h3>各ステップの積み上げ設計</h3>
+<ol>
+<li><strong>ベース</strong>: 動作するタスク管理アプリ（localStorage機能なし）</li>
+<li><strong>体験</strong>: ブラウザ開発者ツールでlocalStorageを直接触って理解</li>
+<li><strong>実装</strong>: 段階的にlocalStorage機能を追加</li>
+<li><strong>完成</strong>: 完全に永続化されたタスク管理アプリ</li>
+</ol>
+<h3>認知的負荷の管理</h3>
+<ul>
+<li><strong>1ステップ1〜2概念</strong>: localStorage基本操作、JSON変換、エラーハンドリングを段階的に習得</li>
+<li><strong>実践重視</strong>: 各ステップで必ず動作確認を行い、成果を体感</li>
+<li><strong>漸進的複雑化</strong>: 単純な保存から複雑なデータ構造まで段階的に</li>
+</ul>
+<h2>3. 各ステップの詳細分解</h2>
+<h3>ステップ1: localStorage基本操作の体験（15分）</h3>
+<p><strong>学習目標</strong>: localStorage APIの基本操作を理解する<br><strong>主要概念</strong>: setItem, getItem, removeItem, clear<br><strong>体験内容</strong>: ブラウザ開発者ツールでのinteractive学習<br><strong>成果物</strong>: localStorage操作の基本理解</p>
+<h3>ステップ2: タスク追加時の自動保存機能（20分）</h3>
+<p><strong>学習目標</strong>: タスク追加時にlocalStorageへ自動保存できる<br><strong>主要概念</strong>: JSON.stringify(), try-catchエラーハンドリング<br><strong>実装内容</strong>: addTask()関数にlocalStorage保存機能を追加<br><strong>成果物</strong>: タスク追加と同時に永続化されるアプリ</p>
+<h3>ステップ3: ページ読み込み時のタスク復元機能（20分）</h3>
+<p><strong>学習目標</strong>: 保存したタスクを起動時に復元できる<br><strong>主要概念</strong>: JSON.parse(), null値処理, DOMContentLoaded<br><strong>実装内容</strong>: 初期化時にlocalStorageからタスクを読み込み<br><strong>成果物</strong>: ブラウザを閉じても再開するアプリ</p>
+<h3>ステップ4: タスク完了状態の保存と復元（15分）</h3>
+<p><strong>学習目標</strong>: タスクの完了状態も永続化できる<br><strong>主要概念</strong>: オブジェクトプロパティの保存, 状態同期<br><strong>実装内容</strong>: toggleTask()関数にlocalStorage更新機能を追加<br><strong>成果物</strong>: 完了状態も記憶するアプリ</p>
+<h3>ステップ5: タスク削除時のlocalStorageからの削除（10分）</h3>
+<p><strong>学習目標</strong>: タスク削除がlocalStorageにも反映される<br><strong>主要概念</strong>: データ整合性, CRUD操作の完結<br><strong>実装内容</strong>: deleteTask()関数にlocalStorage更新機能を追加<br><strong>成果物</strong>: 完全に永続化対応したタスク管理アプリ</p>
+<h2>4. 補足資料のテーマ選定</h2>
+<h3>4段階詳細度設計（演習作成マニュアル4章準拠）</h3>
+<h4>テーマ1: localStorage API詳解</h4>
+<ul>
+<li><strong>基本(1分)</strong>: setItem, getItem, removeItem, clearの最低限解説</li>
+<li><strong>詳細(3分)</strong>: API仕様、制限事項、よくある間違いと注意点</li>
+<li><strong>深掘り(コラム)</strong>: sessionStorageとの違い、Cookieとの比較、IndexedDB紹介</li>
+<li><strong>実践応用</strong>: 複数アプリ間でのデータ共有、Storage イベントの活用</li>
+</ul>
+<h4>テーマ2: JSON操作（stringify/parseの仕組み）</h4>
+<ul>
+<li><strong>基本(1分)</strong>: JSON.stringify(), JSON.parse()の基本的な使い方</li>
+<li><strong>詳細(3分)</strong>: 変換できないデータ型、循環参照、replacer/reviver関数</li>
+<li><strong>深掘り(コラム)</strong>: JSONフォーマットの仕様、他の序列化手法との比較</li>
+<li><strong>実践応用</strong>: 複雑なオブジェクト構造の保存、バージョン管理対応</li>
+</ul>
+<h4>テーマ3: データ構造設計（Webアプリでのデータ管理）</h4>
+<ul>
+<li><strong>基本(1分)</strong>: タスクオブジェクトの設計思想（id, text, completed）</li>
+<li><strong>詳細(3分)</strong>: 正規化、一意ID生成、データ整合性</li>
+<li><strong>深掘り(コラム)</strong>: 関係データベース vs NoSQL、フロントエンド状態管理</li>
+<li><strong>実践応用</strong>: 大規模アプリでのデータ設計パターン、パフォーマンス考慮</li>
+</ul>
+<h4>テーマ4: ブラウザストレージ比較</h4>
+<ul>
+<li><strong>基本(1分)</strong>: localStorage vs sessionStorage vs Cookie</li>
+<li><strong>詳細(3分)</strong>: 容量制限、永続性、スコープ、セキュリティ</li>
+<li><strong>深掘り(コラム)</strong>: IndexedDB, WebSQL（非推奨）、Service Worker Cache</li>
+<li><strong>実践応用</strong>: 用途別ストレージ選択指針、ハイブリッド活用法</li>
+</ul>
+<h2>5. 演習用ベースコードの準備</h2>
+<h3>技術仕様</h3>
+<ul>
+<li><strong>HTML</strong>: セマンティックマークアップ、アクセシビリティ対応</li>
+<li><strong>CSS</strong>: モダンCSS、レスポンシブデザイン、CSS Grid/Flexbox活用</li>
+<li><strong>JavaScript</strong>: ES6+記法、モジュラー設計、コメント充実</li>
+</ul>
+<h3>機能仕様（localStorage機能なし）</h3>
+<ul>
+<li>✅ タスクの追加（Add Task）</li>
+<li>✅ タスクの削除（Delete Task）</li>
+<li>✅ タスクの完了切り替え（Toggle Complete）</li>
+<li>✅ 進捗バー自動更新（Progress Bar）</li>
+<li>✅ 完了メッセージ表示（Completion Message）</li>
+<li>❌ <strong>データ永続化（localStorage）</strong> → 演習で段階的に実装</li>
+</ul>
+<h3>コード品質基準</h3>
+<ul>
+<li><strong>教育的コード</strong>: 学習者が理解しやすい変数名、関数名</li>
+<li><strong>段階的拡張対応</strong>: localStorage機能を追加しやすい構造</li>
+<li><strong>エラー処理</strong>: 基本的なバリデーション実装済み</li>
+<li><strong>デバッグ支援</strong>: console.log活用でデバッグしやすい設計</li>
+</ul>
+<h2>6. メイン演習と補足資料の連携設計</h2>
+<h3>自然な誘導パターン</h3>
+<pre><code class="language-markdown">&gt; **より詳しく知りたい場合:** 「補足資料1: localStorage API詳解」で、より深い仕様や他のストレージとの比較を段階的に学べます。
+</code></pre>
+<h3>情報の補完的役割分担</h3>
+<ul>
+<li><strong>メイン演習</strong>: 実践と概要、すぐに手を動かせる</li>
+<li><strong>補足資料</strong>: 詳細と体系化、必要な時に必要な深さで学べる</li>
+</ul>
+<h3>重複・矛盾の防止</h3>
+<ul>
+<li><strong>用語統一</strong>: 全資料でlocalStorage APIの表記を統一</li>
+<li><strong>コード整合性</strong>: サンプルコードの変数名、関数名を統一</li>
+<li><strong>難易度調整</strong>: メイン → 補足の自然な学習流れを確保</li>
+</ul>
+<h2>7. 品質担保方針</h2>
+<h3>演習作成マニュアル6.4品質チェックリスト準拠</h3>
+<ul>
+<li>✅ <strong>指示の明確性</strong>: 具体的なキー名、値、期待動作を明記</li>
+<li>✅ <strong>穴埋めの適切性</strong>: 学習目標と直結、適切な難易度</li>
+<li>✅ <strong>解答との整合性</strong>: 穴埋めから論理的に導出可能</li>
+<li>✅ <strong>別解の考慮</strong>: 想定される別解をフォロー</li>
+<li>✅ <strong>メイン演習と補足資料の連携</strong>: 自然で補完的</li>
+<li>✅ <strong>技術的正確性</strong>: コードと説明の誤りを徹底排除</li>
+</ul>
+<h3>セルフレビュー観点</h3>
+<ol>
+<li><strong>学習者視点</strong>: 初学者が詰まりそうなポイントの事前対策</li>
+<li><strong>指導者視点</strong>: 教えやすい資料構成、エラー対応方法の整備</li>
+<li><strong>技術的視点</strong>: 最新のWeb標準に準拠、将来性のある内容</li>
+</ol>
+<h2>8. 成功指標</h2>
+<h3>学習者の達成目標</h3>
+<ul>
+<li><input disabled="" type="checkbox"> localStorage APIの基本操作を説明できる</li>
+<li><input disabled="" type="checkbox"> タスクアプリに永続化機能を自力で実装できる</li>
+<li><input disabled="" type="checkbox"> JSON変換の仕組みを理解している</li>
+<li><input disabled="" type="checkbox"> ブラウザストレージの使い分けを判断できる</li>
+</ul>
+<h3>教材の品質指標</h3>
+<ul>
+<li><input disabled="" type="checkbox"> ステップ通りに進めて100%動作するアプリが完成する</li>
+<li><input disabled="" type="checkbox"> 各ステップの学習時間が想定範囲（10-20分）内</li>
+<li><input disabled="" type="checkbox"> 補足資料が自然に活用される</li>
+<li><input disabled="" type="checkbox"> 学習者が「次も学びたい」と感じる</li>
+</ul>
+<hr>
+<p>この設計文書に基づき、演習作成マニュアル6.2「各ステップの作成手順」に従って高品質な演習資料を作成していきます。</p>
+
+</body>
+</html>

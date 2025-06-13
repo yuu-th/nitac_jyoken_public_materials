@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON操作詳解</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>補足資料2: JSON操作詳解</h1>
+<h2>基本(1分) - JSONとは</h2>
+<p><strong>概要:</strong> JSON（JavaScript Object Notation）は、データを文字列として保存・送信するための軽量な形式で、JavaScriptオブジェクトと文字列を相互変換できます。</p>
+<p><strong>基本構文:</strong></p>
+<pre><code class="language-javascript">// 基本的な変換操作
+const オブジェクト = {name: &quot;太郎&quot;, age: 25};
+const JSON文字列 = JSON.stringify(オブジェクト);  // オブジェクト → 文字列
+const復元オブジェクト = JSON.parse(JSON文字列);    // 文字列 → オブジェクト
+</code></pre>
+<p><strong>シンプルな例:</strong></p>
+<pre><code class="language-javascript">// 最もシンプルな使用例
+const userData = {name: &quot;田中&quot;, score: 100};
+const saved = JSON.stringify(userData);  // &#39;{&quot;name&quot;:&quot;田中&quot;,&quot;score&quot;:100}&#39;
+const restored = JSON.parse(saved);      // {name: &quot;田中&quot;, score: 100}
+</code></pre>
+<hr>
+<h2>詳細(3分) - JSONの仕組みと使い方</h2>
+<h3>動作の仕組み</h3>
+<p>JSON.stringify()はJavaScriptの値をJSON文字列に変換し、JSON.parse()はJSON文字列をJavaScriptの値に復元します。localStorageなど文字列しか保存できない場所で、オブジェクトや配列を扱うために必須の技術です。</p>
+<h3>実行フロー</h3>
+<ol>
+<li><strong>stringify時</strong>: JavaScript値 → 内部パース処理 → JSON文字列</li>
+<li><strong>parse時</strong>: JSON文字列 → 構文解析 → JavaScript値  </li>
+<li><strong>エラー時</strong>: 不正な文字列 → SyntaxError例外</li>
+</ol>
+<p><strong>例:</strong></p>
+<pre><code class="language-javascript">// より詳細な例（配列とネストオブジェクト）
+const complexData = {
+    tasks: [
+        {id: 1, text: &quot;買い物&quot;, completed: true},
+        {id: 2, text: &quot;掃除&quot;, completed: false}
+    ],
+    settings: {
+        theme: &quot;dark&quot;,
+        notifications: true
+    },
+    lastUpdated: &quot;2025-06-13T10:30:00Z&quot;
+};
+
+// 複雑なデータもそのまま変換可能
+const jsonString = JSON.stringify(complexData);
+console.log(jsonString);
+// &#39;{&quot;tasks&quot;:[{&quot;id&quot;:1,&quot;text&quot;:&quot;買い物&quot;,&quot;completed&quot;:true}...]...}&#39;
+
+// 完全に復元される
+const restored = JSON.parse(jsonString);
+console.log(restored.tasks[0].text); // &quot;買い物&quot;
+</code></pre>
+<h3>よくある間違いと注意点</h3>
+<p><strong>❌ 間違った例:</strong></p>
+<pre><code class="language-javascript">// 不正なJSON文字列をparseしようとする
+const broken = &#39;{&quot;name&quot;: &quot;太郎&quot;, &quot;age&quot;: 25,}&#39;; // 末尾のカンマが不正
+const result = JSON.parse(broken); // SyntaxError が発生
+
+// null チェックなしでparse
+const saved = localStorage.getItem(&#39;data&#39;); // null が返される可能性
+const data = JSON.parse(saved); // null をparseしてエラー
+
+// 関数や undefined を stringify
+const withFunction = {name: &quot;太郎&quot;, getValue: function() {return 42;}};
+const json = JSON.stringify(withFunction); // &#39;{&quot;name&quot;:&quot;太郎&quot;}&#39; 関数は消える
+</code></pre>
+<p><strong>✅ 正しい例:</strong></p>
+<pre><code class="language-javascript">// エラーハンドリング付きparse
+function safeParseJSON(jsonString) {
+    try {
+        return JSON.parse(jsonString);
+    } catch (error) {
+        console.error(&#39;JSON解析エラー:&#39;, error);
+        return null;
+    }
+}
+
+// null チェック + エラーハンドリング
+function loadFromStorage(key) {
+    const saved = localStorage.getItem(key);
+    if (saved === null) {
+        return null; // データなし
+    }
+    return safeParseJSON(saved);
+}
+
+// stringify前の値チェック
+function safeSaveToStorage(key, data) {
+    if (data === undefined || data === null) {
+        localStorage.removeItem(key);
+        return;
+    }
+    try {
+        const jsonString = JSON.stringify(data);
+        localStorage.setItem(key, jsonString);
+    } catch (error) {
+        console.error(&#39;保存エラー:&#39;, error);
+    }
+}
+</code></pre>
+<h3>JSONで扱えないデータ型</h3>
+<ul>
+<li><strong>関数</strong>: 無視される</li>
+<li><strong>undefined</strong>: 無視される（配列の場合は null になる）</li>
+<li><strong>Symbol</strong>: 無視される</li>
+<li><strong>Date オブジェクト</strong>: 文字列に変換される（復元時は文字列のまま）</li>
+<li><strong>正規表現</strong>: 空オブジェクト <code>{}</code> になる</li>
+</ul>
+<hr>
+<h2>深掘り(コラム) - JSONと関連技術</h2>
+<h3>関連技術マップ（優先度順）</h3>
+<h4>🔥 重要度：高 - Date オブジェクトの扱い</h4>
+<p><strong>関連性:</strong> JSON変換でよく問題になるデータ型の代表例</p>
+<pre><code class="language-javascript">// Date オブジェクトの問題と解決例
+const originalData = {
+    name: &quot;タスク1&quot;,
+    createdAt: new Date(&quot;2025-06-13T10:30:00Z&quot;),
+    completed: false
+};
+
+// 問題：Dateが文字列になってしまう
+const json = JSON.stringify(originalData);
+const restored = JSON.parse(json);
+console.log(typeof restored.createdAt); // &quot;string&quot; （Dateではない）
+
+// 解決：カスタム変換関数
+function stringifyWithDate(data) {
+    return JSON.stringify(data, (key, value) =&gt; {
+        if (value instanceof Date) {
+            return {__type: &#39;Date&#39;, value: value.toISOString()};
+        }
+        return value;
+    });
+}
+
+function parseWithDate(jsonString) {
+    return JSON.parse(jsonString, (key, value) =&gt; {
+        if (value &amp;&amp; value.__type === &#39;Date&#39;) {
+            return new Date(value.value);
+        }
+        return value;
+    });
+}
+</code></pre>
+<h4>🔶 重要度：中 - FormData との連携</h4>
+<p><strong>関連性:</strong> フォームデータとJSONオブジェクトの相互変換</p>
+<pre><code class="language-javascript">// FormData と JSON の相互変換例
+function formDataToJSON(formData) {
+    const object = {};
+    formData.forEach((value, key) =&gt; {
+        // 同じkeyが複数ある場合は配列にする
+        if (object[key]) {
+            if (!Array.isArray(object[key])) {
+                object[key] = [object[key]];
+            }
+            object[key].push(value);
+        } else {
+            object[key] = value;
+        }
+    });
+    return JSON.stringify(object);
+}
+
+function jsonToFormData(jsonString) {
+    const data = JSON.parse(jsonString);
+    const formData = new FormData();
+    
+    for (let key in data) {
+        if (Array.isArray(data[key])) {
+            data[key].forEach(value =&gt; formData.append(key, value));
+        } else {
+            formData.append(key, data[key]);
+        }
+    }
+    return formData;
+}
+</code></pre>
+<h4>🔹 重要度：補足 - XMLHttpRequest/fetch との連携</h4>
+<p><strong>関連性:</strong> サーバー通信でのJSON送受信</p>
+<pre><code class="language-javascript">// サーバー通信でのJSON活用例
+async function sendTaskToServer(taskData) {
+    try {
+        const response = await fetch(&#39;/api/tasks&#39;, {
+            method: &#39;POST&#39;,
+            headers: {
+                &#39;Content-Type&#39;: &#39;application/json&#39;,
+            },
+            body: JSON.stringify(taskData) // JSON文字列として送信
+        });
+        
+        const responseData = await response.json(); // 自動でJSONをparse
+        return responseData;
+    } catch (error) {
+        console.error(&#39;通信エラー:&#39;, error);
+        throw error;
+    }
+}
+</code></pre>
+<h3>技術の全体像</h3>
+<p>JSON操作は現代のWebアプリケーション開発において、データの永続化、サーバー通信、設定管理など様々な場面で中核的な役割を果たします。適切なエラーハンドリングと型変換を理解することで、堅牢なアプリケーションを構築できます。</p>
+<hr>
+<h2>実践応用 - JSONと関連技術の総合活用</h2>
+<h3>組み合わせパターン集</h3>
+<h4>パターン1: JSON + localStorage + 型安全管理</h4>
+<p><strong>使用場面:</strong> 型の整合性を保ちながらデータを永続化する</p>
+<pre><code class="language-javascript">// 型安全なデータ管理システム
+class TypeSafeStorage {
+    constructor() {
+        this.typeValidators = {
+            string: (value) =&gt; typeof value === &#39;string&#39;,
+            number: (value) =&gt; typeof value === &#39;number&#39; &amp;&amp; !isNaN(value),
+            boolean: (value) =&gt; typeof value === &#39;boolean&#39;,
+            array: (value) =&gt; Array.isArray(value),
+            object: (value) =&gt; value !== null &amp;&amp; typeof value === &#39;object&#39; &amp;&amp; !Array.isArray(value),
+            date: (value) =&gt; value instanceof Date
+        };
+    }
+    
+    // スキーマ定義に基づく保存
+    save(key, data, schema) {
+        // バリデーション
+        if (!this.validateSchema(data, schema)) {
+            throw new Error(`Data does not match schema for key: ${key}`);
+        }
+        
+        // Date型などの特殊変換
+        const processedData = this.processForSave(data, schema);
+        
+        try {
+            const jsonString = JSON.stringify(processedData);
+            localStorage.setItem(key, jsonString);
+            
+            // スキーマ情報も保存
+            localStorage.setItem(`${key}_schema`, JSON.stringify(schema));
+            
+            return { success: true };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
+    
+    // スキーマに基づく復元
+    load(key) {
+        try {
+            const dataString = localStorage.getItem(key);
+            const schemaString = localStorage.getItem(`${key}_schema`);
+            
+            if (!dataString || !schemaString) {
+                return null;
+            }
+            
+            const schema = JSON.parse(schemaString);
+            const rawData = JSON.parse(dataString);
+            
+            // 型復元処理
+            const restoredData = this.processForLoad(rawData, schema);
+            
+            return restoredData;
+        } catch (error) {
+            console.error(`Failed to load ${key}:`, error);
+            return null;
+        }
+    }
+    
+    processForSave(data, schema) {
+        const result = {...data};
+        
+        for (let field in schema) {
+            if (schema[field] === &#39;date&#39; &amp;&amp; result[field] instanceof Date) {
+                result[field] = {
+                    __type: &#39;Date&#39;,
+                    value: result[field].toISOString()
+                };
+            }
+        }
+        
+        return result;
+    }
+    
+    processForLoad(data, schema) {
+        const result = {...data};
+        
+        for (let field in schema) {
+            if (schema[field] === &#39;date&#39; &amp;&amp; result[field]?.__type === &#39;Date&#39;) {
+                result[field] = new Date(result[field].value);
+            }
+        }
+        
+        return result;
+    }
+    
+    validateSchema(data, schema) {
+        for (let field in schema) {
+            const expectedType = schema[field];
+            const value = data[field];
+            
+            if (value !== undefined &amp;&amp; !this.typeValidators[expectedType]?.(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+// 使用例
+const storage = new TypeSafeStorage();
+
+const taskSchema = {
+    id: &#39;number&#39;,
+    text: &#39;string&#39;,
+    completed: &#39;boolean&#39;,
+    createdAt: &#39;date&#39;,
+    tags: &#39;array&#39;
+};
+
+const taskData = {
+    id: 1,
+    text: &quot;買い物に行く&quot;,
+    completed: false,
+    createdAt: new Date(),
+    tags: [&quot;日用品&quot;, &quot;食材&quot;]
+};
+
+storage.save(&#39;task_1&#39;, taskData, taskSchema);
+const restored = storage.load(&#39;task_1&#39;);
+console.log(restored.createdAt instanceof Date); // true
+</code></pre>
+<p><strong>なぜこの組み合わせ？</strong> データの型安全性を保ちながら永続化することで、実行時エラーを大幅に削減</p>
+<h4>パターン2: JSON + 圧縮 + バージョン管理</h4>
+<p><strong>使用場面:</strong> 大容量データの効率的な保存とバージョン互換性管理</p>
+<pre><code class="language-javascript">// 高度なデータ永続化システム
+class AdvancedJSONStorage {
+    constructor() {
+        this.version = &#39;1.0&#39;;
+        this.compressionThreshold = 1024; // 1KB以上で圧縮
+    }
+    
+    // データの保存（圧縮・バージョン情報付き）
+    async save(key, data) {
+        const envelope = {
+            version: this.version,
+            timestamp: Date.now(),
+            data: data
+        };
+        
+        try {
+            let jsonString = JSON.stringify(envelope);
+            
+            // 大容量データの場合は圧縮
+            if (jsonString.length &gt; this.compressionThreshold) {
+                jsonString = await this.compress(jsonString);
+                envelope.compressed = true;
+            }
+            
+            localStorage.setItem(key, jsonString);
+            
+            // メタデータ保存
+            this.saveMetadata(key, {
+                size: jsonString.length,
+                compressed: envelope.compressed || false,
+                timestamp: envelope.timestamp
+            });
+            
+            return { success: true, size: jsonString.length };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
+    
+    // データの読み込み（解凍・バージョン互換処理）
+    async load(key) {
+        try {
+            let dataString = localStorage.getItem(key);
+            if (!dataString) return null;
+            
+            // 圧縮データの場合は解凍
+            const metadata = this.getMetadata(key);
+            if (metadata?.compressed) {
+                dataString = await this.decompress(dataString);
+            }
+            
+            const envelope = JSON.parse(dataString);
+            
+            // バージョン互換性チェック
+            if (envelope.version !== this.version) {
+                envelope.data = this.migrateData(envelope.data, envelope.version, this.version);
+            }
+            
+            return envelope.data;
+        } catch (error) {
+            console.error(`Failed to load ${key}:`, error);
+            return null;
+        }
+    }
+    
+    // シンプルな圧縮（実際はpako.jsなどを使用推奨）
+    async compress(data) {
+        // ここでは疑似圧縮（実装例）
+        return btoa(data); // Base64エンコード
+    }
+    
+    async decompress(data) {
+        // ここでは疑似解凍（実装例）
+        return atob(data); // Base64デコード
+    }
+    
+    // データマイグレーション
+    migrateData(data, fromVersion, toVersion) {
+        if (fromVersion === &#39;0.9&#39; &amp;&amp; toVersion === &#39;1.0&#39;) {
+            // バージョン0.9から1.0への移行例
+            if (data.tasks) {
+                data.tasks = data.tasks.map(task =&gt; ({
+                    ...task,
+                    priority: task.priority || &#39;normal&#39;, // 新フィールド追加
+                    createdAt: task.createdAt || new Date().toISOString()
+                }));
+            }
+        }
+        return data;
+    }
+    
+    saveMetadata(key, metadata) {
+        const allMetadata = JSON.parse(localStorage.getItem(&#39;__metadata__&#39;) || &#39;{}&#39;);
+        allMetadata[key] = metadata;
+        localStorage.setItem(&#39;__metadata__&#39;, JSON.stringify(allMetadata));
+    }
+    
+    getMetadata(key) {
+        const allMetadata = JSON.parse(localStorage.getItem(&#39;__metadata__&#39;) || &#39;{}&#39;);
+        return allMetadata[key];
+    }
+}
+</code></pre>
+<h3>技術選択の判断基準</h3>
+<p><strong>データサイズ小（〜1KB）</strong>: 基本的なJSON.stringify/parse
+<strong>データサイズ中（1KB〜100KB）</strong>: エラーハンドリング + 型管理
+<strong>データサイズ大（100KB〜）</strong>: 圧縮 + 分割保存
+<strong>型の整合性重要</strong>: スキーマバリデーション導入
+<strong>長期運用</strong>: バージョン管理 + マイグレーション機能</p>
+<h3>総合実例：実際のプロジェクト想定</h3>
+<pre><code class="language-javascript">// 実際のプロジェクトレベルのJSONデータ管理
+class ProjectDataManager {
+    constructor() {
+        this.storage = new AdvancedJSONStorage();
+        this.typeStorage = new TypeSafeStorage();
+        
+        // アプリケーションスキーマ定義
+        this.schemas = {
+            userProfile: {
+                id: &#39;string&#39;,
+                name: &#39;string&#39;,
+                email: &#39;string&#39;,
+                preferences: &#39;object&#39;,
+                lastLogin: &#39;date&#39;
+            },
+            projectData: {
+                id: &#39;string&#39;,
+                title: &#39;string&#39;,
+                tasks: &#39;array&#39;,
+                settings: &#39;object&#39;,
+                createdAt: &#39;date&#39;,
+                updatedAt: &#39;date&#39;
+            }
+        };
+    }
+    
+    // 統合的なデータ保存
+    async saveUserProfile(profile) {
+        return this.typeStorage.save(&#39;userProfile&#39;, profile, this.schemas.userProfile);
+    }
+    
+    async saveProjectData(project) {
+        // 大容量の可能性があるプロジェクトデータは高度な保存を使用
+        return this.storage.save(&#39;currentProject&#39;, project);
+    }
+    
+    // エクスポート機能（全データの統合）
+    async exportAllData() {
+        const exportData = {
+            userProfile: this.typeStorage.load(&#39;userProfile&#39;),
+            project: await this.storage.load(&#39;currentProject&#39;),
+            settings: this.typeStorage.load(&#39;appSettings&#39;),
+            exportDate: new Date().toISOString(),
+            version: &#39;1.0&#39;
+        };
+        
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+            type: &#39;application/json&#39;
+        });
+        
+        return blob;
+    }
+    
+    // インポート機能（データの復元）
+    async importData(file) {
+        try {
+            const text = await file.text();
+            const importData = JSON.parse(text);
+            
+            // バリデーションとデータ復元
+            if (importData.userProfile) {
+                await this.saveUserProfile(importData.userProfile);
+            }
+            
+            if (importData.project) {
+                await this.saveProjectData(importData.project);
+            }
+            
+            return { success: true };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
+}
+</code></pre>
+<p>このような実装により、JSONを中心とした堅牢で拡張性の高いデータ管理システムを構築できます。型安全性、圧縮、バージョン管理など、実際のプロダクション環境で必要とされる機能を全て網羅した実用的なソリューションとなります。</p>
+<hr>
+<h2>エラーハンドリング（JSON.parse/JSON.stringifyの失敗時対策）</h2>
+<p>JSON.parseやJSON.stringifyは、無効な文字列や循環参照などで例外（SyntaxError等）を投げることがあります。安全な実装にはtry-catchによる例外処理が不可欠です。</p>
+<p><strong>例:</strong></p>
+<pre><code class="language-javascript">// エラーハンドリング付きparse
+function safeParseJSON(jsonString) {
+    try {
+        return JSON.parse(jsonString);
+    } catch (error) {
+        console.error(&#39;JSON解析エラー:&#39;, error);
+        return null;
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>より詳しいエラーハンドリングの仕組みやtry-catchの使い方は「補足資料: try-catch詳解」を参照してください。</strong></p>
+</blockquote>
+<hr>
+<h3>関連する補足資料</h3>
+<ul>
+<li><strong>補足資料1: localStorage API詳解</strong> - JSONと組み合わせたデータ永続化</li>
+<li><strong>補足資料3: データ構造設計</strong> - JSONで表現しやすいデータ構造の設計パターン</li>
+<li><strong>補足資料4: ブラウザストレージ比較</strong> - 各ストレージでのJSONデータ活用法</li>
+<li><strong>補足資料: try-catch詳解</strong> - 例外処理の基礎と応用</li>
+</ul>
+
+</body>
+</html>

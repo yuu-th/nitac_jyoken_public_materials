@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ5_タスク内容の編集機能と保存</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ5: タスク内容の編集機能と保存 (発展)</h1>
+<p>前のステップでは、タスクの追加、表示、完了・削除機能の永続化を学びました。この発展ステップでは、既存のタスク内容を編集し、変更をlocalStorageに保存する方法を学びます。</p>
+<h2>1. このステップのゴール</h2>
+<ul>
+<li>タスクの「編集」ボタンを追加し、既存のタスクテキストを変更できるようにする。</li>
+<li>編集後の内容を <code>localStorage</code> に保存し、ページ再読み込み後も反映を維持する。</li>
+</ul>
+<h2>2. 事前知識の確認</h2>
+<ul>
+<li>JavaScriptの <code>prompt</code> 関数またはインライン編集で文字列を取得する方法。</li>
+<li>既存の <code>tasks</code> 配列の要素に変更を加え、<code>saveTasks()</code> と <code>renderTasks()</code> を呼び出す流れ。</li>
+</ul>
+<h2>3. 具体的な手順: <code>script.js</code> の変更</h2>
+<h3>3.1. <code>editTask</code> 関数の作成</h3>
+<pre><code class="language-javascript">// タスクを編集する関数
+function editTask(id) {
+  const task = tasks.find(t =&gt; t.id === id);
+  if (!task) return;
+  const newText = prompt(&#39;タスク内容を編集してください&#39;, task.text);
+  if (newText !== null &amp;&amp; newText.trim() !== &#39;&#39;) {
+    task.text = newText.trim();
+    saveTasks();        // 変更をlocalStorageに保存
+    renderTasks();      // 画面を再描画
+  }
+}
+</code></pre>
+<h3>3.2. <code>renderTasks</code> の更新</h3>
+<ul>
+<li>各タスクに「編集」ボタンを追加し、クリック時に <code>editTask</code> を呼び出します。</li>
+</ul>
+<pre><code class="language-javascript">// renderTasks 内のボタン設定箇所
+const editButton = document.createElement(&#39;button&#39;);
+editButton.textContent = &#39;編集&#39;;
+editButton.classList.add(&#39;edit-btn&#39;);
+editButton.addEventListener(&#39;click&#39;, () =&gt; editTask(task.id));
+// append順: 完了ボタン, 編集ボタン, 削除ボタン
+li.appendChild(completeButton);
+li.appendChild(editButton);
+li.appendChild(deleteButton);
+</code></pre>
+<h3>3.3. データフローイメージ</h3>
+<pre><code class="language-mermaid">flowchart LR
+  tasks(タスク配列) --&gt;|JSON.stringify| storageStr(JSON文字列)
+  storageStr --&gt;|localStorage.setItem| localStorage
+  localStorage --&gt;|localStorage.getItem| loadedStr(JSON文字列)
+  loadedStr --&gt;|JSON.parse| loadedTasks(タスク配列)
+  loadedTasks --&gt;|renderTasks| 画面表示
+  renderTasks --&gt;|編集ボタン| editTask
+</code></pre>
+<blockquote>
+<p>※Mermaid図を表示するには、VS Code の <code>Markdown Preview Mermaid Support</code> などの拡張機能が必要です。</p>
+</blockquote>
+<h3>3.4. インライン編集サンプル</h3>
+<pre><code class="language-javascript">// タスクテキストを直接編集するサンプル
+function enableInlineEdit() {
+  document.querySelectorAll(&#39;.task-text&#39;).forEach(span =&gt; {
+    span.contentEditable = true;
+    span.addEventListener(&#39;blur&#39;, () =&gt; {
+      const id = Number(span.dataset.id);
+      const task = tasks.find(t =&gt; t.id === id);
+      const newText = span.textContent.trim();
+      if (!task) return;
+      if (newText) {
+        task.text = newText;
+        saveTasks();
+        renderTasks();
+      } else {
+        alert(&#39;タスク内容を空にできません。&#39;);
+        renderTasks();
+      }
+    });
+  });
+}
+
+// renderTasks() の後に呼び出して有効化
+// enableInlineEdit();
+</code></pre>
+<h2>4. 演習課題</h2>
+<ol>
+<li><code>演習用ベースコード</code> の <code>script.js</code> に上記「3.1. <code>editTask</code> 関数の作成」と「3.2. <code>renderTasks</code> の更新」を実装してください。</li>
+<li><code>解答例/step5_edit</code> フォルダのコードを参考に、タスクの編集機能が動作することを確認してください。</li>
+</ol>
+<h2>5. 動作確認の方法</h2>
+<ol>
+<li>タスクをいくつか登録する。</li>
+<li>各タスクに表示された「編集」ボタンをクリックし、テキストを変更する。</li>
+<li>変更後、リロードしても編集内容が保持されていることを確認する。</li>
+</ol>
+<p><strong>テスト観点 (チェックリスト)</strong>  </p>
+<ul>
+<li>編集キャンセル時に元の内容が保持されるか  </li>
+<li>空入力時に適切なアラートが出るか  </li>
+<li>連続編集で正しく最新の内容が反映されるか  </li>
+<li>他の機能（完了・削除）と干渉がないか</li>
+</ul>
+<h2>6. Q&amp;A</h2>
+<p><strong>Q1: <code>prompt</code> を使わず、インラインで編集したい場合は？</strong>
+A1: <code>contenteditable</code> 属性を使って <code>span</code> 要素を直接編集可能にし、編集完了時にイベントリスナーで変更を検知し、<code>saveTasks()</code> と <code>renderTasks()</code> を呼び出す方法もあります。演習で挑戦してみましょう。</p>
+<p><strong>Q2: 編集キャンセル時の挙動はどうなりますか？</strong>
+A2: <code>prompt</code> でキャンセルすると <code>newText</code> が <code>null</code> になるため、変更処理を実行せずそのまま終了します。</p>
+<hr>
+<pre><code class="language-javascript">// エラーハンドリング付き editTask の例
+function editTask(id) {
+  const task = tasks.find(t =&gt; t.id === id);
+  if (!task) {
+    console.error(`タスクが見つかりません: ${id}`);
+    return;
+  }
+  const newText = prompt(&#39;タスク内容を編集してください&#39;, task.text);
+  if (newText === null) {
+    // キャンセル時は何もしない
+    return;
+  }
+  const trimmed = newText.trim();
+  if (trimmed === &#39;&#39;) {
+    alert(&#39;タスク内容を空にすることはできません。&#39;);
+    return;
+  }
+  task.text = trimmed;
+  saveTasks();
+  renderTasks();
+}
+</code></pre>
+<h2>7. よくあるエラーと対処法</h2>
+<ul>
+<li><code>prompt</code> ダイアログが表示されない → ブラウザのポップアップブロック設定を確認する。</li>
+<li>空文字で確定するとアラートが出ることを確認する。</li>
+<li>編集後に内容が保存されない → <code>saveTasks()</code> が呼ばれているかコンソールでエラーを確認する。</li>
+<li>タスクIDが見つからない → 一意な <code>id</code> が付与されているか <code>tasks</code> 配列の構造を確認する。</li>
+<li>Mermaid 図が表示されない → VS Code の拡張機能（Markdown Preview Mermaid Supportなど）をインストールする。</li>
+</ul>
+
+</body>
+</html>

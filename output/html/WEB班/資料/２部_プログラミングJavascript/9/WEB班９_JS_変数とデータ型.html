@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WEB班９_JS_変数とデータ型</title>
-<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
 </head>
 <body class="markdown-body">
 <h1>第2章: 変数とデータ型 – 情報の入れ物と種類</h1>
@@ -115,8 +115,8 @@ console.log(favoriteFruits); // [&quot;ぶどう&quot;, &quot;バナナ&quot;, &
 // favoriteFruitsという箱自体を、別の配列に差し替えようとするとエラー
 // favoriteFruits = [&quot;メロン&quot;, &quot;スイカ&quot;]; // TypeError: Assignment to constant variable.
 </code></pre>
-<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image.png" alt="">
-<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-1.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image.png" alt="">
+<img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-1.png" alt=""></p>
 <p>この挙動は最初は少しややこしく感じるかもしれませんが、「<code>const</code> は変数の再代入を防ぐもので、中身の変更まで完全に禁止するわけではない（特にオブジェクトや配列の場合）」と覚えておきましょう。</p>
 <h3>宣言と代入 – 箱の用意と中身の投入</h3>
 <p>変数を使う流れを整理すると、以下のようになります。</p>
@@ -343,9 +343,9 @@ testScope();
 <p>このブロックスコープのおかげで、変数が意図しない範囲に影響を与えるのを防ぎやすくなり、より安全なコードを書くことができます。<code>let</code> と <code>const</code> が推奨される大きな理由の一つです。</p>
 <h3>スコープのイメージ図</h3>
 <p>スコープの関係を視覚的にイメージすると、以下のようになります。</p>
-<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-2.png" alt="">
-<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-3.png" alt="">
-<img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-4.png" alt=""></p>
+<p><img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-2.png" alt="">
+<img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-3.png" alt="">
+<img src="/nitac_jyoken_public_materials /WEB%E7%8F%AD/%E8%B3%87%E6%96%99/%EF%BC%92%E9%83%A8_%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Javascript/9/image-4.png" alt=""></p>
 <p>プログラムは、内側のスコープから外側のスコープにある変数にはアクセスできますが、外側のスコープから内側のスコープにある変数には（基本的に）アクセスできません。また、同じレベルの別のスコープにある変数にもアクセスできません。</p>
 <hr>
 <h2>5. 変数の巻き上げ (Hoisting) – ちょっと不思議な現象</h2>

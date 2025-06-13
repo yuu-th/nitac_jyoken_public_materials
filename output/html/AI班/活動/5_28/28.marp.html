@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>28.marp</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<hr>
+<h2>marp: true
+theme: my-theme
+paginate: true
+backgroundColor: #fff
+color: #333</h2>
+<h1>ペアプログラミングチャレンジ！</h1>
+<h2>Pythonで「数当てゲーム」を開発しよう！</h2>
+<hr>
+<h2>ミッション</h2>
+<p>今日のミッションは、ペアの友達と協力して、Pythonで<strong>数当てゲーム</strong>を開発すること！
+これまでに学んだ<strong>変数、データ型、演算、<code>input()</code>、<code>print()</code>、そしてf-string</strong>などの知識をフル活用しよう。</p>
+<hr>
+<p><strong>このチャレンジで目指すこと：</strong></p>
+<ul>
+<li>論理的な思考力と問題解決能力を養う。</li>
+<li>ペアプログラミングを通じて、協力して開発するスキルを体験する。</li>
+<li>プログラムを作る楽しさを実感する！</li>
+</ul>
+<hr>
+<h3>ゲームの基本ルール</h3>
+<ol>
+<li>出題者（プログラム）が、1から30までの範囲でランダムな「秘密の数字」を心の中で（変数に）持ちます。</li>
+<li>回答者（ユーザー）は、その「秘密の数字」を予想してキーボードから入力します。</li>
+<li>プログラムは、回答者の予想が「秘密の数字」と比べて...<ul>
+<li>大きすぎるか</li>
+<li>小さすぎるか</li>
+<li>それともピッタリ正解か
+をヒントとして教えてくれます。</li>
+</ul>
+</li>
+<li>回答者は、ヒントを元に、正解するまで予想を繰り返します。</li>
+</ol>
+<hr>
+<h2>ステップ１：ゲームの土台を作ろう</h2>
+<h3>1. プロジェクト開始！</h3>
+<p>まず、VSCodeで新しいPythonファイルを作成しよう。
+ファイル名は <code>guess_the_number.py</code> のような、分かりやすい名前にすると良いね！</p>
+<hr>
+<h3>2. 「秘密の数字」を準備</h3>
+<p>プログラムの冒頭で、「秘密の数字」を決めよう。
+<code>secret_number</code> という変数に、1から30の間のお好きな整数を代入してね。
+（ペアで相談して、最初は固定の数字でテストすると開発しやすいよ！）</p>
+<pre><code class="language-python"># filepath: guess_the_number.py
+# 「秘密の数字」をここで設定 (1〜30の範囲で！)
+secret_number = 15  # 例：最初は15にしてみよう。後で変えてテストしてね！
+challenge_count = 0 # ユーザーが何回挑戦したかを数える変数
+
+
+```
+
+---
+
+
+---
+
+### 3. ユーザーからの最初の「予想」を受け取る
+次に、ユーザーに数字を予想してもらう部分を作ろう。
+
+*   `input()` 関数を使って、「1から30の数字を予想して入力してください：」のような案内メッセージを表示する。
+*   ユーザーが入力した内容を、`user_guess_str` のような変数に保存する。
+*   `input()` で受け取ったものは**文字列**なので、数値として比較するためには `int()` 関数で**整数**に変換する必要があるね！変換後の数値は `user_guess_num` のような変数に入れよう。
+*   予想したら、`challenge_count` を1増やしておこう。
+
+**コードのヒント：**
+````python
+# filepath: guess_the_number.py
+# ... (secret_number と challenge_count の定義は省略) ...
+
+print(&quot;ようこそ！数当てゲームへ！&quot;)
+print(&quot;1から30までの数字を当ててみてね。&quot;)
+
+user_guess_str = input(&quot;あなたの予想は？：&quot;)
+# ここで user_guess_str を整数に変換しよう！
+# user_guess_num = ...
+
+# challenge_count を1増やす処理も忘れずに！
+</code></pre>
+<hr>
+<h2>ステップ２：ヒントを出そう！ - 判定ロジックの設計</h2>
+<p>ここがゲームの心臓部！ユーザーの予想 (<code>user_guess_num</code>) と「秘密の数字」 (<code>secret_number</code>) を比べて、適切なヒントを出すロジックを考えよう。</p>
+<p><strong>考えるべき3つのケース：</strong></p>
+<ol>
+<li>予想が「秘密の数字」と<strong>等しい</strong>場合（正解！）</li>
+<li>予想が「秘密の数字」より<strong>小さい</strong>場合</li>
+<li>予想が「秘密の数字」より<strong>大きい</strong>場合</li>
+</ol>
+<p><strong>使う道具：</strong></p>
+<ul>
+<li>比較演算子 (<code>==</code>, <code>&lt;</code>, <code>&gt;</code>)</li>
+<li><code>print()</code> 関数とf-string</li>
+</ul>
+<hr>
+<h3>ヒントの出し方 - アイデア１：比較結果を観察する</h3>
+<p>まず、比較演算子がどんな結果を返すか見てみよう。
+<code>True</code> (真) か <code>False</code> (偽) が返ってくるはずだ。</p>
+<pre><code class="language-python"># filepath: guess_the_number.py
+# ... (ユーザーの予想を受け取る処理の後) ...
+
+# デバッグ用：入力された値と秘密の数字を確認
+print(f&quot;（デバッグ情報：あなたの予想 {user_guess_num}, 秘密の数字 {secret_number}）&quot;)
+
+is_correct = (user_guess_num == secret_number)
+is_too_small = (user_guess_num &lt; secret_number)
+is_too_large = (user_guess_num &gt; secret_number)
+
+print(f&quot;予想は当たり？ -&gt; {is_correct}&quot;)
+print(f&quot;予想は小さすぎ？ -&gt; {is_too_small}&quot;)
+print(f&quot;予想は大きすぎ？ -&gt; {is_too_large}&quot;)
+</code></pre>
+<p>これらの <code>True</code>/<code>False</code> を見て、どのメッセージを表示すべきか判断できるかな？
+例えば、<code>is_correct</code> が <code>True</code> なら、「おめでとう！正解！」と表示したいよね。</p>
+<hr>
+<h3>ヒントの出し方 - アイデア２：条件に応じたメッセージ（<code>if</code>文なしで挑戦！）</h3>
+<p><code>if</code>文（条件分岐）は次の授業で詳しく学ぶけど、今回はそれを使わずに、どうやったら適切なヒントだけを表示できるか、ペアで話し合って工夫してみよう！</p>
+<p><strong>例えば、こんな風に考えられるかな？</strong></p>
+<ul>
+<li>もし <code>is_correct</code> が <code>True</code> だったら、「おめでとう！正解です！ {challenge_count} 回で当たりました！」と表示する。</li>
+<li>もし <code>is_too_small</code> が <code>True</code> だったら、「残念！もっと大きい数字だよ。」と表示する。</li>
+<li>もし <code>is_too_large</code> が <code>True</code> だったら、「残念！もっと小さい数字だよ。」と表示する。</li>
+</ul>
+<p><strong>チャレンジ：</strong>
+上記の3つの <code>print</code> 文を書いてみて。そして、プログラムを実行したときに、<strong>正しいヒントだけが表示されるようにするにはどうすればいいか</strong>、ペアで相談して試行錯誤してみよう！（手動でコメントアウトを調整するのも一つの手だね！）</p>
+<hr>
+<h2>ステップ３：ゲームを完成させよう（発展課題）</h2>
+<p>ステップ２までで、1回の予想に対するヒントは出せるようになったはず。
+さらにゲームとして面白くするために、以下の機能に挑戦してみよう！</p>
+<ul>
+<li><strong>繰り返し挑戦</strong>: 正解するまで、何度もユーザーに予想を入力させ、ヒントを出し続けるようにするにはどうしたらいいかな？
+（ヒント：<code>while</code> ループというものを使うと実現できるけど、これは次々回の内容。まずは、正解するまでプログラムの実行と修正を繰り返す形で体験してみよう。）</li>
+<li><strong>挑戦回数の制限</strong>: 例えば「5回以内に当てないとゲームオーバー！」のようなルールを追加してみよう。<code>challenge_count</code> が役立つはず！</li>
+</ul>
+<p>これらの発展課題は、ペアで自由にアイデアを出し合って、どこまで実装できるかチャレンジしてみてね！</p>
+<hr>
+<h2>このチャレンジで使う主なPythonの道具たち</h2>
+<ul>
+<li><strong>変数</strong>: <code>secret_number</code>, <code>user_guess_str</code>, <code>user_guess_num</code>, <code>challenge_count</code> など</li>
+<li><strong>データ型</strong>: <code>int</code> (整数), <code>str</code> (文字列)</li>
+<li><strong>型変換</strong>: <code>int()</code> (文字列を整数に変換)</li>
+<li><strong>算術演算子</strong>: <code>+</code> (主に回数カウントで)</li>
+<li><strong>比較演算子</strong>: <code>==</code> (等しい), <code>&lt;</code> (より小さい), <code>&gt;</code> (より大きい)</li>
+<li><strong>関数</strong>:<ul>
+<li><code>input()</code> (ユーザーからのキーボード入力を受け取る)</li>
+<li><code>print()</code> (画面に文字や変数の値を表示する)</li>
+</ul>
+</li>
+<li><strong>f-string</strong>: 文字列の中に変数の値を埋め込んで表示する時に便利！</li>
+</ul>
+<p>これらの道具をどう組み合わせるかが、プログラマーの腕の見せ所だ！</p>
+<hr>
+<h2>ペアプログラミングの進め方 - 成功の秘訣！</h2>
+<ul>
+<li><strong>役割分担と交代</strong>:<ul>
+<li><strong>ドライバー</strong>: 実際にキーボードを操作してコードを書く人。</li>
+<li><strong>ナビゲーター</strong>: ドライバーの書くコードを見ながら、アイデアを出したり、間違いを指摘したり、次の手順を考えたりする人。</li>
+<li>15分〜20分くらいで役割を交代しながら進めよう！</li>
+</ul>
+</li>
+<li><strong>声に出して考える</strong>: 「次はこうしてみようか？」「このエラーは何だろう？」と、常に二人でコミュニケーションを取りながら進めるのが大事。</li>
+<li><strong>エラーを恐れない</strong>: プログラミングにエラーはつきもの！エラーメッセージをよく読んで、何が原因か二人で推理しよう。解決できた時の達成感は格別だよ！</li>
+<li><strong>楽しむこと！</strong>: 何よりも、二人で協力して何かを作り上げるプロセスを楽しもう！</li>
+</ul>
+<hr>
+<h2>さあ、チャレンジ開始！</h2>
+<p>準備はいいかな？
+ペアの友達と知恵を出し合い、最高の「数当てゲーム」を開発しよう！</p>
+<p><strong>困ったときは？</strong></p>
+<ul>
+<li>まずは二人でじっくり考えてみる。</li>
+<li>エラーメッセージを翻訳サイトで調べてみる。</li>
+<li>それでも分からなければ、遠慮なく先生やTAにヒントを求めてね！</li>
+</ul>
+<p><strong>Good luck and have fun!</strong> 💻✨
+```</p>
+
+</body>
+</html>

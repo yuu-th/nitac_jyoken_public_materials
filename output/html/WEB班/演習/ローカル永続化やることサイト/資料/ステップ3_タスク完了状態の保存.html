@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ3_タスク完了状態の保存</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<p>\</p>
+<h1>ステップ3: タスクの完了状態を保存・復元する</h1>
+<p>前のステップでは、タスクの文字列をlocalStorageに保存し、ページを再読み込みした際に復元できるようになりました。このステップでは、各タスクの「完了状態」（チェックボックスの状態）も保存し、復元できるように機能を拡張します。</p>
+<h2>学習目標</h2>
+<ul>
+<li>タスクの状態（未完了・完了）をデータとして管理する方法を理解する。</li>
+<li>チェックボックスの変更イベントを検知し、対応するタスクの状態を更新する方法を学ぶ。</li>
+<li>更新されたタスク情報をlocalStorageに保存し、ページ読み込み時に復元する方法を習得する。</li>
+</ul>
+<h2>1. タスクデータに完了状態を追加する</h2>
+<p>まず、<code>tasks</code> 配列に保存する各タスクのデータ構造を変更します。これまではタスクの文字列だけを保存していましたが、各タスクをオブジェクトとして扱い、その中にタスク名（<code>text</code>）と完了状態（<code>completed</code>）を保持するようにします。</p>
+<p>変更前（<code>script.js</code> の <code>tasks</code> 配列のイメージ）:</p>
+<pre><code class="language-javascript">// tasks = [&quot;牛乳を買う&quot;, &quot;宿題をする&quot;];
+</code></pre>
+<p>変更後（<code>script.js</code> の <code>tasks</code> 配列のイメージ）:</p>
+<pre><code class="language-javascript">/*
+tasks = [
+  { text: &quot;牛乳を買う&quot;, completed: false },
+  { text: &quot;宿題をする&quot;, completed: true }
+];
+*/
+</code></pre>
+<p><code>completed</code> プロパティは、タスクが完了していれば <code>true</code>、未完了なら <code>false</code> を持つようにします。</p>
+<h2>2. <code>renderTasks</code> 関数の変更</h2>
+<p>タスクのデータ構造が変わったため、<code>renderTasks</code> 関数も変更が必要です。</p>
+<ul>
+<li>タスクのテキストを表示する際には、<code>task.text</code> を参照します。</li>
+<li>各タスクのチェックボックスの状態を、<code>task.completed</code> の値に基づいて設定します。</li>
+<li>チェックボックスがクリックされたときに、対応するタスクの <code>completed</code> プロパティを更新し、<code>saveTasks</code> 関数を呼び出すイベントリスナーを追加します。</li>
+</ul>
+<pre><code class="language-javascript">// script.js
+
+// ... (既存のコード) ...
+
+function renderTasks() {
+  taskList.innerHTML = &#39;&#39;; // リストをクリア
+  tasks.forEach((task, index) =&gt; {
+    const listItem = document.createElement(&#39;li&#39;);
+
+    // チェックボックスを作成・設定
+    const checkbox = document.createElement(&#39;input&#39;);
+    checkbox.type = &#39;checkbox&#39;;
+    checkbox.checked = task.completed; // ★変更点: 完了状態を反映
+    checkbox.addEventListener(&#39;change&#39;, () =&gt; {
+      toggleTaskCompletion(index); // ★変更点: 完了状態を切り替える関数を呼ぶ
+    });
+
+    // タスク名を表示するspan要素
+    const taskText = document.createElement(&#39;span&#39;);
+    taskText.textContent = task.text; // ★変更点: taskオブジェクトのtextプロパティを参照
+    if (task.completed) {
+      taskText.classList.add(&#39;completed&#39;); // 完了済みのタスクには打ち消し線などを適用
+    }
+
+    // 削除ボタン（変更なし）
+    const deleteButton = document.createElement(&#39;button&#39;);
+    deleteButton.textContent = &#39;削除&#39;;
+    deleteButton.addEventListener(&#39;click&#39;, () =&gt; {
+      deleteTask(index);
+    });
+
+    listItem.appendChild(checkbox);
+    listItem.appendChild(taskText);
+    listItem.appendChild(deleteButton);
+    taskList.appendChild(listItem);
+  });
+}
+
+// ★追加: タスクの完了状態を切り替える関数
+function toggleTaskCompletion(index) {
+  tasks[index].completed = !tasks[index].completed; // 状態を反転
+  saveTasks(); // 変更をlocalStorageに保存
+  renderTasks(); // 表示を更新
+}
+
+### 2.1. データフローと処理の図解 (タスク完了状態変更時)
+
+チェックボックスがクリックされてからタスクの状態が保存・再描画されるまでの流れは以下のようになります。
+
+```mermaid
+graph TD
+    A[ユーザーがチェックボックスをクリック] --&gt; B{イベントリスナー発火};
+    B --&gt; C{toggleTaskCompletion関数実行 (該当タスクのindexと共に)};
+    C --&gt; D[tasks配列内の該当タスクのcompletedプロパティを反転];
+    D --&gt; E{saveTasks関数実行};
+    E --&gt; F[更新されたtasks配列をJSON文字列に変換];
+    F --&gt; G[localStorageに保存 (キー: todoTasks)];
+    D --&gt; H{renderTasks関数実行};
+    H --&gt; I[画面のリスト全体を再描画 (打ち消し線などスタイルも更新)];
+</code></pre>
+<p>CSSで打ち消し線を追加しておくと、視覚的に分かりやすくなります。</p>
+<pre><code class="language-css">/* style.css に追加 */
+.completed {
+  text-decoration: line-through;
+  color: #aaa;
+}
+</code></pre>
+<h2>3. <code>addTask</code> 関数の変更</h2>
+<p>新しいタスクを追加する際も、オブジェクト形式で <code>tasks</code> 配列に追加するように変更します。新しいタスクはデフォルトで未完了 (<code>completed: false</code>) とします。</p>
+<pre><code class="language-javascript">// script.js
+
+// ... (既存のコード) ...
+
+function addTask() {
+  const taskText = taskInput.value.trim();
+  if (taskText === &#39;&#39;) {
+    alert(&#39;タスクを入力してください。&#39;);
+    return;
+  }
+  // ★変更点: オブジェクトとしてタスクを追加
+  tasks.push({ text: taskText, completed: false });
+  saveTasks();
+  renderTasks();
+  taskInput.value = &#39;&#39;; // 入力欄をクリア
+}
+
+// ... (既存のコード) ...
+</code></pre>
+<h2>4. <code>saveTasks</code> 関数の変更</h2>
+<p><code>saveTasks</code> 関数は、<code>tasks</code> 配列（オブジェクトの配列）をそのまま <code>JSON.stringify</code> で文字列に変換して保存するため、大きな変更は必要ありません。</p>
+<pre><code class="language-javascript">// script.js
+
+// ... (既存のコード) ...
+
+const STORAGE_KEY = &#39;todoTasks&#39;;
+
+function saveTasks() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  // console.log(&#39;タスクを保存しました:&#39;, tasks); // 確認用ログ
+}
+
+// ... (既存のコード) ...
+</code></pre>
+<h2>5. <code>loadTasks</code> 関数の変更</h2>
+<p><code>loadTasks</code> 関数も、localStorageから取得したJSON文字列を <code>JSON.parse</code> でオブジェクトの配列に戻すため、大きな変更は必要ありません。ただし、初めてサイトを開いた場合やlocalStorageにデータがない場合を考慮し、<code>tasks</code> 配列を空の配列で初期化する処理はそのまま残します。</p>
+<p>また、ステップ2で追加した <code>JSON.parse</code> のエラーハンドリングは、ここでも有効です。</p>
+<pre><code class="language-javascript">// script.js
+
+let tasks = []; // tasksの初期化は空の配列で良い
+
+// ... (STORAGE_KEY, addTaskButton, taskInput, taskList の定義) ...
+
+function loadTasks() {
+  const storedTasks = localStorage.getItem(STORAGE_KEY);
+  if (storedTasks) {
+    try {
+      tasks = JSON.parse(storedTasks);
+    } catch (e) {
+      console.error(&quot;localStorageからタスクを読み込めませんでした。データが破損している可能性があります。&quot;, e);
+      tasks = []; // エラー時は空のタスクリストとして扱う
+    }
+  }
+  renderTasks(); // 読み込んだタスク（または空のリスト）を表示
+}
+
+// ... (renderTasks, toggleTaskCompletion, addTask, saveTasks, deleteTask の定義) ...
+
+// ページ読み込み時にタスクを読み込む
+loadTasks();
+</code></pre>
+<h2>6. まとめと動作確認</h2>
+<p>このステップでは、タスクの完了状態も保存・復元できるように、以下の変更を行いました。</p>
+<ol>
+<li><strong>データ構造の変更:</strong> <code>tasks</code> 配列の要素を文字列から <code>{ text: &quot;タスク名&quot;, completed: false }</code> のようなオブジェクトに変更しました。</li>
+<li><strong><code>renderTasks</code> 関数の更新:</strong><ul>
+<li>タスクオブジェクトの <code>text</code> プロパティを表示するように変更。</li>
+<li>タスクオブジェクトの <code>completed</code> プロパティに基づいてチェックボックスの状態を設定。</li>
+<li>チェックボックス変更時に <code>toggleTaskCompletion</code> 関数を呼び出すように変更。</li>
+<li>完了済タスクにスタイルを適用する処理を追加。</li>
+</ul>
+</li>
+<li><strong><code>toggleTaskCompletion</code> 関数の追加:</strong> タスクの完了状態を切り替え、保存し、再描画する関数を追加しました。</li>
+<li><strong><code>addTask</code> 関数の更新:</strong> 新しいタスクをオブジェクト形式で追加するように変更しました。</li>
+<li><strong><code>saveTasks</code>, <code>loadTasks</code> 関数の確認:</strong> これらの関数は、オブジェクトの配列を扱う場合でも、<code>JSON.stringify</code> と <code>JSON.parse</code> によって正しく動作することを確認しました。</li>
+</ol>
+<p><strong>動作確認:</strong></p>
+<ol>
+<li><code>index.html</code> をブラウザで開きます。</li>
+<li>いくつかのタスクを追加します。</li>
+<li>いくつかのタスクのチェックボックスをオンにします。</li>
+<li>ページをリロードします。<ul>
+<li><strong>期待される動作:</strong> タスクのテキストと完了状態（チェックボックスの状態、打ち消し線）がリロード前と同じように復元されていること。</li>
+</ul>
+</li>
+<li>開発者ツールで <code>localStorage</code> の <code>todoTasks</code> の値を確認し、<code>completed</code> プロパティが正しく保存されていることを確認します。<pre><code class="language-json">// 例: [{&quot;text&quot;:&quot;タスク1&quot;,&quot;completed&quot;:true},{&quot;text&quot;:&quot;タスク2&quot;,&quot;completed&quot;:false}]
+</code></pre>
+</li>
+</ol>
+<h2>7. Q&amp;A</h2>
+<p><strong>Q1: <code>toggleTaskCompletion</code> で <code>saveTasks()</code> と <code>renderTasks()</code> の両方を呼ぶのはなぜですか？</strong></p>
+<p>A1: <code>saveTasks()</code> は変更された <code>tasks</code> 配列の状態を <code>localStorage</code> に永続化するために必要です。一方、<code>renderTasks()</code> は画面の表示を最新の <code>tasks</code> 配列の状態に合わせて更新するために必要です。例えば、チェックボックスの状態や打ち消し線の表示を正しく反映させるためです。この2つは目的が異なるため、両方呼び出しています。</p>
+<p><strong>Q2: タスクオブジェクトに <code>id</code> はもう不要なのですか？</strong></p>
+<p>A2: このステップ3の時点では、タスクの識別は配列のインデックス (<code>index</code>) で行っているため、必ずしも <code>id</code> プロパティは必須ではありません。しかし、ステップ1やステップ2の解説では <code>id: Date.now()</code> を持つオブジェクトとしてタスクを扱っていました。今後の発展機能（例えばタスクの編集など）で特定のタスクを一意に識別する必要が出てくる可能性を考えると、<code>id</code> を持たせておくことは良い習慣です。この演習では、ステップが進むにつれて必要なプロパティに焦点を当てるため、説明を簡略化している場合があります。最終的な解答例では、<code>id</code> も含めた形でデータ管理をすることが推奨されます。</p>
+<p><strong>Q3: CSSの <code>.completed</code> クラスはどこで定義すれば良いですか？</strong></p>
+<p>A3: <code>style.css</code> ファイルに以下のように追加します。</p>
+<pre><code class="language-css">.completed {
+  text-decoration: line-through;
+  color: #aaa;
+}
+</code></pre>
+<p>これにより、<code>taskText.classList.add(&#39;completed&#39;);</code> が実行された際に、該当のスタイルが適用されます。</p>
+<h2>8. コラム：エラーハンドリングについて (再掲)</h2>
+<p>実際のアプリケーション開発では、localStorageへの保存・読み込み時にエラーが発生する可能性も考慮する必要があります。</p>
+<ul>
+<li><strong>localStorageがいっぱいの場合:</strong> <code>localStorage.setItem()</code> は <code>QuotaExceededError</code> というエラーを投げる可能性があります。</li>
+<li><strong>不正なJSONデータ:</strong> <code>localStorage</code> に手動で不正なJSON文字列が保存されていた場合、<code>JSON.parse()</code> がエラーを投げる可能性があります。</li>
+</ul>
+<p>演習では簡略化のためエラー処理を省略していますが、より堅牢なアプリケーションを作るためには、<code>try...catch</code> 文を使ってこれらのエラーを捕捉し、ユーザーに通知したり、適切に処理したりすることが推奨されます。</p>
+<p>例：<code>loadTasks</code> での <code>JSON.parse</code> のエラーハンドリング</p>
+<pre><code class="language-javascript">function loadTasks() {
+  const storedTasks = localStorage.getItem(STORAGE_KEY);
+  if (storedTasks) {
+    try {
+      tasks = JSON.parse(storedTasks);
+    } catch (e) {
+      console.error(&quot;localStorageからタスクを読み込めませんでした。データが破損している可能性があります。&quot;, e);
+      tasks = []; // エラー時は空のタスクリストとして扱う
+    }
+  }
+  renderTasks();
+}
+</code></pre>
+<h2>コラム：localStorageのキーについて</h2>
+<p><code>localStorage.setItem(key, value)</code> や <code>localStorage.getItem(key)</code> で使用する <code>key</code>（今回の演習では <code>STORAGE_KEY</code> 定数の <code>&#39;todoTasks&#39;</code>）は非常に重要です。</p>
+<ul>
+<li><strong>キー名を間違えると…</strong><ul>
+<li>保存時: 意図しないキー名でデータが保存されてしまいます。</li>
+<li>読み込み時: 正しいキー名でデータを取得できず、結果としてデータが存在しないかのように振る舞います。</li>
+</ul>
+</li>
+<li><strong>確認方法:</strong><ul>
+<li>ブラウザの開発者ツール（多くのブラウザでF12キーで開けます）の「アプリケーション」タブ（または「ストレージ」タブ）で、localStorageに保存されているキーと値を確認できます。キー名が正しいか、値が期待通りかを確認しましょう。</li>
+</ul>
+</li>
+</ul>
+<p>次のステップでは、タスクを削除した際に、localStorageからも正しく削除されるようにします。</p>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ2_タスク追加時の自動保存機能_穴埋め版</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ2: タスク追加時の自動保存機能 (JSON保存 &amp; エラーハンドリング)（穴埋め版）</h1>
+<h2>導入・問題提起</h2>
+<p>ステップ1ではlocalStorageの基本操作を学びましたが、まだ実際のタスク管理アプリにはその機能が組み込まれていません。そのため、タスクを追加してもブラウザを更新すると消えてしまいます。</p>
+<p><strong>現在のアプリの問題を体験</strong></p>
+<p>現在のベースコードを使って以下を確認してください：</p>
+<ol>
+<li>タスクを2-3個追加する</li>
+<li><strong>ブラウザを更新（F5キー）</strong></li>
+<li>→ 追加したタスクが全て消えることを確認</li>
+</ol>
+<blockquote>
+<p><strong>なぜこの問題が起きるのか？</strong>
+現在のアプリは、タスクをJavaScriptの配列（メモリ）にのみ保存しています。
+ブラウザを更新すると、メモリの内容がリセットされるため、データが失われます。</p>
+</blockquote>
+<h3>Before（現在の状況）</h3>
+<ul>
+<li>タスクを追加しても、ブラウザを更新すると消えてしまう</li>
+<li>ステップ1でlocalStorageの基本操作は学んだが、実際のアプリに活用できていない</li>
+</ul>
+<h2>このステップの目標</h2>
+<p>このステップを終えると、タスク管理アプリに以下の機能が実装され、動作するようになります。</p>
+<ul>
+<li>タスクを追加すると<strong>自動的にlocalStorageに保存</strong>される機能を実装できる</li>
+<li><code>JSON.stringify()</code>を使ってオブジェクト配列をlocalStorageに保存できる</li>
+<li><code>try-catch</code>文でlocalStorage操作のエラーハンドリングができる</li>
+</ul>
+<p><strong>期待する動作</strong>:</p>
+<ul>
+<li>タスク追加と同時にlocalStorageにJSON形式で保存される</li>
+<li>エラーが発生した場合は適切にハンドリングされる</li>
+<li>タスク「localStorage学習」を追加すると、コンソールに保存完了メッセージが表示され、ブラウザの開発者ツール（Application &gt; Local Storage）でデータを確認できる。
+（注意：このステップでは保存のみを扱うため、ブラウザを更新するとタスクはまだ画面から消えます。復元機能はステップ3で実装します。）</li>
+</ul>
+<hr>
+<h2>考えてみよう：saveTasksToStorage関数の実装</h2>
+<p>ベースコードの<code>script.js</code>に以下の機能を追加しましょう。</p>
+<h3>手順1: localStorageのキー名を定数で定義</h3>
+<pre><code class="language-javascript">// タスクデータ（配列形式） - まだlocalStorageからの読み込みなし
+let tasks = [];
+
+// ★ 追加: localStorageのキー名を定数として定義
+const STORAGE_KEY = &quot;______&quot;;
+</code></pre>
+<p><strong>指示</strong>: localStorageで使用するキー名を&quot;taskList&quot;として定義してください。</p>
+<h3>手順2: saveTasksToStorage関数の作成</h3>
+<pre><code class="language-javascript">// タスクを追加する関数（まだlocalStorage保存なし）
+function addTask() {
+  // ... 既存のコード ...
+  
+  // ★ この位置に保存機能を追加します（手順3で実装）
+  
+  // 画面に表示
+  renderTasks();
+  updateProgress();
+}
+
+// ★ 追加: タスクをlocalStorageに保存する関数
+function saveTasksToStorage() {
+  ______ {
+    // 配列をJSON文字列に変換してlocalStorageに保存
+    const tasksJson = JSON.______(tasks);
+    localStorage.______(STORAGE_KEY, tasksJson);
+    console.log(&quot;💾 localStorage保存完了:&quot;, tasksJson);
+  } ______ (error) {
+    console.error(&quot;❌ localStorage保存エラー:&quot;, error);
+    alert(&quot;データの保存に失敗しました&quot;);
+  }
+}
+</code></pre>
+<p><strong>指示</strong>: </p>
+<ol>
+<li>1つ目の<code>______</code>：エラーハンドリングの開始キーワード（3文字）を入力してください</li>
+<li><code>JSON.______</code>：オブジェクトをJSON文字列に変換するメソッド名（9文字）を入力してください</li>
+<li><code>localStorage.______</code>：localStorageにデータを保存するメソッド名（7文字）を入力してください</li>
+<li>2つ目の<code>______</code>：エラーが発生した時の処理を記述するキーワード（5文字）を入力してください</li>
+</ol>
+<h3>手順3: addTask関数に保存機能を追加</h3>
+<pre><code class="language-javascript">function addTask() {
+  const taskText = taskInput.value.trim();
+
+  if (taskText === &quot;&quot;) {
+    alert(&quot;タスクを入力してください&quot;);
+    return;
+  }
+
+  // 新しいタスクオブジェクトを作成
+  const newTask = {
+    id: Date.now(),
+    text: taskText,
+    completed: false
+  };
+
+  // タスク配列に追加
+  tasks.push(newTask);
+
+  // 入力フィールドをクリア
+  taskInput.value = &quot;&quot;;
+
+  // ★ 追加: localStorageに自動保存
+  ______();
+
+  // 画面に表示
+  renderTasks();
+  updateProgress();
+
+  console.log(&quot;✅ タスクを追加し、localStorageに保存しました:&quot;, newTask.text);
+}
+</code></pre>
+<p><strong>指示</strong>: <code>______</code>にlocalStorageへの保存を実行する関数名（18文字）を入力してください。</p>
+<hr>
+<h2>✨ 最小限ヒント</h2>
+<p><strong>try-catch文について</strong>:</p>
+<ul>
+<li>localStorage操作は失敗する可能性があります（容量不足、プライベートモードなど）</li>
+<li>try-catch文でエラーをキャッチし、ユーザーに分かりやすいメッセージを表示</li>
+</ul>
+<p><strong>JSON.stringify()について</strong>:</p>
+<ul>
+<li>JavaScriptのオブジェクトや配列をJSON文字列に変換</li>
+<li>localStorageは文字列しか保存できないため、オブジェクトは変換が必要</li>
+</ul>
+<p><strong>定数STORAGE_KEYについて</strong>:</p>
+<ul>
+<li>複数の場所で同じキー名を使用するため、定数化で管理を簡単に</li>
+<li>タイポによるバグを防止</li>
+</ul>
+<hr>
+<h2>動作確認チェックリスト</h2>
+<p>実装が完了したら、以下の手順で動作確認をしてください：</p>
+<ol>
+<li><strong>タスク入力フィールドに何か入力して「追加」ボタンをクリック</strong>します。</li>
+<li><strong>ブラウザの開発者ツール（F12キー）を開き、Consoleタブを確認</strong>します。<ul>
+<li><input disabled="" type="checkbox"> <code>💾 localStorage保存完了: [...]</code> のようなメッセージが表示されていること。</li>
+<li><input disabled="" type="checkbox"> メッセージ内のJSON文字列が、追加したタスクを含む配列の形式になっていること。</li>
+</ul>
+</li>
+<li><strong>開発者ツールのApplicationタブ（またはStorageタブ）を開き、Local Storageを選択</strong>します。<ul>
+<li><input disabled="" type="checkbox"> <code>http://127.0.0.1:5500</code> (または同様のローカルサーバーアドレス) の下に、<code>STORAGE_KEY</code> で定義したキー（例: <code>taskList</code>）が存在すること。</li>
+<li><input disabled="" type="checkbox"> そのキーの値が、Consoleタブで確認したJSON文字列と一致していること。</li>
+</ul>
+</li>
+<li><strong>さらにタスクをいくつか追加</strong>し、上記2, 3の手順でlocalStorageの内容が更新されることを確認します。</li>
+<li><strong>（エラーハンドリングテスト）</strong> もし可能であれば、ブラウザの機能でlocalStorageの保存容量を一時的に非常に小さく設定するか、書き込みをブロックするような拡張機能を使って、保存エラーを意図的に発生させてみてください。<ul>
+<li><input disabled="" type="checkbox"> <code>❌ localStorage保存エラー:</code> というメッセージとエラー詳細がConsoleに表示されること。</li>
+<li><input disabled="" type="checkbox"> <code>データの保存に失敗しました</code> というアラートが表示されること。</li>
+</ul>
+</li>
+<li>**ブラウザを更新（F5キー）**します。<ul>
+<li><input disabled="" type="checkbox"> この時点では、タスクは画面から消えます（復元機能は次のステップで実装するため、これは期待される動作です）。</li>
+<li><input disabled="" type="checkbox"> しかし、ApplicationタブのLocal Storageには、更新前に保存されたタスクデータが残っていることを確認してください。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>解答例</h2>
+<details>
+<summary>解答例（完全なコード）</summary>
+
+<h3>手順1の解答</h3>
+<pre><code class="language-javascript">const STORAGE_KEY = &quot;taskList&quot;; // または &quot;todoTasks&quot; など、プロジェクトで一貫した名前
+</code></pre>
+<h3>手順2の解答</h3>
+<pre><code class="language-javascript">function saveTasksToStorage() {
+  try {
+    const tasksJson = JSON.stringify(tasks);
+    localStorage.setItem(STORAGE_KEY, tasksJson);
+    console.log(&quot;💾 localStorage保存完了:&quot;, tasksJson);
+  } catch (error) {
+    console.error(&quot;❌ localStorage保存エラー:&quot;, error);
+    alert(&quot;データの保存に失敗しました&quot;);
+  }
+}
+</code></pre>
+<h3>手順3の解答</h3>
+<pre><code class="language-javascript">// addTask関数内に追加
+saveTasksToStorage();
+</code></pre>
+</details>
+
+<hr>
+<h2>ポイント解説</h2>
+<h3>JSON.stringify()の役割</h3>
+<ul>
+<li><strong>目的</strong>: JavaScriptのオブジェクトを文字列形式に変換</li>
+<li><strong>なぜ必要</strong>: localStorageは文字列しか保存できないため</li>
+<li><strong>変換例</strong>: <code>{id: 1, text: &quot;学習&quot;}</code> → <code>&#39;{&quot;id&quot;:1,&quot;text&quot;:&quot;学習&quot;}&#39;</code></li>
+</ul>
+<h3>try-catch文によるエラーハンドリング</h3>
+<ul>
+<li><strong>localStorage操作が失敗する場合</strong>:<ul>
+<li>ブラウザの容量制限に達した時</li>
+<li>プライベートブラウジングモード</li>
+<li>ブラウザの設定でlocalStorageが無効化されている時</li>
+</ul>
+</li>
+<li><strong>対策</strong>: try-catch文でエラーをキャッチし、ユーザーに適切なフィードバックを提供</li>
+</ul>
+<h3>定数の活用</h3>
+<ul>
+<li><strong>STORAGE_KEY</strong>: 複数箇所で使用するキー名を定数化</li>
+<li><strong>メリット</strong>: <ul>
+<li>タイポによるバグを防止</li>
+<li>変更時の修正箇所を一箇所に集約</li>
+<li>コードの可読性向上</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>補足資料への誘導</h2>
+<ul>
+<li>「補足資料2: JSON操作詳解」で、JSON.stringify()とJSON.parse()の詳細な仕組みや注意点を段階的に学べます。</li>
+</ul>
+<hr>
+<h2>次のステップへの案内</h2>
+<p>ステップ2でタスクの<strong>保存</strong>機能を実装しました。次のステップ3では、ページ読み込み時にlocalStorageからタスクを<strong>復元</strong>する機能を実装し、完全な永続化を実現します！</p>
+
+</body>
+</html>

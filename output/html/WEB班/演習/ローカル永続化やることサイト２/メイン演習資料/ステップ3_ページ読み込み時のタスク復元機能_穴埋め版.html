@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ3_ページ読み込み時のタスク復元機能_穴埋め版</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ3: ページ読み込み時のタスク復元機能 (JSON解析 &amp; 初期化処理)（穴埋め版）</h1>
+<h2>導入・問題提起</h2>
+<p>前回のステップ2で「タスクを追加したときにlocalStorageに保存する」機能を実装しました。
+しかし、ページを再読み込みしても保存したタスクが表示されません。これは、保存はできているものの、ページを開いたときにそのデータを読み込んで画面に表示する仕組みがまだないためです。</p>
+<p>今回は、ページが読み込まれた時にlocalStorageから保存されたタスクを取得して、自動的に画面に復元する機能を実装します。</p>
+<p><strong>Before（現在の状態）:</strong></p>
+<ul>
+<li>タスクを追加すると自動的にlocalStorageに保存される</li>
+<li>しかし、ページを再読み込みするとタスク一覧は空になってしまう</li>
+</ul>
+<h2>このステップの目標</h2>
+<ul>
+<li>保存されたタスクデータをページ読み込み時に自動復元できるようになる</li>
+<li><code>JSON.parse()</code>を使ってJSON文字列をJavaScriptオブジェクトに変換できる</li>
+<li>localStorageの値が<code>null</code>の場合の適切な処理ができる</li>
+<li><code>DOMContentLoaded</code>イベントを活用したページ初期化処理を理解する</li>
+</ul>
+<p><strong>After（実装後の状態）:</strong></p>
+<ul>
+<li>ページを読み込むと、前回保存したタスクが自動的に画面に表示される</li>
+<li>localStorage内のタスクデータが完全に復元される</li>
+</ul>
+<hr>
+<h2>考えてみよう</h2>
+<h3>手順1: localStorage読み込み関数の作成</h3>
+<p>まず、localStorageからタスクデータを読み込む関数を作成します。</p>
+<pre><code class="language-javascript">function loadTasksFromStorage() {
+    try {
+        // 【穴埋め①】localStorageから&#39;todoTasks&#39;キーの値を取得する
+        const savedTasksJson = localStorage.getItem(&#39;todoTasks&#39;);
+        
+        // 【穴埋め②】取得した値がnullかどうかをチェックする条件文
+        if (savedTasksJson === null) {
+            console.log(&quot;📄 保存されたタスクデータがありません&quot;);
+            return; // データがなければここで処理を終了
+        }
+        
+        // 【穴埋め③】JSON文字列をJavaScriptオブジェクトに変換する
+        const savedTasks = JSON.parse(savedTasksJson);
+        
+        // グローバルなtasks配列を復元されたデータで置き換え
+        tasks = savedTasks; // tasks配列を直接更新
+        
+        console.log(&quot;📂 localStorageからタスクを復元しました:&quot;, savedTasks);
+        
+    } catch (error) {
+        console.error(&quot;❌ localStorage読み込みエラー:&quot;, error);
+        // エラー発生時は空のタスクリストとして扱うなどのフォールバック処理も考えられる
+        tasks = []; // 安全のためtasksを空にする
+        console.log(&quot;🔄 空のタスクリストで開始します&quot;);
+    }
+}
+</code></pre>
+<h3>手順2: ページ読み込み時の初期化処理</h3>
+<p>DOMContentLoadedイベントにタスク復元処理を追加します。</p>
+<pre><code class="language-javascript">document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    const taskInput = document.getElementById(&#39;taskInput&#39;);
+    const addButton = document.getElementById(&#39;addButton&#39;);
+    
+    // 【穴埋め④】localStorageからタスクを読み込む関数を呼び出す
+    loadTasksFromStorage(); // localStorageからタスクを読み込む
+    
+    // Enterキーでタスク追加
+    taskInput.addEventListener(&#39;keypress&#39;, function(e) {
+        if (e.key === &#39;Enter&#39;) {
+            addTask();
+        }
+    });
+    
+    // ボタンクリックでタスク追加
+    addButton.addEventListener(&#39;click&#39;, addTask);
+    
+    // 【穴埋め⑤】復元したタスクを画面に表示する関数を呼び出す
+    renderTasks(); // 読み込んだタスクを画面に表示する
+    
+    // 【穴埋め⑥】進捗バーを更新する関数を呼び出す
+    updateProgress(); // 進捗バーを更新する
+});
+</code></pre>
+<h2>✨ 最小限ヒント</h2>
+<ul>
+<li>localStorage.getItem()で保存されたデータを取得</li>
+<li>取得した値が<code>null</code>の場合は、データが存在しない状態</li>
+<li>JSON.parse()で文字列をJavaScriptオブジェクトに復元</li>
+<li>DOMContentLoadedイベントでページ読み込み完了時に実行</li>
+<li><a href="%E3%82%B9%E3%83%86%E3%83%83%E3%83%972_%E3%82%BF%E3%82%B9%E3%82%AF%E8%BF%BD%E5%8A%A0%E6%99%82%E3%81%AE%E8%87%AA%E5%8B%95%E4%BF%9D%E5%AD%98%E6%A9%9F%E8%83%BD.md">ステップ2: タスク追加時の自動保存機能</a>のSTORAGE_KEY (<code>&#39;todoTasks&#39;</code>) を使用</li>
+</ul>
+<hr>
+<h2>動作確認チェックリスト</h2>
+<p>実装が完了したら、以下の手順で動作を確認しましょう。</p>
+<ol>
+<li><strong>タスクをいくつか追加</strong>し、localStorageにタスクデータが保存されることをブラウザのDevTools（開発者ツール）で確認します（Application &gt; Local Storageで <code>todoTasks</code> キーの値を確認）。</li>
+<li><strong>ページを再読み込み</strong>します。</li>
+<li><strong>確認事項:</strong><ul>
+<li><input disabled="" type="checkbox"> ページ再読み込み後、以前追加したタスクがすべて画面に表示されているか。</li>
+<li><input disabled="" type="checkbox"> タスクの内容（テキスト）や未完了状態が正しく復元されているか。</li>
+<li><input disabled="" type="checkbox"> DevToolsのConsoleに &quot;📂 localStorageからタスクを復元しました:&quot; というメッセージと復元されたタスクデータが表示されるか（データがある場合）。</li>
+<li><input disabled="" type="checkbox"> （テストケース）localStorageに <code>&#39;todoTasks&#39;</code> のデータが存在しない状態でページを開いた場合（DevToolsで手動削除するなどしてテスト）、Consoleに &quot;📄 保存されたタスクデータがありません&quot; と表示され、エラーなくページが表示されるか。</li>
+<li><input disabled="" type="checkbox"> （テストケース）localStorageの <code>&#39;todoTasks&#39;</code> に不正なJSON文字列（例: <code>{&quot;text&quot;: &quot;test}</code> のような壊れたJSON）を保存して（DevToolsで手動編集してテスト）、ページを再読み込みした場合、Consoleに &quot;❌ localStorage読み込みエラー:&quot; というメッセージとエラー詳細が表示され、&quot;🔄 空のタスクリストで開始します&quot; と表示されるか。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>解答例</h2>
+<h3>手順1: localStorage読み込み関数の作成 (<code>loadTasksFromStorage</code>)</h3>
+<pre><code class="language-javascript">function loadTasksFromStorage() {
+    try {
+        // 【穴埋め①】localStorageから&#39;todoTasks&#39;キーの値を取得する
+        const savedTasksJson = localStorage.getItem(&#39;todoTasks&#39;);
+        
+        // 【穴埋め②】取得した値がnullかどうかをチェックする条件文
+        if (savedTasksJson === null) {
+            console.log(&quot;📄 保存されたタスクデータがありません&quot;);
+            return; // データがなければここで処理を終了
+        }
+        
+        // 【穴埋め③】JSON文字列をJavaScriptオブジェクトに変換する
+        const savedTasks = JSON.parse(savedTasksJson);
+        
+        // グローバルなtasks配列を復元されたデータで置き換え
+        tasks = savedTasks; // tasks配列を直接更新
+        
+        console.log(&quot;📂 localStorageからタスクを復元しました:&quot;, savedTasks);
+        
+    } catch (error) {
+        console.error(&quot;❌ localStorage読み込みエラー:&quot;, error);
+        // エラー発生時は空のタスクリストとして扱うなどのフォールバック処理も考えられる
+        tasks = []; // 安全のためtasksを空にする
+        console.log(&quot;🔄 空のタスクリストで開始します&quot;);
+    }
+}
+</code></pre>
+<h3>手順2: ページ読み込み時の初期化処理 (<code>DOMContentLoaded</code>)</h3>
+<pre><code class="language-javascript">document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    const taskInput = document.getElementById(&#39;taskInput&#39;);
+    const addButton = document.getElementById(&#39;addButton&#39;);
+    
+    // 【穴埋め④】localStorageからタスクを読み込む関数を呼び出す
+    loadTasksFromStorage(); // localStorageからタスクを読み込む
+    
+    // Enterキーでタスク追加
+    taskInput.addEventListener(&#39;keypress&#39;, function(e) {
+        if (e.key === &#39;Enter&#39;) {
+            addTask();
+        }
+    });
+    
+    // ボタンクリックでタスク追加
+    addButton.addEventListener(&#39;click&#39;, addTask);
+    
+    // 【穴埋め⑤】復元したタスクを画面に表示する関数を呼び出す
+    renderTasks(); // 読み込んだタスクを画面に表示する
+    
+    // 【穴埋め⑥】進捗バーを更新する関数を呼び出す
+    updateProgress(); // 進捗バーを更新する
+});
+</code></pre>
+<h2>ポイント解説</h2>
+<h3>① データ永続化の完成サイクル</h3>
+<p>今回でデータ保存（ステップ2）と復元（ステップ3）が完成し、基本的な永続化が実現できました。</p>
+<pre><code class="language-javascript">// 保存: JavaScript → JSON → localStorage
+const tasksJson = JSON.stringify(tasks);
+localStorage.setItem(&#39;key&#39;, tasksJson);
+
+// 復元: localStorage → JSON → JavaScript  
+const savedJson = localStorage.getItem(&#39;key&#39;);
+const savedTasks = JSON.parse(savedJson);
+</code></pre>
+<h3>② エラーハンドリングの重要性</h3>
+<p>localStorage操作では常にエラーの可能性があります：</p>
+<ul>
+<li>容量制限によるQuotaExceededError</li>
+<li>不正JSON文字列によるSyntaxError  </li>
+<li>try-catch文で安全な処理を実現</li>
+</ul>
+<h3>③ ページ初期化パターン</h3>
+<pre><code class="language-javascript">document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    // 1. データ復元
+    loadTasksFromStorage();
+    // 2. 画面更新
+    renderTasks();
+    updateProgress();
+    // 3. イベント設定
+    setupEventListeners();
+});
+</code></pre>
+<p>次のステップでは、タスクの完了状態も保存・復元できるようにします。</p>
+<h2>補足資料への誘導</h2>
+<ul>
+<li><strong>JSON操作の詳細</strong>: <code>補足資料/JSON操作詳解.md</code></li>
+<li><strong>localStorage API</strong>: <code>補足資料/localStorage_API詳解.md</code></li>
+<li><strong>データ構造設計</strong>: <code>補足資料/データ構造設計.md</code></li>
+</ul>
+
+</body>
+</html>

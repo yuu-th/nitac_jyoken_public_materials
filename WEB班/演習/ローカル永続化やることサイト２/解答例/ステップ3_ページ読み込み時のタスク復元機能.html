@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ステップ3完成版 - ページ読み込み時のタスク復元機能</title>
+    <link rel="stylesheet" href="../演習用ベースコード/style.css" />
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header class="main-header">
+      <h1>📚 ステップ3完成版：タスク復元機能</h1>
+      <p>目標: ページ読み込み時にlocalStorageからタスクを自動復元する機能を実装する</p>
+    </header>
+
+    <!-- 進捗表示 -->
+    <section class="progress-section">
+      <h2>📈 学習進捗</h2>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-text" id="progressText">0 / 0 完了 (0%)</p>
+      </div>
+    </section>
+
+    <!-- タスク追加フォーム -->
+    <section class="add-task-section">
+      <h2>➕ 新しいタスクを追加</h2>
+      <div class="add-task-form">
+        <input type="text" id="taskInput" placeholder="タスク内容を入力してください..." maxlength="100" />
+        <button id="addTaskBtn" class="add-btn">追加</button>
+      </div>
+    </section>
+
+    <!-- タスクリスト -->
+    <section class="tasks-section">
+      <h2>✅ タスクリスト</h2>
+      <div id="taskList" class="task-list">
+        <!-- タスクがない場合のメッセージ -->
+        <div class="empty-message" id="emptyMessage">
+          <p>まだタスクがありません。上記のフォームから新しいタスクを追加してみましょう！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 動作確認ガイド -->
+    <section class="add-task-section">
+      <h2>🔍 動作確認ガイド</h2>
+      <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #10b981">
+        <h3 style="color: #047857; margin-bottom: 1rem">📋 確認手順</h3>
+        <ol style="line-height: 1.8">
+          <li><strong>基本復元テスト</strong>: タスク追加 → F5更新 → タスクが復活することを確認</li>
+          <li><strong>コンソール確認</strong>: F12 → Console → 復元メッセージを確認</li>
+          <li><strong>初回起動テスト</strong>: Local Storage削除 → 更新 → 正常に空の状態で開始</li>
+          <li><strong>完全永続化テスト</strong>: タスク追加・完了設定 → ブラウザ閉じる → 再起動 → 全て復元</li>
+        </ol>
+
+        <h3 style="color: #047857; margin-top: 1.5rem; margin-bottom: 1rem">💡 学習ポイント</h3>
+        <ul style="line-height: 1.8">
+          <li><strong>JSON.parse()</strong>: JSON文字列をオブジェクト配列に復元</li>
+          <li><strong>null値処理</strong>: データが存在しない場合の適切なハンドリング</li>
+          <li><strong>try-catch</strong>: JSON.parse()のエラーハンドリング</li>
+          <li><strong>初期化タイミング</strong>: DOMContentLoaded時の復元・表示処理</li>
+        </ul>
+
+        <p style="margin-top: 1rem; padding: 0.8rem; background: #d1fae5; border-radius: 6px; border: 1px solid #10b981"><strong>🎉 完成</strong>: ステップ3で基本的な永続化が完成！ブラウザを閉じても、タスクが復活します。</p>
+      </div>
+    </section>
+
+    <!-- 完了メッセージ（JavaScriptで表示制御） -->
+    <div class="completion-message" id="completionMessage">
+      <h2>🎉 おめでとうございます！</h2>
+      <p>全てのタスクが完了しました！</p>
+      <small>（クリックで閉じる）</small>
+    </div>
+
+    <script>
+      // ===== ステップ3完成版: ページ読み込み時のタスク復元機能 =====
+
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("📚 ステップ3学習：ページ読み込み時のタスク復元機能");
+
+        // 要素の取得
+        const taskInput = document.getElementById("taskInput");
+        const addTaskBtn = document.getElementById("addTaskBtn");
+        const taskList = document.getElementById("taskList");
+        const emptyMessage = document.getElementById("emptyMessage");
+        const progressFill = document.getElementById("progressFill");
+        const progressText = document.getElementById("progressText");
+        const completionMessage = document.getElementById("completionMessage");
+
+        // タスクデータ（配列形式）
+        let tasks = [];
+
+        // localStorageのキー名を定数として定義
+        const STORAGE_KEY = "taskList";
+
+        // ★ ステップ3の新機能: アプリ起動時にlocalStorageからタスクを復元
+        loadTasksFromStorage();
+
+        // タスク追加ボタンのクリックイベント
+        addTaskBtn.addEventListener("click", function () {
+          addTask();
+        });
+
+        // Enterキーでもタスクを追加できるように
+        taskInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            addTask();
+          }
+        });
+
+        // ★ ステップ3の新機能: localStorageからタスクを読み込む関数
+        function loadTasksFromStorage() {
+          try {
+            // localStorageからJSON文字列を取得
+            const savedTasksJson = localStorage.getItem(STORAGE_KEY);
+
+            // データが存在しない場合の処理
+            if (savedTasksJson === null) {
+              console.log("📄 保存されたタスクデータがありません");
+              return;
+            }
+
+            // JSON文字列をオブジェクト配列に変換
+            const savedTasks = JSON.parse(savedTasksJson);
+
+            // タスク配列を復元
+            tasks = savedTasks;
+
+            console.log("📂 localStorageからタスクを復元しました:", savedTasks);
+          } catch (error) {
+            console.error("❌ localStorage読み込みエラー:", error);
+            console.log("🔄 空のタスクリストで開始します");
+          }
+        }
+
+        // タスクを追加する関数（localStorage保存機能付き）
+        function addTask() {
+          const taskText = taskInput.value.trim();
+
+          if (taskText === "") {
+            alert("タスクを入力してください");
+            return;
+          }
+
+          // 新しいタスクオブジェクトを作成
+          const newTask = {
+            id: Date.now(), // 簡易的なID生成
+            text: taskText,
+            completed: false,
+          };
+
+          // タスク配列に追加
+          tasks.push(newTask);
+
+          // 入力フィールドをクリア
+          taskInput.value = "";
+
+          // localStorageに自動保存
+          saveTasksToStorage();
+
+          // 画面に表示
+          renderTasks();
+          updateProgress();
+
+          console.log("✅ タスクを追加し、localStorageに保存しました:", newTask.text);
+        }
+
+        // タスクをlocalStorageに保存する関数
+        function saveTasksToStorage() {
+          try {
+            // 配列をJSON文字列に変換してlocalStorageに保存
+            const tasksJson = JSON.stringify(tasks);
+            localStorage.setItem(STORAGE_KEY, tasksJson);
+            console.log("💾 localStorage保存完了:", tasksJson);
+          } catch (error) {
+            console.error("❌ localStorage保存エラー:", error);
+            alert("データの保存に失敗しました");
+          }
+        }
+
+        // タスクリストを画面に表示する関数
+        function renderTasks() {
+          // 既存のタスクリストをクリア
+          taskList.innerHTML = "";
+
+          if (tasks.length === 0) {
+            // タスクがない場合は空のメッセージを表示
+            taskList.appendChild(emptyMessage);
+            return;
+          }
+
+          // 各タスクを画面に追加
+          tasks.forEach((task) => {
+            const taskItem = createTaskElement(task);
+            taskList.appendChild(taskItem);
+          });
+        }
+
+        // 個別のタスク要素を作成する関数
+        function createTaskElement(task) {
+          const taskItem = document.createElement("div");
+          taskItem.className = `task-item ${task.completed ? "completed" : ""}`;
+          taskItem.innerHTML = `
+      <input 
+        type="checkbox" 
+        class="task-checkbox" 
+        ${task.completed ? "checked" : ""}>
+      <label>${task.text}</label>
+      <button class="task-delete">削除</button>
+    `;
+
+          // チェックボックスのイベントリスナー
+          const checkbox = taskItem.querySelector(".task-checkbox");
+          checkbox.addEventListener("change", function () {
+            toggleTask(task.id);
+          });
+
+          // 削除ボタンのイベントリスナー
+          const deleteBtn = taskItem.querySelector(".task-delete");
+          deleteBtn.addEventListener("click", function () {
+            deleteTask(task.id);
+          });
+
+          return taskItem;
+        }
+
+        // タスクの完了状態を切り替える関数（まだlocalStorage更新なし）
+        function toggleTask(taskId) {
+          const task = tasks.find((t) => t.id === taskId);
+          if (task) {
+            task.completed = !task.completed;
+            renderTasks();
+            updateProgress();
+            console.log("🔄 タスク状態を変更:", task.text, task.completed ? "完了" : "未完了");
+          }
+        }
+
+        // タスクを削除する関数（まだlocalStorageからの削除なし）
+        function deleteTask(taskId) {
+          tasks = tasks.filter((t) => t.id !== taskId);
+          renderTasks();
+          updateProgress();
+          console.log("🗑️ タスクを削除しました");
+        }
+
+        // 進捗バーを更新する関数
+        function updateProgress() {
+          const totalTasks = tasks.length;
+          const completedTasks = tasks.filter((t) => t.completed).length;
+          const percentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+
+          // 進捗バーの表示を更新
+          progressFill.style.width = percentage + "%";
+          progressText.textContent = `${completedTasks} / ${totalTasks} 完了 (${percentage}%)`;
+
+          // 全て完了した場合の処理
+          if (totalTasks > 0 && completedTasks === totalTasks) {
+            showCompletionMessage();
+          } else {
+            hideCompletionMessage();
+          }
+        }
+
+        // 完了メッセージを表示
+        function showCompletionMessage() {
+          completionMessage.style.display = "block";
+        }
+
+        // 完了メッセージを非表示
+        function hideCompletionMessage() {
+          completionMessage.style.display = "none";
+        }
+
+        // 完了メッセージをクリックで閉じる
+        completionMessage.addEventListener("click", function () {
+          hideCompletionMessage();
+        });
+
+        // ★ ステップ3の新機能: 復元したタスクを画面に表示
+        renderTasks();
+        updateProgress();
+      });
+    </script>
+  </body>
+</html>

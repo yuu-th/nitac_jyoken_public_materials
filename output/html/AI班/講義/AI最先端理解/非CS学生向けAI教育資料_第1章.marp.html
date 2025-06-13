@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>非CS学生向けAI教育資料_第1章.marp</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<hr>
+<h2>marp: true
+theme: my-theme
+size: 16:9
+paginate: true
+header: &#39;AIの現在地&#39;
+footer: &#39;AI資料 - 1章&#39;</h2>
+<style>
+    strong{
+        font-size:1.3rem;
+    }
+</style>
+
+<h1>第1章 AIの現在地</h1>
+<p>～2025年 知っておくべきメガトレンドと基本知識～</p>
+<hr>
+<h2>学ぶこと：AIの主要トレンド</h2>
+<style scoped>
+    strong{
+        font-size:1.0rem;
+    }
+</style>
+
+<p>AIの現状理解のための主要技術トレンドと基本概念。</p>
+<ul>
+<li><strong>AIの定義と分類</strong></li>
+<li><strong>自然言語処理技術 (Transformer, LLM)</strong></li>
+<li><strong>データと機械学習</strong></li>
+<li><strong>AIアラインメント</strong></li>
+<li><strong>生成AI</strong></li>
+<li><strong>AI for Science</strong></li>
+<li><strong>AIの効率性と持続可能性</strong></li>
+<li><strong>責任あるAI</strong></li>
+</ul>
+<hr>
+<h2>現代社会におけるAIの重要性</h2>
+<p>AIは社会の様々な場面で活用。
+DCON等では、学生のアイデア実現の強力な手段。
+本章でAI活用の基礎知識を習得。</p>
+<hr>
+<h2>1.1 AIの定義と分類</h2>
+<p><strong>AI（人工知能）とは</strong>
+人間の知的活動をコンピュータで模倣・実現する技術・学問。</p>
+<p><strong>AIの主な分類</strong></p>
+<ul>
+<li><strong>特化型AI (ANI)</strong>: 特定タスク特化。現在の主流。
+例：顔認証、自動翻訳。</li>
+<li><strong>汎用AI (AGI)</strong>: 人間のように多様なタスク対応。未実現。</li>
+</ul>
+<p><strong>ポイント</strong>: 現在のAIは「特化型」。万能ではないが特定分野で高性能。
+キーワード: AI, 特化型AI (ANI), 汎用AI (AGI)</p>
+<hr>
+<h2>1.2 Transformerと大規模言語モデル(LLM)</h2>
+<p><strong>自然言語処理のブレークスルー</strong>
+<strong>Transformer</strong> (2017年): NLPに革命。<strong>自己注意機構</strong>で深い文脈理解。</p>
+<p><strong>大規模言語モデル (LLM)</strong>
+Transformerベース。膨大なテキストデータで事前学習。例: GPTシリーズ。</p>
+<p><strong>LLMの主な能力</strong>
+高度な文脈理解、文章生成、翻訳、対話、要約。
+キーワード: Transformer, LLM, 自己注意機構, GPT, NLP</p>
+<hr>
+<h3>LLMの限界と課題</h3>
+<ul>
+<li><strong>ハルシネーション</strong>: 誤情報生成。</li>
+<li><strong>バイアス</strong>: 学習データの偏見を反映・増幅。</li>
+<li><strong>知識のカットオフ</strong>: 最新情報に未対応。</li>
+<li><strong>計算資源とエネルギー消費</strong>: 膨大なリソース。</li>
+</ul>
+<p>批判的視点での活用が重要。</p>
+<hr>
+<h2>1.3 データ駆動型AIと機械学習</h2>
+<p><strong>AIとデータ</strong>
+機械学習モデルはデータから学習。データがAI性能を左右。</p>
+<p><strong>機械学習の主要な手法</strong></p>
+<ol>
+<li><strong>教師あり学習</strong>: 入力と正解ラベルで学習。例：迷惑メール分類。</li>
+<li><strong>教師なし学習</strong>: 正解ラベルなしでデータ構造発見。例：顧客セグメンテーション。</li>
+<li><strong>強化学習</strong>: 試行錯誤で報酬最大化。例：ゲームAI。
+キーワード: 機械学習 (ML), 教師あり学習, 教師なし学習, 強化学習, 訓練データ</li>
+</ol>
+<hr>
+<h3>学習データの重要性：質・量・バイアス</h3>
+<ul>
+<li><strong>データの量</strong>: 多いほど汎化性能向上。大規模モデルでは特に重要。</li>
+<li><strong>データの質</strong>: 不正確・ノイズは性能低下 (GIGO)。<strong>データバイアス</strong>は判断に偏り。</li>
+</ul>
+<p>高品質で偏りのないデータ準備が不可欠。</p>
+<hr>
+<h2>1.4 AIアラインメント：人間との価値整合</h2>
+<p><strong>AIアラインメントとは</strong>
+AIの行動・目標を人間の価値観・意図・社会全体の利益と一致させること。</p>
+<ul>
+<li><strong>指示チューニング</strong>: 指示と望ましい出力ペアで学習。意図理解向上。</li>
+<li><strong>RLHF</strong>: 人間評価を報酬にLLM応答を人間の好みに近づける。</li>
+</ul>
+<p>AI高度化に伴い重要性増。
+キーワード: アラインメント, RLHF, 指示チューニング</p>
+<hr>
+<style scoped>
+    strong{
+        font-size:1.0rem;
+    }
+</style>
+
+<h2>1.5 生成AI：新たなコンテンツ創造</h2>
+<p><strong>生成AI (Generative AI)</strong>:
+既存データから学習し、新規オリジナルコンテンツを自動生成。</p>
+<ul>
+<li><strong>テキスト生成</strong>: LLM (GPT等)、プログラムコードなども</li>
+<li><strong>画像生成</strong>: 拡散モデル (Stable Diffusion等)</li>
+<li><strong>音楽生成</strong></li>
+<li><strong>動画生成</strong> (Sora等)</li>
+<li><strong>3Dモデル生成</strong></li>
+</ul>
+<p><strong>マルチモーダルAI</strong>: 複数情報（テキスト、画像等）を統合処理・生成 (GPT-4V等)。
+キーワード: 生成AI, プロンプト, 拡散モデル, マルチモーダルAI</p>
+<hr>
+<h3>生成AIの活用例 (DCONを想定)</h3>
+<ul>
+<li><strong>アイデア創出支援</strong></li>
+<li><strong>資料作成補助</strong></li>
+<li><strong>デザインプロトタイピング</strong></li>
+<li><strong>コーディング支援</strong></li>
+</ul>
+<p>生成AI活用で創造活動を加速。</p>
+<hr>
+<h2>1.6 AI for Science：科学研究の革新</h2>
+<style scoped>
+    strong{
+        font-size:1.0rem;
+    }
+</style>
+
+<p><strong>AI for Scienceとは</strong>
+AIを科学研究に応用。新発見加速、課題解決。大量データ解析、シミュレーション高速化、仮説生成。</p>
+<p><strong>主な応用分野の例</strong></p>
+<ul>
+<li><strong>生命科学・創薬</strong>: AlphaFold</li>
+<li><strong>材料科学</strong>: マテリアルズ・インフォマティクス</li>
+<li><strong>地球科学</strong></li>
+<li><strong>天文学</strong></li>
+</ul>
+<p>科学研究の方法論を変革。</p>
+<hr>
+<h2>1.7 AIの効率化と持続可能性</h2>
+<style scoped>
+    strong{
+        font-size:1.0rem;
+    }
+</style>
+
+<p><strong>AIの環境負荷</strong>
+大規模AIモデルは訓練・運用に多大な電力消費。環境負荷が課題。
+グリーンAI、サステナブルAIが求められる。</p>
+<p><strong>主な取り組み</strong></p>
+<ul>
+<li><strong>モデル軽量化・圧縮</strong></li>
+<li><strong>効率的なAIアーキテクチャ</strong></li>
+<li><strong>省エネAIハードウェア</strong></li>
+<li><strong>エッジAI</strong></li>
+</ul>
+<p>AI民主化と地球環境との調和に貢献。</p>
+<hr>
+<h2>1.8 責任あるAI (Responsible AI)</h2>
+<p><strong>責任あるAIとは</strong>
+AIが人間の価値観・社会規範に沿い、公平・透明・安全・説明可能に運用されることを目指す概念。</p>
+<p><strong>主要原則</strong>
+<strong>公平性</strong> ,<strong>透明性</strong> ,<strong>説明可能性 (XAI)</strong> ,<strong>安全性と信頼性</strong> ,<strong>プライバシー保護</strong> ,<strong>アカウンタビリティ</strong> ,<strong>人間中心性</strong>
+キーワード: 責任あるAI, ELSI, 公平性, 透明性, XAI, AI倫理</p>
+<hr>
+<h2>まとめ：AIの現在地と今後の展望</h2>
+<p>本章のまとめ：</p>
+<ul>
+<li>AI定義・分類、<strong>Transformer</strong>と<strong>LLM</strong>の影響。</li>
+<li><strong>データ</strong>の重要性（質・量・バイアス）。</li>
+<li><strong>AIアラインメント</strong>の必要性。</li>
+<li><strong>生成AI</strong>、<strong>AI for Science</strong>の進展。</li>
+<li>AIの<strong>効率化・持続可能性</strong>、<strong>責任あるAI</strong>。</li>
+</ul>
+<p>これらはAI理解・活用の基礎。AIは社会を変革し続ける技術。</p>
+<hr>
+<h2>質疑応答</h2>
+<p>ご質問、さらに詳しく知りたい点など、ご遠慮なくどうぞ。</p>
+
+</body>
+</html>

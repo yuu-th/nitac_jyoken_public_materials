@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ1_タスクの保存</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ1: ToDoタスクをlocalStorageに保存する</h1>
+<p>前の「やること動的サイト」では、ブラウザをリロードすると追加したタスクがすべて消えてしまいました。このステップでは、<code>localStorage</code> を利用して、追加したタスクをブラウザに保存する方法を学びます。これにより、ページを再読み込みしてもタスクが保持されるようになります。</p>
+<h2>1. このステップのゴール</h2>
+<ul>
+<li>タスクが追加されるたびに、現在のすべてのタスク情報を <code>localStorage</code> に保存する機能を実装する。</li>
+<li><code>localStorage</code> にデータが正しく保存されていることを、ブラウザの開発者ツールを使って確認できるようになる。</li>
+</ul>
+<h2>2. 事前知識の確認</h2>
+<p>このステップを進めるにあたり、以下の知識が必要となります。</p>
+<ul>
+<li><strong><code>localStorage</code> の基本</strong>: 前の資料 <code>localStorageとは.md</code> を読んで、<code>localStorage.setItem()</code>、<code>JSON.stringify()</code> の役割を理解しておきましょう。</li>
+<li><strong>JavaScriptの配列とオブジェクト</strong>: タスクはオブジェクトとして表現し、それらを配列で管理します。</li>
+<li><strong>DOM操作とイベント処理</strong>: 「やること動的サイト」で学んだ、要素の取得やイベントリスナーの設定方法。</li>
+</ul>
+<h2>3. 具体的な手順: <code>script.js</code> の変更</h2>
+<p>「やること動的サイト」の <code>script.js</code> をベースに、タスクを <code>localStorage</code> に保存する機能を追加します。</p>
+<p>主な変更点は、タスクを追加する <code>addTask</code> 関数と、タスク情報を <code>localStorage</code> に保存するための新しい関数 <code>saveTasks</code> の作成です。</p>
+<h3>3.1. タスクを保存するキーの決定</h3>
+<p>まず、<code>localStorage</code> にタスクを保存する際のキー（名前）を決めます。ここでは <code>&#39;todoTasks&#39;</code> というキー名を使用することにします。</p>
+<h3>3.2. <code>saveTasks</code> 関数の作成</h3>
+<p>現在のタスクリスト（<code>tasks</code> 配列）を <code>localStorage</code> に保存する <code>saveTasks</code> 関数を新しく作成します。</p>
+<pre><code class="language-javascript">// script.js の適切な場所 (例: tasks 配列の定義後)
+
+// localStorageにタスクを保存するキー
+const STORAGE_KEY = &#39;todoTasks&#39;;
+
+// タスクをlocalStorageに保存する関数
+function saveTasks() {
+  // tasks 配列をJSON文字列に変換してlocalStorageに保存
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  console.log(&#39;タスクをlocalStorageに保存しました:&#39;, tasks);
+}
+</code></pre>
+<p><strong>コード解説:</strong></p>
+<ul>
+<li><code>STORAGE_KEY</code>: <code>localStorage</code> に保存する際のキー名を定数として定義しています。こうすることで、キー名を変更したい場合に一箇所修正するだけで済みます。</li>
+<li><code>saveTasks()</code>: この関数が呼び出されると、グローバル変数 <code>tasks</code>（すべてのタスクが格納されている配列）を <code>JSON.stringify()</code> を使ってJSON文字列に変換し、<code>localStorage.setItem()</code> で指定したキー (<code>STORAGE_KEY</code>) を使って保存します。</li>
+<li><code>console.log()</code>: 保存が実行されたことを確認するために、コンソールにメッセージと保存内容を出力しています。</li>
+</ul>
+<h3>3.3. <code>addTask</code> 関数の変更</h3>
+<p>タスクが新しく追加されたときに <code>saveTasks</code> 関数を呼び出すように、<code>addTask</code> 関数を修正します。</p>
+<pre><code class="language-javascript">// script.js の addTask 関数内
+
+function addTask() {
+  const taskText = taskInput.value.trim();
+  if (taskText === &#39;&#39;) {
+    alert(&#39;タスクを入力してください。&#39;);
+    return;
+  }
+
+  const newTask = {
+    id: Date.now(), // ユニークなIDとしてタイムスタンプを使用
+    text: taskText,
+    completed: false
+  };
+
+  tasks.push(newTask);
+  renderTasks();
+  taskInput.value = &#39;&#39;;
+
+  saveTasks(); // ★変更点: タスク追加後に保存処理を呼び出す
+}
+</code></pre>
+<p><strong>コード解説:</strong></p>
+<ul>
+<li><code>saveTasks();</code>: <code>tasks.push(newTask);</code> と <code>renderTasks();</code> の後に追加しました。これにより、新しいタスクが <code>tasks</code> 配列に追加され、画面に表示された直後に、更新された <code>tasks</code> 配列全体が <code>localStorage</code> に保存されます。</li>
+</ul>
+<h3>3.4. データフローの図解 (イメージ)</h3>
+<p>タスクが追加されて保存されるまでのデータの流れを簡単に示すと以下のようになります。</p>
+<pre><code class="language-mermaid">graph TD
+    A[ユーザーがタスクを入力し追加ボタンを押す] --&gt; B{addTask関数実行};
+    B --&gt; C[tasks配列に新しいタスクオブジェクトを追加];
+    C --&gt; D{renderTasks関数実行};
+    D --&gt; E[画面のリストを更新];
+    C --&gt; F{saveTasks関数実行};
+    F --&gt; G[tasks配列をJSON文字列に変換];
+    G --&gt; H[localStorageに保存 (キー: todoTasks)];
+</code></pre>
+<h2>4. 演習課題</h2>
+<ol>
+<li><code>演習用ベースコード</code> フォルダ内の <code>script.js</code> を開き、上記の「3.2. <code>saveTasks</code> 関数の作成」と「3.3. <code>addTask</code> 関数の変更」で示された変更を加えてください。<ul>
+<li><code>STORAGE_KEY</code> 定数を定義しましょう。</li>
+<li><code>saveTasks</code> 関数を新しく作成しましょう。</li>
+<li><code>addTask</code> 関数の末尾で <code>saveTasks()</code> を呼び出すように変更しましょう。</li>
+</ul>
+</li>
+<li><code>index.html</code> をブラウザで開き、いくつかのタスクを追加してみてください。</li>
+</ol>
+<h2>5. 動作確認の方法</h2>
+<p>タスクが正しく <code>localStorage</code> に保存されているかを確認するには、ブラウザの開発者ツールを使用します。</p>
+<ol>
+<li><p><strong>開発者ツールを開く</strong>: Webページ上で右クリックし、「検証」または「要素を調査」などを選択するか、<code>F12</code> キーを押します。</p>
+</li>
+<li><p><strong>「Application」タブ (Chrome/Edge) または「ストレージ」タブ (Firefox) を選択</strong>: タブの中に「ローカルストレージ」または「Local Storage」という項目があります。</p>
+</li>
+<li><p><strong>ドメインを選択</strong>: 現在開いている <code>index.html</code> のドメイン（通常は <code>file://</code> から始まります）を選択します。</p>
+</li>
+<li><p><strong>キーと値の確認</strong>: <code>todoTasks</code> というキーでデータが保存されているか確認します。値の欄には、タスクの配列がJSON文字列として表示されているはずです。</p>
+<p>例えば、タスクを2つ追加した場合、以下のようなデータが確認できるでしょう（IDは異なります）。</p>
+<pre><code>Key: todoTasks
+Value: [{&quot;id&quot;:1678886400001,&quot;text&quot;:&quot;最初のタスク&quot;,&quot;completed&quot;:false},{&quot;id&quot;:1678886405002,&quot;text&quot;:&quot;次のタスク&quot;,&quot;completed&quot;:false}]
+</code></pre>
+</li>
+</ol>
+<p><strong>期待される動作:</strong></p>
+<ul>
+<li>タスクを追加するたびに、開発者ツールの <code>localStorage</code> の <code>todoTasks</code> の値が更新される。</li>
+<li>ページをリロードすると、現時点ではまだタスクは画面から消えます（読み込み処理は次のステップで実装します）が、<code>localStorage</code> にはデータが残っていることを確認してください。</li>
+</ul>
+<h2>6. Q&amp;A</h2>
+<p><strong>Q1: なぜ <code>JSON.stringify()</code> が必要なのですか？</strong></p>
+<p>A1: <code>localStorage</code> は、キーと値のペアを保存するストレージですが、保存できる値は文字列型のみです。JavaScriptの配列やオブジェクトをそのまま保存しようとすると、意図した通りに保存されません（例: <code>[object Object]</code> のような文字列として保存されてしまう）。<code>JSON.stringify()</code> を使うことで、配列やオブジェクトをJSON形式の文字列に正しく変換でき、<code>localStorage</code> に適切に保存できます。</p>
+<p><strong>Q2: <code>STORAGE_KEY</code> を定数にするメリットは何ですか？</strong></p>
+<p>A2: <code>localStorage</code> からデータを読み書きする際には、同じキー名を正確に使用する必要があります。キー名を直接文字列で記述すると、タイプミスをしたり、後でキー名を変更したくなった場合に複数箇所を修正する必要が出てきたりします。<code>STORAGE_KEY</code> のように定数として定義しておけば、キー名は一箇所で管理され、変更も容易になり、タイプミスによるバグも防ぎやすくなります。</p>
+<p><strong>Q3: <code>id: Date.now()</code> で生成されるIDは本当にユニーク（一意）ですか？</strong></p>
+<p>A3: <code>Date.now()</code> は現在のタイムスタンプ（ミリ秒単位）を返すため、通常は異なる時間にタスクを追加すれば異なるIDが生成されます。しかし、非常に短い時間（1ミリ秒以内）に連続してタスクを追加するような特殊なケースや、システム時刻が変更された場合などには、IDが重複する可能性も理論上は存在します。より堅牢なアプリケーションでは、UUID（Universally Unique Identifier）のような、より確実に一意なIDを生成するライブラリを使用することもありますが、この演習では簡便さと学習のしやすさを優先して <code>Date.now()</code> を使用しています。</p>
+<h2>7. より詳しいエラーハンドリングについて (コラム)</h2>
+<p>このステップのコードでは、エラーハンドリングを簡略化しています。しかし、実際のアプリケーションでは、<code>localStorage.setItem()</code> が失敗するケースも考慮する必要があります。主な原因としては、以下のものがあります。</p>
+<ul>
+<li><strong>クォータ超過 (<code>QuotaExceededError</code>)</strong>: <code>localStorage</code> に保存できるデータ量には上限があります（ブラウザによって異なりますが、通常はドメインごとに5MB～10MB程度）。この上限を超えてデータを保存しようとすると、<code>QuotaExceededError</code> が発生します。</li>
+<li><strong>プライベートブラウジングモードなど</strong>: ブラウザの設定やモードによっては、<code>localStorage</code> への書き込みが制限される場合があります。</li>
+</ul>
+<p>これらのエラーを適切に処理するためには、<code>try...catch</code> 文を使用します。</p>
+<pre><code class="language-javascript">// saveTasks 関数のエラーハンドリング例
+function saveTasks() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    console.log(&#39;タスクをlocalStorageに保存しました:&#39;, tasks);
+  } catch (e) {
+    console.error(&#39;localStorageへの保存に失敗しました:&#39;, e);
+    // ユーザーにエラーを通知する処理などをここに追加できます
+    if (e.name === &#39;QuotaExceededError&#39;) {
+      alert(&#39;タスクを保存できませんでした。ストレージの空き容量が不足しています。&#39;);
+    }
+  }
+}
+</code></pre>
+<p>この演習では、まずは基本的な動作を理解することを優先し、詳細なエラーハンドリングは省略していますが、より実践的な開発ではこのような考慮が重要になります。</p>
+<p><strong>よくあるエラーと対処法:</strong></p>
+<ul>
+<li><strong><code>localStorage</code> に何も保存されない</strong>: <code>saveTasks()</code> 関数が正しく呼び出されているか、<code>STORAGE_KEY</code> の名前が正しいか確認してください。<code>console.log</code> を <code>saveTasks</code> 関数内や <code>addTask</code> 関数内に追加して、処理の流れを確認しましょう。</li>
+<li><strong>保存される値が <code>[object Object]</code> のようになる</strong>: <code>JSON.stringify()</code> を忘れずに使っているか確認してください。</li>
+</ul>
+<p>次のステップでは、保存されたタスクをページ読み込み時に復元する機能を実装します。</p>
+
+</body>
+</html>

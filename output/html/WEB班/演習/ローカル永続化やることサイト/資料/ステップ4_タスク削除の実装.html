@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ4_タスク削除の実装</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ4: タスク削除時にlocalStorageからも削除する</h1>
+<p>前のステップでは、タスクの追加、表示、完了状態の変更とそれらのlocalStorageへの保存・復元ができるようになりました。しかし、現状ではタスクを「削除」ボタンでリストから消しても、その変更はlocalStorageには反映されません。ページをリロードすると、削除したはずのタスクが復活してしまいます。</p>
+<p>このステップでは、タスクを削除する際に、localStorageからも対応するタスク情報を削除するように <code>deleteTask</code> 関数を修正します。</p>
+<h2>学習目標</h2>
+<ul>
+<li>特定のタスクを削除した後、その変更をlocalStorageに正しく反映させる方法を理解する。</li>
+<li><code>deleteTask</code> 関数内で <code>saveTasks</code> 関数を呼び出すことの重要性を再確認する。</li>
+</ul>
+<h2>1. <code>deleteTask</code> 関数の確認と修正</h2>
+<p>現在の <code>deleteTask</code> 関数は以下のようになっています（ステップ3完了時点）。</p>
+<pre><code class="language-javascript">// script.js (ステップ3完了時点の抜粋)
+
+// ... (他のコード) ...
+
+function deleteTask(index) {
+  tasks.splice(index, 1); // 配列からタスクを削除
+  // saveTasks(); // ← ★現状ここがコメントアウトされているか、または存在しない場合がある
+  renderTasks();
+}
+
+// ... (他のコード) ...
+</code></pre>
+<p>この関数は、<code>tasks</code> 配列から指定されたインデックスのタスクを <code>splice</code> メソッドで削除し、その後 <code>renderTasks</code> を呼び出して画面表示を更新しています。</p>
+<p>localStorageに変更を反映させるためには、配列からタスクを削除した<strong>後</strong>に、現在の <code>tasks</code> 配列の状態をlocalStorageに保存する必要があります。これは、すでにおなじみの <code>saveTasks()</code> 関数を呼び出すことで実現できます。</p>
+<p><strong>修正後の <code>deleteTask</code> 関数:</strong></p>
+<pre><code class="language-javascript">// script.js
+
+// ... (既存のコード) ...
+
+/**
+ * タスクを削除する関数
+ * @param {number} index - 削除するタスクのインデックス
+ */
+function deleteTask(index) {
+  tasks.splice(index, 1); // 配列からタスクを削除
+  saveTasks(); // ★変更点: 変更後のタスク配列をlocalStorageに保存
+  renderTasks(); // 表示を更新
+}
+
+### 1.1. データフローと処理の図解 (タスク削除時)
+
+タスクが削除されてlocalStorageの内容が更新されるまでの流れは以下のようになります。
+
+```mermaid
+graph TD
+    A[ユーザーが「削除」ボタンをクリック] --&gt; B{イベントリスナー発火 (renderTasks内で設定)};
+    B --&gt; C{deleteTask関数実行 (該当タスクのindexと共に)};
+    C --&gt; D[tasks配列から該当タスクをspliceで削除];
+    D --&gt; E{saveTasks関数実行};
+    E --&gt; F[更新されたtasks配列をJSON文字列に変換];
+    F --&gt; G[localStorageに保存 (キー: todoTasks) - 実質的な上書き更新];
+    D --&gt; H{renderTasks関数実行};
+    H --&gt; I[画面のリスト全体を再描画 (削除されたタスクは表示されない)];
+</code></pre>
+<h2>2. 動作確認</h2>
+<ol>
+<li>いくつかのタスクを追加します。</li>
+<li>いずれかのタスクの「削除」ボタンをクリックします。タスクがリストから消えることを確認します。</li>
+<li>ブラウザをリロード（再読み込み）します。</li>
+<li><strong>期待される結果:</strong> 手順2で削除したタスクは、リロード後も表示されない（localStorageから正しく削除されている）。</li>
+</ol>
+<p>もし、リロード後に削除したはずのタスクが再表示される場合は、<code>deleteTask</code> 関数内で <code>saveTasks()</code> が正しく呼び出されているか、もう一度確認してください。</p>
+<p>また、開発者ツールでlocalStorageの内容を確認するのも有効です。</p>
+<ul>
+<li>タスク削除前: localStorageに複数のタスクが保存されている。</li>
+<li>特定のタスクを削除後: localStorageから該当タスクが消えている。</li>
+</ul>
+<h2>3. まとめ</h2>
+<p>このステップでは、<code>deleteTask</code> 関数に <code>saveTasks()</code> の呼び出しを追加するだけで、タスク削除の変更をlocalStorageに正しく反映させることができました。</p>
+<p>これにより、タスクのCRUD（Create: 作成, Read: 読み取り, Update: 更新, Delete: 削除）操作すべてにおいて、変更がlocalStorageに永続化されるようになりました。</p>
+<ul>
+<li><strong>Create</strong>: <code>addTask</code> 関数で新しいタスクを追加し、<code>saveTasks</code> で保存。</li>
+<li><strong>Read</strong>: <code>loadTasks</code> 関数でlocalStorageから読み込み、<code>renderTasks</code> で表示。</li>
+<li><strong>Update</strong>: <code>toggleTaskCompletion</code> 関数で完了状態を更新し、<code>saveTasks</code> で保存。</li>
+<li><strong>Delete</strong>: <code>deleteTask</code> 関数でタスクを削除し、<code>saveTasks</code> で変更を保存。</li>
+</ul>
+<p>これで、ローカル永続化を行う基本的な「やることリスト」サイトの機能が一通り完成しました。</p>
+<h2>4. Q&amp;A</h2>
+<p><strong>Q1: <code>deleteTask</code> で <code>saveTasks()</code> を呼び出すのを忘れるとどうなりますか？</strong></p>
+<p>A1: 画面上ではタスクが削除されたように見えます（<code>renderTasks()</code> が呼び出されるため）。しかし、<code>tasks</code> 配列の変更が <code>localStorage</code> に保存されないため、ページをリロードすると削除したはずのタスクが元に戻ってしまいます。</p>
+<p><strong>Q2: <code>tasks.splice(index, 1)</code> は何をしているのですか？</strong></p>
+<p>A2: <code>splice</code> はJavaScriptの配列メソッドで、配列の既存の要素を取り除いたり、置き換えたり、新しい要素を追加したりすることができます。
+    - <code>tasks.splice(index, 1)</code> の場合:
+        - <code>index</code>: 操作を開始する位置（インデックス）。
+        - <code>1</code>: 取り除く要素の数。
+    つまり、<code>tasks</code> 配列の <code>index</code> 番目の位置から1つの要素を取り除く、という意味になります。これにより、指定されたタスクが配列から削除されます。</p>
+<p><strong>Q3: もしタスクが非常に多い場合、毎回 <code>saveTasks()</code> で全データを保存し直すのは非効率ではないですか？</strong></p>
+<p>A3: はい、その通りです。タスクの数が非常に多くなり、パフォーマンスが問題になるような状況では、より効率的な更新方法を検討する必要があります。例えば、変更があったタスクだけを特定して <code>localStorage</code> 内の対応する部分のみを更新する、あるいは <code>IndexedDB</code> のようなより高機能なブラウザーストレージを利用するなどの方法が考えられます。しかし、この演習の範囲では、<code>localStorage</code> の基本的な使い方とデータ永続化の概念を理解することを目的としているため、シンプルに全データを再保存する方法を採用しています。一般的なToDoリスト程度のデータ量であれば、この方法でも通常は問題ありません。</p>
+<h2>5. コラム：<code>localStorage.removeItem()</code> について</h2>
+<p>今回の演習では、タスクリスト全体を <code>tasks</code> 配列として管理し、変更があるたびに <code>tasks</code> 配列全体を <code>localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))</code> で上書き保存しています。そのため、特定のタスクを削除する際も、配列から要素を削除した後に配列全体を再保存するアプローチを取りました。</p>
+<p><code>localStorage</code> には、特定のキーに保存されたアイテムを直接削除するための <code>localStorage.removeItem(key)</code> というメソッドも存在します。</p>
+<p>もし、各タスクを個別のキーでlocalStorageに保存するような設計（例：<code>todo-task-1</code>, <code>todo-task-2</code> のように）にしていた場合は、タスク削除時に <code>localStorage.removeItem(&#39;todo-task-X&#39;)</code> のようにして個別に削除する必要が出てくるでしょう。</p>
+<p>しかし、今回の演習のように単一のキーで配列全体を管理する方法は、多くのケースでシンプルかつ効果的です。</p>
+<p>次のステップ（発展）では、タスクの内容を編集する機能について考えてみましょう。</p>
+
+</body>
+</html>

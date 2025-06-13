@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ2_タスクの復元</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ2: localStorageからタスクを復元する</h1>
+<p>ステップ1では、タスクを <code>localStorage</code> に保存する機能を実装しました。しかし、現状ではページをリロードするとタスクリストは空になってしまいます。このステップでは、ページが読み込まれた際に <code>localStorage</code> から保存されているタスクを読み込み、画面に表示する機能を実装します。</p>
+<h2>1. このステップのゴール</h2>
+<ul>
+<li>ページ読み込み時に <code>localStorage</code> に保存されたタスクデータを取得し、タスクリスト（<code>tasks</code> 配列）に復元する。</li>
+<li>復元されたタスクを画面に描画する。</li>
+<li><code>localStorage</code> にデータがない場合でもエラーなく動作するようにする。</li>
+</ul>
+<h2>2. 事前知識の確認</h2>
+<p>このステップを進めるにあたり、以下の知識が必要となります。</p>
+<ul>
+<li><strong><code>localStorage</code> の基本</strong>: <code>localStorage.getItem()</code>、<code>JSON.parse()</code> の役割を理解しておきましょう。（<code>localStorageとは.md</code> 参照）</li>
+<li><strong>JavaScriptのライフサイクルイベント</strong>: スクリプトが読み込まれた直後に処理を実行する方法。（例: スクリプトの末尾で関数を直接呼び出す）</li>
+<li><strong>条件分岐</strong>: <code>localStorage</code> から取得したデータが存在するかどうかを確認するための <code>if</code> 文。</li>
+</ul>
+<h2>3. 具体的な手順: <code>script.js</code> の変更</h2>
+<p><code>script.js</code> に、ページ読み込み時に <code>localStorage</code> からタスクを読み込む <code>loadTasks</code> 関数を作成し、スクリプトの初期化処理の中で呼び出すようにします。</p>
+<h3>3.1. <code>loadTasks</code> 関数の作成</h3>
+<p><code>localStorage</code> からタスクデータを読み込み、<code>tasks</code> 配列を更新し、画面を再描画する <code>loadTasks</code> 関数を作成します。</p>
+<pre><code class="language-javascript">// script.js の適切な場所 (例: saveTasks 関数の後)
+
+// localStorageからタスクを読み込む関数
+function loadTasks() {
+  const storedTasks = localStorage.getItem(STORAGE_KEY);
+  if (storedTasks) {
+    try { // ★追加: JSON.parseのエラーハンドリング
+      tasks = JSON.parse(storedTasks);
+      console.log(&#39;localStorageからタスクを読み込みました:&#39;, tasks);
+    } catch (e) {
+      console.error(&#39;localStorageからタスクを読み込めませんでした。データが破損している可能性があります。&#39;, e);
+      tasks = []; // エラー時は空のタスクリストとして扱う
+    }
+  } else {
+    console.log(&#39;localStorageに保存されたタスクはありません。&#39;);
+  }
+  renderTasks(); // 読み込んだタスク（または空のリスト）を描画
+}
+</code></pre>
+<p><strong>コード解説:</strong></p>
+<ul>
+<li><code>localStorage.getItem(STORAGE_KEY)</code>: ステップ1で保存時に使用したキー (<code>STORAGE_KEY</code>) を使って、<code>localStorage</code> からデータを取得します。</li>
+<li><code>if (storedTasks)</code>: <code>localStorage</code> にデータが保存されていれば、<code>storedTasks</code> にはJSON文字列が入ります。データがなければ <code>null</code> になります。この条件分岐で、データが存在する場合のみ処理を行います。</li>
+<li><code>try...catch</code>: <code>JSON.parse()</code> は、引数が有効なJSON文字列でない場合にエラーを投げる可能性があります。例えば、<code>localStorage</code> のデータが何らかの理由で破損していた場合などです。<code>try...catch</code> で囲むことで、エラーが発生してもプログラム全体が停止するのを防ぎ、エラーメッセージをコンソールに出力して、<code>tasks</code> 配列を空にするなどの代替処理を行うことができます。</li>
+<li><code>tasks = JSON.parse(storedTasks);</code>: 取得したJSON文字列を <code>JSON.parse()</code> を使ってJavaScriptの配列（オブジェクトの配列）に戻し、グローバル変数 <code>tasks</code> に代入します。</li>
+<li><code>console.log()</code>: 読み込み処理の状況をコンソールに出力します。</li>
+<li><code>renderTasks()</code>: <code>localStorage</code> からタスクを読み込んだ後（または何も読み込まなかった後）、現在の <code>tasks</code> 配列の内容に基づいて画面のタスク一覧を更新します。これにより、保存されていたタスクが画面に表示されます。</li>
+</ul>
+<h3>3.2. データフローの図解 (イメージ)</h3>
+<p>ページ読み込み時にタスクが復元されるまでのデータの流れを簡単に示すと以下のようになります。</p>
+<pre><code class="language-mermaid">graph TD
+    A[ページ読み込み開始] --&gt; B{loadTasks関数実行};
+    B --&gt; C[localStorageからデータを取得 (キー: todoTasks)];
+    C -- データあり --&gt; D{JSON文字列をパース};
+    D -- 成功 --&gt; E[tasks配列を更新];
+    D -- パース失敗 (エラー) --&gt; F[エラーメッセージ表示、tasks配列を空に];
+    C -- データなし --&gt; G[tasks配列は変更なし (初期状態のまま)];
+    E --&gt; H{renderTasks関数実行};
+    F --&gt; H;
+    G --&gt; H;
+    H --&gt; I[画面のリストを更新/表示];
+</code></pre>
+<h3>3.3. 初期化処理の変更</h3>
+<p>スクリプトが読み込まれたときに <code>loadTasks</code> 関数が実行されるように、<code>script.js</code> の末尾にある初期化処理を変更します。</p>
+<p>以前は <code>renderTasks();</code> のみを呼び出していましたが、これを <code>loadTasks();</code> の呼び出しに置き換えます。<code>loadTasks</code> 関数内で <code>renderTasks</code> が呼び出されるため、二重に呼び出す必要はありません。</p>
+<pre><code class="language-javascript">// script.js の末尾
+
+// イベントリスナー
+addTaskButton.addEventListener(&#39;click&#39;, addTask);
+
+taskInput.addEventListener(&#39;keypress&#39;, function(event) {
+  if (event.key === &#39;Enter&#39;) {
+    addTask();
+  }
+});
+
+// 初期化処理: ページ読み込み時にlocalStorageからタスクを読み込む
+loadTasks(); // ★変更点: renderTasks() から loadTasks() の呼び出しに変更
+</code></pre>
+<p><strong>コード解説:</strong></p>
+<ul>
+<li><code>loadTasks();</code>: この行がスクリプトの最後に実行されることで、ページが完全に読み込まれ、JavaScriptが実行可能になった直後に <code>loadTasks</code> 関数が呼び出されます。これにより、保存されていたタスクがページ表示と同時に復元されます。</li>
+</ul>
+<h2>4. 演習課題</h2>
+<ol>
+<li><code>解答例/step1_save/script.js</code> をコピーして <code>演習用ベースコード/script.js</code> として上書きするか、ステップ1の変更が適用された <code>script.js</code> を用意します。</li>
+<li>上記の「3.1. <code>loadTasks</code> 関数の作成」と「3.2. 初期化処理の変更」で示された変更を <code>script.js</code> に加えてください。<ul>
+<li><code>loadTasks</code> 関数を新しく作成しましょう。</li>
+<li>スクリプト末尾の <code>renderTasks();</code> の呼び出しを <code>loadTasks();</code> に変更しましょう。</li>
+</ul>
+</li>
+<li><code>index.html</code> をブラウザで開きます。<ul>
+<li>まず、タスクをいくつか追加し、ページをリロードしてみてください。タスクが保持されて表示されるはずです。</li>
+<li>次に、開発者ツールで <code>localStorage</code> の <code>todoTasks</code> を一度削除（またはキー名を変更）してからページをリロードしてみてください。タスクが表示されず、コンソールに「localStorageに保存されたタスクはありません。」と表示されることを確認します。</li>
+</ul>
+</li>
+</ol>
+<h2>5. 動作確認の方法</h2>
+<ol>
+<li><strong>タスクの追加とリロード</strong>: <code>index.html</code> をブラウザで開き、いくつかのタスクを追加します。その後、ブラウザの更新ボタンを押すか、<code>F5</code> キーでページをリロードします。<ul>
+<li><strong>期待される動作</strong>: リロード後も、追加したタスクが画面に表示されていること。</li>
+</ul>
+</li>
+<li><strong><code>localStorage</code> の確認</strong>: 開発者ツールの「Application」タブ（または「ストレージ」タブ）で、<code>localStorage</code> の <code>todoTasks</code> にデータが保存されていることを確認します。</li>
+<li><strong><code>localStorage</code> のクリアとリロード</strong>: 開発者ツールで <code>todoTasks</code> の項目を右クリックして「削除」するか、コンソールで <code>localStorage.removeItem(&#39;todoTasks&#39;)</code> を実行してデータを削除します。その後、ページをリロードします。<ul>
+<li><strong>期待される動作</strong>: タスクリストが空の状態で表示され、コンソールには「localStorageに保存されたタスクはありません。」というメッセージが表示されること。</li>
+</ul>
+</li>
+</ol>
+<p><strong>よくあるエラーと対処法:</strong></p>
+<ul>
+<li><strong>リロードしてもタスクが表示されない</strong>: <code>loadTasks()</code> 関数が正しく呼び出されているか、<code>STORAGE_KEY</code> の名前が保存時と読み込み時で一致しているか確認してください。<code>JSON.parse()</code> が正しく行われているかも確認ポイントです。開発者ツールのコンソールにエラーメッセージが出ていないか確認しましょう。</li>
+<li><strong><code>JSON.parse()</code> でエラーが出る (コンソールに &quot;SyntaxError&quot; など)</strong>: <code>localStorage</code> に保存されているデータが正しいJSON形式でない可能性があります。ステップ1の保存処理 (<code>JSON.stringify()</code>) が正しく機能しているか、または手動で <code>localStorage</code> の値を不正な形式に変更していないか確認してください。上記の <code>try...catch</code> を実装していれば、エラーメッセージがコンソールに出力されるはずです。</li>
+</ul>
+<h2>6. Q&amp;A</h2>
+<p><strong>Q1: <code>loadTasks()</code> はいつ呼び出すのが最適ですか？</strong></p>
+<p>A1: <code>loadTasks()</code> は、ページのHTML構造（タスクリストを表示する要素など）が読み込まれ、JavaScriptが操作できるようになった後、かつユーザーがページを操作し始める前に呼び出すのが一般的です。<code>script.js</code> を <code>&lt;body&gt;</code> タグの末尾で読み込んでいる場合、スクリプトの最後で <code>loadTasks()</code> を呼び出せば、これらの条件を満たせます。</p>
+<p><strong>Q2: <code>localStorage.getItem()</code> が返す値は何ですか？データがない場合は？</strong></p>
+<p>A2: <code>localStorage.getItem(key)</code> は、指定されたキーに対応する値（文字列）を返します。もしキーが存在しない場合、<code>null</code> を返します。そのため、<code>if (storedTasks)</code> のような条件分岐で、データが存在するかどうかを確認できます。</p>
+<p><strong>Q3: <code>JSON.parse()</code> が失敗する具体的な例は？</strong></p>
+<p>A3: 例えば、<code>localStorage</code> に手動で <code>{&quot;text&quot;:&quot;test&quot;</code> のような、閉じ括弧が足りない不正なJSON文字列を保存してしまった場合、<code>JSON.parse(&quot;{\&quot;text\&quot;:\&quot;test\&quot;&quot;)</code> は <code>SyntaxError</code> を引き起こします。また、JSONの仕様に準拠していない形式（例: シングルクォートを使った文字列 <code>&#39;{&quot;text&quot;:&quot;test&quot;}&#39;</code> や、キーがダブルクォートで囲まれていない <code>{text:&quot;test&quot;}</code> など）もパースエラーの原因となります。</p>
+<p>これで、タスクの保存と読み込みの基本的な機能が完成しました。次のステップでは、タスクの完了状態も永続化できるように機能を拡張していきます。</p>
+
+</body>
+</html>

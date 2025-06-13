@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ5_タスク削除時のlocalStorageからの削除_穴埋め版</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ5: タスク削除時のlocalStorageからの削除 (CRUD操作完成)（穴埋め版）</h1>
+<h2>導入・問題提起</h2>
+<p>前回のステップ4で「タスクの完了状態保存」機能を実装しました。
+現在、タスクの追加・完了状態変更はlocalStorageに保存されますが、既にdeleteTask()関数にも保存機能が含まれています。</p>
+<p>今回は、deleteTask()関数の動作を詳しく確認し、削除操作も含めた <strong>完全なCRUD操作の永続化</strong> について学習します。</p>
+<p><strong>現在の状況確認:</strong></p>
+<ul>
+<li>タスクを追加 → ✅ localStorage保存される</li>
+<li>タスクの完了切り替え → ✅ localStorage保存される（ステップ4で実装）  </li>
+<li>タスクを削除 → ✅ <strong>実は既にlocalStorage保存されている</strong></li>
+<li>ページ再読み込み → ✅ 削除も含めて正確に復元される</li>
+</ul>
+<h2>このステップの目標</h2>
+<ul>
+<li>タスク削除操作もlocalStorageに正しく反映されることを理解する</li>
+<li>データの整合性を保つ重要性を学ぶ</li>
+<li>CRUD操作（作成・読み取り・更新・削除）の全てでlocalStorage同期が必要であることを理解する</li>
+<li>Webアプリケーションにおける完全なデータ永続化を習得する</li>
+</ul>
+<h2>考えてみよう</h2>
+<h3>手順1: deleteTask関数の動作確認</h3>
+<p>現在のdeleteTask関数を確認し、localStorage保存機能が含まれていることを学習します。</p>
+<pre><code class="language-javascript">function deleteTask(id) {
+    // 削除前にタスク情報を取得（ログ出力用）
+    const taskToDelete = tasks.find(task =&gt; task.id === id);
+    
+    // 指定されたIDのタスクを配列から削除
+    tasks = tasks.filter(function (task) {
+        return task.id !== id;
+    });
+
+    console.log(`🗑️ タスク「${taskToDelete.text}」を削除しました`);
+
+    // 【確認①】削除をlocalStorageにも反映する関数呼び出し（20文字）
+    // 答え: ____________________
+    ____________________;
+
+    // 画面表示を更新
+    renderTasks();
+    updateProgress();
+
+    console.log(&quot;💾 削除操作をlocalStorageに保存しました&quot;);
+}
+</code></pre>
+<h3>手順2: CRUD操作の完全性確認</h3>
+<p>Webアプリケーションの基本操作（CRUD）全てでlocalStorage同期が実現されていることを確認します。</p>
+<pre><code class="language-javascript">// 【確認②】以下のCRUD操作とlocalStorage保存の対応を確認してください
+
+// Create（作成）: addTask() → ?
+// Read（読み取り）: ? → JSON.parse()
+// Update（更新）: toggleTask() → ?
+// Delete（削除）: deleteTask() → ?
+
+// 答え:
+// Create（作成）: addTask() → ____________________（20文字）
+// Read（読み取り）: ____________________（25文字） → JSON.parse()
+// Update（更新）: toggleTask() → ____________________（20文字）
+// Delete（削除）: deleteTask() → ____________________（20文字）
+</code></pre>
+<h3>手順3: 動作確認テスト</h3>
+<p>実装を理解した後、以下の手順で完全な永続化を確認します。</p>
+<ol>
+<li><strong>複数タスクを追加</strong>（例：「買い物」「掃除」「勉強」）</li>
+<li><strong>一部を完了状態</strong>にする（例：「掃除」をチェック）</li>
+<li><strong>一つを削除</strong>する（例：「買い物」を削除）</li>
+<li><strong>DevToolsのConsole</strong>で削除メッセージを確認</li>
+<li><strong>ページを再読み込み</strong></li>
+<li><strong>結果確認</strong>：削除したタスクが復活せず、完了状態も維持される</li>
+</ol>
+<h2>✨ 最小限ヒント</h2>
+<ul>
+<li>このステップでは、既存のコードに大きな変更を加える必要はありません。主に確認と理解が中心です。</li>
+<li><code>deleteTask</code>関数内で<code>saveTasksToStorage()</code>が呼び出されていることを確認します。これにより、タスク配列から特定のタスクが削除された後、その変更がlocalStorageに保存されます。</li>
+<li>CRUD操作とは、Create（作成）、Read（読み取り）、Update（更新）、Delete（削除）の頭文字を取ったもので、データ操作の基本的な機能群を指します。<ul>
+<li><strong>C</strong>reate: <code>addTask()</code>関数が新しいタスクを作成し、<code>saveTasksToStorage()</code>で保存します。</li>
+<li><strong>R</strong>ead: <code>loadTasksFromStorage()</code>関数がページ読み込み時にlocalStorageからデータを読み取ります。</li>
+<li><strong>U</strong>pdate: <code>toggleTask()</code>関数がタスクの完了状態を更新し、<code>saveTasksToStorage()</code>で保存します。</li>
+<li><strong>D</strong>elete: <code>deleteTask()</code>関数がタスクを削除し、<code>saveTasksToStorage()</code>で保存します。</li>
+</ul>
+</li>
+</ul>
+<h2>解答例（確認ポイント）</h2>
+<h3>手順1: deleteTask関数の確認</h3>
+<pre><code class="language-javascript">function deleteTask(id) {
+    // ... (既存のコード) ...
+
+    // 【確認①】削除をlocalStorageにも反映する関数呼び出し
+    saveTasksToStorage(); // この呼び出しがあることを確認
+
+    // ... (既存のコード) ...
+}
+</code></pre>
+<h3>手順2: CRUD操作の完全性確認</h3>
+<pre><code class="language-javascript">// Create（作成）: addTask() → saveTasksToStorage()
+// Read（読み取り）: loadTasksFromStorage() → JSON.parse() (関数内部で実行)
+// Update（更新）: toggleTask() → saveTasksToStorage()
+// Delete（削除）: deleteTask() → saveTasksToStorage()
+</code></pre>
+<h2>ポイント解説</h2>
+<h3>① CRUD操作とlocalStorageの完全同期</h3>
+<p>この演習シリーズを通じて、タスク管理アプリケーションにおける基本的なデータ操作であるCRUD（Create, Read, Update, Delete）のそれぞれが、localStorageと同期されるようになりました。</p>
+<ul>
+<li><strong>Create</strong>: <code>addTask</code>関数で新しいタスクが作られると、<code>saveTasksToStorage</code>によってlocalStorageに保存されます。</li>
+<li><strong>Read</strong>: アプリケーション（ページ）読み込み時に<code>loadTasksFromStorage</code>がlocalStorageからデータを読み込み、タスクリストを復元します。</li>
+<li><strong>Update</strong>: <code>toggleTask</code>関数でタスクの完了状態が変更されると、<code>saveTasksToStorage</code>によってその変更がlocalStorageに保存されます。</li>
+<li><strong>Delete</strong>: <code>deleteTask</code>関数でタスクが削除されると、<code>saveTasksToStorage</code>によってその削除がlocalStorageに反映されます。
+これにより、ユーザーが行った全ての変更がブラウザを閉じても失われず、次回起動時にも保持される、一貫性のある永続化が実現できています。</li>
+</ul>
+<h3>② データ整合性の重要性</h3>
+<p>アプリケーションが表示している情報（画面上のタスクリスト）と、永続化されているデータ（localStorage内のタスクデータ）が常に一致している状態を「データ整合性が保たれている」と言います。<code>saveTasksToStorage</code>を各操作の適切なタイミングで呼び出すことにより、この整合性を維持しています。</p>
+<h3>③ Webアプリケーションにおける状態管理の基礎</h3>
+<p>この一連のステップは、Webアプリケーションにおけるクライアントサイドの状態管理の基本的なアプローチを示しています。ユーザー操作によって変化するデータを適切にメモリ上で管理し、それをブラウザのストレージ機能と同期させることで、よりリッチで実用的なユーザー体験を提供できます。</p>
+<h2>補足資料への誘導</h2>
+<ul>
+<li><strong>localStorage APIの全体像</strong>: <code>補足資料/localStorage_API詳解.md</code></li>
+<li><strong>複雑なデータ構造の扱い</strong>: <code>補足資料/データ構造設計.md</code></li>
+<li><strong>他のブラウザストレージ技術との比較</strong>: <code>補足資料/ブラウザストレージ比較.md</code></li>
+</ul>
+<h2>動作確認チェックリスト</h2>
+<p>全てのステップが完了した状態で、以下の総合的な動作確認を行いましょう。</p>
+<ol>
+<li><strong>タスクを3つ追加</strong>します (例: Task A, Task B, Task C)。<ul>
+<li><input disabled="" type="checkbox"> 各タスクがリストに表示される。</li>
+<li><input disabled="" type="checkbox"> localStorageに3つのタスクが保存されている。</li>
+</ul>
+</li>
+<li><strong>Task B のチェックボックスをクリック</strong>して完了状態にします。<ul>
+<li><input disabled="" type="checkbox"> Task B の表示が完了状態に変わる。</li>
+<li><input disabled="" type="checkbox"> localStorage内のTask Bの <code>completed</code> が <code>true</code> になっている。</li>
+<li><input disabled="" type="checkbox"> 進捗バーが更新される。</li>
+</ul>
+</li>
+<li><strong>Task A の削除ボタンをクリック</strong>して削除します。<ul>
+<li><input disabled="" type="checkbox"> Task A がリストから消える。</li>
+<li><input disabled="" type="checkbox"> localStorageからTask Aが削除され、Task BとTask Cのみが残っている。</li>
+<li><input disabled="" type="checkbox"> 進捗バーが更新される。</li>
+</ul>
+</li>
+<li>**ページを再読み込み（F5キー）**します。<ul>
+<li><input disabled="" type="checkbox"> Task A は表示されない（削除されたままである）。</li>
+<li><input disabled="" type="checkbox"> Task B は完了状態で表示される。</li>
+<li><input disabled="" type="checkbox"> Task C は未完了状態で表示される。</li>
+<li><input disabled="" type="checkbox"> localStorageの内容は再読み込み前と変わらない（Task Bが完了、Task Cが未完了）。</li>
+<li><input disabled="" type="checkbox"> 進捗バーが現在の状態（Task B完了、Task C未完了）を正しく反映している。</li>
+</ul>
+</li>
+<li><strong>残っているタスク（Task B, Task C）を全て削除</strong>します。<ul>
+<li><input disabled="" type="checkbox"> リストが空になる。</li>
+<li><input disabled="" type="checkbox"> localStorageからも全てのタスクが削除される。</li>
+<li><input disabled="" type="checkbox"> 進捗バーが0%になる。</li>
+</ul>
+</li>
+<li><strong>再度ページを再読み込み</strong>します。<ul>
+<li><input disabled="" type="checkbox"> リストは空のまま表示される。</li>
+<li><input disabled="" type="checkbox"> localStorageも空のままである。</li>
+</ul>
+</li>
+</ol>
+<p>これらの確認を通じて、CRUD操作全てにおいてデータが正しく永続化され、アプリケーションが期待通りに動作することを検証します。</p>
+<h2>全体振り返りと次のステップ</h2>
+<h3>この演習シリーズで学んだこと</h3>
+<ol>
+<li><strong>ステップ1</strong>: localStorageの基本的なAPI操作（<code>setItem</code>, <code>getItem</code>, <code>removeItem</code>, <code>clear</code>）と、オブジェクトを保存するための<code>JSON.stringify</code>/<code>JSON.parse</code>の必要性を学びました。</li>
+<li><strong>ステップ2</strong>: タスクが追加された際に、<code>tasks</code>配列をJSON文字列に変換してlocalStorageに自動保存する<code>saveTasksToStorage</code>関数を実装し、<code>addTask</code>関数と連携させました。また、<code>try...catch</code>によるエラーハンドリングの基本を導入しました。</li>
+<li><strong>ステップ3</strong>: ページ読み込み時にlocalStorageからタスクデータを読み込み、JSONをパースして<code>tasks</code>配列を復元し、画面に再表示する<code>loadTasksFromStorage</code>関数を実装しました。<code>DOMContentLoaded</code>イベントリスナー内でこれを呼び出すことで、初期表示を実現しました。</li>
+<li><strong>ステップ4</strong>: タスクの完了状態（<code>completed</code>プロパティ）が変更された際に、<code>toggleTask</code>関数内で<code>saveTasksToStorage</code>を呼び出し、変更を永続化しました。</li>
+<li><strong>ステップ5</strong>: <code>deleteTask</code>関数でも同様に<code>saveTasksToStorage</code>が呼び出されることを確認し、タスクの削除操作もlocalStorageに反映されることを学びました。これにより、CRUD操作全てにおけるデータ永続化が完成しました。</li>
+</ol>
+<p>おめでとうございます！これで、localStorageを利用してToDoリストのデータを永続化する基本的な機能を全て実装できました。</p>
+<h3>今後の学習のために</h3>
+<ul>
+<li><strong>より高度なエラーハンドリング</strong>: localStorageの容量制限超過など、さまざまなエラーケースへの対応。</li>
+<li><strong>パフォーマンス</strong>: 大量データを扱う場合のlocalStorageのパフォーマンス特性と代替手段（IndexedDBなど）。</li>
+<li><strong>UI/UXの改善</strong>: より洗練されたユーザーインターフェースやユーザー体験の追求。</li>
+<li><strong>外部API連携</strong>: サーバーサイドと連携してデータを同期する方法。</li>
+<li><strong>フレームワーク/ライブラリの活用</strong>: React, Vue, Angularなどの現代的なJavaScriptフレームワーク/ライブラリを使った状態管理。</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ブラウザストレージ比較</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>補足資料: ブラウザストレージ比較</h1>
+<h2>基本(1分) - ブラウザストレージとは</h2>
+<p><strong>概要:</strong> Webアプリケーションがユーザーのブラウザ内にデータを保存・管理するための仕組みです。これにより、オフラインでの動作、ユーザー設定の記憶、パフォーマンス向上などが可能になります。主に4つのストレージ技術が利用されます。</p>
+<p><strong>4つの主要ストレージ:</strong></p>
+<ul>
+<li><strong><code>localStorage</code></strong>: 永続的なキーと値のペアを保存します。</li>
+<li><strong><code>sessionStorage</code></strong>: タブまたはウィンドウのセッション中のみ有効なキーと値のペアを保存します。</li>
+<li><strong><code>Cookie</code></strong>: 少量データを保存し、サーバーとの通信にも利用されます。</li>
+<li><strong><code>IndexedDB</code></strong>: 大量の構造化データを保存できるブラウザ内データベースです。</li>
+</ul>
+<p><strong>基本的な使い分けイメージ:</strong></p>
+<pre><code class="language-javascript">// ユーザー設定（例: テーマカラー）を永続的に保存
+localStorage.setItem(&#39;theme&#39;, &#39;dark&#39;);
+
+// 一時的なフォーム入力内容（例: 未送信のコメント）をタブを閉じるまで保存
+sessionStorage.setItem(&#39;commentDraft&#39;, &#39;これは下書きです...&#39;);
+
+// ログイン状態を示すセッショントークンを保存（サーバー送信あり）
+// document.cookie = &#39;sessionId=user123abc; Secure; HttpOnly; SameSite=Strict&#39;; // 設定例
+
+// 大量のアプリケーションデータ（例: オフライン記事）をデータベースに保存
+// const request = indexedDB.open(&#39;myArticlesDB&#39;, 1); // 設定例
+</code></pre>
+<hr>
+<h2>詳細(10分) - 各ストレージの仕組みと特徴</h2>
+<h3>1. <code>localStorage</code></h3>
+<ul>
+<li><strong>概要</strong>: 文字列ベースのキーと値のペアを永続的に保存します。ブラウザを閉じてもデータは消えません。</li>
+<li><strong>容量</strong>: 通常 5MB～10MB 程度（ブラウザにより異なる）。</li>
+<li><strong>ライフサイクル</strong>: JavaScriptで明示的に削除するまで永続します。</li>
+<li><strong>スコープ</strong>: 同一オリジン（プロトコル + ドメイン + ポート）内でのみ共有されます。</li>
+<li><strong>API</strong>: 同期的（処理が完了するまで他の処理をブロックする）。シンプルで使いやすいAPIです。</li>
+<li><strong>データの種類</strong>: 文字列のみ。オブジェクトや配列を保存する場合は、<code>JSON.stringify()</code> で文字列に変換し、読み出す際に <code>JSON.parse()</code> で元に戻す必要があります。</li>
+</ul>
+<p><strong>コード例:</strong></p>
+<pre><code class="language-javascript">// 保存 (オブジェクトはJSON文字列に変換)
+const userSettings = { notifications: true, language: &#39;ja&#39; };
+localStorage.setItem(&#39;userSettings&#39;, JSON.stringify(userSettings));
+
+// 取得 (JSON文字列をオブジェクトにパース)
+const storedSettingsString = localStorage.getItem(&#39;userSettings&#39;);
+const loadedSettings = storedSettingsString ? JSON.parse(storedSettingsString) : { notifications: false, language: &#39;en&#39; };
+console.log(&#39;読み込んだ設定:&#39;, loadedSettings);
+
+// 特定のアイテムを削除
+localStorage.removeItem(&#39;userSettings&#39;);
+
+// 全てのアイテムを削除 (同一オリジン内のlocalStorage全て)
+// localStorage.clear();
+
+// 格納されているアイテム数を取得
+console.log(&#39;localStorageのアイテム数:&#39;, localStorage.length);
+
+// n番目のキーを取得 (順序は保証されないことが多い)
+// const firstKey = localStorage.key(0);
+// console.log(&#39;最初のキー:&#39;, firstKey);
+</code></pre>
+<p><strong>セキュリティ上の注意点:</strong></p>
+<ul>
+<li><strong>XSS (クロスサイトスクリプティング) リスク</strong>: <code>localStorage</code> に保存されたデータは、同じオリジンで動作するJavaScriptから容易にアクセス可能です。もしサイトにXSS脆弱性がある場合、悪意のあるスクリプトによって <code>localStorage</code> の内容が盗まれたり改ざんされたりする可能性があります。</li>
+<li><strong>機密情報の非推奨</strong>: パスワードやクレジットカード番号のような機密性の高い情報は <code>localStorage</code> に保存すべきではありません。</li>
+</ul>
+<h3>2. <code>sessionStorage</code></h3>
+<ul>
+<li><strong>概要</strong>: <code>localStorage</code> と同様に文字列ベースのキーと値のペアを保存しますが、データは現在のブラウザタブ（またはウィンドウ）のセッション中のみ有効です。タブを閉じるとデータは消去されます。</li>
+<li><strong>容量</strong>: 通常 5MB～10MB 程度（<code>localStorage</code> と同程度）。</li>
+<li><strong>ライフサイクル</strong>: ブラウザのタブまたはウィンドウが開いている間のみ。タブを閉じるとデータは消えます。</li>
+<li><strong>スコープ</strong>: タブごと。同じオリジンのサイトであっても、異なるタブ間で <code>sessionStorage</code> は共有されません。</li>
+<li><strong>API</strong>: <code>localStorage</code> と全く同じメソッド (<code>setItem</code>, <code>getItem</code>, <code>removeItem</code>, <code>clear</code>, <code>key</code>, <code>length</code>) を持ち、同様に同期的です。</li>
+<li><strong>データの種類</strong>: 文字列のみ（<code>localStorage</code> と同様にJSON変換が必要）。</li>
+</ul>
+<p><strong>コード例:</strong></p>
+<pre><code class="language-javascript">// フォームの一時的な入力内容を保存
+const formInput = { name: &#39;田中太郎&#39;, email: &#39;tanaka@example.com&#39; };
+sessionStorage.setItem(&#39;formData&#39;, JSON.stringify(formInput));
+
+// ページ再読み込み時などに復元
+const storedFormString = sessionStorage.getItem(&#39;formData&#39;);
+if (storedFormString) {
+  const loadedForm = JSON.parse(storedFormString);
+  console.log(&#39;復元したフォームデータ:&#39;, loadedForm);
+  // document.getElementById(&#39;nameInput&#39;).value = loadedForm.name; // 例
+}
+
+// タブを閉じると自動的に消えるため、明示的な削除は必須ではないが、不要になった時点で削除も可能
+// sessionStorage.removeItem(&#39;formData&#39;);
+</code></pre>
+<p><strong>セキュリティ上の注意点:</strong></p>
+<ul>
+<li><code>localStorage</code> と同様にXSS脆弱性の影響を受けます。機密情報の保存は避けてください。</li>
+</ul>
+<h3>3. <code>Cookie</code> (クッキー)</h3>
+<ul>
+<li><strong>概要</strong>: 小さなテキストデータを保存し、主にサーバーとクライアント間で状態を維持するために使用されます（例: ログインセッション管理）。HTTPリクエストヘッダーに自動的に含まれてサーバーに送信される特徴があります。</li>
+<li><strong>容量</strong>: 約4KBまでと非常に小さいです。</li>
+<li><strong>ライフサイクル</strong>: 有効期限 (<code>Expires</code> または <code>Max-Age</code> 属性) を設定でき、永続的なものもセッション限りのものも作成可能です。指定がなければセッション限りです。</li>
+<li><strong>スコープ</strong>: ドメインとパスによって制御されます。サブドメイン間での共有も可能です。</li>
+<li><strong>API</strong>: <code>document.cookie</code> を介してアクセスしますが、操作はやや煩雑です。通常、ヘルパー関数やライブラリが使われます。</li>
+<li><strong>データの種類</strong>: 文字列のみ。</li>
+</ul>
+<p><strong>コード例 (基本的な操作):</strong></p>
+<pre><code class="language-javascript">// Cookieを設定 (名前=値; 属性1=値1; 属性2=値2 ...)
+function setCookie(name, value, daysToExpire, path = &#39;/&#39;, domain = &#39;&#39;) {
+  let cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+  if (daysToExpire) {
+    const date = new Date();
+    date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+    cookieString += `; expires=${date.toUTCString()}`;
+  }
+  cookieString += `; path=${path}`;
+  if (domain) {
+    cookieString += `; domain=${domain}`;
+  }
+  // セキュリティ属性の追加を推奨 (後述)
+  // cookieString += &#39;; Secure; SameSite=Strict&#39;;
+  document.cookie = cookieString;
+  console.log(`Cookieを設定: ${name}`);
+}
+
+// Cookieを取得
+function getCookie(name) {
+  const nameEQ = encodeURIComponent(name) + &quot;=&quot;;
+  const ca = document.cookie.split(&#39;;&#39;);
+  for (let i = 0; i &lt; ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === &#39; &#39;) c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+  }
+  return null;
+}
+
+// 使用例
+setCookie(&#39;username&#39;, &#39;JohnDoe&#39;, 7); // 7日間有効なCookie
+const username = getCookie(&#39;username&#39;);
+console.log(&#39;読み込んだCookie (username):&#39;, username);
+
+// Cookieを削除 (有効期限を過去に設定)
+// setCookie(&#39;username&#39;, &#39;&#39;, -1);
+</code></pre>
+<p><strong>セキュリティ属性 (非常に重要):</strong></p>
+<ul>
+<li><strong><code>HttpOnly</code></strong>: JavaScriptからの <code>document.cookie</code> によるアクセスを禁止します。サーバーサイドでのみCookieを扱う場合に設定し、XSS攻撃によるCookie盗難リスクを大幅に軽減します。</li>
+<li><strong><code>Secure</code></strong>: HTTPS接続の場合のみCookieを送信するようにします。これにより、中間者攻撃によるCookie盗難を防ぎます。</li>
+<li><strong><code>SameSite</code></strong>: CSRF (クロスサイトリクエストフォージェリ) 攻撃を緩和します。値には <code>Strict</code> (最も厳格), <code>Lax</code> (デフォルトになる傾向), <code>None</code> (<code>Secure</code>属性必須) があります。<ul>
+<li>例: <code>document.cookie = &quot;sessionId=abc123xyz; Secure; HttpOnly; SameSite=Strict&quot;;</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>セキュリティ上の注意点:</strong></p>
+<ul>
+<li><strong>CSRFリスク</strong>: <code>SameSite</code>属性を適切に設定しないと、CSRF攻撃の標的となる可能性があります。</li>
+<li><strong>XSSリスク</strong>: <code>HttpOnly</code>属性がない場合、XSS脆弱性があるとCookieが盗まれる可能性があります。</li>
+<li><strong>情報漏洩</strong>: <code>Secure</code>属性がない場合、HTTP通信経由でCookieが盗聴される可能性があります。</li>
+<li>サーバーに毎回送信されるため、不要なデータはCookieに含めないようにし、パフォーマンスへの影響も考慮します。</li>
+</ul>
+<h3>4. <code>IndexedDB</code></h3>
+<ul>
+<li><strong>概要</strong>: 大量の構造化データ（オブジェクト、ファイルなど）をブラウザ内に保存できるNoSQLデータベースです。オフラインアプリケーションや複雑なデータ操作に適しています。</li>
+<li><strong>容量</strong>: 数十MB～数GB、あるいはそれ以上（ユーザーのディスク空き容量やブラウザ設定に依存）。<code>localStorage</code> などよりはるかに大容量です。</li>
+<li><strong>ライフサイクル</strong>: JavaScriptで明示的に削除するまで永続します。</li>
+<li><strong>スコープ</strong>: 同一オリジン内。</li>
+<li><strong>API</strong>: 非同期（Promiseベースまたはイベントベース）。<code>localStorage</code> などより複雑ですが、トランザクション、インデックス、カーソルといった高度なデータベース機能を提供します。</li>
+<li><strong>データの種類</strong>: JavaScriptのオブジェクト、配列、プリミティブ値、File/Blobオブジェクトなど、多くのデータ型を直接保存できます（内部的には構造化複製アルゴリズムでシリアライズ）。</li>
+</ul>
+<p><strong>コード例 (基本的なCRUD操作):</strong></p>
+<pre><code class="language-javascript">const dbName = &#39;MyTodoDB&#39;;
+const dbVersion = 1;
+let db;
+
+// 1. データベースを開く (または作成)
+function openDB() {
+  return new Promise((resolve, reject) =&gt; {
+    const request = indexedDB.open(dbName, dbVersion);
+
+    request.onerror = (event) =&gt; {
+      console.error(&#39;データベースを開けませんでした:&#39;, event.target.error);
+      reject(event.target.error);
+    };
+
+    request.onsuccess = (event) =&gt; {
+      db = event.target.result;
+      console.log(&#39;データベースを開きました。&#39;, db);
+      resolve(db);
+    };
+
+    // データベースのバージョンが古い場合や新規作成時に実行
+    request.onupgradeneeded = (event) =&gt; {
+      const tempDb = event.target.result;
+      console.log(&#39;データベースのアップグレード/作成中...&#39;);
+      if (!tempDb.objectStoreNames.contains(&#39;tasks&#39;)) {
+        // &#39;tasks&#39; オブジェクトストアを作成 (テーブルに相当)
+        // &#39;id&#39; をキーパス (主キー) とし、自動インクリメントを設定
+        const taskStore = tempDb.createObjectStore(&#39;tasks&#39;, { keyPath: &#39;id&#39;, autoIncrement: true });
+        // &#39;dueDate&#39; プロパティにインデックスを作成 (検索やソート用)
+        taskStore.createIndex(&#39;dueDateIndex&#39;, &#39;dueDate&#39;, { unique: false });
+        console.log(&#39;&#39;tasks&#39; オブジェクトストアとインデックスを作成しました。&#39;);
+      }
+    };
+  });
+}
+
+// 2. データを追加 (Create)
+async function addTask(taskObject) {
+  if (!db) await openDB();
+  return new Promise((resolve, reject) =&gt; {
+    // &#39;readwrite&#39; トランザクションを開始
+    const transaction = db.transaction([&#39;tasks&#39;], &#39;readwrite&#39;);
+    const store = transaction.objectStore(&#39;tasks&#39;);
+    const request = store.add(taskObject); // { text: &#39;買い物&#39;, dueDate: &#39;2024-12-31&#39; }
+
+    request.onsuccess = (event) =&gt; {
+      console.log(&#39;タスクを追加しました。ID:&#39;, event.target.result);
+      resolve(event.target.result); // 追加されたアイテムのキーを返す
+    };
+    request.onerror = (event) =&gt; {
+      console.error(&#39;タスク追加エラー:&#39;, event.target.error);
+      reject(event.target.error);
+    };
+  });
+}
+
+// 3. データを取得 (Read)
+async function getTask(taskId) {
+  if (!db) await openDB();
+  return new Promise((resolve, reject) =&gt; {
+    const transaction = db.transaction([&#39;tasks&#39;], &#39;readonly&#39;);
+    const store = transaction.objectStore(&#39;tasks&#39;);
+    const request = store.get(taskId);
+
+    request.onsuccess = (event) =&gt; {
+      console.log(&#39;タスクを取得しました:&#39;, event.target.result);
+      resolve(event.target.result); // タスクオブジェクトまたはundefined
+    };
+    request.onerror = (event) =&gt; {
+      console.error(&#39;タスク取得エラー:&#39;, event.target.error);
+      reject(event.target.error);
+    };
+  });
+}
+
+// 4. データを更新 (Update)
+async function updateTask(updatedTaskObject) { // updatedTaskObject は id を含むこと
+  if (!db) await openDB();
+  return new Promise((resolve, reject) =&gt; {
+    const transaction = db.transaction([&#39;tasks&#39;], &#39;readwrite&#39;);
+    const store = transaction.objectStore(&#39;tasks&#39;);
+    // put はキーが存在すれば更新、存在しなければ新規追加する
+    const request = store.put(updatedTaskObject);
+
+    request.onsuccess = (event) =&gt; {
+      console.log(&#39;タスクを更新しました。ID:&#39;, event.target.result);
+      resolve(event.target.result);
+    };
+    request.onerror = (event) =&gt; {
+      console.error(&#39;タスク更新エラー:&#39;, event.target.error);
+      reject(event.target.error);
+    };
+  });
+}
+
+// 5. データを削除 (Delete)
+async function deleteTask(taskId) {
+  if (!db) await openDB();
+  return new Promise((resolve, reject) =&gt; {
+    const transaction = db.transaction([&#39;tasks&#39;], &#39;readwrite&#39;);
+    const store = transaction.objectStore(&#39;tasks&#39;);
+    const request = store.delete(taskId);
+
+    request.onsuccess = () =&gt; {
+      console.log(`タスクID: ${taskId} を削除しました。`);
+      resolve();
+    };
+    request.onerror = (event) =&gt; {
+      console.error(&#39;タスク削除エラー:&#39;, event.target.error);
+      reject(event.target.error);
+    };
+  });
+}
+
+// IndexedDB使用例
+(async () =&gt; {
+  try {
+    await openDB();
+    const newTaskId = await addTask({ text: &#39;読書をする&#39;, dueDate: &#39;2024-08-15&#39;, completed: false });
+    const task = await getTask(newTaskId);
+    if (task) {
+      task.completed = true;
+      await updateTask(task);
+    }
+    // await deleteTask(newTaskId);
+  } catch (error) {
+    console.error(&#39;IndexedDB操作中にエラー:&#39;, error);
+  }
+})();
+</code></pre>
+<p><strong>セキュリティ上の注意点:</strong></p>
+<ul>
+<li>オリジンによって分離されているため、他のサイトから直接アクセスされることはありません。</li>
+<li>しかし、サイト自体にXSS脆弱性がある場合、そのサイトのオリジンで動作する悪意のあるスクリプトによってIndexedDB内のデータが操作される可能性があります。</li>
+<li>機密情報は暗号化して保存することを検討してください。</li>
+</ul>
+<hr>
+<h2>比較表(5分) - 各ストレージ技術の比較</h2>
+<table>
+<thead>
+<tr>
+<th align="left">特徴</th>
+<th align="left"><code>localStorage</code></th>
+<th align="left"><code>sessionStorage</code></th>
+<th align="left"><code>Cookie</code></th>
+<th align="left"><code>IndexedDB</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>主な用途例</strong></td>
+<td align="left">ユーザー設定、テーマ、オフライン時の小規模データ</td>
+<td align="left">フォームの一時入力、タブ固有の状態</td>
+<td align="left">認証トークン、セッション管理、トラッキング</td>
+<td align="left">大量データ、オフラインアプリ、複雑なクエリが必要なデータ</td>
+</tr>
+<tr>
+<td align="left"><strong>容量</strong></td>
+<td align="left">5-10MB</td>
+<td align="left">5-10MB</td>
+<td align="left">約4KB</td>
+<td align="left">数十MB～数GB以上 (ディスク空き容量依存)</td>
+</tr>
+<tr>
+<td align="left"><strong>永続性</strong></td>
+<td align="left">永続 (明示的削除まで)</td>
+<td align="left">セッション中 (タブ/ウィンドウを閉じると消滅)</td>
+<td align="left">有効期限設定可 (設定なければセッション中)</td>
+<td align="left">永続 (明示的削除まで)</td>
+</tr>
+<tr>
+<td align="left"><strong>サーバーへの自動送信</strong></td>
+<td align="left">なし</td>
+<td align="left">なし</td>
+<td align="left">あり (HTTPリクエストヘッダーに含まれる)</td>
+<td align="left">なし</td>
+</tr>
+<tr>
+<td align="left"><strong>APIの種類</strong></td>
+<td align="left">同期</td>
+<td align="left">同期</td>
+<td align="left">同期 (ただし <code>document.cookie</code> の操作は煩雑)</td>
+<td align="left">非同期 (Promiseベースまたはイベントベース)</td>
+</tr>
+<tr>
+<td align="left"><strong>データの種類</strong></td>
+<td align="left">文字列のみ (JSONでシリアライズ/デシリアライズ)</td>
+<td align="left">文字列のみ (JSONでシリアライズ/デシリアライズ)</td>
+<td align="left">文字列のみ</td>
+<td align="left">構造化データ (オブジェクト、配列、File/Blob等、多くの型を直接保存可能)</td>
+</tr>
+<tr>
+<td align="left"><strong>スコープ</strong></td>
+<td align="left">オリジン単位</td>
+<td align="left">タブ単位</td>
+<td align="left">ドメイン/パス単位 (設定可)</td>
+<td align="left">オリジン単位</td>
+</tr>
+<tr>
+<td align="left"><strong>セキュリティ主な注意点</strong></td>
+<td align="left">XSSに注意、機密情報非推奨</td>
+<td align="left">XSSに注意、機密情報非推奨</td>
+<td align="left">XSS、CSRFに注意。<code>HttpOnly</code>, <code>Secure</code>, <code>SameSite</code>属性が重要。機密情報非推奨</td>
+<td align="left">XSSに注意。オリジン分離。機密情報は暗号化検討</td>
+</tr>
+<tr>
+<td align="left"><strong>API複雑度</strong></td>
+<td align="left">低</td>
+<td align="left">低</td>
+<td align="left">中 (API自体はシンプルだが扱いが煩雑)</td>
+<td align="left">高 (多機能だが学習コストも高い)</td>
+</tr>
+<tr>
+<td align="left"><strong>検索/クエリ機能</strong></td>
+<td align="left">なし (全件走査)</td>
+<td align="left">なし (全件走査)</td>
+<td align="left">なし (全件走査)</td>
+<td align="left">あり (インデックスを利用した効率的な検索、範囲指定、カーソル)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>深掘り(5分) - 発展的なストレージ技術と考慮事項</h2>
+<h3>1. <code>localStorage</code> と <code>storage</code> イベント</h3>
+<p><code>localStorage</code> の内容が同じオリジンの他のタブ/ウィンドウで変更された場合、<code>storage</code> イベントが発火します。これを利用して、タブ間で簡易的なデータ同期が可能です。</p>
+<pre><code class="language-javascript">// タブA (データを変更する側)
+localStorage.setItem(&#39;sharedCounter&#39;, parseInt(localStorage.getItem(&#39;sharedCounter&#39;) || &#39;0&#39;) + 1);
+
+// タブB (変更を監視する側)
+window.addEventListener(&#39;storage&#39;, (event) =&gt; {
+  if (event.key === &#39;sharedCounter&#39;) {
+    console.log(&#39;sharedCounterが変更されました:&#39;);
+    console.log(&#39;  古い値:&#39;, event.oldValue);
+    console.log(&#39;  新しい値:&#39;, event.newValue);
+    console.log(&#39;  変更元URL:&#39;, event.url);
+    // document.getElementById(&#39;counterDisplay&#39;).textContent = event.newValue;
+  }
+});
+</code></pre>
+<p>注意: <code>sessionStorage</code> は <code>storage</code> イベントを発火しません。また、変更を行ったタブ自身ではこのイベントは通常発火しません。</p>
+<h3>2. <code>IndexedDB</code> のトランザクション</h3>
+<p><code>IndexedDB</code> の操作はすべてトランザクション内で行われます。トランザクションは、一連のデータベース操作がすべて成功するか、すべて失敗するか (アトミック性) を保証し、データの一貫性を保ちます。</p>
+<ul>
+<li><strong>種類</strong>: <code>readonly</code> (読み取り専用)、<code>readwrite</code> (読み書き可能)。</li>
+<li><strong>スコープ</strong>: トランザクションが対象とするオブジェクトストアを指定します。</li>
+<li><strong>ライフサイクル</strong>: <code>complete</code> (成功)、<code>abort</code> (失敗/明示的中止)、<code>error</code> (エラー発生) イベントで管理されます。</li>
+</ul>
+<pre><code class="language-javascript">async function transferFunds(fromAccountId, toAccountId, amount) {
+  if (!db) await openDB(); // dbは事前にopenDB()で初期化されているとする
+
+  // &#39;accounts&#39; オブジェクトストアに対する読み書きトランザクションを開始
+  const transaction = db.transaction([&#39;accounts&#39;], &#39;readwrite&#39;);
+  const store = transaction.objectStore(&#39;accounts&#39;);
+
+  return new Promise((resolve, reject) =&gt; {
+    transaction.oncomplete = () =&gt; {
+      console.log(&#39;資金移動トランザクションが正常に完了しました。&#39;);
+      resolve();
+    };
+    transaction.onerror = (event) =&gt; {
+      console.error(&#39;資金移動トランザクションエラー:&#39;, event.target.error);
+      reject(event.target.error);
+    };
+    transaction.onabort = () =&gt; {
+      console.warn(&#39;資金移動トランザクションが中止されました。&#39;);
+      reject(new Error(&#39;Transaction aborted&#39;));
+    };
+
+    // 1. 送金元口座の残高を取得
+    const getFromRequest = store.get(fromAccountId);
+    getFromRequest.onsuccess = () =&gt; {
+      const fromAccount = getFromRequest.result;
+      if (!fromAccount || fromAccount.balance &lt; amount) {
+        console.error(&#39;送金元口座の残高不足または口座が存在しません。&#39;);
+        transaction.abort(); // トランザクションを中止
+        return;
+      }
+
+      // 2. 送金先口座の残高を取得
+      const getToRequest = store.get(toAccountId);
+      getToRequest.onsuccess = () =&gt; {
+        const toAccount = getToRequest.result;
+        if (!toAccount) {
+          console.error(&#39;送金先口座が存在しません。&#39;);
+          transaction.abort();
+          return;
+        }
+
+        // 3. 残高を更新
+        fromAccount.balance -= amount;
+        toAccount.balance += amount;
+
+        // 4. 更新された口座情報を保存
+        const updateFromRequest = store.put(fromAccount);
+        updateFromRequest.onerror = () =&gt; transaction.abort(); // エラー時中止
+
+        const updateToRequest = store.put(toAccount);
+        updateToRequest.onerror = () =&gt; transaction.abort(); // エラー時中止
+      };
+      getToRequest.onerror = () =&gt; transaction.abort();
+    };
+    getFromRequest.onerror = () =&gt; transaction.abort();
+  });
+}
+</code></pre>
+<h3>3. Cache API と Service Worker (PWA関連)</h3>
+<p>これらは主にプログレッシブウェブアプリ (PWA) の文脈で、オフライン対応やパフォーマンス向上のために使われます。</p>
+<ul>
+<li><strong>Cache API</strong>: HTTPリクエストとレスポンスのペアをキャッシュします。静的アセット（HTML, CSS, JS, 画像）のキャッシュに強力です。</li>
+<li><strong>Service Worker</strong>: ブラウザのバックグラウンドで実行されるスクリプトで、ネットワークリクエストのプロキシ、プッシュ通知、バックグラウンド同期などを行います。Cache APIと連携してオフラインキャッシュ戦略を実装できます。</li>
+</ul>
+<p>これらの技術は本資料の主眼である4大ストレージとは少し毛色が異なりますが、高度なWebアプリケーションでは組み合わせて利用されることがあります。詳細はPWA関連の資料を参照してください。</p>
+<h3>4. ストレージ容量の確認と管理</h3>
+<ul>
+<li><strong><code>navigator.storage.estimate()</code></strong>: オリジンが使用しているストレージ容量（<code>usage</code>）と利用可能な最大容量（<code>quota</code>）の見積もりを非同期で取得できます。<pre><code class="language-javascript">if (navigator.storage &amp;&amp; navigator.storage.estimate) {
+  navigator.storage.estimate().then(estimate =&gt; {
+    console.log(`使用容量: ${estimate.usage / 1024 / 1024} MB`);
+    console.log(`最大容量: ${estimate.quota / 1024 / 1024} MB`);
+  });
+}
+</code></pre>
+</li>
+<li><strong>容量超過エラー</strong>: <code>localStorage</code> や <code>sessionStorage</code> で容量制限を超えると <code>QuotaExceededError</code> (または同様のエラー) が発生します。<code>IndexedDB</code> でも容量関連のエラーが発生し得ます。これらのエラーを適切に <code>try...catch</code> で捕捉し、ユーザーに通知したり、古いデータを削除したりする戦略が必要です。</li>
+</ul>
+<hr>
+<h2>実践応用(5分) - ストレージ技術の組み合わせシナリオ</h2>
+<h3>シナリオ1: ユーザー設定の永続化と一時的なフォーム入力</h3>
+<ul>
+<li><strong>目的</strong>: ユーザーの見た目設定（例: ダークモード）を記憶し、複数ステップのフォーム入力中にタブを閉じても内容が失われないようにする。</li>
+<li><strong>使用技術</strong>:<ul>
+<li><code>localStorage</code>: テーマ設定（例: <code>&#39;theme&#39;: &#39;dark&#39;</code>）を永続保存。</li>
+<li><code>sessionStorage</code>: フォームの各ステップの入力内容（例: <code>&#39;step1Data&#39;: &#39;{...}&#39;</code>, <code>&#39;step2Data&#39;: &#39;{...}&#39;</code>）を一時保存。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-javascript">// --- テーマ設定 (localStorage) ---
+const themeToggleButton = document.getElementById(&#39;theme-toggle&#39;);
+let currentTheme = localStorage.getItem(&#39;appTheme&#39;) || &#39;light&#39;;
+
+function applyTheme(theme) {
+  document.body.className = theme + &#39;-theme&#39;;
+  localStorage.setItem(&#39;appTheme&#39;, theme);
+  currentTheme = theme;
+  if (themeToggleButton) themeToggleButton.textContent = theme === &#39;light&#39; ? &#39;ダークモードへ&#39; : &#39;ライトモードへ&#39;;
+}
+
+if (themeToggleButton) {
+  themeToggleButton.addEventListener(&#39;click&#39;, () =&gt; {
+    applyTheme(currentTheme === &#39;light&#39; ? &#39;dark&#39; : &#39;light&#39;);
+  });
+}
+applyTheme(currentTheme); // 初期テーマ適用
+
+// --- フォーム一時保存 (sessionStorage) ---
+const formStep1 = document.getElementById(&#39;form-step1-input&#39;);
+const formStep2 = document.getElementById(&#39;form-step2-input&#39;);
+
+// ページ読み込み時にsessionStorageから復元
+if (formStep1) formStep1.value = sessionStorage.getItem(&#39;formStep1Draft&#39;) || &#39;&#39;;
+if (formStep2) formStep2.value = sessionStorage.getItem(&#39;formStep2Draft&#39;) || &#39;&#39;;
+
+// 入力時にsessionStorageに保存
+if (formStep1) {
+  formStep1.addEventListener(&#39;input&#39;, () =&gt; {
+    sessionStorage.setItem(&#39;formStep1Draft&#39;, formStep1.value);
+  });
+}
+if (formStep2) {
+  formStep2.addEventListener(&#39;input&#39;, () =&gt; {
+    sessionStorage.setItem(&#39;formStep2Draft&#39;, formStep2.value);
+  });
+}
+
+// フォーム送信成功時にクリア
+// document.getElementById(&#39;submit-button&#39;).addEventListener(&#39;click&#39;, () =&gt; {
+//   sessionStorage.removeItem(&#39;formStep1Draft&#39;);
+//   sessionStorage.removeItem(&#39;formStep2Draft&#39;);
+// });
+</code></pre>
+<p><strong>選択理由</strong>: テーマ設定は永続性が求められるため <code>localStorage</code>。フォーム入力はセッション限りでよく、タブ間で共有する必要がないため <code>sessionStorage</code> が適しています。</p>
+<h3>シナリオ2: ToDoリストアプリケーション (データはIndexedDB、設定はlocalStorage)</h3>
+<ul>
+<li><strong>目的</strong>: ToDoアイテムを大量に保存・管理し、表示件数などの設定も記憶する。</li>
+<li><strong>使用技術</strong>:<ul>
+<li><code>IndexedDB</code>: ToDoアイテム（ID, テキスト, 完了状態,期日など）を構造化データとして保存。</li>
+<li><code>localStorage</code>: 表示設定（例: 1ページあたりの表示件数、ソート順）を保存。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-javascript">// --- ToDoアイテム管理 (IndexedDB - 前述のIndexedDBコード例を参照) ---
+// (async () =&gt; {
+//   await openDB(); // IndexedDBの初期化
+//   await addTask({ text: &#39;牛乳を買う&#39;, dueDate: &#39;2024-08-10&#39;, completed: false });
+//   const tasks = await getAllTasks(); // IndexedDBから全タスク取得する関数 (別途実装)
+//   renderTasks(tasks); // タスクを描画する関数 (別途実装)
+// })();
+
+// --- 表示設定 (localStorage) ---
+const itemsPerPageSelect = document.getElementById(&#39;items-per-page&#39;);
+let itemsPerPage = parseInt(localStorage.getItem(&#39;todoSettings_itemsPerPage&#39;) || &#39;10&#39;);
+
+function applyItemsPerPageSetting(count) {
+  itemsPerPage = count;
+  localStorage.setItem(&#39;todoSettings_itemsPerPage&#39;, count.toString());
+  // renderTasks(tasks, itemsPerPage); // タスク再描画ロジック
+  console.log(`1ページあたり ${count} 件表示に設定しました。`);
+}
+
+if (itemsPerPageSelect) {
+  itemsPerPageSelect.value = itemsPerPage.toString();
+  itemsPerPageSelect.addEventListener(&#39;change&#39;, (event) =&gt; {
+    applyItemsPerPageSetting(parseInt(event.target.value));
+  });
+}
+
+console.log(`初期表示件数: ${itemsPerPage}`);
+</code></pre>
+<p><strong>選択理由</strong>: ToDoアイテムは数が多くなったり、複雑な検索が必要になったりする可能性があるため、大容量で高機能な <code>IndexedDB</code> が適しています。表示設定のような少量の単純なデータは <code>localStorage</code> で手軽に扱えます。</p>
+<hr>
+<h3>関連する補足資料</h3>
+<ul>
+<li><strong>補足資料: localStorage API詳解</strong> - <code>localStorage</code> のより詳細な使い方。</li>
+<li><strong>補足資料: JSON操作詳解</strong> - 各ストレージでデータを文字列として扱う際の <code>JSON.parse</code> / <code>JSON.stringify</code> の詳細。</li>
+<li><strong>補足資料: データ構造設計</strong> - ストレージに保存するデータの設計方法。</li>
+<li><strong>補足資料: try-catch詳解</strong> - ストレージ操作時のエラーハンドリング。</li>
+</ul>
+
+</body>
+</html>

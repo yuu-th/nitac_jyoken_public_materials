@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ローカル永続化やることサイト２</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header class="main-header">
+      <h1>📚 永続化学習タスク</h1>
+      <p>目標: localStorageを使ったデータ永続化をマスターしよう！</p>
+    </header>
+
+    <!-- 進捗表示 -->
+    <section class="progress-section">
+      <h2>📈 学習進捗</h2>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-text" id="progressText">0 / 0 完了 (0%)</p>
+      </div>
+    </section>
+
+    <!-- タスク追加フォーム -->
+    <section class="add-task-section">
+      <h2>➕ 新しいタスクを追加</h2>
+      <div class="add-task-form">
+        <input type="text" id="taskInput" placeholder="タスク内容を入力してください..." maxlength="100" />
+        <button id="addTaskBtn" class="add-btn">追加</button>
+      </div>
+    </section>
+
+    <!-- タスクリスト -->
+    <section class="tasks-section">
+      <h2>✅ タスクリスト</h2>
+      <div id="taskList" class="task-list">
+        <!-- タスクがない場合のメッセージ -->
+        <div class="empty-message" id="emptyMessage">
+          <p>まだタスクがありません。上記のフォームから新しいタスクを追加してみましょう！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 完了メッセージ（JavaScriptで表示制御） -->
+    <div class="completion-message" id="completionMessage">
+      <h2>🎉 おめでとうございます！</h2>
+      <p>全てのタスクが完了しました！</p>
+      <small>（クリックで閉じる）</small>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

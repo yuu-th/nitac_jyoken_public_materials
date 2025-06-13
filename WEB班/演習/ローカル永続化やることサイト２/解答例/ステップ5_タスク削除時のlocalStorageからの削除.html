@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ステップ5: タスク削除時のlocalStorageからの削除 - 解答例</title>
+    <style>
+      body {
+        font-family: "Hiragino Sans", "Helvetica Neue", Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 300;
+      }
+
+      .header p {
+        margin: 10px 0 0 0;
+        opacity: 0.9;
+        font-size: 1.1rem;
+      }
+
+      .content {
+        padding: 30px;
+      }
+
+      .input-section {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+
+      .input-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        padding: 12px 16px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+      }
+
+      input[type="text"]:focus {
+        outline: none;
+        border-color: #4caf50;
+      }
+
+      button {
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background: #45a049;
+      }
+
+      .progress-section {
+        margin-bottom: 30px;
+      }
+
+      .progress-label {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #4caf50, #66bb6a);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .task-list {
+        min-height: 200px;
+      }
+
+      .empty-message {
+        text-align: center;
+        color: #999;
+        font-style: italic;
+        padding: 40px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+
+      .task-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        background: white;
+        transition: all 0.3s;
+      }
+
+      .task-item:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .task-item.completed {
+        background: #f8f9fa;
+        opacity: 0.8;
+      }
+
+      .task-item.completed .task-text {
+        text-decoration: line-through;
+        color: #666;
+      }
+
+      .task-checkbox {
+        margin-right: 15px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+      }
+
+      .task-text {
+        flex: 1;
+        font-size: 16px;
+      }
+
+      .delete-btn {
+        background: #f44336;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .delete-btn:hover {
+        background: #d32f2f;
+      }
+
+      .completion-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+        color: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 1000;
+        cursor: pointer;
+      }
+
+      .completion-message h2 {
+        margin: 0 0 10px 0;
+        font-size: 24px;
+      }
+
+      .completion-message p {
+        margin: 0 0 10px 0;
+        font-size: 18px;
+      }
+
+      .completion-message small {
+        opacity: 0.8;
+        font-size: 14px;
+      }
+
+      .demo-info {
+        background: #e3f2fd;
+        border: 1px solid #2196f3;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+
+      .demo-info h3 {
+        margin: 0 0 10px 0;
+        color: #1976d2;
+      }
+
+      .crud-demo {
+        background: #f3e5f5;
+        border: 1px solid #9c27b0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+
+      .crud-demo h3 {
+        margin: 0 0 10px 0;
+        color: #7b1fa2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>🎯 やること管理サイト</h1>
+        <p>ステップ5: タスク削除時のlocalStorageからの削除</p>
+      </header>
+
+      <main class="content">
+        <div class="demo-info">
+          <h3>🔄 ステップ5の学習内容</h3>
+          <p><strong>削除の永続化</strong>: タスクを削除した場合もlocalStorageから完全に除去され、再読み込み後も削除状態が維持されます！</p>
+          <p><strong>動作確認方法</strong>: タスクを追加→削除→ページ再読み込み→削除されたタスクが復活しないことを確認</p>
+        </div>
+
+        <div class="crud-demo">
+          <h3>📝 CRUD操作の完全永続化</h3>
+          <p><strong>C</strong>reate（追加）→ localStorage保存 ✅</p>
+          <p><strong>R</strong>ead（読み込み）→ localStorage復元 ✅</p>
+          <p><strong>U</strong>pdate（完了切り替え）→ localStorage保存 ✅</p>
+          <p><strong>D</strong>elete（削除）→ localStorage保存 ✅</p>
+        </div>
+
+        <section class="input-section">
+          <div class="input-group">
+            <input type="text" id="taskInput" placeholder="新しいタスクを入力..." maxlength="100" />
+            <button id="addTaskBtn">追加</button>
+          </div>
+        </section>
+
+        <section class="progress-section">
+          <div class="progress-label">進捗: <span id="progressText">0%</span></div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </section>
+
+        <section class="task-list" id="taskList">
+          <div class="empty-message" id="emptyMessage">まだタスクがありません。上の入力欄から追加してみましょう！</div>
+        </section>
+
+        <div style="margin-top: 2rem; padding: 1rem; background: #f0f4f8; border-radius: 8px; border: 1px solid #cbd5e0">
+          <strong>💡 学習ポイント</strong>:
+          <p style="margin: 0.5rem 0">このステップで、<strong>CRUD操作の完全な永続化</strong>が実現されました。</p>
+          <p style="margin-top: 1rem; padding: 0.8rem; background: #d1fae5; border-radius: 6px; border: 1px solid #10b981"><strong>🎉 完成</strong>: 全5ステップ完了！完全なタスク管理アプリケーションが完成しました。</p>
+        </div>
+      </main>
+    </div>
+
+    <!-- 完了メッセージ（JavaScriptで表示制御） -->
+    <div class="completion-message" id="completionMessage">
+      <h2>🎉 おめでとうございます！</h2>
+      <p>全てのタスクが完了しました！</p>
+      <small>（クリックで閉じる）</small>
+    </div>
+
+    <script>
+      // ===== ステップ5完成版: タスク削除時のlocalStorageからの削除 =====
+
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("📚 ステップ5学習：タスク削除時のlocalStorageからの削除");
+
+        // 要素の取得
+        const taskInput = document.getElementById("taskInput");
+        const addTaskBtn = document.getElementById("addTaskBtn");
+        const taskList = document.getElementById("taskList");
+        const emptyMessage = document.getElementById("emptyMessage");
+        const progressFill = document.getElementById("progressFill");
+        const progressText = document.getElementById("progressText");
+        const completionMessage = document.getElementById("completionMessage");
+
+        // タスクデータ（配列形式）
+        let tasks = [];
+
+        // localStorageのキー名を定数として定義
+        const STORAGE_KEY = "taskList";
+
+        // アプリ起動時にlocalStorageからタスクを復元
+        loadTasksFromStorage();
+
+        // タスク追加ボタンのクリックイベント
+        addTaskBtn.addEventListener("click", function () {
+          addTask();
+        });
+
+        // Enterキーでもタスクを追加できるように
+        taskInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            addTask();
+          }
+        });
+
+        // localStorageからタスクを読み込む関数
+        function loadTasksFromStorage() {
+          try {
+            // localStorageからJSON文字列を取得
+            const savedTasksJson = localStorage.getItem(STORAGE_KEY);
+
+            // データが存在しない場合の処理
+            if (savedTasksJson === null) {
+              console.log("📄 保存されたタスクデータがありません");
+              return;
+            }
+
+            // JSON文字列をオブジェクト配列に変換
+            const savedTasks = JSON.parse(savedTasksJson);
+
+            // タスク配列を復元
+            tasks = savedTasks;
+
+            console.log("📂 localStorageからタスクを復元しました:", savedTasks);
+          } catch (error) {
+            console.error("❌ localStorage読み込みエラー:", error);
+            console.log("🔄 空のタスクリストで開始します");
+          }
+        }
+
+        // タスクを追加する関数（localStorage保存機能付き）
+        function addTask() {
+          const taskText = taskInput.value.trim();
+
+          if (taskText === "") {
+            alert("タスクを入力してください");
+            return;
+          }
+
+          // 新しいタスクオブジェクトを作成
+          const newTask = {
+            id: Date.now(), // 簡易的なID生成
+            text: taskText,
+            completed: false,
+          };
+
+          // タスク配列に追加
+          tasks.push(newTask);
+
+          // 入力フィールドをクリア
+          taskInput.value = "";
+
+          // localStorageに自動保存
+          saveTasksToStorage();
+
+          // 画面に表示
+          renderTasks();
+          updateProgress();
+
+          console.log("✅ タスクを追加し、localStorageに保存しました:", newTask.text);
+        }
+
+        // タスクをlocalStorageに保存する関数
+        function saveTasksToStorage() {
+          try {
+            // 配列をJSON文字列に変換してlocalStorageに保存
+            const tasksJson = JSON.stringify(tasks);
+            localStorage.setItem(STORAGE_KEY, tasksJson);
+            console.log("💾 localStorage保存完了:", tasksJson);
+          } catch (error) {
+            console.error("❌ localStorage保存エラー:", error);
+            alert("データの保存に失敗しました");
+          }
+        }
+
+        // タスクを画面に表示する関数
+        function renderTasks() {
+          // タスクリストをクリア
+          taskList.innerHTML = "";
+
+          // タスクが空の場合
+          if (tasks.length === 0) {
+            taskList.appendChild(emptyMessage);
+            return;
+          }
+
+          // 各タスクを表示
+          tasks.forEach(function (task) {
+            const taskItem = document.createElement("div");
+            taskItem.className = "task-item";
+            if (task.completed) {
+              taskItem.classList.add("completed");
+            }
+
+            taskItem.innerHTML = `
+                <input type="checkbox" class="task-checkbox" ${task.completed ? "checked" : ""} 
+                       onchange="toggleTask(${task.id})">
+                <span class="task-text">${task.text}</span>
+                <button class="delete-btn" onclick="deleteTask(${task.id})">削除</button>
+            `;
+
+            taskList.appendChild(taskItem);
+          });
+        }
+
+        // タスクの完了状態を切り替える関数（localStorage保存付き）
+        window.toggleTask = function (id) {
+          // 指定されたIDのタスクを見つけて完了状態を切り替え
+          tasks.forEach(function (task) {
+            if (task.id === id) {
+              task.completed = !task.completed;
+              console.log(`🔄 タスク「${task.text}」の完了状態を${task.completed ? "完了" : "未完了"}に切り替えました`);
+            }
+          });
+
+          // 完了状態の変更をlocalStorageに保存
+          saveTasksToStorage();
+
+          // 画面表示を更新
+          renderTasks();
+          updateProgress();
+
+          console.log("💾 完了状態の変更をlocalStorageに保存しました");
+        };
+
+        // ★ ステップ5の学習対象: タスクを削除する関数（localStorage保存付き）
+        window.deleteTask = function (id) {
+          // 削除前にタスク情報を取得（ログ出力用）
+          const taskToDelete = tasks.find((task) => task.id === id);
+
+          // 指定されたIDのタスクを配列から削除
+          tasks = tasks.filter(function (task) {
+            return task.id !== id;
+          });
+
+          console.log(`🗑️ タスク「${taskToDelete.text}」を削除しました`);
+
+          // ★ ステップ5の重要ポイント: 削除をlocalStorageにも反映
+          saveTasksToStorage();
+
+          // 画面表示を更新
+          renderTasks();
+          updateProgress();
+
+          console.log("💾 削除操作をlocalStorageに保存しました");
+        };
+
+        // 進捗バーを更新する関数
+        function updateProgress() {
+          if (tasks.length === 0) {
+            progressFill.style.width = "0%";
+            progressText.textContent = "0%";
+            hideCompletionMessage();
+            return;
+          }
+
+          const completedTasks = tasks.filter(function (task) {
+            return task.completed;
+          });
+
+          const progressPercentage = Math.round((completedTasks.length / tasks.length) * 100);
+          progressFill.style.width = progressPercentage + "%";
+          progressText.textContent = progressPercentage + "%";
+
+          console.log(`📊 進捗更新: ${completedTasks.length}/${tasks.length} (${progressPercentage}%)`);
+
+          // 全てのタスクが完了した場合
+          if (completedTasks.length === tasks.length && tasks.length > 0) {
+            showCompletionMessage();
+          } else {
+            hideCompletionMessage();
+          }
+        }
+
+        // 完了メッセージを表示
+        function showCompletionMessage() {
+          completionMessage.style.display = "block";
+          console.log("🎉 全タスク完了！完了メッセージを表示しました");
+        }
+
+        // 完了メッセージを非表示
+        function hideCompletionMessage() {
+          completionMessage.style.display = "none";
+        }
+
+        // 完了メッセージをクリックで閉じる
+        completionMessage.addEventListener("click", function () {
+          hideCompletionMessage();
+        });
+
+        // 復元したタスクを画面に表示
+        renderTasks();
+        updateProgress();
+      });
+    </script>
+  </body>
+</html>

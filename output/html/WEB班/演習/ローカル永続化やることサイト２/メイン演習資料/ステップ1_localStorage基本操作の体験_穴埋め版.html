@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ステップ1_localStorage基本操作の体験_穴埋め版</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ステップ1: localStorage基本操作の体験 (localStorage API &amp; JSON変換)（穴埋め版）</h1>
+<h2>導入・問題提起</h2>
+<p>現在のタスク管理アプリでは、タスクを追加してもブラウザを更新すると全てのタスクが消えてしまいます。これは、データがコンピュータのメモリ上に一時的にしか保存されていないためです。</p>
+<p>この問題を解決するために、ブラウザの<code>localStorage</code>という機能を使って、データを永続的に保存する方法を学びます。</p>
+<p><strong>準備：ベースアプリの動作確認</strong></p>
+<p>まずは、演習用ベースコードが正しく動作することを確認しましょう。</p>
+<ol>
+<li><strong>フォルダを開く</strong>: <code>演習用ベースコード</code>フォルダをVS Codeで開いてください</li>
+<li><strong>Live Serverで起動</strong>: <code>index.html</code>を右クリック → 「Open with Live Server」</li>
+<li><strong>動作確認</strong>:<ul>
+<li>タスクを数個追加してみる</li>
+<li>チェックボックスをクリックして完了状態を変更</li>
+<li>削除ボタンで削除</li>
+<li><strong>ブラウザを更新（F5）</strong> → データが消えることを確認</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>なぜデータが消えるのか？</strong>
+現在のアプリは、データをJavaScriptの変数（メモリ）にのみ保存しています。
+ブラウザを更新すると、メモリがリセットされるため、データが失われます。</p>
+</blockquote>
+<h3>Before（今の状況）</h3>
+<ul>
+<li>タスクを追加しても、ブラウザを更新すると消えてしまう</li>
+<li>データがメモリ上にしか存在しない一時的な状態</li>
+</ul>
+<h2>このステップの目標</h2>
+<ul>
+<li>localStorage APIの基本操作（<code>setItem</code>, <code>getItem</code>, <code>removeItem</code>, <code>clear</code>）が理解できる</li>
+<li>ブラウザの開発者ツールでlocalStorageを確認・操作できる</li>
+<li><code>JSON.stringify()</code>と<code>JSON.parse()</code>の基本的な使い方が分かる</li>
+</ul>
+<hr>
+<h2>考えてみよう</h2>
+<h3>手順1: 開発者ツールを開く</h3>
+<ol>
+<li>ブラウザで<strong>F12キー</strong>を押すか、右クリック → 「検証」</li>
+<li><strong>Application</strong>タブ（Chromeの場合）または<strong>Storage</strong>タブ（Firefoxの場合）をクリック</li>
+<li>左側のメニューから<strong>Local Storage</strong> → あなたのサイトのURL（例：<code>http://127.0.0.1:5500</code>）をクリック</li>
+</ol>
+<h3>手順2: localStorageの基本操作を体験</h3>
+<p><strong>Console</strong>タブに移動して、以下のコードを順番に実行してみましょう：</p>
+<h4>基本操作</h4>
+<p><strong>指示</strong>: 以下の穴埋めを完成させて、コンソールで実行し、各操作後にApplicationタブでlocalStorageの内容を確認してください。</p>
+<pre><code class="language-javascript">// 1. データを保存する - &quot;userName&quot;というキーで&quot;山田太郎&quot;という値を保存
+localStorage._____(_____, _____);
+
+// 2. データを取得する - &quot;userName&quot;キーの値を取得
+const userName = localStorage._____(_____);
+console.log(&quot;保存されたユーザー名:&quot;, userName);
+
+// 3. データを削除する - &quot;userName&quot;キーのデータを削除
+localStorage._____(_____);
+
+// 4. 全てのデータを削除する - localStorage内の全データを削除
+localStorage._____();
+</code></pre>
+<hr>
+<h3>より詳しく：JSON形式での保存</h3>
+<p>localStorageは<strong>文字列</strong>しか保存できません。オブジェクトや配列を保存するには、JSON形式に変換する必要があります。</p>
+<h4>JSON操作</h4>
+<p><strong>指示</strong>: タスクオブジェクトをlocalStorageに保存・復元してみましょう</p>
+<pre><code class="language-javascript">// タスクオブジェクトを作成
+const task = {
+  id: 1,
+  text: &quot;localStorage学習&quot;,
+  completed: false
+};
+
+// 1. オブジェクトをJSON文字列に変換し、&quot;sampleTask&quot;キーで保存
+const taskJson = JSON._____(task);
+localStorage.setItem(&quot;sampleTask&quot;, _____);
+
+// 2. &quot;sampleTask&quot;キーでJSON文字列を取得し、オブジェクトに復元
+const savedTaskJson = localStorage._____(&quot;sampleTask&quot;);
+const restoredTask = JSON._____(savedTaskJson);
+
+console.log(&quot;復元されたタスク:&quot;, restoredTask);
+console.log(&quot;タスクのテキスト:&quot;, restoredTask._____);
+console.log(&quot;完了状態:&quot;, restoredTask._____);
+</code></pre>
+<hr>
+<h2>✨ 最小限ヒント</h2>
+<ul>
+<li>localStorage APIは<code>localStorage.method()</code>の形で使用します</li>
+<li>データの保存：<code>_____(キー, 値)</code></li>
+<li>データの取得：<code>_____(キー)</code></li>
+<li>データの削除：<code>_____(キー)</code></li>
+<li>全削除：<code>_____()</code> （引数なし）</li>
+<li>JSON変換：<code>JSON._____(オブジェクト)</code> → 文字列に変換</li>
+<li>JSON復元：<code>JSON._____(文字列)</code> → オブジェクトに復元</li>
+<li>オブジェクトのプロパティアクセス：<code>オブジェクト.プロパティ名</code></li>
+</ul>
+<hr>
+<h2>動作確認チェックリスト</h2>
+<p><strong>基本操作の確認</strong>:</p>
+<ul>
+<li><input disabled="" type="checkbox"> 開発者ツールのConsoleタブで <code>localStorage.setItem(&quot;testKey&quot;, &quot;testValue&quot;)</code> を実行後、ApplicationタブのLocal Storageに <code>testKey</code> と <code>testValue</code> が表示される。</li>
+<li><input disabled="" type="checkbox"> Consoleタブで <code>localStorage.getItem(&quot;testKey&quot;)</code> を実行すると、<code>&quot;testValue&quot;</code> が返される。</li>
+<li><input disabled="" type="checkbox"> Consoleタブで <code>localStorage.removeItem(&quot;testKey&quot;)</code> を実行後、ApplicationタブのLocal Storageから <code>testKey</code> が削除される。</li>
+<li><input disabled="" type="checkbox"> 別のキーと値（例: <code>localStorage.setItem(&quot;anotherKey&quot;, &quot;anotherValue&quot;)</code>）を保存後、Consoleタブで <code>localStorage.clear()</code> を実行すると、ApplicationタブのLocal Storageが空になる。</li>
+</ul>
+<p><strong>JSON操作の確認</strong>:</p>
+<ul>
+<li><input disabled="" type="checkbox"> 以下のコードをConsoleで実行した際、エラーなく期待通りに動作する。<pre><code class="language-javascript">const myObject = { name: &quot;test&quot;, value: 123 };
+localStorage.setItem(&quot;testObject&quot;, JSON.stringify(myObject));
+const retrievedObject = JSON.parse(localStorage.getItem(&quot;testObject&quot;));
+console.log(retrievedObject.name); // &quot;test&quot; が表示される
+console.log(retrievedObject.value); // 123 が表示される
+</code></pre>
+</li>
+<li><input disabled="" type="checkbox"> 「考えてみよう（基本操作）」のコードを実行し、各ステップでApplicationタブのLocal Storageの内容が期待通りに変化することを確認する。</li>
+<li><input disabled="" type="checkbox"> 「考えてみよう（JSON操作）」のコードを実行し、コンソールに復元されたタスクオブジェクトの情報が正しく表示されることを確認する。</li>
+</ul>
+<hr>
+<h2>解答例</h2>
+<details>
+<summary>解答例（完全なコード）</summary>
+
+<h3>基本操作の解答</h3>
+<pre><code class="language-javascript">// 1. データを保存する
+localStorage.setItem(&quot;userName&quot;, &quot;山田太郎&quot;);
+
+// 2. データを取得する
+const userName = localStorage.getItem(&quot;userName&quot;);
+console.log(&quot;保存されたユーザー名:&quot;, userName);
+
+// 3. データを削除する
+localStorage.removeItem(&quot;userName&quot;);
+
+// 4. 全てのデータを削除する
+localStorage.clear();
+</code></pre>
+<h3>JSON操作の解答</h3>
+<pre><code class="language-javascript">// タスクオブジェクトを作成
+const task = {
+  id: 1,
+  text: &quot;localStorage学習&quot;,
+  completed: false
+};
+
+// 1. オブジェクトをJSON文字列に変換し、保存
+const taskJson = JSON.stringify(task);
+localStorage.setItem(&quot;sampleTask&quot;, taskJson);
+
+// 2. JSON文字列を取得し、オブジェクトに復元
+const savedTaskJson = localStorage.getItem(&quot;sampleTask&quot;);
+const restoredTask = JSON.parse(savedTaskJson);
+
+console.log(&quot;復元されたタスク:&quot;, restoredTask);
+console.log(&quot;タスクのテキスト:&quot;, restoredTask.text);
+console.log(&quot;完了状態:&quot;, restoredTask.completed);
+</code></pre>
+</details>
+
+<hr>
+<h2>ポイント解説</h2>
+<h3>localStorage APIの特徴</h3>
+<ul>
+<li><strong>永続性</strong>: ブラウザを閉じても、PCを再起動してもデータが保持される</li>
+<li><strong>オリジン単位</strong>: <code>http://localhost:5500</code>と<code>https://example.com</code>は別々のストレージ</li>
+<li><strong>容量制限</strong>: 通常5MB程度（ブラウザにより異なる）</li>
+<li><strong>同期API</strong>: データの読み書きが即座に完了（大量データは注意）</li>
+</ul>
+<h3>JSON変換の重要性</h3>
+<ul>
+<li>localStorageは文字列のみ保存可能</li>
+<li>オブジェクトや配列は<code>JSON.stringify()</code>で文字列化が必要</li>
+<li>取得時は<code>JSON.parse()</code>でオブジェクトに復元</li>
+<li>エラーハンドリング（次のステップで学習）も重要</li>
+</ul>
+<hr>
+<h2>補足資料への誘導</h2>
+<ul>
+<li>「補足資料1: localStorage API詳解」で、より深い仕様や他のストレージとの比較を段階的に学べます。</li>
+</ul>
+<hr>
+<h2>次のステップへ</h2>
+<p>ステップ1で学んだlocalStorage APIの基本操作を使って、実際のタスク管理アプリに<strong>自動保存機能</strong>を実装していきましょう！</p>
+
+</body>
+</html>

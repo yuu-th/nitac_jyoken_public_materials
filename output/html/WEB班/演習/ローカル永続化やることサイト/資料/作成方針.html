@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作成方針</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<h1>ローカル永続化やることサイト 演習 作成方針</h1>
+<h2>1. 演習の目的</h2>
+<ul>
+<li>既存の「やること動的サイト」の機能拡張を通じて、JavaScriptによるデータ操作とlocalStorageを利用したクライアントサイドでのデータ永続化を理解する。</li>
+<li>CRUD（作成、読み取り、更新、削除）操作の実装方法を学ぶ。</li>
+<li>将来的にサーバーサイド開発へステップアップするための基礎知識を養う。</li>
+</ul>
+<h2>2. 対象者</h2>
+<ul>
+<li>「やること動的サイト」演習を完了し、HTML、CSS、基本的なJavaScript（DOM操作、イベント処理）の知識がある者。</li>
+</ul>
+<h2>3. 作成する主な機能</h2>
+<ol>
+<li><strong>タスクのローカルストレージへの保存</strong>:<ul>
+<li>タスク追加時に、タスク情報をlocalStorageに保存する。</li>
+<li>データ形式: JSON文字列</li>
+</ul>
+</li>
+<li><strong>ページ読み込み時のタスク復元</strong>:<ul>
+<li>ページ読み込み時にlocalStorageからタスク情報を読み込み、一覧に表示する。</li>
+</ul>
+</li>
+<li><strong>タスク完了状態の保存</strong>:<ul>
+<li>タスクの完了・未完了状態を変更した際に、その状態をlocalStorageに保存する。</li>
+</ul>
+</li>
+<li><strong>タスク削除時のlocalStorageからの削除</strong>:<ul>
+<li>タスクを削除した際に、localStorageからも該当タスクを削除する。</li>
+</ul>
+</li>
+<li><strong>タスク内容の編集機能と保存 (発展)</strong>:<ul>
+<li>タスクの内容を編集できるようにし、編集結果をlocalStorageに保存する。</li>
+</ul>
+</li>
+</ol>
+<h2>4. 演習の進め方（案）</h2>
+<ul>
+<li>ベースとなるHTML、CSS、JavaScriptファイル（「やること動的サイト」の解答例など）を提供する。</li>
+<li>各機能の実装ステップごとに、ヒントや必要なJavaScriptのメソッド（<code>JSON.stringify</code>, <code>JSON.parse</code>, <code>localStorage.setItem</code>, <code>localStorage.getItem</code>, <code>localStorage.removeItem</code>など）を提示する。</li>
+<li>段階的に機能を実装していく形式とする（例：まず保存と読み込み、次に更新、最後に削除）。</li>
+<li>各ステップで、なぜその処理が必要なのか、どのようなデータ構造で保存するのかを考えさせる問いを設ける。</li>
+</ul>
+<h2>5. 期待される学習効果</h2>
+<ul>
+<li>JavaScriptでのデータ構造の扱い方（配列、オブジェクト）の理解が深まる。</li>
+<li><code>localStorage</code> APIの具体的な使用方法を習得できる。</li>
+<li>Webアプリケーションにおけるデータ永続化の基本的な考え方を学べる。</li>
+<li>デバッグ能力の向上（<code>console.log</code>やブラウザの開発者ツールを使ったlocalStorageの確認など）。</li>
+</ul>
+<h2>6. 将来的な展望</h2>
+<ul>
+<li>本演習で得た知識を活かし、次はサーバーサイド（Node.js + Express、Cloudflare Workersなど）と連携するWebアプリケーション開発へ進むことを視野に入れる。</li>
+</ul>
+<hr>
+
+</body>
+</html>

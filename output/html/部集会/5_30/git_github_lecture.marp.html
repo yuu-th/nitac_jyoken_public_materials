@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>git_github_lecture.marp</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials /style.css">
+</head>
+<body class="markdown-body">
+<hr>
+<h2>marp: true
+theme: my-theme
+paginate: true
+backgroundColor: #fff
+color: #333</h2>
+<h1>Git/GitHub講座</h1>
+<hr>
+<h2>導入</h2>
+<p>Gitとは</p>
+<blockquote>
+<p>チームで開発するときに、プログラムコードを共有し、バージョンを管理するためのツール</p>
+</blockquote>
+<p>GitHubとは</p>
+<blockquote>
+<p>Gitを使って、コードをオンラインで保存・共有するためのサービス</p>
+</blockquote>
+<hr>
+<h4>全体イメージ</h4>
+<!-- ![alt text](image.png) -->
+<image src="image.png" width='700px' style="margin:auto;display:block">
+
+<hr>
+<h4>Gitを用いた開発手順の全体像</h4>
+<image src="image-1.png" width='900px' style="margin:auto;display:block">
+
+
+<hr>
+<h2>必ず覚える用語1</h2>
+<h3>リポジトリ（Repository）</h3>
+<p>gitの中にコードやファイルを保存する場所。すべての開発者のPCの中に存在する（ローカルリポジトリ）。また、サーバー、GitHub上にも存在する（リモートリポジトリ）。</p>
+<hr>
+<h2>必ず覚える用語2</h2>
+<h3>コミット（Commit）</h3>
+<p>変更をリポジトリに保存すること。変更内容に対する説明を付けることができる。この操作をすることで、Gitがファイルの変更を認知することが出きる。<strong>忘れないように注意</strong></p>
+<hr>
+<h2>必ず覚える用語3</h2>
+<h3>プッシュ（Push）</h3>
+<p>ローカルリポジトリの変更をリモートリポジトリに反映すること。GitHub上のコードを更新する。つまり、<strong>アップロード</strong>的な操作</p>
+<hr>
+<h2>必ず覚える用語4</h2>
+<h3>プル（Pull）</h3>
+<p>リモートリポジトリの変更をローカルリポジトリに反映すること。GitHub上のコードをダウンロードする。つまり、<strong>ダウンロード&amp;インストール</strong>的な操作</p>
+<hr>
+<h4>開発手順イメージの再掲</h4>
+<image src="image-1.png" width='900px' style="margin:auto;display:block">
+
+
+<hr>
+<h2>具体的な開発手順</h2>
+<h3>1. 最初だけの初期化(一人だけがやる)</h3>
+<ol>
+<li>ローカルリポジトリを作成(あなたのPCに)</li>
+<li>リモートリポジトリを作成(GitHub上に)</li>
+</ol>
+<hr>
+<h3>2. 開発の手順</h3>
+<ol>
+<li>(ほかのメンバーの別のPCで最初に)リモートリポジトリをクローン(Clone)（GitHub上のコードをPCにダウンロードして初期化）</li>
+<li>リモートリポジトリをプル(Pull)（GitHub上のコードをPCにダウンロードして更新）</li>
+<li>コードを編集して、保存(UnityやVSCode上で)</li>
+<li><strong>コミット(Commit)（変更内容をGitに保存）</strong></li>
+<li>プッシュ(Push)（変更内容をGitHub上にアップロード）</li>
+</ol>
+<hr>
+<h2>演習：ペアで自己紹介ファイル作成</h2>
+<h3>目標</h3>
+<ul>
+<li>Git/GitHubの基本的な開発手順を体験</li>
+<li>2人1組でお互いの自己紹介ファイルを作成</li>
+<li>コンフリクト（衝突）の解決も体験</li>
+</ul>
+<hr>
+<h3>演習の準備</h3>
+<h4>ペア編成</h4>
+<ul>
+<li>2人1組でペアを作る</li>
+<li>1人が<strong>リーダー</strong>、もう1人が<strong>メンバー</strong>になる</li>
+</ul>
+<h4>使用ツール</h4>
+<ul>
+<li><strong>VS Code</strong> (エディタ統合で便利)
+(GitHub Desktopも可能であるが、面倒くさい)</li>
+</ul>
+<hr>
+<h2>演習手順 1/4：初期化（メンバーのPCとリモートに作成）</h2>
+<p>ペアプログラミング: リーダーがメンバーに操作を指示し、メンバーが操作をする</p>
+<ol>
+<li><strong>VSCode上でローカルリポジトリの作成</strong><ol>
+<li>新しいフォルダ <code>self-introduction-project</code> を作成</li>
+<li>「Initialize Repository」をクリック(あなたの PCでローカルリポジトリの作成)</li>
+</ol>
+</li>
+<li><strong>リモートリポジトリの作成</strong><ol>
+<li>「Publish Branch」から、「public repository」として...(GitHub上でリモートリポジトリの作成)</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h2>演習手順 2/4：クローン（リーダーのPCにクローン&amp;プル、ダウンロード）</h2>
+<ol>
+<li><strong>リポジトリをクローン</strong><ul>
+<li>リーダーからリポジトリのURLを教えてもらう</li>
+<li>自分のPCにクローンする</li>
+</ul>
+</li>
+</ol>
+<p>GitHub Desktop の場合：<code>File</code> → <code>Clone repository</code> → <code>URL</code> タブ</p>
+<p>VS Code の場合：<code>Ctrl+Shift+P</code> → <code>Git: Clone</code></p>
+<hr>
+<h2>演習手順 3/4：リーダーのPCでファイル作成</h2>
+<ol>
+<li><strong>自己紹介ファイルを作成</strong><ul>
+<li>ファイル名：<code>profile1.txt</code></li>
+<li>好きな内容で記入</li>
+<li>例：名前、趣味、好きな食べ物など</li>
+</ul>
+</li>
+<li><strong>コミット＆プッシュ</strong></li>
+</ol>
+<hr>
+<h2>演習手順 4/4：メンバーのPCでプルとファイル作成</h2>
+<ol>
+<li><strong>プル(Pull)</strong><ul>
+<li>リーダーの変更をダウンロード</li>
+</ul>
+</li>
+<li><strong>自己紹介ファイルを作成</strong><ul>
+<li>ファイル名：<code>profile2.txt</code></li>
+<li>同様の形式で自己紹介を記入</li>
+</ul>
+</li>
+<li><strong>コミット＆プッシュ</strong></li>
+</ol>
+<hr>
+<h3>GUI操作のポイント</h3>
+<h4>GitHub Desktop</h4>
+<ul>
+<li>変更ファイルは左側に表示</li>
+<li>コミットメッセージを下部に入力</li>
+<li><code>Commit to main</code> → <code>Push origin</code></li>
+</ul>
+<h4>VS Code</h4>
+<ul>
+<li>Source Control パネル（Ctrl+Shift+G）</li>
+<li>変更ファイルの <code>+</code> でステージング</li>
+<li>メッセージ入力後 <code>✓</code> でコミット</li>
+<li><code>...</code> → <code>Push</code> でプッシュ</li>
+</ul>
+<hr>
+<h2>発展(コンフリクト)</h2>
+<h3>両方の作業（意図的にコンフリクトを発生）</h3>
+<ol>
+<li><strong>README.mdファイルを作成</strong><ul>
+<li>同じファイル名で同時に作業</li>
+<li>リーダー：プロジェクト概要を記入</li>
+<li>メンバー：メンバー紹介を記入</li>
+</ul>
+</li>
+<li><strong>コミット＆プッシュを試行</strong><ul>
+<li>どちらかがコンフリクトエラーになる</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>演習手順 6/6：コンフリクト解決</h2>
+<h3>コンフリクト解決の体験</h3>
+<ol>
+<li><strong>エラーが出た人の作業</strong><ul>
+<li>プル操作を実行</li>
+<li>コンフリクトマーカーを確認</li>
+<li>手動でファイルを編集して解決</li>
+</ul>
+</li>
+<li><strong>解決後の操作</strong><ul>
+<li>コミット＆プッシュ</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>振り返り</h2>
+<h3>体験したこと</h3>
+<ul>
+<li>✅ リポジトリの作成・クローン</li>
+<li>✅ ファイルの作成・編集</li>
+<li>✅ コミット・プッシュ・プル</li>
+<li>✅ コンフリクトの解決</li>
+</ul>
+<hr>
+<h2>振り返り</h2>
+<h3>実際の開発で重要なポイント</h3>
+<ul>
+<li><strong>こまめなコミット</strong>で変更を記録</li>
+<li><strong>プル</strong>を忘れずに最新状態を維持</li>
+<li><strong>コンフリクト</strong>は恐れずに冷静に対処</li>
+</ul>
+
+</body>
+</html>
