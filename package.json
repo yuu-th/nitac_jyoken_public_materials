@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "set BASE_PATH=\/nitac_jyoken_public_materials && node convert.js"
+    "build": "set BASE_PATH=\/nitac_jyoken_public_materials&& node convert.js"
   },
   "repository": {
     "type": "git",
