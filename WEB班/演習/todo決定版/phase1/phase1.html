@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多機能Todoリスト</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary-color: #667eea;
+        --text-primary: #2d3748;
+        --text-secondary: rgba(0, 0, 0, 0.6);
+        --bg-secondary: #ffffff;
+        --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --border-color: #e2e8f0;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: var(--gradient-1);
+        color: var(--text-primary);
+      }
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background: var(--bg-secondary);
+        border-radius: 20px;
+      }
+      header {
+        padding: 30px;
+        text-align: center;
+        color: white;
+        background: var(--gradient-1);
+      }
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+      }
+      .stat {
+        background: white;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+      }
+      .stat:hover {
+        transform: translateY(-2px);
+      }
+      .stat-number {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: var(--primary-color);
+        display: block;
+      }
+      .stat-label {
+        font-size: 0.9em;
+        color: var(--text-secondary);
+        margin-top: 5px;
+      }
+      .input-section {
+        padding: 20px;
+      }
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+      .btn-primary {
+        background: var(--gradient-1);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        width: 200px;
+      }
+      .todo-list {
+        padding: 20px;
+      }
+      .filters {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .filter-btn {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: #e2e8f0;
+        color: var(--text-primary);
+      }
+      .filter-btn.active {
+        background: var(--primary-color);
+        color: white;
+      }
+      .search-box {
+        flex: 1;
+      }
+      .search-box input {
+        width: 100%;
+      }
+      #todo-container {
+        min-height: 200px;
+      }
+      .empty-state {
+        text-align: center;
+        color: var(--text-secondary);
+        padding: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>📝 多機能Todoリスト</h1>
+        <p>効率的なタスク管理で生産性を向上</p>
+      </header>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-number" id="totalTasks">0</span>
+          <div class="stat-label">総タスク数</div>
+        </div>
+        <div class="stat">
+          <span class="stat-number" id="completedTasks">0</span>
+          <div class="stat-label">完了済み</div>
+        </div>
+        <div class="stat">
+          <span class="stat-number" id="pendingTasks">0</span>
+          <div class="stat-label">未完了</div>
+        </div>
+        <div class="stat">
+          <span class="stat-number" id="completionRate">0%</span>
+          <div class="stat-label">完了率</div>
+        </div>
+      </div>
+      <div class="input-section">
+        <div class="input-container">
+          <div class="input-group">
+            <label for="taskTitle">タスク名 *</label>
+            <input type="text" id="taskTitle" placeholder="新しいタスクを入力..." required />
+          </div>
+          <div class="input-group">
+            <label for="taskCategory">カテゴリ</label>
+            <select id="taskCategory">
+              <option value="仕事">🏢 仕事</option>
+              <option value="個人">👤 個人</option>
+              <option value="学習">📚 学習</option>
+              <option value="健康">💪 健康</option>
+              <option value="買い物">🛒 買い物</option>
+              <option value="その他">📌 その他</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="taskDescription">詳細説明</label>
+            <textarea id="taskDescription" rows="3" placeholder="タスクの詳細を入力（任意）"></textarea>
+          </div>
+          <button class="btn-primary">➕ タスクを追加</button>
+        </div>
+      </div>
+      <div class="todo-list">
+        <div class="filters">
+          <button class="filter-btn active">すべて</button>
+          <button class="filter-btn">未完了</button>
+          <button class="filter-btn">完了済み</button>
+          <div class="input-group search-box">
+            <input type="text" id="searchInput" placeholder="🔍 タスクを検索..." />
+          </div>
+        </div>
+        <div id="todo-container">
+          <div class="empty-state">
+            <div style="font-size: 4em; margin-bottom: 20px">📝</div>
+            <h3>タスクがありません</h3>
+            <p>新しいタスクを追加して始めましょう！</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
