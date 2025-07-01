@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>phase1</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h3>指導書 (全面改訂版)</h3>
+<style>
+.knowledge {
+  background-color:rgb(230, 230, 230);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  color: black;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: bold;
+  border: 1px solid red;
+}
+</style>
+
+<h2>ゴール：多機能Todoリストの作成</h2>
+<p>このガイドでは、HTMLとCSSを使い、最終的に以下のような多機能Todoリストの「見た目」を完成させます。</p>
+<p>一歩ずつ、着実に進めていきましょう。</p>
+<hr>
+<h2>Section 0: 準備</h2>
+<p>まず、コーディングを始めるための準備をします。</p>
+<ol>
+<li>PCに<code>TodoList</code>など好きな名前でフォルダを作成します。</li>
+<li>VSCodeでそのフォルダを開きます。</li>
+<li><code>index.html</code>という名前で新しいファイルを作成します。</li>
+<li><code>index.html</code>に <code>!</code> を入力し、<code>Tab</code>キーを押してHTMLのひな形を生成します。</li>
+<li>タイトルを「多機能Todoリスト」に変更します。</li>
+</ol>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;多機能Todoリスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>✅ これで準備完了です！これ以降の作業は、すべてこのファイルの<code>&lt;body&gt;</code>と<code>&lt;head&gt;</code>内で行います。</p>
+<hr>
+<h2>Section 1: HTMLで骨格を作る</h2>
+<p>ページの部品を一つずつ、ゆっくりと配置していきます。</p>
+<h3>ステップ1.1: すべてを包む「箱」を置く</h3>
+<div class="knowledge">
+
+<p><code>&lt;div&gt;</code>タグは、Webページの要素をまとめるための汎用的な「箱」です。<code>class</code>属性で名前をつけることで、後からデザインを適用しやすくなります。</p>
+</div>
+
+<p><code>&lt;body&gt;</code>タグの中に、全体を包むコンテナ用の<code>div</code>を一つだけ追加しましょう。</p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;___ class=&quot;container&quot;&gt;&lt;/___&gt;
+&lt;/body&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.2: 「ヘッダー」用の箱を入れる</h3>
+<div class="knowledge">
+
+<p><code>&lt;header&gt;</code>タグは、その名の通りページの「ヘッダー部分」であることを示す、意味のある<code>div</code>のようなものです。ヘッダーとはページの上部にある特別な部分です。</p>
+</div>
+
+<p>先ほど作った<code>&lt;div class=&quot;container&quot;&gt;</code>の中に、ヘッダー用の箱を入れましょう。</p>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+    &lt;___&gt;&lt;/___&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+    &lt;header&gt;&lt;/header&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.3: ヘッダーに「大見出し」を入れる</h3>
+<div class="knowledge">
+
+<p><code>&lt;h1&gt;</code>タグは、ページで最も重要な「大見出し」を表します。</p>
+</div>
+
+<p><code>&lt;header&gt;</code>の中に、<code>h1</code>タグでタイトルを入れましょう。</p>
+<pre><code class="language-html">&lt;header&gt;
+    &lt;___&gt;📝 多機能Todoリスト&lt;/___&gt;
+&lt;/header&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;header&gt;
+    &lt;h1&gt;📝 多機能Todoリスト&lt;/h1&gt;
+&lt;/header&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.4: ヘッダーに「説明文」を入れる</h3>
+<div class="knowledge">
+
+<p><code>&lt;p&gt;</code>タグは、「段落 (Paragraph)」を表し、一般的な文章に使います。</p>
+</div>
+
+<p><code>&lt;h1&gt;</code>タグの下に、<code>&lt;p&gt;</code>タグで説明文を追加しましょう。</p>
+<pre><code class="language-html">&lt;header&gt;
+    &lt;h1&gt;📝 多機能Todoリスト&lt;/h1&gt;
+    &lt;___&gt;効率的なタスク管理で生産性を向上&lt;/___&gt;
+&lt;/header&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;header&quot;&gt;
+    &lt;h1&gt;📝 多機能Todoリスト&lt;/h1&gt;
+    &lt;p&gt;効率的なタスク管理で生産性を向上&lt;/p&gt;
+&lt;/header&gt;
+</code></pre>
+<p>✅ <strong>中間確認</strong>
+現在の<code>&lt;body&gt;</code>タグの中身は以下のようになっています。</p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;header&gt;
+            &lt;h1&gt;📝 多機能Todoリスト&lt;/h1&gt;
+            &lt;p&gt;効率的なタスク管理で生産性を向上&lt;/p&gt;
+        &lt;/header&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.5: 「統計エリア」の箱を置く</h3>
+<p><code>&lt;header&gt;</code>の次に、統計情報を表示するための新しいセクションを作ります。</p>
+<div class="knowledge">
+
+<p>セクションごとに<code>&lt;div&gt;</code>で囲むことで、ページの構造が整理され、管理しやすくなります。</p>
+</div>
+
+<p>先ほど作成した<code>&lt;header&gt;</code>タグの<strong>下</strong>に、<code>stats</code>というクラス名を持つ<code>div</code>を追加してください。</p>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+    &lt;header&gt;
+        ...
+    &lt;/header&gt;
+    &lt;___ class=&quot;___&quot;&gt;&lt;/___&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+    &lt;header&gt;
+        &lt;h1&gt;📝 多機能Todoリスト&lt;/h1&gt;
+        &lt;p&gt;効率的なタスク管理で生産性を向上&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;div class=&quot;stats&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.6: 統計エリアに「最初の項目」を入れる</h3>
+<p><code>stats</code>エリアの中に、最初の統計項目（総タスク数）を作ります。</p>
+<div class="knowledge">
+
+<p><code>&lt;span&gt;</code>タグは、<code>p</code>タグや<code>div</code>タグと違い、改行されないインラインのグループ化要素です。基本的に、pタグ内などのテキストの一部を強調したいときに使います</p>
+</div>
+
+<p><code>&lt;div class=&quot;stats&quot;&gt;</code>の中に、最初の項目を入れてください。</p>
+<pre><code class="language-html">&lt;div class=&quot;stats&quot;&gt;
+    &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat-number&quot; id=&quot;totalTasks&quot;&gt;＿＿＿&lt;/span&gt;
+        &lt;div class=&quot;stat-label&quot;&gt;＿＿＿＿＿＿&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;stats&quot;&gt;
+    &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat-number&quot; id=&quot;totalTasks&quot;&gt;0&lt;/span&gt;
+        &lt;div class=&quot;stat-label&quot;&gt;総タスク数&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>今回stat-labelクラスのdivがもし、divでなくpである場合は、改行されずに横並びに表示されます。</p>
+<p>それは、divがブロック要素と呼ばれ、必ず改行された後に表示されるものだからです。</p>
+<p>対して、spanはインライン要素と呼ばれ、改行はされずにその場所に表示されます</p>
+<p>今後インラインブロック要素というものも出てきます</p>
+<hr>
+<h3>ステップ1.7: 「繰り返し」で項目を増やす</h3>
+<div class="knowledge">
+
+<p>コーディングでは、同じ構造をコピー＆ペーストして中身だけを変える、という作業が頻繁に発生します。</p>
+</div>
+
+<p>先ほど作った<code>&lt;div class=&quot;stat&quot;&gt;...&lt;/div&gt;</code>をまるごとコピーし、下に3回貼り付けて、中身のテキストと<code>id</code>を完成版に合わせて変更してください。</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;stats&quot;&gt;
+    &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat-number&quot; id=&quot;totalTasks&quot;&gt;0&lt;/span&gt;
+        &lt;div class=&quot;stat-label&quot;&gt;総タスク数&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat-number&quot; id=&quot;completedTasks&quot;&gt;0&lt;/span&gt;
+        &lt;div class=&quot;stat-label&quot;&gt;完了済み&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat-number&quot; id=&quot;pendingTasks&quot;&gt;0&lt;/span&gt;
+        &lt;div class=&quot;stat-label&quot;&gt;未完了&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat-number&quot; id=&quot;completionRate&quot;&gt;0%&lt;/span&gt;
+        &lt;div class=&quot;stat-label&quot;&gt;完了率&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>🚀 このように、一つずつ要素を追加し、繰り返しを使いながらHTMLを構築していきます。この後の「入力フォーム」や「タスクリスト」も、<strong><code>&lt;div&gt;</code>で箱を作る → 中に<code>&lt;label&gt;</code>や<code>&lt;input&gt;</code>を入れる → 繰り返す</strong> という手順で作成します。</p>
+<hr>
+<h3>ステップ1.8: 入力セクションの箱を置く</h3>
+<p>統計エリアの次に、新しいタスクを入力するためのフォーム全体を囲むセクションを作ります。</p>
+<div class="knowledge">
+
+<p><code>&lt;label&gt;</code>は、入力欄の項目名を示すタグです。<code>for</code>属性の値と、関連する入力要素の<code>id</code>属性の値を一致させることで、両者を関連付けます。</p>
+<p>例えば、示されるコードでは、taskTitleというタグで一致しています。</p>
+<p><code>&lt;input&gt;</code>は、ユーザーがデータを入力するための要素です。<code>type</code>属性で入力フィールドの種類（テキスト、日付など）を指定します。</p>
+<p>種類として、テキスト入力用の<code>type=&quot;text&quot;</code>、日付選択用の<code>type=&quot;date&quot;</code>、チェックボックス用の<code>type=&quot;checkbox&quot;</code>などがあります。</p>
+<p>またrequired属性を追加することで、必須入力項目にすることができます。</p>
+</div>
+
+<p><code>.stats</code>クラスの<code>div</code>の下に、入力セクションを追加してください。まず、全体を囲む<code>div</code>、項目名を示す<code>label</code>、そして一行テキスト入力の<code>input</code>を配置します。</p>
+<pre><code class="language-html">&lt;div class=&quot;stats&quot;&gt;
+    ...
+&lt;/div&gt;
+&lt;div class=&quot;input-section&quot;&gt;
+    &lt;div class=&quot;input-container&quot;&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+            &lt;label for=&quot;taskTitle&quot;&gt;タスク名 *&lt;/label&gt;
+            &lt;input type=&quot;text&quot; id=&quot;taskTitle&quot; placeholder=&quot;新しいタスクを入力...&quot; required&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.9: ドロップダウンリストを追加する</h3>
+<div class="knowledge">
+
+<p><code>&lt;select&gt;</code>は、ドロップダウンリストを作成するタグです。内部に<code>&lt;option&gt;</code>タグを配置して、選択肢のリストを定義します。</p>
+</div>
+
+<p>最初の<code>input-group</code>の下に、カテゴリ選択用の新しい<code>input-group</code>と<code>select</code>要素を追記します。</p>
+<pre><code class="language-html">&lt;div class=&quot;input-container&quot;&gt;
+    &lt;div class=&quot;input-group&quot;&gt;
+        ...
+    &lt;/div&gt;
+    &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label for=&quot;taskCategory&quot;&gt;カテゴリ&lt;/label&gt;
+        &lt;select id=&quot;taskCategory&quot;&gt;
+            &lt;option value=&quot;仕事&quot;&gt;🏢 仕事&lt;/option&gt;
+            &lt;option value=&quot;個人&quot;&gt;👤 個人&lt;/option&gt;
+            &lt;option value=&quot;学習&quot;&gt;📚 学習&lt;/option&gt;
+            &lt;option value=&quot;健康&quot;&gt;💪 健康&lt;/option&gt;
+            &lt;option value=&quot;買い物&quot;&gt;🛒 買い物&lt;/option&gt;
+            &lt;option value=&quot;その他&quot;&gt;📌 その他&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.10: 複数行のテキストエリアを追加する</h3>
+<div class="knowledge">
+
+<p><code>&lt;textarea&gt;</code>は、複数行のテキスト入力を可能にするタグです。<code>rows</code>属性で、表示する行数を指定します。</p>
+</div>
+
+<p><code>.input-container</code>の下に、詳細説明用の<code>textarea</code>を含む新しい<code>input-group</code>を追記します。</p>
+<pre><code class="language-html">&lt;div class=&quot;input-container&quot;&gt;
+    &lt;div class=&quot;input-group&quot;&gt;
+        ...
+        &lt;select id=&quot;taskCategory&quot;&gt;
+            ...
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label for=&quot;taskDescription&quot;&gt;詳細説明&lt;/label&gt;
+        &lt;textarea id=&quot;taskDescription&quot; rows=&quot;3&quot; placeholder=&quot;タスクの詳細を入力（任意）&quot;&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.11: ボタンを追加する</h3>
+<div class="knowledge">
+
+<p><code>&lt;button&gt;</code>は、クリック可能なボタンを定義するタグです。</p>
+</div>
+
+<p><code>textarea</code>を含む<code>input-group</code>の下に、タスク追加用の<code>button</code>を追記します。</p>
+<pre><code class="language-html">&lt;div class=&quot;input-group&quot;&gt;
+    ...
+&lt;/div&gt;
+&lt;button class=&quot;btn-primary&quot; onclick=&quot;&quot;&gt;
+    ➕ タスクを追加
+&lt;/button&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.12: リスト表示エリアの箱を置く</h3>
+<p>入力セクションの次に、フィルターとタスク一覧を含む、リスト表示エリア全体を囲む<code>div</code>を配置します。</p>
+<p><code>.input-section</code>の終了タグの下に、<code>todo-list</code>というクラス名を持つ<code>div</code>を追加してください。</p>
+<pre><code class="language-html">&lt;div class=&quot;input-section&quot;&gt;
+    ...
+&lt;/div&gt;
+&lt;___ class=&quot;___&quot;&gt;
+&lt;/___&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;input-section&quot;&gt;
+    ...
+&lt;/div&gt;
+&lt;div class=&quot;todo-list&quot;&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.13: フィルター用の箱を置く</h3>
+<p>リスト表示エリアの中に、タスクを絞り込むためのボタン群を格納する<code>div</code>を配置します。</p>
+<div class="knowledge">
+
+<p><code>div</code>を入れ子にすることで、セクション内の構造をさらに細かく整理します。</p>
+</div>
+
+<p>先ほど作成した<code>.todo-list</code>の中に、<code>filters</code>というクラス名を持つ<code>div</code>を追加してください。</p>
+<pre><code class="language-html">&lt;div class=&quot;todo-list&quot;&gt;
+    &lt;___ class=&quot;__&quot;&gt;
+    &lt;/___&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;todo-list&quot;&gt;
+    &lt;div class=&quot;filters&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.14: 最初のフィルターボタンを追加する</h3>
+<div class="knowledge">
+
+<p><code>class</code>属性には、スペースで区切って複数のクラス名を指定できます。</p>
+</div>
+
+<p><code>.filters</code>の中に、最初のボタンを配置します。ここでは<code>filter-btn</code>と<code>active</code>という2つのクラスを指定します。</p>
+<p>このactiveクラスは、現在選択されているフィルターボタンを示すために使用します。</p>
+<pre><code class="language-html">&lt;div class=&quot;filters&quot;&gt;
+    &lt;___ class=&quot;filter-btn active&quot;&gt;すべて&lt;/___&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;filters&quot;&gt;
+    &lt;button class=&quot;filter-btn active&quot;&gt;すべて&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.15: 残りのフィルターボタンを追加する</h3>
+<div class="knowledge">
+
+<p>同じ構造の要素は、既存のコードを複製し、内容を修正することで効率的に作成します。</p>
+</div>
+
+<p>最初のボタンの下に、残り2つのフィルターボタンを追記してください。</p>
+<pre><code class="language-html">&lt;div class=&quot;filters&quot;&gt;
+    &lt;button class=&quot;filter-btn active&quot;&gt;すべて&lt;/button&gt;
+    &lt;button class=&quot;filter-btn&quot;&gt;未完了&lt;/button&gt;
+    &lt;button class=&quot;filter-btn&quot;&gt;完了済み&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.16: 検索ボックスを追加する</h3>
+<p>フィルターボタンの次に、タスク検索用の入力欄を配置します。</p>
+<div class="knowledge">
+
+<p>既存のクラスを再利用することで、スタイルの一貫性を保ちます。ここでは以前使用した<code>.input-group</code>クラスを使います。</p>
+</div>
+
+<p>最後の<code>button</code>の下に、<code>input-group</code>と<code>search-box</code>クラスを持つ<code>div</code>と、その中に<code>input</code>タグを追記してください。</p>
+<pre><code class="language-html">&lt;div class=&quot;filters&quot;&gt;
+    ...
+    &lt;button class=&quot;filter-btn&quot;&gt;完了済み&lt;/button&gt;
+    &lt;div class=&quot;______&quot;&gt;
+        &lt;___ type=&quot;text&quot; id=&quot;searchInput&quot; placeholder=&quot;🔍 タスクを検索...&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;filters&quot;&gt;
+    ...
+    &lt;button class=&quot;filter-btn&quot;&gt;完了済み&lt;/button&gt;
+    &lt;div class=&quot;input-group search-box&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;searchInput&quot; placeholder=&quot;🔍 タスクを検索...&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.17: タスク一覧表示用の箱を置く</h3>
+<div class="knowledge">
+
+<p><code>id</code>属性は、ページ内で一意の識別子を要素に与えます。CSSやJavaScriptから特定の要素を正確に指定するために使用します。</p>
+</div>
+
+<p><code>.filters</code>の終了タグの下に、タスク一覧が実際に表示されるコンテナとして、<code>todo-container</code>という<code>id</code>を持つ<code>div</code>を追加してください。</p>
+<pre><code class="language-html">&lt;div class=&quot;todo-list&quot;&gt;
+    &lt;div class=&quot;filters&quot;&gt;
+        ...
+    &lt;/div&gt;
+    &lt;___ id=&quot;___&quot;&gt;
+    &lt;/___&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div class=&quot;todo-list&quot;&gt;
+    &lt;div class=&quot;filters&quot;&gt;
+        ...
+    &lt;/div&gt;
+    &lt;div id=&quot;todo-container&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h3>ステップ1.18: 「タスクがない状態」の表示を作る</h3>
+<div class="knowledge">
+
+<p><code>&lt;h3&gt;</code>タグは、3番目のレベルの見出しを表します。<code>&lt;h1&gt;</code>より重要度が低い小見出しに使用します。</p>
+</div>
+
+<p>タスクが一つもない場合に表示するメッセージを、<code>#todo-container</code>の中に<code>div</code>、<code>h3</code>、<code>p</code>タグを使って作成します。</p>
+<pre><code class="language-html">&lt;div id=&quot;todo-container&quot;&gt;
+    &lt;div class=&quot;empty-state&quot;&gt;
+        &lt;div style=&quot;font-size: 4em; margin-bottom: 20px;&quot;&gt;📝&lt;/div&gt;
+        &lt;___&gt;タスクがありません&lt;/___&gt;
+        &lt;___&gt;新しいタスクを追加して始めましょう！&lt;/___&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-html">&lt;div id=&quot;todo-container&quot;&gt;
+    &lt;div class=&quot;empty-state&quot;&gt;
+        &lt;div style=&quot;font-size: 4em; margin-bottom: 20px;&quot;&gt;📝&lt;/div&gt;
+        &lt;h3&gt;タスクがありません&lt;/h3&gt;
+        &lt;p&gt;新しいタスクを追加して始めましょう！&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>✅ これでHTMLの全ての骨格が完成しました。</p>
+<hr>
+<h2>Section 2: CSSでデザインする</h2>
+<p>HTMLの骨格ができたら、CSSで見た目を整えます。<code>&lt;head&gt;</code>タグの中に<code>&lt;style&gt;</code>タグを追加し、そこに記述していきます。</p>
+<h3>ステップ2.1: スタイルの「おまじない」</h3>
+<div class="knowledge">
+
+<p><code>*</code>（アスタリスク）は、すべてのHTML要素を対象とするセレクタです。ここで全要素の余白(<code>margin</code>, <code>padding</code>)を0にリセットし、ブラウザによる表示のズレを防ぎます。</p>
+<p>margin, paddingについてはデフォルトでゼロに設定し、各要素ごとに独自に設定するのが従うべきやり方（ベストプラクティス）です</p>
+<p>またbox-sizingとは、要素の幅や高さを計算する際に、paddingやborderを含めるかどうかを指定するプロパティです。これを使うことで、要素のサイズをより直感的に扱うことができます。</p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E6%BC%94%E7%BF%92/todo%E6%B1%BA%E5%AE%9A%E7%89%88/phase1/image-1.png" alt=""></p>
+</div>
+
+
+<p><code>&lt;head&gt;</code>内に<code>&lt;style&gt;</code>タグを作り、以下を記述</p>
+<pre><code class="language-html">&lt;head&gt;
+    ...
+    &lt;title&gt;多機能Todoリスト&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    &lt;/&gt;
+&lt;/head&gt;
+</code></pre>
+<hr>
+<h3>ステップ2.2: 色の「変数」を定義する</h3>
+<div class="knowledge">
+
+<p><code>:root</code>内に<code>--変数名: 値;</code>と書くことで、CSSで使える変数を定義できます。後で<code>var(--変数名)</code>として呼び出せるため、色の管理が非常に楽になります。</p>
+<p>また、ダークモードの作成においても、この変数の値のみを変化させれば、簡単に対応できます。</p>
+</div>
+
+<p>先ほどの<code>style</code>タグ内に、色を管理するための変数を定義します。</p>
+<pre><code class="language-css">&lt;style&gt;
+    * { ... }
+
+    :root {
+        --primary-color: #667eea;
+        --text-primary: #2d3748;
+        --text-secondary: rgba(0, 0, 0, 0.6);
+        --bg-secondary: #ffffff;
+        --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --border-color: #e2e8f0;
+    }
+&lt;/style&gt;
+</code></pre>
+<p>ここでは基本的な色をカラーコードで設定しています。</p>
+<p>色が変わる特別なデザインをlinear-gradientに作成しています。</p>
+<p>このlinear-gradientは覚えなくてもよいです。</p>
+<p>このような、機能がcssにはたくさんあるので、必要になったらその都度調べると良いです。</p>
+<hr>
+<h3>ステップ2.3: ページ全体の基本スタイル</h3>
+<h4>ステップ2.3.1: ページ全体の基本フォントを決める</h4>
+<div class="knowledge">
+
+<p><code>font-family</code>は、要素内のテキストのフォント（書体）を指定します。複数をカンマ区切りで指定するのが一般的です。</p>
+<p><code>Segoe UI, sans-serif</code>のように書くと、「まず<code>Segoe UI</code>フォントを試してみて、もしユーザーのPCになければ、そのPCにインストールされているゴシック体（<code>sans-serif</code>）のどれかを使ってください」という意味になります。これを<strong>フォントスタック</strong>と呼びます。</p>
+</div>
+
+<p><code>body</code>に<code>font-family</code>を追加して、ページの基本フォントを設定しましょう。</p>
+<pre><code class="language-css">body {
+    font-family: &#39;Segoe UI&#39;, sans-serif;
+}
+</code></pre>
+<hr>
+<h4>ステップ2.3.2: ページ全体の背景を設定する</h4>
+<div class="knowledge">
+
+<p><code>background</code>プロパティは、要素の背景を設定します。色、画像、そしてグラデーションなどを指定できます。今回は、以前<code>:root</code>で定義したグラデーションの変数<code>--gradient-1</code>を使いましょう。</p>
+</div>
+
+<p><code>body</code>に<code>background</code>を追加します。</p>
+<pre><code class="language-css">body {
+    font-family: &#39;Segoe UI&#39;, sans-serif;
+    background: var(--gradient-1); /* ここを追記 */
+}
+</code></pre>
+<hr>
+<h4>ステップ2.3.3: ページ全体の基本文字色を決める</h4>
+<div class="knowledge">
+
+<p><code>color</code>プロパティは、テキストの色を指定します。<code>body</code>に指定すると、中の子要素にもその色が引き継がれるため、ページ全体の基本の文字色を設定するのに使われます。</p>
+</div>
+
+<p><code>body</code>に<code>color</code>を追加して、基本の文字色を定義した変数<code>--text-primary</code>に設定します。</p>
+<pre><code class="language-css">body {
+    font-family: &#39;Segoe UI&#39;, sans-serif;
+    background: var(--gradient-1);
+    color: ___(___);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">body {
+    font-family: &#39;Segoe UI&#39;, sans-serif;
+    background: var(--gradient-1);
+    color: var(--text-primary);
+}
+</code></pre>
+<hr>
+<h3>ステップ2.4: コンテナの幅と配置</h3>
+<h4>ステップ2.4.1: コンテナの最大幅を決める</h4>
+<div class="knowledge">
+
+<p><code>max-width</code>は、要素の<strong>最大の横幅</strong>を指定します。ウィンドウの幅がこれより狭い場合は要素も一緒に縮みますが、広い場合でもこの幅以上に広がることはありません。これにより、大きな画面でもデザインが崩れにくくなります。</p>
+</div>
+
+<p><code>.container</code>に<code>max-width</code>を設定しましょう。</p>
+<pre><code class="language-css">.container {
+    ___: 800px;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.container {
+    max-width: 800px;
+}
+</code></pre>
+<hr>
+<h4>ステップ2.4.2: コンテナを中央に配置する</h4>
+<div class="knowledge">
+
+<p><code>margin: 20px auto;</code>は、「上下に<code>20px</code>の余白、左右は<code>auto</code>(自動)」という意味です。<code>auto</code>を指定すると、ブラウザが利用可能な左右の余白を均等に割り振るため、結果として要素が中央に配置されます。</p>
+<p>このmarginのように４辺あるなどで、複数の値を指定するcssプロパティがあります。</p>
+<p>これらは指定する値の数に応じて、挙動が変わります。</p>
+<p>値が二つの時は「上下」と「左右」、</p>
+<p>値が４つの時は「上」、「右」、「下」、「左」 （時計回り） となります。</p>
+</div>
+
+<p><code>.container</code>に<code>margin</code>を追加して中央に配置します。</p>
+<pre><code class="language-css">.container {
+    max-width: 800px;
+    margin: 20px auto; /* ここを追記 */
+}
+</code></pre>
+<hr>
+<h4>ステップ2.4.3: コンテナの背景色を塗る</h4>
+<div class="knowledge">
+
+<p><code>background</code>プロパティで、要素の背景に色や画像を指定できます。今回は、以前<code>:root</code>で定義した変数<code>--bg-secondary</code>（白）を使います。</p>
+</div>
+
+<p><code>.container</code>に<code>background</code>を追加します。</p>
+<pre><code class="language-css">.container {
+    max-width: 800px;
+    margin: 20px auto;
+    ___: ___(___);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.container {
+    max-width: 800px;
+    margin: 20px auto;
+    backgroud: var(--bg-secondary);
+}
+</code></pre>
+<hr>
+<h4>ステップ2.4.4: コンテナの角を丸くする</h4>
+<div class="knowledge">
+
+<p><code>border-radius</code>は、要素の角の丸みをピクセル(<code>px</code>)単位で指定します。数値が大きいほど、角はより丸くなります。</p>
+</div>
+
+<p><code>.container</code>に<code>border-radius</code>を追加して、カードのような見た目にします。</p>
+<pre><code class="language-css">.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: var(--bg-secondary);
+    border-radius: 20px;
+}
+</code></pre>
+<p>✅ これでコンテナの基本スタイルが完成しました。</p>
+<hr>
+<h3>ステップ2.5: ヘッダーのスタイル</h3>
+<h4>ステップ2.5.1: ヘッダーの内側に余白を作る</h4>
+<div class="knowledge">
+
+<p><code>padding</code>は、要素の<strong>内側</strong>の余白です。コンテンツ（文字や画像）と、その要素の枠線との間にスペースを作りたいときに使います。</p>
+<p><img src="/nitac_jyoken_public_materials/WEB%E7%8F%AD/%E6%BC%94%E7%BF%92/todo%E6%B1%BA%E5%AE%9A%E7%89%88/phase1/image-2.png" alt=""></p>
+</div>
+
+<p><code>header</code>に<code>padding</code>を追加して、文字の周りにゆとりを持たせます。</p>
+<pre><code class="language-css">header {
+    padding: 30px;
+}
+</code></pre>
+<hr>
+<h4>ステップ2.5.2: ヘッダーの文字を中央揃えにする</h4>
+<div class="knowledge">
+
+<p><code>text-align: center;</code>は、要素内のテキストやインライン要素を水平方向の中央に揃えます。</p>
+</div>
+
+<p><code>header</code>に<code>text-align</code>を追加します。</p>
+<pre><code class="language-css">header {
+    padding: 30px;
+    text-align: center; /* ここを追記 */
+}
+</code></pre>
+<hr>
+<h4>ステップ2.5.3: ヘッダーの文字色と背景を設定する</h4>
+<div class="knowledge">
+
+<p><code>color</code>プロパティは、テキストの色を指定します。ここでは<code>white</code>（白）を指定し、背景には以前定義したグラデーションの変数を使います。</p>
+</div>
+
+<p><code>header</code>に<code>color</code>と<code>background</code>を追加して、デザインを完成させます。</p>
+<pre><code class="language-css">header {
+    padding: 30px;
+    text-align: center;
+    color: white; /* ここを追記 */
+    background: var(--gradient-1); /* ここを追記 */
+}
+</code></pre>
+<h3>ステップ2.6: Flexboxで統計エリアをレイアウト</h3>
+<p>統計エリアの項目を横並びに配置します。</p>
+<h4>ステップ2.6.1: Flexboxを有効にする</h4>
+<div class="knowledge">
+
+<p><code>display: flex;</code>は、要素のレイアウト方法を**「Flexbox」**に変更します。これを親要素（今回は<code>.stats</code>）に指定するだけで、その直下の子要素（<code>.stat</code>）が自動的に横並びになります。</p>
+<p>この<strong>Flexbox</strong>は、要素を柔軟に配置するため、現代のWebデザインで非常に広く使われています。</p>
+</div>
+
+<p><code>.stats</code>に<code>display: flex;</code>を追加しましょう。</p>
+<pre><code class="language-css">.stats {
+    display: flex;
+}
+</code></pre>
+<hr>
+<h4>ステップ2.6.2: 横並びの項目を均等に配置する</h4>
+<div class="knowledge">
+
+<p><code>justify-content</code>は、Flexboxの横方向の配置方法を指定します。<code>space-around</code>を指定すると、各項目の両側に均等なスペースが作られ、結果として項目が程よい間隔で並びます。</p>
+</div>
+
+<p><code>.stats</code>に<code>justify-content</code>を追加します。</p>
+<pre><code class="language-css">.stats {
+    display: flex;
+    justify-content: space-around; /* ここを追記 */
+}
+</code></pre>
+<hr>
+<h4>ステップ2.6.3: 統計エリア全体に余白を追加する</h4>
+<p>最後に、統計エリア全体の内側に<code>padding</code>を追加して、コンテナの端との間にスペースを作ります。</p>
+<pre><code class="language-css">.stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px; /* ここを追記 */
+}
+</code></pre>
+<hr>
+<h3>ステップ2.7: 個々の統計項目をデザイン</h3>
+<p>最後に、横並びになった個々の項目（<code>.stat</code>）をデザインします。</p>
+<h4>ステップ2.7.1: 各項目の背景と余白を設定する</h4>
+<p><code>.stat</code>の各項目を白いカードのように見せるため、背景色、内側の余白、角の丸みを設定します。</p>
+<pre><code class="language-css">.stat {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+</code></pre>
+<hr>
+<h4>ステップ2.7.2: 項目に影をつけて立体感を出す</h4>
+<div class="knowledge">
+
+<p><code>box-shadow</code>は、要素に影をつけます。<code>box-shadow: X Y Blur Color;</code>のように指定します。</p>
+<ul>
+<li><strong>X</strong>: 水平方向のズレ（右がプラス）</li>
+<li><strong>Y</strong>: 垂直方向のズレ（下がプラス）</li>
+<li><strong>Blur</strong>: ぼかしの強さ</li>
+<li><strong>Color</strong>: 影の色（<code>rgba</code>を使うと透明度も指定できます）</div></li>
+</ul>
+<p><code>.stat</code>に薄い影をつけて、少し浮き上がっているように見せます。</p>
+<pre><code class="language-css">.stat {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* ここを追記 */
+}
+</code></pre>
+<hr>
+<h3>ステップ2.8: ホバー時のインタラクションを追加する</h3>
+<div class="knowledge">
+`:hover`は、要素にマウスカーソルが乗っている間のスタイルを定義する擬似クラスです。
+
+<p><code>transform: translateY(Y);</code>は、要素をY軸（垂直方向）に移動させます。負の値は上方向への移動を示します。</p>
+</div>
+
+<p><code>.stat</code>要素にマウスを乗せた時、少し上に動くように<code>transform</code>プロパティを追加します。</p>
+<pre><code class="language-css">.stat:hover {
+    ___: translateY(-2px);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.stat:hover {
+    transform: translateY(-2px);
+}
+</code></pre>
+<hr>
+<h3>ステップ2.9: 変化を滑らかにする</h3>
+<div class="knowledge">
+
+<p><code>transition</code>は、CSSプロパティの値が変化する際のアニメーションを指定します。<code>all 0.2s ease</code>は、「すべてのプロパティの変化(all)を0.2秒かけて滑らか(ease)に実行する」という意味です。</p>
+<p>all以外に特定のプロパティを指定することもできます。例えば、<code>transition: transform 0.2s ease;</code>のように書くと、<code>transform</code>プロパティの変化だけが対象になります。</p>
+</div>
+
+<p><code>.stat</code>クラス本体に<code>transition</code>プロパティを追加し、ホバー時の動きが滑らかになるようにします。</p>
+<pre><code class="language-css">.stat {
+    /* ...既存のスタイル... */
+    ___: all 0.2s ease;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.stat {
+    /* ...既存のスタイル... */
+    transition: all 0.2s ease;
+    /* または transition: transform 0.2s ease; */
+}
+</code></pre>
+<hr>
+<h3>ステップ2.10: 統計項目の数字をスタイリングする</h3>
+<div class="knowledge">
+
+<p><code>font-weight</code>は、文字の太さを指定するプロパティです。<code>bold</code>や数値（例: <code>600</code>）で指定します。
+文字と数値の対応は、</p>
+<ul>
+<li><code>normal</code>: <code>400</code></li>
+<li><code>bold</code>: <code>700</code></li>
+</ul>
+<p>となります。</p>
+<p>また、<code>lighter</code>や<code>bolder</code>を使うと、親要素のフォントウェイトに対して相対的に太さを調整できます。</p>
+</div>
+
+<p><code>.stat-number</code>クラスにスタイルを適用し、数字を大きく太くします。</p>
+<pre><code class="language-css">.stat-number {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+</code></pre>
+<hr>
+<h3>ステップ2.11: 数字をブロック要素にする</h3>
+<div class="knowledge">
+
+<p><code>display: block;</code>は、要素をブロックレベル要素として表示します。<code>span</code>のようなインライン要素に指定すると、改行され、幅や高さ、上下の<code>margin</code>が有効になります。</p>
+</div>
+
+<p><code>.stat-number</code>クラスに<code>display: block;</code>を追加します。</p>
+<pre><code class="language-css">.stat-number {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+    ___: block;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.stat-number {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: block;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.12: ラベルの上に余白を作る</h3>
+<div class="knowledge">
+`margin-top`は、要素の上側の外側の余白を指定します。上の要素との間にスペースを作ります。
+</div>
+
+<p><code>.stat-label</code>クラスに<code>margin-top</code>を追加し、数字との間に少し余白を作ります。</p>
+<pre><code class="language-css">.stat-label {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    ___: 5px;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.stat-label {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.13: プライマリボタンのスタイル</h3>
+<p><code>.btn-primary</code>クラスに、背景色、文字色、影を追加します。</p>
+<p><code>border: none;</code>は、ボタンのデフォルトの枠線を消去します。</p>
+<pre><code class="language-css">.btn-primary {
+    background: var(--gradient-1);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    width: 200px;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.14: 入力セクションに余白を追加する</h3>
+<p><code>.input-section</code>クラスに<code>padding</code>を追加して、セクションの内側に余白を設定してください。</p>
+<pre><code class="language-css">.input-section {
+    ___: 20px;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.input-section {
+    padding: 20px;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.15: 入力欄コンテナをFlexboxにする</h3>
+<p>&lt;div class=&quot;knowledge&quot;&gt;</p>
+<p><code>display: flex;</code>は、要素のレイアウト方法をFlexboxに変更します。子要素を柔軟に配置するために使用します。
+&lt;/div&gt;</p>
+<p><code>.input-container</code>クラスでFlexboxレイアウトを有効にしてください。</p>
+<pre><code class="language-css">.input-container {
+    ___: ___;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.input-container {
+    display: flex;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.16: Flexboxのアイテムを縦に並べる</h3>
+<p>&lt;div class=&quot;knowledge&quot;&gt;
+<code>flex-direction</code>は、Flexboxの主軸の方向を指定するプロパティです。<code>column</code>を指定すると、子要素が縦方向に配置されます。
+&lt;/div&gt;</p>
+<p><code>.input-container</code>に`で入力欄のグループが縦に並ぶようにしてください。</p>
+<pre><code class="language-css">.input-container {
+    display: flex;
+    ___: ___;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.input-container {
+    display: flex;
+    flex-direction: column;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.17: アイテム間の間隔を設定する</h3>
+<p>&lt;div class=&quot;knowledge&quot;&gt;</p>
+<p><code>gap</code>は、FlexboxやGridレイアウトのアイテム間の間隔を指定するプロパティです。
+&lt;/div&gt;</p>
+<p><code>.input-container</code>に<code>gap</code>を追加して、各入力欄グループの間に<code>15px</code>の間隔を設定してください。</p>
+<pre><code class="language-css">.input-container {
+    display: flex;
+    flex-direction: column;
+    ___: ___;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.18: フォーム入力欄の共通スタイル</h3>
+<div class="knowledge">
+
+<p>セレクタをカンマ（<code>,</code>）で区切ると、複数の要素に同じスタイルを一度に適用できます。</p>
+</div>
+
+<p><code>input</code>, <code>select</code>, <code>textarea</code>の全てに共通するスタイルを定義します。</p>
+<p>ここでは、復習として、widthは親要素の横幅と同じにし、角丸を10pxで指定してみてください。</p>
+<pre><code class="language-css">input, select, textarea {
+    width: ___;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    ___: 10px;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">input, select, textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.19: フォーカス時のスタイル</h3>
+<div class="knowledge">
+`:focus`は、要素がフォーカス（クリックされたり、Tabキーで選択されたり）されている間のスタイルを定義する擬似クラスです。
+
+<p><code>outline: none;</code>は、フォーカス時にブラウザがデフォルトで表示する枠線（アウトライン）を非表示にします。</p>
+</div>
+
+<p>入力欄がフォーカスされた時に、枠線の色を変え、影をつけるスタイルを定義します。</p>
+<pre><code class="language-css">input:___, select:___, textarea:___ {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+</code></pre>
+<hr>
+<h3>ステップ2.20: フィルターエリアのレイアウト</h3>
+<p><code>.filters</code>クラスにFlexboxと、アイテム間の間隔を10pxに設定して、フィルターボタンと検索ボックスを横に並べられるようにします。</p>
+<pre><code class="language-css">.filters {
+    ___: ___;
+    ___: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.filters {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.21: フィルターボタンの基本スタイル</h3>
+<p>&lt;div class=&quot;knowledge&quot;&gt;</p>
+<p><code>cursor: pointer;</code>は、要素にマウスを乗せた時のカーソルの形状を、クリック可能であることを示す指の形に変更します。
+&lt;/div&gt;</p>
+<p><code>.filter-btn</code>クラスにスタイルを適用してください。</p>
+<pre><code class="language-css">.filter-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    ___: pointer;
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.filter-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+</code></pre>
+<hr>
+<h3>ステップ2.22: アクティブなフィルターボタンのスタイル</h3>
+<p>&lt;div class=&quot;knowledge&quot;&gt;</p>
+<p><code>.class1 .class2</code>のようにクラス名を繋げて記述するセレクタは、「class1とclass2の両方を持つ要素」を指定します。
+&lt;/div&gt;</p>
+<p><code>.filter-btn.active</code>セレクタにスタイルを適用し、選択されているボタン文字色をを白色にしてください。</p>
+<pre><code class="language-css">.filter-btn.active {
+    background: var(--primary-color);
+    color: ___;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.filter-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.23: 検索ボックスの幅を可変にする</h3>
+<p>&lt;div class=&quot;knowledge&quot;&gt;</p>
+<p><code>flex: 1;</code>は、Flexboxのアイテムが、コンテナ内の余ったスペースをすべて埋めるように伸長することを指定します。
+&lt;/div&gt;</p>
+<p><code>.search-box</code>クラスに<code>flex: 1;</code>を追加して、検索ボックスがフィルターエリアの残りの幅をすべて使用するようにしてください。</p>
+<pre><code class="language-css">.search-box {
+    ___: 1;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">.search-box {
+    flex: 1;
+}
+</code></pre>
+<hr>
+<h3>ステップ2.24: タスクがない状態の表示を整える</h3>
+<p>&lt;div class=&quot;knowledge&quot;&gt;</p>
+<p><code>min-height</code>は、要素の最小の高さを指定します。コンテンツがなくても、この高さが確保されます。
+&lt;/div&gt;</p>
+<p><code>#todo-container</code>に最小の高さを設定し、<code>.empty-state</code>にスタイルを適用して、メッセージを中央に表示してください。</p>
+<pre><code class="language-css">#todo-container {
+    ___: 200px;
+}
+.empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 40px;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-css">#todo-container {
+    min-height: 200px;
+}
+.empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 40px;
+}
+</code></pre>
+<p>✅ これで主要なコンポーネントのスタイリングが完了しました。残りの細かいスタイルは、最終コードで確認し、同様の手順で一つずつ適用していくことで完成させることができます。</p>
+<hr>
+<p><strong>完成版コード</strong></p>
+<pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;多機能Todoリスト&lt;/title&gt;
+    &lt;style&gt;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary-color: #667eea;
+        --text-primary: #2d3748;
+        --text-secondary: rgba(0, 0, 0, 0.6);
+        --bg-secondary: #ffffff;
+        --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --border-color: #e2e8f0;
+      }
+      body {
+        font-family: &quot;Segoe UI&quot;, sans-serif;
+        background: var(--gradient-1);
+        color: var(--text-primary);
+      }
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background: var(--bg-secondary);
+        border-radius: 20px;
+      }
+      header {
+        padding: 30px;
+        text-align: center;
+        color: white;
+        background: var(--gradient-1);
+      }
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+      }
+      .stat {
+        background: white;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+      }
+      .stat:hover {
+        transform: translateY(-2px);
+      }
+      .stat-number {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: var(--primary-color);
+        display: block;
+      }
+      .stat-label {
+        font-size: 0.9em;
+        color: var(--text-secondary);
+        margin-top: 5px;
+      }
+      .input-section {
+        padding: 20px;
+      }
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+      .btn-primary {
+        background: var(--gradient-1);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        width: 200px;
+      }
+      .todo-list {
+        padding: 20px;
+      }
+      .filters {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .filter-btn {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: #e2e8f0;
+        color: var(--text-primary);
+      }
+      .filter-btn.active {
+        background: var(--primary-color);
+        color: white;
+      }
+      .search-box {
+        flex: 1;
+      }
+      .search-box input {
+        width: 100%;
+      }
+      #todo-container {
+        min-height: 200px;
+      }
+      .empty-state {
+        text-align: center;
+        color: var(--text-secondary);
+        padding: 40px;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;header&gt;
+        &lt;h1&gt;📝 多機能Todoリスト&lt;/h1&gt;
+        &lt;p&gt;効率的なタスク管理で生産性を向上&lt;/p&gt;
+      &lt;/header&gt;
+      &lt;div class=&quot;stats&quot;&gt;
+        &lt;div class=&quot;stat&quot;&gt;
+          &lt;span class=&quot;stat-number&quot; id=&quot;totalTasks&quot;&gt;0&lt;/span&gt;
+          &lt;div class=&quot;stat-label&quot;&gt;総タスク数&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;stat&quot;&gt;
+          &lt;span class=&quot;stat-number&quot; id=&quot;completedTasks&quot;&gt;0&lt;/span&gt;
+          &lt;div class=&quot;stat-label&quot;&gt;完了済み&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;stat&quot;&gt;
+          &lt;span class=&quot;stat-number&quot; id=&quot;pendingTasks&quot;&gt;0&lt;/span&gt;
+          &lt;div class=&quot;stat-label&quot;&gt;未完了&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;stat&quot;&gt;
+          &lt;span class=&quot;stat-number&quot; id=&quot;completionRate&quot;&gt;0%&lt;/span&gt;
+          &lt;div class=&quot;stat-label&quot;&gt;完了率&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;input-section&quot;&gt;
+        &lt;div class=&quot;input-container&quot;&gt;
+          &lt;div class=&quot;input-group&quot;&gt;
+            &lt;label for=&quot;taskTitle&quot;&gt;タスク名 *&lt;/label&gt;
+            &lt;input type=&quot;text&quot; id=&quot;taskTitle&quot; placeholder=&quot;新しいタスクを入力...&quot; required /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;input-group&quot;&gt;
+            &lt;label for=&quot;taskCategory&quot;&gt;カテゴリ&lt;/label&gt;
+            &lt;select id=&quot;taskCategory&quot;&gt;
+              &lt;option value=&quot;仕事&quot;&gt;🏢 仕事&lt;/option&gt;
+              &lt;option value=&quot;個人&quot;&gt;👤 個人&lt;/option&gt;
+              &lt;option value=&quot;学習&quot;&gt;📚 学習&lt;/option&gt;
+              &lt;option value=&quot;健康&quot;&gt;💪 健康&lt;/option&gt;
+              &lt;option value=&quot;買い物&quot;&gt;🛒 買い物&lt;/option&gt;
+              &lt;option value=&quot;その他&quot;&gt;📌 その他&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;input-group&quot;&gt;
+            &lt;label for=&quot;taskDescription&quot;&gt;詳細説明&lt;/label&gt;
+            &lt;textarea id=&quot;taskDescription&quot; rows=&quot;3&quot; placeholder=&quot;タスクの詳細を入力（任意）&quot;&gt;&lt;/textarea&gt;
+          &lt;/div&gt;
+          &lt;button class=&quot;btn-primary&quot;&gt;➕ タスクを追加&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;todo-list&quot;&gt;
+        &lt;div class=&quot;filters&quot;&gt;
+          &lt;button class=&quot;filter-btn active&quot;&gt;すべて&lt;/button&gt;
+          &lt;button class=&quot;filter-btn&quot;&gt;未完了&lt;/button&gt;
+          &lt;button class=&quot;filter-btn&quot;&gt;完了済み&lt;/button&gt;
+          &lt;div class=&quot;input-group search-box&quot;&gt;
+            &lt;input type=&quot;text&quot; id=&quot;searchInput&quot; placeholder=&quot;🔍 タスクを検索...&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;todo-container&quot;&gt;
+          &lt;div class=&quot;empty-state&quot;&gt;
+            &lt;div style=&quot;font-size: 4em; margin-bottom: 20px&quot;&gt;📝&lt;/div&gt;
+            &lt;h3&gt;タスクがありません&lt;/h3&gt;
+            &lt;p&gt;新しいタスクを追加して始めましょう！&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+</body>
+</html>
