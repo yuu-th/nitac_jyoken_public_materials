@@ -252,7 +252,7 @@ pre code {
 /* Blockquotes */
 blockquote {
   margin: var(--md-sys-spacing-5) 0;
-  padding: var(--md-sys-spacing-4) var(--md-sys-spacing-5) var(--md-sys-spacing-4) var(--md-sys-spacing-6);
+  padding: var(--md-sys-spacing-5);
   border-left: 8px solid var(--md-sys-color-primary);
   background-color: var(--md-sys-color-surface-container-low);
   color: var(--md-sys-color-on-surface-variant);
@@ -268,7 +268,7 @@ blockquote p {
 blockquote p:last-child {
   margin-bottom: 0;
 }
-
+/* 
 blockquote::before {
   content: "\201C";
   font-family: "Georgia", serif;
@@ -282,7 +282,7 @@ blockquote::before {
   opacity: 0.7;
   z-index: 0;
   text-shadow: -2px 2px 4px color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
-}
+} */
 
 blockquote > * {
   position: relative;
