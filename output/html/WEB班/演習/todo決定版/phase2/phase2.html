@@ -1,0 +1,3141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>phase2</title>
+<link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
+</head>
+<body class="markdown-body">
+<h1>JavaScript Todo CLI アプリケーション開発ガイド【Phase 2】</h1>
+<style>
+.knowledge {
+  background-color:rgb(230, 230, 230);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  color: black;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: bold;
+  border: 1px solid red;
+}
+</style>
+
+<h2>ゴール：JavaScript Todo CLI アプリケーションの作成</h2>
+<p>このガイドでは、JavaScriptの基礎から応用まで段階的に学習しながら、最終的にコマンドライン（CLI）で動作する多機能Todoアプリケーションを完成させます。</p>
+<p>完成形のアプリケーション機能：</p>
+<ul>
+<li>タスクの追加・削除・完了</li>
+<li>複数の表示方法（forEach, for, while）</li>
+<li>タスク検索機能</li>
+<li>統計情報表示</li>
+<li>オブジェクト指向プログラミングの実践</li>
+</ul>
+<p>一歩ずつ、着実にJavaScriptの知識を身につけていきましょう。</p>
+<hr>
+<h2>Section 0: プログラミングの世界への入門</h2>
+<h3>ステップ0.1: プログラミングとは何か</h3>
+<div class="knowledge">
+
+<p>プログラミングとは、コンピュータに対して「やってほしいこと」を正確に伝える作業です。料理のレシピのように、手順を順番に書いて、コンピュータがその通りに実行できるようにします。</p>
+</div>
+
+<p>プログラミングを身近な例で理解しましょう。</p>
+<p><strong>料理のレシピとプログラムの比較:</strong></p>
+<ul>
+<li>料理のレシピ: 「玉ねぎを切る → 炒める → 調味料を加える」</li>
+<li>プログラム: 「データを読み込む → 処理する → 結果を表示する」</li>
+</ul>
+<p>どちらも「手順を正確に伝える」という点で同じです。</p>
+<h3>ステップ0.2: JavaScriptとは何か</h3>
+<div class="knowledge">
+
+<p>JavaScriptは、Webサイトを動的にしたり、サーバーでプログラムを動かしたりできるプログラミング言語です。世界中で最も使われている言語の一つで、初心者にも学びやすい特徴があります。</p>
+</div>
+
+<p><strong>JavaScriptの特徴:</strong></p>
+<ul>
+<li><strong>書きやすい</strong>: 文法が自然言語に近く、理解しやすい</li>
+<li><strong>多用途</strong>: Webサイト、スマホアプリ、サーバーなど様々な用途に使える</li>
+<li><strong>豊富な情報</strong>: インターネット上に学習資料がたくさんある</li>
+<li><strong>即座に実行</strong>: 書いたコードをすぐに実行して結果を確認できる</li>
+</ul>
+<p><strong>なぜJavaScriptを学ぶのか:</strong></p>
+<ol>
+<li><strong>就職・転職に有利</strong>: 求人数が多く、需要が高い</li>
+<li><strong>副業にも活用</strong>: Web制作やシステム開発の案件が豊富</li>
+<li><strong>論理的思考力</strong>: 問題を分解して解決する力が身につく</li>
+<li><strong>創造性の発揮</strong>: アイデアを形にする技術を習得できる</li>
+</ol>
+<h3>ステップ0.3: 今回作成するアプリケーションについて</h3>
+<div class="knowledge">
+
+<p>CLIアプリケーションとは、Command Line Interface（コマンドライン インターフェース）の略で、文字だけでやり取りするプログラムです。マウスを使わず、キーボードだけで操作します。</p>
+</div>
+
+<p><strong>今回作成するTodoアプリの機能:</strong></p>
+<ul>
+<li>タスクの追加・削除・完了</li>
+<li>タスクの検索</li>
+<li>統計情報の表示</li>
+<li>複数の表示方法</li>
+</ul>
+<p><strong>なぜCLIアプリから始めるのか:</strong></p>
+<ol>
+<li><strong>本質に集中</strong>: 見た目よりもプログラムの仕組みを理解できる</li>
+<li><strong>基礎力向上</strong>: プログラミングの基本概念をしっかり学べる</li>
+<li><strong>実用性</strong>: 実際に業務で使える実用的なツールを作成</li>
+<li><strong>応用への土台</strong>: Web版やスマホ版への発展が可能</li>
+</ol>
+<h3>ステップ0.4: 開発環境の理解</h3>
+<div class="knowledge">
+
+<p>プログラミングには「開発環境」が必要です。これは、プログラムを書いて、実行して、確認するためのツール一式のことです。料理で言えば、包丁・まな板・コンロのような道具です。</p>
+</div>
+
+<p><strong>必要なツール:</strong></p>
+<ol>
+<li><strong>Node.js</strong>: JavaScriptを実行するエンジン</li>
+<li><strong>VSCode</strong>: プログラムを書くためのエディタ</li>
+<li><strong>コマンドプロンプト</strong>: プログラムを実行するためのツール</li>
+</ol>
+<h3>ステップ0.5: Node.jsのインストールと確認</h3>
+<div class="knowledge">
+
+<p>Node.jsは、ブラウザの外でJavaScriptを実行できるようにするソフトウェアです。通常JavaScriptはWebサイトの中でしか動きませんが、Node.jsがあることで、パソコン上で直接JavaScriptプログラムを実行できます。</p>
+</div>
+
+<p><strong>Node.jsの確認手順:</strong></p>
+<ol>
+<li><p><strong>Windowsの場合</strong>: スタートメニューで「cmd」と検索 → 「コマンドプロンプト」をクリック
+<strong>Macの場合</strong>: LaunchpadでTerminalを検索 → 「ターミナル」をクリック</p>
+</li>
+<li><p>黒い画面（コマンドプロンプト/ターミナル）が開いたら、以下を入力してEnterキーを押します：</p>
+</li>
+</ol>
+<pre><code class="language-bash">node --version
+</code></pre>
+<ol start="3">
+<li><strong>成功例</strong>: <code>v18.17.0</code>のようなバージョン番号が表示される
+<strong>失敗例</strong>: <code>&#39;node&#39;は、内部コマンドまたは外部コマンドとして認識されていません</code></li>
+</ol>
+<p><strong>Node.jsがインストールされていない場合:</strong></p>
+<ol>
+<li><a href="https://nodejs.org/">https://nodejs.org/</a> にアクセス</li>
+<li>「LTS」版（推奨版）をダウンロード</li>
+<li>インストーラーの指示に従ってインストール</li>
+<li>再度<code>node --version</code>で確認</li>
+</ol>
+<h3>ステップ0.6: VSCodeのセットアップ</h3>
+<div class="knowledge">
+
+<p>VSCode（Visual Studio Code）は、プログラムを書くための高機能なテキストエディタです。Microsoftが開発した無料のソフトで、世界中のプログラマーが使用しています。単なるメモ帳とは違い、プログラミングに特化した便利な機能がたくさん付いています。</p>
+</div>
+
+<p><strong>VSCodeの便利な機能:</strong></p>
+<ul>
+<li><strong>構文ハイライト</strong>: コードが色分けされて見やすい</li>
+<li><strong>自動補完</strong>: コードの候補を自動で表示</li>
+<li><strong>エラー検出</strong>: 間違いを自動で指摘</li>
+<li><strong>ファイル管理</strong>: プロジェクト全体を管理できる</li>
+</ul>
+<p><strong>VSCodeのインストール:</strong></p>
+<ol>
+<li><a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a> にアクセス</li>
+<li>「Download for Windows/Mac」をクリック</li>
+<li>インストーラーをダウンロードして実行</li>
+<li>インストール完了後、VSCodeを起動</li>
+</ol>
+<h3>ステップ0.7: 作業ディレクトリの作成</h3>
+<div class="knowledge">
+
+<p>プログラミングでは、関連するファイルをまとめて整理することが重要です。今回のプロジェクト専用のフォルダを作成し、そこですべての作業を行います。これにより、ファイルが散らばることを防ぎ、プロジェクト管理がしやすくなります。</p>
+</div>
+
+<p><strong>フォルダ作成手順:</strong></p>
+<ol>
+<li><p><strong>デスクトップに新しいフォルダを作成</strong></p>
+<ul>
+<li>デスクトップで右クリック → 「新規作成」→ 「フォルダー」</li>
+<li>フォルダ名を「todo-cli-project」にします</li>
+</ul>
+</li>
+<li><p><strong>VSCodeでフォルダを開く</strong></p>
+<ul>
+<li>VSCodeを起動</li>
+<li>「ファイル」メニュー → 「フォルダーを開く」</li>
+<li>先ほど作成した「todo-cli-project」フォルダを選択</li>
+</ul>
+</li>
+<li><p><strong>新しいファイルを作成</strong></p>
+<ul>
+<li>VSCodeの左側エクスプローラーで、フォルダ名の横の「新しいファイル」アイコンをクリック</li>
+<li>ファイル名を「todo.js」と入力してEnterキー</li>
+</ul>
+</li>
+</ol>
+<h3>ステップ0.8: 初回動作確認</h3>
+<div class="knowledge">
+
+<p>環境が正しくセットアップされているかを確認するため、簡単なプログラムを書いて実行してみます。この確認により、後のステップで問題が発生するリスクを事前に回避できます。</p>
+</div>
+
+<p><strong>動作確認のためのテストコード:</strong></p>
+<p>VSCodeで作成した<code>todo.js</code>ファイルに以下を入力してください：</p>
+<pre><code class="language-javascript">console.log(&quot;Hello, JavaScript!&quot;);
+console.log(&quot;Todo アプリケーション開発開始！&quot;);
+</code></pre>
+<p><strong>プログラムの実行:</strong></p>
+<ol>
+<li><strong>ファイルを保存</strong>: Ctrl+S（Windows）または Cmd+S（Mac）</li>
+<li><strong>コマンドプロンプト/ターミナルを開く</strong></li>
+<li><strong>プロジェクトフォルダに移動</strong>:
+以下は一例、実際はあなたのフォルダの名前や場所に合わせる<pre><code class="language-bash">cd Desktop/todo-cli-project
+</code></pre>
+</li>
+<li><strong>プログラムを実行</strong>:<pre><code class="language-bash">node todo.js
+</code></pre>
+</li>
+</ol>
+<p><strong>期待される結果:</strong></p>
+<pre><code>Hello, JavaScript!
+Todo アプリケーション開発開始！
+</code></pre>
+<p><strong>うまくいかない場合のトラブルシューティング:</strong></p>
+<table>
+<thead>
+<tr>
+<th>エラーメッセージ</th>
+<th>原因</th>
+<th>解決方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>node: command not found</code></td>
+<td>Node.jsがインストールされていない</td>
+<td>ステップ0.5に戻ってNode.jsをインストール</td>
+</tr>
+<tr>
+<td><code>cannot find module</code></td>
+<td>ファイルパスが間違っている</td>
+<td><code>pwd</code>（Mac）または<code>dir</code>（Windows）で現在位置を確認</td>
+</tr>
+<tr>
+<td><code>syntax error</code></td>
+<td>コードに誤りがある</td>
+<td>コードをもう一度確認し、正確に入力</td>
+</tr>
+</tbody></table>
+<h3>ステップ0.9: プログラミングの基本的な考え方</h3>
+<div class="knowledge">
+
+<p>プログラミングでは、大きな問題を小さな問題に分解して、一つずつ解決していくアプローチが重要です。これを「分割統治法」と呼びます。料理で複雑な料理を作る時も、「下ごしらえ」「調理」「盛り付け」に分けて考えるのと同じです。</p>
+</div>
+
+<p><strong>今回作成するTodoアプリの分解:</strong></p>
+<ol>
+<li><strong>データの管理</strong>: タスクの情報をどう保存するか</li>
+<li><strong>機能の実装</strong>: 追加・削除・表示などの操作</li>
+<li><strong>ユーザーとの対話</strong>: コマンドラインでの入出力</li>
+<li><strong>エラー処理</strong>: 問題が起きた時の対応</li>
+</ol>
+<p><strong>プログラミングの3つの基本構造:</strong></p>
+<ol>
+<li><strong>順次処理</strong>: 上から下へ順番に実行</li>
+<li><strong>条件分岐</strong>: 「もしAならBをする、そうでなければCをする」</li>
+<li><strong>繰り返し</strong>: 「同じ処理を何度も実行する」</li>
+</ol>
+<p>これらの組み合わせで、どんな複雑なプログラムも作ることができます。</p>
+<p>✅ <strong>準備完了チェック</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> Node.jsがインストールされ、バージョンが確認できる</li>
+<li><input disabled="" type="checkbox"> VSCodeがインストールされ、使用できる</li>
+<li><input disabled="" type="checkbox"> プロジェクトフォルダが作成され、VSCodeで開けている</li>
+<li><input disabled="" type="checkbox"> 簡単なJavaScriptプログラムが実行できる</li>
+<li><input disabled="" type="checkbox"> プログラミングの基本的な考え方を理解している</li>
+</ul>
+<p>すべてにチェックが付いたら、次のセクションに進みましょう！</p>
+<hr>
+<h2>Section 1: JavaScript基礎概念の完全理解</h2>
+<h3>ステップ1.1: 変数とは何か - データを保存する「箱」の概念</h3>
+<div class="knowledge">
+
+<p>変数とは、データを保存する「名前付きの箱」です。現実世界でラベルを付けた箱に物を入れて整理するように、プログラムでもデータに名前を付けて管理します。JavaScriptでは、この箱を作るために<code>let</code>、<code>const</code>、<code>var</code>というキーワードを使います。</p>
+</div>
+
+<p><strong>変数を日常生活で例えると:</strong></p>
+<ul>
+<li><strong>現実の箱</strong>: 「本の箱」「服の箱」「食器の箱」</li>
+<li><strong>プログラムの変数</strong>: 「ユーザー名」「年齢」「タスクリスト」</li>
+</ul>
+<p><strong>なぜ変数が必要なのか:</strong></p>
+<ol>
+<li><strong>データの整理</strong>: 散らばった情報をまとめて管理</li>
+<li><strong>再利用</strong>: 同じデータを何度も使用可能</li>
+<li><strong>変更の容易性</strong>: 一箇所変更すれば全体に反映</li>
+<li><strong>可読性</strong>: コードが理解しやすくなる</li>
+</ol>
+<p><strong>let, const, varの違い:</strong></p>
+<ul>
+<li><strong>let</strong>: 値を変更できる変数（一般的な箱）</li>
+<li><strong>const</strong>: 値を変更できない定数（封印された箱）</li>
+<li><strong>var</strong>: 古い書き方（現在は推奨されない）</li>
+</ul>
+<p>最初の変数を宣言してみましょう：</p>
+<pre><code class="language-javascript">___ userName = &quot;田中太郎&quot;;
+___ userAge = 25;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let userName = &quot;田中太郎&quot;;
+let userAge = 25;
+</code></pre>
+<p><strong>実際に確認してみよう:</strong>
+上記のコードを<code>todo.js</code>に追加して実行してみてください。変数の値を<code>console.log()</code>で表示できます：</p>
+<pre><code class="language-javascript">console.log(&quot;ユーザー名:&quot;, userName);
+console.log(&quot;年齢:&quot;, userAge);
+</code></pre>
+<h3>ステップ1.2: データ型の理解 - データの種類を知る</h3>
+<div class="knowledge">
+
+<p>プログラムで扱うデータには種類があります。文字、数値、真偽値（はい・いいえ）など、それぞれ異なる特徴を持ちます。これを「データ型」と呼びます。適切なデータ型を使うことで、バグを防ぎ、効率的なプログラムを作成できます。</p>
+</div>
+
+<p><strong>主要なデータ型:</strong></p>
+<ol>
+<li><p><strong>文字列（String）</strong>: 文字や文章</p>
+<pre><code class="language-javascript">let message = &quot;こんにちは&quot;;  // ダブルクォート
+let name = &#39;JavaScript&#39;;    // シングルクォート
+</code></pre>
+</li>
+<li><p><strong>数値（Number）</strong>: 数字</p>
+<pre><code class="language-javascript">let age = 25;        // 整数
+let price = 99.99;   // 小数
+</code></pre>
+</li>
+<li><p><strong>真偽値（Boolean）</strong>: trueまたはfalse</p>
+<pre><code class="language-javascript">let isCompleted = true;   // 完了している
+let isVisible = false;    // 表示されていない
+</code></pre>
+</li>
+<li><p><strong>配列（Array）</strong>: 複数のデータのリスト</p>
+<pre><code class="language-javascript">let fruits = [&quot;りんご&quot;, &quot;バナナ&quot;, &quot;オレンジ&quot;];
+</code></pre>
+</li>
+<li><p><strong>オブジェクト（Object）</strong>: 関連するデータのまとまり</p>
+<pre><code class="language-javascript">let person = {
+    name: &quot;田中&quot;,
+    age: 25,
+    isStudent: true
+};
+</code></pre>
+</li>
+</ol>
+<p><strong>データ型を確認する方法:</strong></p>
+<pre><code class="language-javascript">let testData = &quot;Hello&quot;;
+console.log(&quot;データ型:&quot;, ___ testData);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let testData = &quot;Hello&quot;;
+console.log(&quot;データ型:&quot;, typeof testData);
+</code></pre>
+<h3>ステップ1.3: 配列の概念と必要性 - 複数のデータを整理する</h3>
+<div class="knowledge">
+
+<p>配列は、同じ種類の複数のデータを順序立てて保存するデータ構造です。本棚に本を順番に並べるように、データを0番、1番、2番...という番号（インデックス）で管理します。Todoアプリでは、複数のタスクを配列で管理します。</p>
+</div>
+
+<p><strong>なぜ配列が必要なのか:</strong></p>
+<p><strong>悪い例（配列を使わない場合）:</strong></p>
+<pre><code class="language-javascript">let task1 = &quot;買い物&quot;;
+let task2 = &quot;掃除&quot;;
+let task3 = &quot;勉強&quot;;
+// タスクが100個あったら、task1, task2, ... task100まで書く必要がある
+</code></pre>
+<p><strong>良い例（配列を使う場合）:</strong></p>
+<pre><code class="language-javascript">let tasks = [&quot;買い物&quot;, &quot;掃除&quot;, &quot;勉強&quot;];
+// いくつタスクが増えても配列一つで管理できる
+</code></pre>
+<p><strong>配列の基本操作:</strong></p>
+<pre><code class="language-javascript">// 空の配列を作成
+let tasks = [];
+
+// 要素を追加
+tasks.___(&quot;新しいタスク&quot;);
+
+// 要素の数を確認
+console.log(&quot;タスク数:&quot;, tasks.___);
+
+// 特定の要素にアクセス（最初は0番）
+console.log(&quot;最初のタスク:&quot;, tasks[0]);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">// 空の配列を作成
+let tasks = [];
+
+// 要素を追加
+tasks.push(&quot;新しいタスク&quot;);
+
+// 要素の数を確認
+console.log(&quot;タスク数:&quot;, tasks.length);
+
+// 特定の要素にアクセス（最初は0番）
+console.log(&quot;最初のタスク:&quot;, tasks[0]);
+</code></pre>
+<p><strong>配列のインデックスの重要な特徴:</strong></p>
+<ul>
+<li>インデックスは0から始まる（1番目の要素は[0]）</li>
+<li>存在しないインデックスにアクセスすると<code>undefined</code>が返される</li>
+</ul>
+<h3>ステップ1.4: オブジェクトの概念 - 関連する情報をまとめる</h3>
+<div class="knowledge">
+
+<p>オブジェクトは、関連する情報をプロパティ（属性）としてまとめて管理するデータ構造です。人物カードに「名前」「年齢」「職業」などの情報をまとめて書くように、プログラムでも関連するデータを一つのオブジェクトにまとめます。</p>
+</div>
+
+<p><strong>オブジェクトを現実世界で例えると:</strong></p>
+<p><strong>人物の情報:</strong></p>
+<ul>
+<li>名前: 田中太郎</li>
+<li>年齢: 25歳</li>
+<li>職業: エンジニア</li>
+<li>趣味: 読書</li>
+</ul>
+<p><strong>Todoタスクの情報:</strong></p>
+<ul>
+<li>タイトル: 買い物</li>
+<li>説明: 牛乳と卵を購入</li>
+<li>優先度: 高</li>
+<li>完了状態: 未完了</li>
+</ul>
+<p><strong>オブジェクトの作成方法:</strong></p>
+<pre><code class="language-javascript">let person = {
+    name: &quot;田中太郎&quot;,      // プロパティ名: 値
+    age: ___,             // 数値
+    isStudent: ___,       // 真偽値
+    hobbies: [&quot;読書&quot;, &quot;映画鑑賞&quot;]  // 配列
+};
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let person = {
+    name: &quot;田中太郎&quot;,
+    age: 25,
+    isStudent: false,
+    hobbies: [&quot;読書&quot;, &quot;映画鑑賞&quot;]
+};
+</code></pre>
+<p><strong>オブジェクトのプロパティにアクセスする方法:</strong></p>
+<pre><code class="language-javascript">// ドット記法
+console.log(person.name);     // &quot;田中太郎&quot;
+console.log(person.age);      // 25
+
+// ブラケット記法
+console.log(person[&quot;name&quot;]);  // &quot;田中太郎&quot;
+</code></pre>
+<h3>ステップ1.5: 関数の概念と重要性 - 処理をまとめて再利用する</h3>
+<div class="knowledge">
+
+<p>関数は、特定の処理をまとめて名前を付けたものです。料理のレシピのように、一度書いておけば何度でも使えます。「材料（引数）を渡すと、料理（戻り値）が完成する」という仕組みです。関数を使うことで、同じコードを何度も書く必要がなくなり、保守性が向上します。</p>
+</div>
+
+<p><strong>関数を料理のレシピで例えると:</strong></p>
+<p><strong>カレーのレシピ（関数）:</strong></p>
+<ul>
+<li>材料（引数）: 肉、野菜、カレー粉</li>
+<li>手順（処理）: 切る → 炒める → 煮込む</li>
+<li>完成品（戻り値）: カレー</li>
+</ul>
+<p><strong>プログラムの関数:</strong></p>
+<ul>
+<li>材料（引数）: タイトル、説明、優先度</li>
+<li>手順（処理）: データを整理してオブジェクトを作成</li>
+<li>完成品（戻り値）: タスクオブジェクト</li>
+</ul>
+<p><strong>関数の基本構文:</strong></p>
+<pre><code class="language-javascript">___ addNumbers(a, b) {
+    let result = a + b;
+    ___ result;
+}
+
+// 関数の使用
+let sum = addNumbers(5, 3);
+console.log(sum); // 8
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function addNumbers(a, b) {
+    let result = a + b;
+    return result;
+}
+
+// 関数の使用
+let sum = addNumbers(5, 3);
+console.log(sum); // 8
+</code></pre>
+<p><strong>関数を使う利点:</strong></p>
+<ol>
+<li><strong>再利用性</strong>: 一度書けば何度でも使える</li>
+<li><strong>保守性</strong>: 修正が一箇所で済む</li>
+<li><strong>可読性</strong>: 処理の内容が名前で分かる</li>
+<li><strong>テスト性</strong>: 個別に動作確認できる</li>
+</ol>
+<h3>ステップ1.6: Todoアプリ用のタスク作成関数</h3>
+<p>実際にTodoアプリで使用するタスク作成関数を実装しましょう。</p>
+<pre><code class="language-javascript">___ createTask(title, desc, priority, important) {
+    return {
+        title: title || &quot;無題&quot;,
+        desc: desc ?? &quot;説明なし&quot;,
+        priority: Number(priority),
+        important: Boolean(important),
+        completed: false,
+        created: new Date()
+    };
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function createTask(title, desc, priority, important) {
+    return {
+        title: title || &quot;無題&quot;,
+        desc: desc ?? &quot;説明なし&quot;,
+        priority: Number(priority),
+        important: Boolean(important),
+        completed: false,
+        created: new Date()
+    };
+}
+</code></pre>
+<h3>ステップ1.7: 論理演算子とデフォルト値 - 安全なプログラムを作る</h3>
+<div class="knowledge">
+
+<p>プログラムでは、予期しないデータ（空文字、null、undefined）が渡される可能性があります。論理演算子を使ってデフォルト値を設定することで、エラーを防ぎ、安全なプログラムを作成できます。</p>
+</div>
+
+<p><strong>論理演算子の種類と使い分け:</strong></p>
+<ol>
+<li><p><strong>|| (OR演算子)</strong>: 左側がfalsyなら右側を使用</p>
+<ul>
+<li>falsy値: <code>false</code>, <code>0</code>, <code>&quot;&quot;</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code></li>
+</ul>
+</li>
+<li><p><strong>?? (Null合体演算子)</strong>: 左側がnullまたはundefinedなら右側を使用</p>
+</li>
+</ol>
+<p><strong>実際の例で違いを確認:</strong></p>
+<pre><code class="language-javascript">// || の場合
+let title1 = &quot;&quot; || &quot;無題&quot;;        // 結果: ___
+let title2 = null || &quot;無題&quot;;      // 結果: ___
+let title3 = &quot;買い物&quot; || &quot;無題&quot;;   // 結果: ___
+
+// ?? の場合
+let desc1 = &quot;&quot; ?? &quot;説明なし&quot;;      // 結果: ___
+let desc2 = null ?? &quot;説明なし&quot;;    // 結果: ___
+let desc3 = &quot;重要な会議&quot; ?? &quot;説明なし&quot;; // 結果: ___
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">// || の場合
+let title1 = &quot;&quot; || &quot;無題&quot;;        // 結果: &quot;無題&quot;
+let title2 = null || &quot;無題&quot;;      // 結果: &quot;無題&quot;
+let title3 = &quot;買い物&quot; || &quot;無題&quot;;   // 結果: &quot;買い物&quot;
+
+// ?? の場合
+let desc1 = &quot;&quot; ?? &quot;説明なし&quot;;      // 結果: &quot;&quot;
+let desc2 = null ?? &quot;説明なし&quot;;    // 結果: &quot;説明なし&quot;
+let desc3 = &quot;重要な会議&quot; ?? &quot;説明なし&quot;; // 結果: &quot;重要な会議&quot;
+</code></pre>
+<h3>ステップ1.8: 型変換の重要性と実践</h3>
+<div class="knowledge">
+
+<p>ユーザーからの入力は通常文字列として受け取られますが、プログラム内では適切なデータ型に変換する必要があります。型変換を行うことで、意図しない動作やエラーを防げます。</p>
+</div>
+
+<p><strong>型変換が必要な理由:</strong></p>
+<pre><code class="language-javascript">// 問題のある例（型変換なし）
+let age1 = &quot;25&quot;;
+let age2 = &quot;30&quot;;
+console.log(age1 + age2); // &quot;2530&quot; (文字列として結合される)
+
+// 正しい例（型変換あり）
+let age3 = Number(&quot;25&quot;);
+let age4 = Number(&quot;30&quot;);
+console.log(age3 + age4); // 55 (数値として計算される)
+</code></pre>
+<p><strong>型変換関数の使用:</strong></p>
+<pre><code class="language-javascript">// 文字列を数値に変換
+let priority = ___(&quot;3&quot;);
+let importance = ___(&quot;true&quot;);
+
+console.log(&quot;優先度:&quot;, priority, &quot;型:&quot;, typeof priority);
+console.log(&quot;重要度:&quot;, importance, &quot;型:&quot;, typeof importance);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">// 文字列を数値に変換
+let priority = Number(&quot;3&quot;);
+let importance = Boolean(&quot;true&quot;);
+
+console.log(&quot;優先度:&quot;, priority, &quot;型:&quot;, typeof priority);
+console.log(&quot;重要度:&quot;, importance, &quot;型:&quot;, typeof importance);
+</code></pre>
+<p><strong>型変換の注意点:</strong></p>
+<ul>
+<li><code>Number(&quot;abc&quot;)</code> → <code>NaN</code> (Not a Number)</li>
+<li><code>Boolean(&quot;&quot;)</code> → <code>false</code></li>
+<li><code>Boolean(&quot;false&quot;)</code> → <code>true</code> (文字列&quot;false&quot;は真値)</li>
+</ul>
+<p>✅ <strong>Section 1 理解度チェック</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> 変数の概念と用途を理解している</li>
+<li><input disabled="" type="checkbox"> 基本的なデータ型を区別できる</li>
+<li><input disabled="" type="checkbox"> 配列の基本操作ができる</li>
+<li><input disabled="" type="checkbox"> オブジェクトの作成とアクセスができる</li>
+<li><input disabled="" type="checkbox"> 関数の定義と呼び出しができる</li>
+<li><input disabled="" type="checkbox"> 論理演算子の使い分けができる</li>
+<li><input disabled="" type="checkbox"> 型変換の重要性を理解している</li>
+</ul>
+<p>次のセクションに進む前に、実際にコードを書いて動作確認をしましょう！</p>
+<hr>
+<h2>Section 2: 配列操作メソッドの習得</h2>
+<h3>ステップ2.1: forEach メソッドの基本理解</h3>
+<div class="knowledge">
+
+<p>forEachは、配列の各要素に対して指定した関数を順番に実行するメソッドです。forループとは異なり、インデックスの管理が自動化されるため、エラーが発生しにくく、コードが読みやすくなります。</p>
+</div>
+
+<p><strong>forEachの基本構文：</strong></p>
+<pre><code class="language-javascript">配列名.forEach(function(要素, インデックス) {
+    // 各要素に対する処理
+});
+</code></pre>
+<p><strong>従来のforループとの比較：</strong></p>
+<pre><code class="language-javascript">// forループ（手動管理）
+for (let i = 0; i &lt; tasks.length; i++) {
+    console.log(tasks[i].title);
+}
+
+// forEach（自動管理）
+tasks.forEach(function(task, index) {
+    console.log(task.title);
+});
+</code></pre>
+<p>下のコードを完成させてください：</p>
+<pre><code class="language-javascript">let fruits = [&quot;りんご&quot;, &quot;バナナ&quot;, &quot;オレンジ&quot;];
+fruits.___(___(fruit, index) {
+    console.log(`${index}: ${fruit}`);
+});
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let fruits = [&quot;りんご&quot;, &quot;バナナ&quot;, &quot;オレンジ&quot;];
+fruits.forEach(function(fruit, index) {
+    console.log(`${index}: ${fruit}`);
+});
+</code></pre>
+<h3>ステップ2.2: アロー関数の基本理解</h3>
+<div class="knowledge">
+
+<p>アロー関数は、function キーワードを使わずに関数を簡潔に書ける構文です。ES6で導入され、特にコールバック関数として広く使用されます。基本的な変換ルールを覚えることで、既存のfunction記法をアロー関数に変換できます。</p>
+</div>
+
+<p><strong>アロー関数の変換ルール：</strong></p>
+<ol>
+<li><code>function</code>キーワードを削除</li>
+<li>引数の後に <code>=&gt;</code> を記述</li>
+<li>処理内容は変更しない</li>
+</ol>
+<p><strong>変換の実例：</strong></p>
+<pre><code class="language-javascript">// function記法
+function(task, index) {
+    console.log(task.title);
+}
+
+// アロー関数に変換
+(task, index) =&gt; {
+    console.log(task.title);
+}
+</code></pre>
+<p>下のfunction記法をアロー関数に変換してください：</p>
+<pre><code class="language-javascript">// function記法
+numbers.forEach(function(num) {
+    console.log(num * 2);
+});
+
+// アロー関数版
+numbers.forEach(___);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">// function記法
+numbers.forEach(function(num) {
+    console.log(num * 2);
+});
+
+// アロー関数版
+numbers.forEach((num) =&gt; {
+    console.log(num * 2);
+});
+</code></pre>
+<h3>ステップ2.3: テンプレートリテラルの基本理解</h3>
+<div class="knowledge">
+
+<p>テンプレートリテラルはES6で導入された文字列処理機能です。従来の文字列連結(<code>+</code>演算子)と比較して：</p>
+<ol>
+<li><strong>可読性向上</strong>：改行を直接表現可能</li>
+<li><strong>安全な変数展開</strong>：自動型変換による意図しない連結を防止</li>
+<li><strong>式の埋め込み</strong>：<code>${}</code>内で計算や関数呼び出しが可能</li>
+</ol>
+<p><strong>実務での主な使用例</strong>：</p>
+<ul>
+<li>動的HTML生成</li>
+<li>複雑なエラーメッセージの構築</li>
+<li>国際化対応の多言語テンプレート</div></li>
+</ul>
+<p><strong>従来の方法との比較</strong>：</p>
+<pre><code class="language-javascript">// 従来の文字列連結
+let message = &quot;ユーザー名: &quot; + userName + &quot;, 年齢: &quot; + age;
+
+// テンプレートリテラル
+let message = `ユーザー名: ${userName}, 年齢: ${age}`;
+</code></pre>
+<p>下の文字列連結をテンプレートリテラルに変換してください：</p>
+<pre><code class="language-javascript">let itemNumber = 3;
+let itemName = &quot;ペン&quot;;
+let price = 150;
+
+// 従来の文字列連結
+let info = itemNumber + &quot;番: &quot; + itemName + &quot; (&quot; + price + &quot;円)&quot;;
+
+// テンプレートリテラル版
+let info2 = ___;
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let itemNumber = 3;
+let itemName = &quot;ペン&quot;;
+let price = 150;
+
+// 従来の文字列連結
+let info = itemNumber + &quot;番: &quot; + itemName + &quot; (&quot; + price + &quot;円)&quot;;
+
+// テンプレートリテラル版
+let info2 = `${itemNumber}番: ${itemName} (${price}円)`;
+</code></pre>
+<h3>ステップ2.4: 三項演算子の理解</h3>
+<div class="knowledge">
+
+<p>三項演算子（<code>? :</code>）は、条件によって異なる値を返すための簡潔な書き方です。if文を短く書くことができ、テンプレートリテラルの中でよく使用されます。</p>
+</div>
+
+<p><strong>三項演算子の基本構文：</strong></p>
+<pre><code class="language-javascript">条件 ? 真の場合の値 : 偽の場合の値
+</code></pre>
+<p><strong>if文との比較：</strong></p>
+<pre><code class="language-javascript">// if文を使った場合
+let mark;
+if (task.completed) {
+    mark = &quot;x&quot;;
+} else {
+    mark = &quot; &quot;;
+}
+
+// 三項演算子を使った場合
+let mark = task.completed ? &quot;x&quot; : &quot; &quot;;
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let isCompleted = true;
+let status = isCompleted ? ___ : ___;
+console.log(status); // &quot;完了&quot; と表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let isCompleted = true;
+let status = isCompleted ? &quot;完了&quot; : &quot;未完了&quot;;
+console.log(status); // &quot;完了&quot; と表示される
+</code></pre>
+<h3>ステップ2.5: テンプレートリテラルと三項演算子の組み合わせ</h3>
+<p>これまで学習した知識を組み合わせて、より複雑な表示を作成しましょう。</p>
+<pre><code class="language-javascript">let i = 0;
+let task = {
+    title: &quot;買い物&quot;,
+    completed: false
+};
+
+// テンプレートリテラルと三項演算子を組み合わせ
+console.log(`${i + 1}: [${task.completed ? ___ : ___}] ${task.title}`);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let i = 0;
+let task = {
+    title: &quot;買い物&quot;,
+    completed: false
+};
+
+// テンプレートリテラルと三項演算子を組み合わせ
+console.log(`${i + 1}: [${task.completed ? &quot;x&quot; : &quot; &quot;}] ${task.title}`);
+</code></pre>
+<h3>ステップ2.6: 条件分岐（if文）の基本復習</h3>
+<div class="knowledge">
+
+<p><code>if</code>文は、条件によって処理を分岐させるための基本的な制御構文です。配列が空の場合の処理など、エラーを防ぐための重要な仕組みです。</p>
+</div>
+
+<p><strong>if文の基本構文：</strong></p>
+<pre><code class="language-javascript">if (条件) {
+    // 条件が真の場合の処理
+}
+</code></pre>
+<p><strong>配列の長さをチェックする例：</strong></p>
+<pre><code class="language-javascript">if (tasks.length === 0) {
+    console.log(&quot;タスクがありません&quot;);
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">if (tasks.___ === 0) {
+    console.log(&quot;タスクがありません&quot;);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">if (tasks.length === 0) {
+    console.log(&quot;タスクがありません&quot;);
+}
+</code></pre>
+<h3>ステップ2.7: return文の理解</h3>
+<div class="knowledge">
+
+<p><code>return</code>文は、関数の実行を終了し、呼び出し元に値を返すための構文です。配列が空の場合など、これ以上処理を続ける必要がない時に使用します。</p>
+</div>
+
+<p><strong>return文の役割：</strong></p>
+<pre><code class="language-javascript">function checkTasks() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        return; // ここで関数を終了（以降の処理を実行しない）
+    }
+    
+    console.log(&quot;タスクがあります&quot;); // 上でreturnされた場合、この行は実行されない
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">function showTaskCount() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        ___; // 関数を終了
+    }
+    
+    console.log(&quot;タスク数:&quot;, tasks.length);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function showTaskCount() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        return; // 関数を終了
+    }
+    
+    console.log(&quot;タスク数:&quot;, tasks.length);
+}
+</code></pre>
+<h3>ステップ2.8: 学習内容の統合演習</h3>
+<p>これまで学習した4つの要素を組み合わせて、完全なタスク表示関数を作成します。</p>
+<div class="knowledge">
+
+<p>プログラミングでは、個別に学習した概念を組み合わせて実用的な機能を実装します。forEach、アロー関数、テンプレートリテラル、三項演算子を統合することで、読みやすく効率的なコードが書けます。</p>
+</div>
+
+<p><strong>統合する要素の確認：</strong></p>
+<ol>
+<li>forEach メソッド（配列の反復処理）</li>
+<li>アロー関数（簡潔な関数記法）</li>
+<li>テンプレートリテラル（文字列への変数埋め込み）</li>
+<li>三項演算子（条件による値の選択）</li>
+</ol>
+<p>下の関数を完成させてください：</p>
+<pre><code class="language-javascript">function listTasksForEach() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        return;
+    }
+    
+    // 4つの要素を全て使って実装
+    tasks.___((task, i) =&gt; {
+        console.log(___);
+    });
+}
+</code></pre>
+<p>表示形式: <code>1: [x] 買い物</code> （完了済みはx、未完了は空白）</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function listTasksForEach() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        return;
+    }
+    
+    // 4つの要素を全て使って実装
+    tasks.forEach((task, i) =&gt; {
+        console.log(`${i + 1}: [${task.completed ? &quot;x&quot; : &quot; &quot;}] ${task.title}`);
+    });
+}
+</code></pre>
+<h3>ステップ2.9: for ループの基本理解</h3>
+<div class="knowledge">
+
+<p><code>for</code>ループは、初期値、条件、増減処理を明示的に指定する繰り返し構文です。配列のインデックスを直接制御したい場合に使用します。forEachと同じ結果を得ることができますが、より詳細な制御が可能です。</p>
+</div>
+
+<p><strong>for ループの基本構文：</strong></p>
+<pre><code class="language-javascript">for (初期値; 条件; 増減処理) {
+    // 繰り返したい処理
+}
+</code></pre>
+<p><strong>配列を使ったfor ループの例：</strong></p>
+<pre><code class="language-javascript">for (let i = 0; i &lt; tasks.length; i++) {
+    const task = tasks[i];
+    console.log(task.title);
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">for (let i = ___; i &lt; tasks.___; ___) {
+    const task = tasks[i];
+    console.log(`${i + 1}: ${task.title}`);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">for (let i = 0; i &lt; tasks.length; i++) {
+    const task = tasks[i];
+    console.log(`${i + 1}: ${task.title}`);
+}
+</code></pre>
+<h3>ステップ2.10: for ループを使った完全な関数の作成</h3>
+<p>同じ表示処理を<code>for</code>ループで実装しましょう。</p>
+<pre><code class="language-javascript">function listTasksFor() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        return;
+    }
+    
+    for (let i = ___; i &lt; tasks.___; ___) {
+        const task = tasks[i];
+        console.log(`${i + 1}: [${task.completed ? &quot;x&quot; : &quot; &quot;}] ${task.title}`);
+    }
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function listTasksFor() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        return;
+    }
+    
+    for (let i = 0; i &lt; tasks.length; i++) {
+        const task = tasks[i];
+        console.log(`${i + 1}: [${task.completed ? &quot;x&quot; : &quot; &quot;}] ${task.title}`);
+    }
+}
+</code></pre>
+<h3>ステップ2.11: while ループの基本理解</h3>
+<div class="knowledge">
+
+<p><code>while</code>ループは、指定した条件がtrueの間、処理を繰り返します。条件が最初からfalseの場合、一度も実行されません。手動でカウンターを管理する必要があります。</p>
+</div>
+
+<p><strong>while ループの基本構文：</strong></p>
+<pre><code class="language-javascript">while (条件) {
+    // 繰り返したい処理
+}
+</code></pre>
+<p><strong>配列を使ったwhile ループの例：</strong></p>
+<pre><code class="language-javascript">let i = 0;
+while (i &lt; tasks.length) {
+    const task = tasks[i];
+    console.log(task.title);
+    i++; // カウンターを手動で増加
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let i = ___;
+___ (i &lt; tasks.length) {
+    const task = tasks[i];
+    console.log(`${i + 1}: ${task.title}`);
+    ___;
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let i = 0;
+while (i &lt; tasks.length) {
+    const task = tasks[i];
+    console.log(`${i + 1}: ${task.title}`);
+    i++;
+}
+</code></pre>
+<h3>ステップ2.12: while ループを使った完全な関数の作成</h3>
+<p>同じ表示処理を<code>while</code>ループで実装しましょう。</p>
+<pre><code class="language-javascript">function listTasksWhile() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        return;
+    }
+    
+    let i = ___;
+    ___ (i &lt; tasks.length) {
+        const task = tasks[i];
+        console.log(`${i + 1}: [${task.completed ? &quot;x&quot; : &quot; &quot;}] ${task.title}`);
+        ___;
+    }
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function listTasksWhile() {
+    if (tasks.length === 0) {
+        console.log(&quot;タスクがありません&quot;);
+        return;
+    }
+    
+    let i = 0;
+    while (i &lt; tasks.length) {
+        const task = tasks[i];
+        console.log(`${i + 1}: [${task.completed ? &quot;x&quot; : &quot; &quot;}] ${task.title}`);
+        i++;
+    }
+}
+</code></pre>
+<h3>ステップ2.13: includes メソッドの基本理解</h3>
+<div class="knowledge">
+
+<p><code>includes</code>は、文字列に特定の文字列が含まれているかを判定するメソッドです。大文字小文字を区別し、完全一致ではなく部分一致で検索します。検索機能の実装において基礎となるメソッドです。</p>
+</div>
+
+<p><strong>includesの基本例:</strong></p>
+<pre><code class="language-javascript">let title = &quot;買い物リスト&quot;;
+
+// 部分一致の検索
+console.log(title.includes(&quot;買い&quot;));    // true
+console.log(title.includes(&quot;物&quot;));      // true
+console.log(title.includes(&quot;買い物&quot;));   // true
+console.log(title.includes(&quot;掃除&quot;));    // false
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let taskTitle = &quot;重要な会議の準備&quot;;
+console.log(taskTitle.___(&quot;会議&quot;));  // true が表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let taskTitle = &quot;重要な会議の準備&quot;;
+console.log(taskTitle.includes(&quot;会議&quot;));  // true が表示される
+</code></pre>
+<h3>ステップ2.14: filter メソッドの基本理解</h3>
+<div class="knowledge">
+
+<p>filterは、配列から条件に合う要素のみを抽出して新しい配列を作成するメソッドです。元の配列は変更されず、指定した条件を満たす要素だけで構成された配列が返されます。データの絞り込みや検索機能の実装において基礎となるメソッドです。</p>
+</div>
+
+<p><strong>filterの基本構文：</strong></p>
+<pre><code class="language-javascript">新しい配列 = 元の配列.filter(要素 =&gt; 条件式);
+</code></pre>
+<p><strong>数値の絞り込み例：</strong></p>
+<pre><code class="language-javascript">let numbers = [1, 2, 3, 4, 5];
+let evenNumbers = numbers.filter(num =&gt; num % 2 === 0);
+console.log(evenNumbers); // [2, 4]
+console.log(numbers);     // [1, 2, 3, 4, 5] (元の配列は変更されない)
+</code></pre>
+<p>下の条件に合う要素を抽出してください：</p>
+<pre><code class="language-javascript">let ages = [15, 22, 17, 25, 19];
+// 20歳以上の年齢のみを抽出
+let adults = ages.___(age =&gt; age ___ 20);
+console.log(adults); // [22, 25] と表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let ages = [15, 22, 17, 25, 19];
+// 20歳以上の年齢のみを抽出
+let adults = ages.filter(age =&gt; age &gt;= 20);
+console.log(adults); // [22, 25] と表示される
+</code></pre>
+<h3>ステップ2.15: filter と includes を組み合わせた検索機能</h3>
+<p>filterとincludesを組み合わせることで、強力な検索機能を実装できます。</p>
+<pre><code class="language-javascript">// タスクタイトルに特定の文字列が含まれるタスクを検索
+let searchWord = &quot;買い&quot;;
+let foundTasks = tasks.___(task =&gt; task.title.___(searchWord));
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let searchWord = &quot;買い&quot;;
+let foundTasks = tasks.___(task =&gt; task.title.___(searchWord));
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let searchWord = &quot;買い&quot;;
+let foundTasks = tasks.filter(task =&gt; task.title.includes(searchWord));
+</code></pre>
+<h3>ステップ2.16: 検索結果の処理と表示</h3>
+<p>検索結果が存在するかどうかを確認し、適切に表示する処理を学習しましょう。</p>
+<div class="knowledge">
+
+<p><code>length</code>プロパティを使用して配列の要素数を確認することで、検索結果が存在するかを判定できます。結果が0の場合は「見つからない」メッセージを表示し、1以上の場合は結果を表示します。</p>
+</div>
+
+<p>検索機能の完全な実装を作成してみましょう：</p>
+<pre><code class="language-javascript">function searchTasks(searchWord) {
+    const foundTasks = tasks.filter(task =&gt; task.title.includes(searchWord));
+    
+    if (foundTasks.___ &gt; 0) {
+        foundTasks.forEach((task, i) =&gt; {
+            console.log(`${i + 1}: [${task.completed ? &quot;x&quot; : &quot; &quot;}] ${task.title}`);
+        });
+    } else {
+        console.log(&quot;該当するタスクが見つかりません&quot;);
+    }
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function searchTasks(searchWord) {
+    const foundTasks = tasks.filter(task =&gt; task.title.includes(searchWord));
+    
+    if (foundTasks.length &gt; 0) {
+        foundTasks.forEach((task, i) =&gt; {
+            console.log(`${i + 1}: [${task.completed ? &quot;x&quot; : &quot; &quot;}] ${task.title}`);
+        });
+    } else {
+        console.log(&quot;該当するタスクが見つかりません&quot;);
+    }
+}
+</code></pre>
+<h3>ステップ2.17: 否定演算子（!）の基本理解</h3>
+<div class="knowledge">
+
+<p>否定演算子（<code>!</code>）は、真偽値を反転させる演算子です。<code>true</code>を<code>false</code>に、<code>false</code>を<code>true</code>に変換します。「〜でない」という条件を表現する際に使用します。</p>
+</div>
+
+<p><strong>否定演算子の基本例:</strong></p>
+<pre><code class="language-javascript">let isCompleted = true;
+let isNotCompleted = !isCompleted;  // false
+
+let isEmpty = false;
+let isNotEmpty = !isEmpty;  // true
+</code></pre>
+<p><strong>タスクでの使用例:</strong></p>
+<pre><code class="language-javascript">// 完了していないタスク
+task.completed      // 完了している場合true
+!task.completed     // 完了していない場合true
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let isFinished = false;
+let isNotFinished = ___isFinished;
+console.log(isNotFinished); // true が表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let isFinished = false;
+let isNotFinished = !isFinished;
+console.log(isNotFinished); // true が表示される
+</code></pre>
+<h3>ステップ2.18: every メソッドの基本理解</h3>
+<div class="knowledge">
+
+<p><code>every</code>は、配列のすべての要素が指定した条件を満たすかどうかを判定するメソッドです。一つでも条件を満たさない要素があれば<code>false</code>を返し、すべての要素が条件を満たす場合のみ<code>true</code>を返します。「全件チェック」の処理において重要なメソッドです。</p>
+</div>
+
+<p><strong>everyの基本構文:</strong></p>
+<pre><code class="language-javascript">配列.every(要素 =&gt; 条件)
+</code></pre>
+<p><strong>everyの動作例:</strong></p>
+<pre><code class="language-javascript">let numbers = [2, 4, 6, 8];
+let allEven = numbers.every(num =&gt; num % 2 === 0);  // すべて偶数？
+console.log(allEven); // true
+
+let mixed = [2, 4, 5, 8];
+let allEvenMixed = mixed.every(num =&gt; num % 2 === 0);  // すべて偶数？
+console.log(allEvenMixed); // false（5が奇数のため）
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let tasks = [
+    {completed: true},
+    {completed: true},
+    {completed: true}
+];
+
+let allTasksCompleted = tasks.___(task =&gt; task.completed);
+console.log(&quot;すべて完了:&quot;, allTasksCompleted); // true が表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let tasks = [
+    {completed: true},
+    {completed: true},
+    {completed: true}
+];
+
+let allTasksCompleted = tasks.every(task =&gt; task.completed);
+console.log(&quot;すべて完了:&quot;, allTasksCompleted); // true が表示される
+</code></pre>
+<h3>ステップ2.19: some メソッドの基本理解</h3>
+<div class="knowledge">
+
+<p><code>some</code>は、配列の要素の中で少なくとも一つが指定した条件を満たすかどうかを判定するメソッドです。一つでも条件を満たす要素があれば<code>true</code>を返し、すべての要素が条件を満たさない場合のみ<code>false</code>を返します。「存在チェック」の処理において重要なメソッドです。</p>
+</div>
+
+<p><strong>someの基本構文:</strong></p>
+<pre><code class="language-javascript">配列.some(要素 =&gt; 条件)
+</code></pre>
+<p><strong>someの動作例:</strong></p>
+<pre><code class="language-javascript">let numbers = [1, 3, 5, 7];
+let hasEven = numbers.some(num =&gt; num % 2 === 0);  // 偶数が存在する？
+console.log(hasEven); // false
+
+let mixed = [1, 3, 4, 7];
+let hasEvenMixed = mixed.some(num =&gt; num % 2 === 0);  // 偶数が存在する？
+console.log(hasEvenMixed); // true（4が偶数のため）
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let tasks = [
+    {completed: true},
+    {completed: false},
+    {completed: true}
+];
+
+// 未完了のタスクが存在するかチェック
+let hasIncompleteTask = tasks.___(task =&gt; ___task.completed);
+console.log(&quot;未完了あり:&quot;, hasIncompleteTask); // true が表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let tasks = [
+    {completed: true},
+    {completed: false},
+    {completed: true}
+];
+
+// 未完了のタスクが存在するかチェック
+let hasIncompleteTask = tasks.some(task =&gt; !task.completed);
+console.log(&quot;未完了あり:&quot;, hasIncompleteTask); // true が表示される
+</code></pre>
+<h3>ステップ2.20: everyとsomeの違いと使い分け</h3>
+<div class="knowledge">
+
+<p><code>every</code>と<code>some</code>は対になるメソッドです。everyは「全部」、someは「一部」の条件チェックに使用します。否定演算子と組み合わせることで、様々な条件判定が可能になります。</p>
+</div>
+
+<p><strong>everyとsomeの違い:</strong></p>
+<ul>
+<li><code>every</code>: <strong>すべて</strong>が条件を満たすか → 全員が合格しているか？</li>
+<li><code>some</code>: <strong>少なくとも一つ</strong>が条件を満たすか → 不合格者がいるか？</li>
+</ul>
+<p><strong>実際の使用例:</strong></p>
+<pre><code class="language-javascript">// 重要でないタスクを見つける
+let notImportantTasks = tasks.filter(task =&gt; ___task.important);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">// 重要でないタスクを見つける
+let notImportantTasks = tasks.filter(task =&gt; !task.important);
+</code></pre>
+<h3>ステップ2.21: 統計機能の完全実装</h3>
+<p>これまで学習した知識を組み合わせて、完全な統計表示機能を作成しましょう。</p>
+<p><strong>必要な知識の確認：</strong></p>
+<ol>
+<li>✅ filter メソッド（完了済みタスクの抽出）</li>
+<li>✅ every メソッド（全タスク完了チェック）</li>
+<li>✅ some メソッド（未完了タスク存在チェック）</li>
+<li>✅ 否定演算子（!）</li>
+<li>✅ テンプレートリテラル</li>
+</ol>
+<pre><code class="language-javascript">function showStatistics() {
+    const total = tasks.length;
+    const completed = tasks.___（task =&gt; task.completed).length;
+    const allCompleted = tasks.___(task =&gt; task.completed);
+    const hasIncomplete = tasks.___(task =&gt; ___task.completed);
+    
+    console.log(`総タスク数: ${total}`);
+    console.log(`完了済み: ${completed}`);
+    console.log(`未完了: ${total - completed}`);
+    console.log(`すべて完了: ${allCompleted ? &quot;はい&quot; : &quot;いいえ&quot;}`);
+    console.log(`未完了あり: ${hasIncomplete ? &quot;はい&quot; : &quot;いいえ&quot;}`);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function showStatistics() {
+    const total = tasks.length;
+    const completed = tasks.filter(task =&gt; task.completed).length;
+    const allCompleted = tasks.every(task =&gt; task.completed);
+    const hasIncomplete = tasks.some(task =&gt; !task.completed);
+    
+    console.log(`総タスク数: ${total}`);
+    console.log(`完了済み: ${completed}`);
+    console.log(`未完了: ${total - completed}`);
+    console.log(`すべて完了: ${allCompleted ? &quot;はい&quot; : &quot;いいえ&quot;}`);
+    console.log(`未完了あり: ${hasIncomplete ? &quot;はい&quot; : &quot;いいえ&quot;}`);
+}
+</code></pre>
+<h3>ステップ2.22: mapメソッドの基本理解</h3>
+<div class="knowledge">
+
+<p>mapは、配列の各要素に変換処理を適用して新しい配列を作成するメソッドです。元の配列は変更されず、変換結果として新しい配列が返されます。データの表示形式変更やデータ加工において重要な役割を果たします。</p>
+</div>
+
+<p><strong>mapの基本構文：</strong></p>
+<pre><code class="language-javascript">新しい配列 = 元の配列.map(要素 =&gt; 変換処理);
+</code></pre>
+<p><strong>シンプルな変換例：</strong></p>
+<pre><code class="language-javascript">let numbers = [1, 2, 3];
+let doubled = numbers.map(num =&gt; num * 2);
+console.log(doubled); // [2, 4, 6]
+console.log(numbers); // [1, 2, 3] (元の配列は変更されない)
+</code></pre>
+<p>下の配列変換を完成させてください：</p>
+<pre><code class="language-javascript">let prices = [100, 200, 300];
+// 全ての価格に税率1.1を掛けた新しい配列を作成
+let taxIncluded = prices.___(price =&gt; price * ___);
+console.log(taxIncluded); // [110, 220, 330] と表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let prices = [100, 200, 300];
+// 全ての価格に税率1.1を掛けた新しい配列を作成
+let taxIncluded = prices.map(price =&gt; price * 1.1);
+console.log(taxIncluded); // [110, 220, 330] と表示される
+</code></pre>
+<h3>ステップ2.23: 配列メソッドの使い分けまとめ</h3>
+<div class="knowledge">
+
+<p>JavaScript の配列メソッドは、それぞれ異なる目的を持ちます。適切な場面で適切なメソッドを選択することで、効率的で読みやすいコードを書くことができます。</p>
+</div>
+
+<p><strong>各メソッドの特徴と使用場面:</strong></p>
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>用途</th>
+<th>戻り値</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>forEach</code></td>
+<td>全要素の処理</td>
+<td>なし</td>
+<td>全タスクの表示</td>
+</tr>
+<tr>
+<td><code>map</code></td>
+<td>要素の変換</td>
+<td>新しい配列</td>
+<td>番号付きリスト作成</td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td>条件による絞り込み</td>
+<td>新しい配列</td>
+<td>検索、未完了タスク抽出</td>
+</tr>
+<tr>
+<td><code>every</code></td>
+<td>全要素が条件を満たすか</td>
+<td>true/false</td>
+<td>全タスク完了チェック</td>
+</tr>
+<tr>
+<td><code>some</code></td>
+<td>一つでも条件を満たすか</td>
+<td>true/false</td>
+<td>未完了タスク存在チェック</td>
+</tr>
+</tbody></table>
+<p><strong>実際の使用例:</strong></p>
+<pre><code class="language-javascript">// すべての要素を処理
+tasks.forEach(task =&gt; console.log(task.title));
+
+// 要素を変換
+let numberedTasks = tasks.map((task, i) =&gt; `${i + 1}. ${task.title}`);
+
+// 条件で絞り込み
+let incompleteTasks = tasks.filter(task =&gt; !task.completed);
+
+// 全部チェック
+let allDone = tasks.every(task =&gt; task.completed);
+
+// 存在チェック
+let hasUrgent = tasks.some(task =&gt; task.priority &gt; 3);
+</code></pre>
+<p>✅ <strong>Section 2 理解度チェック</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> forEach メソッドを使った配列の処理ができる</li>
+<li><input disabled="" type="checkbox"> アロー関数の基本的な書き方を理解している</li>
+<li><input disabled="" type="checkbox"> テンプレートリテラルを使った文字列作成ができる</li>
+<li><input disabled="" type="checkbox"> 三項演算子を使った条件分岐ができる</li>
+<li><input disabled="" type="checkbox"> for ループと while ループの違いを理解している</li>
+<li><input disabled="" type="checkbox"> map メソッドを使った配列の変換ができる</li>
+<li><input disabled="" type="checkbox"> filter メソッドを使った配列の絞り込みができる</li>
+<li><input disabled="" type="checkbox"> includes メソッドを使った文字列検索ができる</li>
+<li><input disabled="" type="checkbox"> every と some メソッドの使い分けができる</li>
+<li><input disabled="" type="checkbox"> 否定演算子を適切に使用できる</li>
+</ul>
+<p>次のセクションに進む前に、実際にコードを書いて動作確認をしましょう！</p>
+<hr>
+<h2>Section 3: 比較演算子と条件分岐の深い理解</h2>
+<h3>ステップ3.1: 等価演算子の基本概念</h3>
+<div class="knowledge">
+
+<p>JavaScriptには2種類の等価演算子があります。<code>==</code>（等価演算子）は型変換を行って比較し、<code>===</code>（厳密等価演算子）は型変換を行わずに比較します。この違いを理解することは、バグを防ぎ、予期しない動作を避けるために非常に重要です。</p>
+</div>
+
+<p><strong>なぜ2種類の等価演算子があるのか：</strong></p>
+<p>JavaScriptは「動的型付け言語」のため、同じ値でも異なるデータ型で表現される場合があります。</p>
+<p><strong>型変換の例：</strong></p>
+<pre><code class="language-javascript">let numberValue = 5;      // 数値の5
+let stringValue = &quot;5&quot;;    // 文字列の&quot;5&quot;
+
+// 見た目は同じ「5」だが、データ型が異なる
+console.log(typeof numberValue); // &quot;number&quot;
+console.log(typeof stringValue); // &quot;string&quot;
+</code></pre>
+<h3>ステップ3.2: ==（等価演算子）の動作理解</h3>
+<div class="knowledge">
+
+<p><code>==</code>は比較時に自動的に型変換を行います。異なるデータ型同士でも、値が「同じと見なせる」場合はtrueを返します。一見便利ですが、予期しない結果を生むことがあるため注意が必要です。</p>
+</div>
+
+<p><strong>== による型変換の例：</strong></p>
+<pre><code class="language-javascript">console.log(5 == &quot;5&quot;);        // true（文字列&quot;5&quot;が数値5に変換される）
+console.log(true == 1);       // true（trueが1に変換される）
+console.log(false == 0);      // true（falseが0に変換される）
+console.log(null == undefined); // true（特殊ルール）
+</code></pre>
+<p>下の結果を予想してください：</p>
+<pre><code class="language-javascript">console.log(0 == &quot;&quot;);         // 結果: ___
+console.log(0 == false);      // 結果: ___
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">console.log(0 == &quot;&quot;);         // 結果: true
+console.log(0 == false);      // 結果: true
+</code></pre>
+<h3>ステップ3.3: ===（厳密等価演算子）の動作理解</h3>
+<div class="knowledge">
+
+<p><code>===</code>は型変換を一切行わず、値とデータ型の両方が完全に一致する場合のみtrueを返します。より予測可能で安全な比較を行うため、現代のJavaScript開発では<code>===</code>の使用が強く推奨されています。</p>
+</div>
+
+<p><strong>=== による厳密な比較の例：</strong></p>
+<pre><code class="language-javascript">console.log(5 === &quot;5&quot;);        // false（数値と文字列は異なる型）
+console.log(true === 1);       // false（真偽値と数値は異なる型）
+console.log(false === 0);      // false（真偽値と数値は異なる型）
+console.log(null === undefined); // false（異なる型）
+</code></pre>
+<p>下の結果を予想してください：</p>
+<pre><code class="language-javascript">console.log(5 === 5);          // 結果: ___
+console.log(&quot;hello&quot; === &quot;hello&quot;); // 結果: ___
+console.log(true === true);    // 結果: ___
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">console.log(5 === 5);          // 結果: true
+console.log(&quot;hello&quot; === &quot;hello&quot;); // 結果: true
+console.log(true === true);    // 結果: true
+</code></pre>
+<h3>ステップ3.4: 不等価演算子の理解</h3>
+<div class="knowledge">
+
+<p>等価演算子と同様に、不等価演算子にも2種類あります。<code>!=</code>は型変換を行い、<code>!==</code>は型変換を行いません。「等しくない」ことを判定する際に使用します。</p>
+</div>
+
+<p><strong>不等価演算子の例：</strong></p>
+<pre><code class="language-javascript">// != （型変換あり）
+console.log(5 != &quot;5&quot;);         // false（変換後に等しいため）
+console.log(5 != &quot;6&quot;);         // true（変換後も等しくないため）
+
+// !== （型変換なし）
+console.log(5 !== &quot;5&quot;);        // true（型が異なるため）
+console.log(5 !== 5);          // false（完全に同じため）
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let userAge = 25;
+let inputAge = &quot;25&quot;;
+
+// 値は同じだが型が違うかチェック
+if (userAge ___ inputAge) {
+    console.log(&quot;型が異なります&quot;);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let userAge = 25;
+let inputAge = &quot;25&quot;;
+
+// 値は同じだが型が違うかチェック
+if (userAge !== inputAge) {
+    console.log(&quot;型が異なります&quot;);
+}
+</code></pre>
+<h3>ステップ3.5: 実践例：統計機能での比較演算子活用</h3>
+<p>実際のTodoアプリで比較演算子の違いを確認する機能を実装しましょう。</p>
+<pre><code class="language-javascript">function showDetailedStats() {
+    const total = tasks.length;
+    const completed = tasks.filter(task =&gt; task.completed).length;
+    
+    // 等価演算子の比較（型変換あり）
+    const isEqual = total ___ completed;
+    
+    // 厳密等価演算子の比較（型変換なし）
+    const isStrictEqual = total ___ completed;
+    
+    console.log(`総タスク数: ${total} (型: ${typeof total})`);
+    console.log(`完了数: ${completed} (型: ${typeof completed})`);
+    console.log(`==での比較: ${isEqual}`);
+    console.log(`===での比較: ${isStrictEqual}`);
+    
+    // 実際には同じ結果になる（どちらもnumber型のため）
+    console.log(&quot;この場合、どちらも同じ結果になります&quot;);
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function showDetailedStats() {
+    const total = tasks.length;
+    const completed = tasks.filter(task =&gt; task.completed).length;
+    
+    // 等価演算子の比較（型変換あり）
+    const isEqual = total == completed;
+    
+    // 厳密等価演算子の比較（型変換なし）
+    const isStrictEqual = total === completed;
+    
+    console.log(`総タスク数: ${total} (型: ${typeof total})`);
+    console.log(`完了数: ${completed} (型: ${typeof completed})`);
+    console.log(`==での比較: ${isEqual}`);
+    console.log(`===での比較: ${isStrictEqual}`);
+    
+    // 実際には同じ結果になる（どちらもnumber型のため）
+    console.log(&quot;この場合、どちらも同じ結果になります&quot;);
+}
+</code></pre>
+<h3>ステップ3.6: ベストプラクティス：常に===を使用する理由</h3>
+<div class="knowledge">
+
+<p>現代のJavaScript開発では、意図的な理由がない限り<code>===</code>と<code>!==</code>を使用することが強く推奨されています。これにより、型変換による予期しない動作を防ぎ、コードの意図がより明確になります。</p>
+</div>
+
+<p><strong>==による問題の例：</strong></p>
+<pre><code class="language-javascript">// 問題のあるコード
+if (userInput == 0) {
+    console.log(&quot;入力が0です&quot;);
+}
+// 問題：userInputが空文字&quot;&quot;の場合もtrueになってしまう
+
+// 改善されたコード
+if (userInput === 0) {
+    console.log(&quot;入力が0です&quot;);
+}
+// 改善：厳密に数値の0のみをチェック
+</code></pre>
+<p><strong>推奨される書き方：</strong></p>
+<ul>
+<li><code>===</code> と <code>!==</code> を基本的に使用</li>
+<li><code>==</code> と <code>!=</code> は特別な理由がある場合のみ</li>
+<li>リント（コード品質チェックツール）でも<code>===</code>の使用が推奨される</li>
+</ul>
+<hr>
+<h2>Section 4: エラーハンドリング - 安全なプログラムの作成</h2>
+<h3>ステップ4.1: エラーとは何か</h3>
+<div class="knowledge">
+
+<p>エラーとは、プログラムが正常に実行できない状況のことです。エラーが発生すると、プログラムはその時点で停止し、後続の処理は実行されません。エラーを適切に処理することで、プログラムの安定性を保ち、ユーザーに分かりやすいメッセージを提供できます。</p>
+</div>
+
+<p><strong>エラーが発生する典型的な状況：</strong></p>
+<p><strong>例1: 存在しない配列要素へのアクセス</strong></p>
+<pre><code class="language-javascript">let tasks = [&quot;買い物&quot;, &quot;掃除&quot;];
+console.log(tasks[10]); // undefined（エラーではない）
+console.log(tasks[10].title); // TypeError（エラー発生）
+</code></pre>
+<p><strong>例2: nullやundefinedのプロパティアクセス</strong></p>
+<pre><code class="language-javascript">let task = null;
+console.log(task.title); // TypeError: Cannot read property &#39;title&#39; of null
+</code></pre>
+<p>下の状況でエラーが発生するコードを特定してください：</p>
+<pre><code class="language-javascript">let data = undefined;
+let result1 = data + 5;        // A: 計算実行
+let result2 = data.length;     // B: プロパティアクセス
+let result3 = data[0];         // C: 配列アクセス
+</code></pre>
+<p>どの行でエラーが発生しますか？ ___</p>
+<hr>
+<p><strong>正解</strong></p>
+<p>どの行でエラーが発生しますか？ <strong>B と C</strong></p>
+<p>解説：</p>
+<ul>
+<li>A: <code>undefined + 5</code> = <code>NaN</code>（エラーではない）</li>
+<li>B: <code>undefined.length</code> = TypeError（エラー）</li>
+<li>C: <code>undefined[0]</code> = TypeError（エラー）</li>
+</ul>
+<h3>ステップ4.2: エラーが起きるとどうなるか</h3>
+<div class="knowledge">
+
+<p>JavaScriptでエラーが発生すると、その時点でプログラムの実行が停止します。エラーの後に書かれたコードは実行されません。この動作により、ユーザーにとって不親切な状況や、データの破損などが起こる可能性があります。</p>
+</div>
+
+<p><strong>エラー発生時の動作例：</strong></p>
+<pre><code class="language-javascript">console.log(&quot;プログラム開始&quot;);
+
+// ここでエラーが発生
+let invalidArray = null;
+console.log(invalidArray.length); // TypeError が発生
+
+console.log(&quot;この行は実行されない&quot;); // エラーで停止するため
+</code></pre>
+<p><strong>実行結果：</strong></p>
+<pre><code>プログラム開始
+TypeError: Cannot read property &#39;length&#39; of null
+// &quot;この行は実行されない&quot; は表示されない
+</code></pre>
+<h3>ステップ4.3: try-catch文の基本構造</h3>
+<div class="knowledge">
+
+<p>try-catch文は、エラーが発生する可能性のあるコードを安全に実行するための制御構文です。tryブロック内でエラーが発生すると、プログラムを停止させる代わりに、catchブロックでエラー処理を行い、プログラムの実行を継続できます。</p>
+</div>
+
+<p><strong>基本構文：</strong></p>
+<pre><code class="language-javascript">try {
+    // エラーが発生する可能性のあるコード
+} catch (error) {
+    // エラーが発生した場合の処理
+}
+</code></pre>
+<p><strong>エラーハンドリングなしの場合：</strong></p>
+<pre><code class="language-javascript">console.log(&quot;処理開始&quot;);
+let data = null;
+console.log(data.length); // ここでエラーが発生してプログラム停止
+console.log(&quot;この行は実行されない&quot;);
+</code></pre>
+<p>下のコードにtry-catch文を追加してプログラムが継続実行されるようにしてください：</p>
+<pre><code class="language-javascript">console.log(&quot;処理開始&quot;);
+___
+    let data = null;
+    console.log(data.length);
+___ (error) {
+    console.log(&quot;エラーを処理しました&quot;);
+___
+console.log(&quot;処理継続&quot;);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">console.log(&quot;処理開始&quot;);
+try {
+    let data = null;
+    console.log(data.length);
+} catch (error) {
+    console.log(&quot;エラーを処理しました&quot;);
+}
+console.log(&quot;処理継続&quot;);
+</code></pre>
+<h3>ステップ4.4: throw文による意図的なエラー発生</h3>
+<div class="knowledge">
+
+<p><code>throw</code>文は、プログラマーが意図的にエラーを発生させるための構文です。不正な条件を検出した場合に、適切なエラーメッセージと共にエラーを発生させ、呼び出し元に問題を通知することができます。</p>
+</div>
+
+<p><strong>throw文の基本構文：</strong></p>
+<pre><code class="language-javascript">throw new Error(&quot;エラーメッセージ&quot;);
+</code></pre>
+<p><strong>実際の使用例：</strong></p>
+<pre><code class="language-javascript">function divide(a, b) {
+    if (b === 0) {
+        throw new Error(&quot;0で割ることはできません&quot;);
+    }
+    return a / b;
+}
+
+try {
+    let result = divide(10, 0); // エラーが発生
+    console.log(result);
+} catch (error) {
+    console.log(&quot;計算エラー:&quot;, error.message);
+}
+</code></pre>
+<h3>ステップ4.5: 配列アクセスの安全性確保</h3>
+<p>配列の要素にアクセスする際の安全性を確保する方法を学習しましょう。</p>
+<div class="knowledge">
+
+<p>配列のインデックスアクセスでは、存在しない要素にアクセスしようとするとundefinedが返されます。undefinedのプロパティにアクセスしようとするとエラーが発生するため、事前にチェックが必要です。</p>
+</div>
+
+<p><strong>安全でない例：</strong></p>
+<pre><code class="language-javascript">function getTaskTitle(index) {
+    return tasks[index].title; // tasks[index]がundefinedの場合エラー
+}
+</code></pre>
+<p><strong>安全な例（if文による事前チェック）：</strong></p>
+<pre><code class="language-javascript">function getTaskTitle(index) {
+    if (index &gt;= 0 &amp;&amp; index &lt; tasks.length) {
+        return tasks[index].title;
+    } else {
+        return &quot;無効なインデックス&quot;;
+    }
+}
+</code></pre>
+<p><strong>安全な例（try-catchによるエラー処理）：</strong></p>
+<pre><code class="language-javascript">function getTaskTitle(index) {
+    try {
+        if (index &lt; 0 || index &gt;= tasks.length) {
+            throw new Error(`無効なインデックス: ${index}`);
+        }
+        return tasks[index].title;
+    } catch (error) {
+        console.log(&quot;エラー:&quot;, error.message);
+        return null;
+    }
+}
+</code></pre>
+<h3>ステップ4.6: タスク削除機能でのエラーハンドリング実装</h3>
+<p>実際のTodoアプリでエラーハンドリングを実装してみましょう。</p>
+<p><strong>要件：</strong></p>
+<ul>
+<li>無効なインデックスの場合はエラーを発生</li>
+<li>タスクが存在しない場合はエラーメッセージを表示</li>
+<li>正常な削除の場合は成功メッセージを表示</li>
+</ul>
+<pre><code class="language-javascript">function deleteTask(index) {
+    ___ {
+        if (index &lt; 0 || index &gt;= tasks.length) {
+            ___ new Error(&quot;無効なインデックスです&quot;);
+        }
+        
+        if (!tasks[index]) {
+            ___ new Error(&quot;タスクが存在しません&quot;);
+        }
+        
+        tasks.splice(index, 1);
+        console.log(&quot;タスクを削除しました&quot;);
+        
+    } ___ (error) {
+        console.log(&quot;削除エラー:&quot;, error.message);
+    }
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function deleteTask(index) {
+    try {
+        if (index &lt; 0 || index &gt;= tasks.length) {
+            throw new Error(&quot;無効なインデックスです&quot;);
+        }
+        
+        if (!tasks[index]) {
+            throw new Error(&quot;タスクが存在しません&quot;);
+        }
+        
+        tasks.splice(index, 1);
+        console.log(&quot;タスクを削除しました&quot;);
+        
+    } catch (error) {
+        console.log(&quot;削除エラー:&quot;, error.message);
+    }
+}
+</code></pre>
+<h3>ステップ4.7: エラーオブジェクトの理解</h3>
+<div class="knowledge">
+
+<p>JavaScriptのエラーオブジェクトには、エラーに関する詳細な情報が含まれています。主要なプロパティとして<code>message</code>（エラーメッセージ）、<code>name</code>（エラーの種類）、<code>stack</code>（エラーが発生した場所の情報）があります。</p>
+</div>
+
+<p><strong>エラーオブジェクトのプロパティ：</strong></p>
+<pre><code class="language-javascript">try {
+    let result = nonExistentFunction();
+} catch (error) {
+    console.log(&quot;エラー名:&quot;, error.name);       // &quot;ReferenceError&quot;
+    console.log(&quot;メッセージ:&quot;, error.message);  // &quot;nonExistentFunction is not defined&quot;
+    console.log(&quot;スタック:&quot;, error.stack);      // 詳細な発生場所
+}
+</code></pre>
+<p><strong>カスタムエラーメッセージの活用：</strong></p>
+<pre><code class="language-javascript">function validateTaskInput(title) {
+    try {
+        if (!title) {
+            throw new Error(&quot;タスクタイトルが入力されていません&quot;);
+        }
+        if (title.length &gt; 100) {
+            throw new Error(&quot;タスクタイトルが長すぎます（100文字以内）&quot;);
+        }
+        if (title.trim() === &quot;&quot;) {
+            throw new Error(&quot;空白のみのタイトルは無効です&quot;);
+        }
+        return true;
+    } catch (error) {
+        console.log(&quot;入力検証エラー:&quot;, error.___);
+        return false;
+    }
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function validateTaskInput(title) {
+    try {
+        if (!title) {
+            throw new Error(&quot;タスクタイトルが入力されていません&quot;);
+        }
+        if (title.length &gt; 100) {
+            throw new Error(&quot;タスクタイトルが長すぎます（100文字以内）&quot;);
+        }
+        if (title.trim() === &quot;&quot;) {
+            throw new Error(&quot;空白のみのタイトルは無効です&quot;);
+        }
+        return true;
+    } catch (error) {
+        console.log(&quot;入力検証エラー:&quot;, error.message);
+        return false;
+    }
+}
+</code></pre>
+<h3>ステップ4.8: エラーハンドリングのベストプラクティス</h3>
+<div class="knowledge">
+
+<p>適切なエラーハンドリングにより、ユーザーにとって使いやすく、開発者にとってデバッグしやすいプログラムを作成できます。エラーメッセージは分かりやすく、具体的で、ユーザーが次に何をすべきかが明確になるように書きます。</p>
+</div>
+
+<p><strong>良いエラーメッセージの例：</strong></p>
+<pre><code class="language-javascript">// 悪い例
+throw new Error(&quot;エラー&quot;);
+
+// 良い例
+throw new Error(&quot;タスク番号は1から10の間で入力してください（入力値: 15）&quot;);
+</code></pre>
+<p><strong>エラーハンドリングの原則：</strong></p>
+<ol>
+<li><strong>具体的なメッセージ</strong>: 何が問題なのかを明確に</li>
+<li><strong>解決方法の提示</strong>: ユーザーが次に何をすべきかを示す</li>
+<li><strong>ログ記録</strong>: 開発者がデバッグできる情報を保存</li>
+<li><strong>プログラム継続</strong>: 可能な限りプログラムを継続実行</li>
+</ol>
+<hr>
+<h2>Section 5: Node.js CLIインターフェースの構築</h2>
+<h3>ステップ5.1: Node.jsとモジュールシステムの理解</h3>
+<div class="knowledge">
+
+<p>Node.jsは、JavaScriptをブラウザの外で実行できる環境です。様々な機能が「モジュール」として提供されており、<code>require</code>文を使って必要な機能を読み込みます。モジュールシステムにより、プログラムを機能ごとに分割し、再利用可能にできます。</p>
+</div>
+
+<p><strong>Node.jsモジュールの種類：</strong></p>
+<ol>
+<li><p><strong>組み込みモジュール</strong>: Node.jsに最初から含まれているモジュール</p>
+<ul>
+<li><code>readline</code>: コマンドライン入力</li>
+<li><code>fs</code>: ファイル操作</li>
+<li><code>path</code>: パス操作</li>
+</ul>
+</li>
+<li><p><strong>サードパーティモジュール</strong>: npmでインストールできる外部モジュール</p>
+<ul>
+<li><code>express</code>: Webサーバー</li>
+<li><code>lodash</code>: ユーティリティ関数</li>
+</ul>
+</li>
+</ol>
+<p><strong>requireの基本構文：</strong></p>
+<pre><code class="language-javascript">const モジュール名 = require(&quot;モジュール名&quot;);
+</code></pre>
+<h3>ステップ5.2: readlineモジュールの詳細理解</h3>
+<div class="knowledge">
+
+<p>readlineは、Node.jsでコマンドライン入力を処理するための組み込みモジュールです。キーボードからの入力を受け取り、プログラムとユーザーが対話できるインターフェースを提供します。CLIアプリケーション開発において必須のモジュールです。</p>
+</div>
+
+<p><strong>readlineの基本的な役割：</strong></p>
+<ul>
+<li>キーボード入力の受け取り</li>
+<li>入力完了時のコールバック実行</li>
+<li>入出力ストリームの管理</li>
+</ul>
+<p><strong>requireによるモジュール読み込み：</strong></p>
+<pre><code class="language-javascript">const readline = require(&quot;readline&quot;);
+</code></pre>
+<p>下のreadlineインターフェース作成コードを完成させてください：</p>
+<pre><code class="language-javascript">const readline = require(&quot;readline&quot;);
+
+const rl = readline.___({
+    input: process.___,    // キーボード入力
+    output: process.___    // 画面出力
+});
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">const readline = require(&quot;readline&quot;);
+
+const rl = readline.createInterface({
+    input: process.stdin,    // キーボード入力
+    output: process.stdout   // 画面出力
+});
+</code></pre>
+<h3>ステップ5.3: process.stdinとprocess.stdoutの理解</h3>
+<div class="knowledge">
+
+<p><code>process.stdin</code>と<code>process.stdout</code>は、Node.jsにおける標準入出力ストリームです。<code>stdin</code>（Standard Input）はキーボードからの入力を、<code>stdout</code>（Standard Output）は画面への出力を表します。これらは UNIX系OSの概念をJavaScriptで利用できるようにしたものです。</p>
+</div>
+
+<p><strong>標準入出力の流れ：</strong></p>
+<pre><code>ユーザー（キーボード入力）→ process.stdin → プログラム → process.stdout → 画面表示
+</code></pre>
+<p><strong>実際の使用例：</strong></p>
+<pre><code class="language-javascript">// ユーザーが &quot;Hello&quot; と入力
+// ↓ process.stdin で受け取り
+// ↓ プログラムで処理
+// ↓ process.stdout で出力
+// → 画面に &quot;こんにちは、Hello さん！&quot; と表示
+</code></pre>
+<h3>ステップ5.4: rl.questionメソッドの仕組み</h3>
+<div class="knowledge">
+
+<p><code>rl.question</code>は、ユーザーに質問を表示し、入力を待って、入力が完了したら指定した関数（コールバック関数）を実行するメソッドです。非同期処理の一種で、プログラムは入力を待っている間も他の処理を継続できます。</p>
+</div>
+
+<p><strong>rl.questionの基本構文：</strong></p>
+<pre><code class="language-javascript">rl.question(&quot;質問メッセージ&quot;, (回答) =&gt; {
+    // 回答を受け取った後の処理
+});
+</code></pre>
+<p><strong>動作の流れ：</strong></p>
+<ol>
+<li>質問メッセージを画面に表示</li>
+<li>ユーザーの入力を待機</li>
+<li>Enterキーが押されたら入力完了</li>
+<li>入力内容をコールバック関数の引数として渡す</li>
+<li>コールバック関数を実行</li>
+</ol>
+<p><strong>実際の例：</strong></p>
+<pre><code class="language-javascript">rl.question(&quot;お名前を入力してください: &quot;, (name) =&gt; {
+    console.log(`こんにちは、${name}さん！`);
+});
+</code></pre>
+<h3>ステップ5.5: mapメソッドの基本理解</h3>
+<div class="knowledge">
+
+<p><code>map</code>は、配列の各要素を変換して新しい配列を作成するメソッドです。元の配列は変更されず、各要素に対して指定した変換処理を行った結果として新しい配列が返されます。メニューの表示など、データの変換において頻繁に使用される重要なメソッドです。</p>
+</div>
+
+<p><strong>mapの基本構文：</strong></p>
+<pre><code class="language-javascript">新しい配列 = 元の配列.map(要素 =&gt; 変換処理);
+</code></pre>
+<p><strong>mapの基本例：</strong></p>
+<pre><code class="language-javascript">let numbers = [1, 2, 3];
+let doubled = numbers.map(num =&gt; num * 2);
+console.log(doubled); // [2, 4, 6]
+</code></pre>
+<p><strong>インデックスも使用する例：</strong></p>
+<pre><code class="language-javascript">let fruits = [&quot;りんご&quot;, &quot;バナナ&quot;];
+let numberedFruits = fruits.map((fruit, index) =&gt; `${index + 1}. ${fruit}`);
+console.log(numberedFruits); // [&quot;1. りんご&quot;, &quot;2. バナナ&quot;]
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let items = [&quot;タスク追加&quot;, &quot;タスク削除&quot;];
+let menuItems = items.___((___, index) =&gt; `${___ + 1}. ${___}`);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let items = [&quot;タスク追加&quot;, &quot;タスク削除&quot;];
+let menuItems = items.map((item, index) =&gt; `${index + 1}. ${item}`);
+</code></pre>
+<h3>ステップ5.6: メニューシステムの設計</h3>
+<div class="knowledge">
+
+<p>CLIアプリケーションでは、ユーザーが選択できる操作をメニュー形式で表示するのが一般的です。配列で選択肢を管理し、mapメソッドで番号付きに変換して表示することで、ユーザーにとって分かりやすいインターフェースを提供できます。</p>
+</div>
+
+<p><strong>メニュー設計の原則：</strong></p>
+<ol>
+<li><strong>明確な選択肢</strong>: 各項目の機能が一目で分かる</li>
+<li><strong>論理的な順序</strong>: 使用頻度や重要度に応じた配置</li>
+<li><strong>終了オプション</strong>: プログラムを安全に終了する手段</li>
+</ol>
+<p><strong>メニュー配列の作成：</strong></p>
+<pre><code class="language-javascript">const MENU_OPTIONS = [
+    &quot;タスク追加&quot;, &quot;一覧(forEach)&quot;, &quot;一覧(for)&quot;, &quot;一覧(while)&quot;,
+    &quot;完了&quot;, &quot;削除&quot;, &quot;検索&quot;, &quot;統計&quot;, &quot;プロパティ&quot;, &quot;終了&quot;
+];
+</code></pre>
+<p><strong>番号付きメニューの表示：</strong></p>
+<pre><code class="language-javascript">// 配列を番号付きの文字列に変換
+let menuText = MENU_OPTIONS.___((___, index) =&gt; `${index + 1}. ${___}`);
+console.log(menuText.join(&quot;  &quot;));
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">// 配列を番号付きの文字列に変換
+let menuText = MENU_OPTIONS.map((item, index) =&gt; `${index + 1}. ${item}`);
+console.log(menuText.join(&quot;  &quot;));
+</code></pre>
+<h3>ステップ5.7: joinメソッドの基本理解</h3>
+<div class="knowledge">
+
+<p><code>join</code>は、配列の要素を指定した区切り文字で結合して、一つの文字列を作成するメソッドです。メニューの表示や、データの出力において頻繁に使用される重要なメソッドです。</p>
+</div>
+
+<p><strong>joinメソッドの基本構文：</strong></p>
+<pre><code class="language-javascript">配列.join(&quot;区切り文字&quot;)
+</code></pre>
+<p><strong>joinメソッドの例：</strong></p>
+<pre><code class="language-javascript">let items = [&quot;りんご&quot;, &quot;バナナ&quot;, &quot;オレンジ&quot;];
+
+console.log(items.join(&quot;, &quot;));    // &quot;りんご, バナナ, オレンジ&quot;
+console.log(items.join(&quot; | &quot;));   // &quot;りんご | バナナ | オレンジ&quot;
+console.log(items.join(&quot;\n&quot;));    // りんご（改行）バナナ（改行）オレンジ
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">let menuItems = [&quot;1. タスク追加&quot;, &quot;2. タスク削除&quot;];
+let menuString = menuItems.___(&quot;  &quot;);
+console.log(menuString); // &quot;1. タスク追加  2. タスク削除&quot; と表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let menuItems = [&quot;1. タスク追加&quot;, &quot;2. タスク削除&quot;];
+let menuString = menuItems.join(&quot;  &quot;);
+console.log(menuString); // &quot;1. タスク追加  2. タスク削除&quot; と表示される
+</code></pre>
+<h3>ステップ5.8: mapとjoinを組み合わせたメニュー表示</h3>
+<p>mapメソッドとjoinメソッドを組み合わせることで、配列から見やすいメニューを作成できます。</p>
+<pre><code class="language-javascript">function showMenu() {
+    // 配列を番号付きの文字列に変換してから結合
+    let menuString = MENU_OPTIONS.___((item, i) =&gt; `${i + 1}. ${item}`).___(&quot;  &quot;);
+    console.log(&quot;\n&quot; + menuString);
+    
+    rl.question(&quot;操作を選んでください: &quot;, (answer) =&gt; {
+        handleMenuSelection(answer.trim());
+    });
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function showMenu() {
+    // 配列を番号付きの文字列に変換してから結合
+    let menuString = MENU_OPTIONS.map((item, i) =&gt; `${i + 1}. ${item}`).join(&quot;  &quot;);
+    console.log(&quot;\n&quot; + menuString);
+    
+    rl.question(&quot;操作を選んでください: &quot;, (answer) =&gt; {
+        handleMenuSelection(answer.trim());
+    });
+}
+</code></pre>
+<h3>ステップ5.9: trimメソッドの重要性</h3>
+<div class="knowledge">
+
+<p><code>trim</code>は、文字列の前後にある空白文字（スペース、タブ、改行など）を除去するメソッドです。ユーザー入力の処理において、意図しない空白による問題を防ぐために重要です。</p>
+</div>
+
+<p><strong>trimが必要な理由：</strong></p>
+<pre><code class="language-javascript">// ユーザーが間違えて &quot; 1 &quot; と入力（前後にスペース）
+let userInput = &quot; 1 &quot;;
+
+console.log(userInput === &quot;1&quot;);        // false（空白があるため）
+console.log(userInput.trim() === &quot;1&quot;); // true（空白が除去される）
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<pre><code class="language-javascript">rl.question(&quot;番号を選択: &quot;, (answer) =&gt; {
+    let cleanAnswer = answer.___(); // 前後の空白を除去
+    handleMenuSelection(cleanAnswer);
+});
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">rl.question(&quot;番号を選択: &quot;, (answer) =&gt; {
+    let cleanAnswer = answer.trim(); // 前後の空白を除去
+    handleMenuSelection(cleanAnswer);
+});
+</code></pre>
+<h3>ステップ5.10: switch文による多分岐処理</h3>
+<div class="knowledge">
+
+<p>switch文は、一つの変数の値に対して複数の条件分岐を効率的に処理するための制御構文です。多数のif-else文を書くよりも読みやすく、メニュー選択処理のような場面で威力を発揮します。各case文の最後にはbreak文が必要です。</p>
+</div>
+
+<p><strong>switch文の基本構造：</strong></p>
+<pre><code class="language-javascript">switch (変数) {
+    case &quot;値1&quot;:
+        // 処理1
+        break;
+    case &quot;値2&quot;:
+        // 処理2
+        break;
+    default:
+        // どの値にも一致しない場合
+}
+</code></pre>
+<p><strong>break文の重要性：</strong></p>
+<pre><code class="language-javascript">switch (value) {
+    case &quot;1&quot;:
+        console.log(&quot;1が選択&quot;);
+        // breakがないと次のcaseも実行される
+    case &quot;2&quot;:
+        console.log(&quot;2が選択&quot;);
+        break;
+}
+</code></pre>
+<p>下の多分岐をswitch文で実装してください：</p>
+<pre><code class="language-javascript">function processNumber(num) {
+    ___ (num) {
+        ___ &quot;1&quot;:
+            console.log(&quot;一&quot;);
+            ___;
+        ___ &quot;2&quot;:
+            console.log(&quot;二&quot;);
+            ___;
+        ___:
+            console.log(&quot;その他&quot;);
+    }
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function processNumber(num) {
+    switch (num) {
+        case &quot;1&quot;:
+            console.log(&quot;一&quot;);
+            break;
+        case &quot;2&quot;:
+            console.log(&quot;二&quot;);
+            break;
+        default:
+            console.log(&quot;その他&quot;);
+    }
+}
+</code></pre>
+<h3>ステップ5.11: 非同期処理とコールバック関数</h3>
+<div class="knowledge">
+
+<p>JavaScriptの非同期処理では、処理の完了を待たずに次の処理に進みます。<code>rl.question</code>は非同期関数で、ユーザーの入力完了後にコールバック関数が実行されます。連続した入力が必要な場合は、コールバック関数の中で次の<code>rl.question</code>を呼び出す入れ子構造になります。</p>
+</div>
+
+<p><strong>コールバック関数の仕組み：</strong></p>
+<pre><code class="language-javascript">console.log(&quot;1. プログラム開始&quot;);
+
+rl.question(&quot;質問1: &quot;, (answer1) =&gt; {
+    console.log(&quot;3. 回答1を受け取り:&quot;, answer1);
+    
+    rl.question(&quot;質問2: &quot;, (answer2) =&gt; {
+        console.log(&quot;5. 回答2を受け取り:&quot;, answer2);
+    });
+    
+    console.log(&quot;4. 質問2を表示&quot;);
+});
+
+console.log(&quot;2. 質問1を表示&quot;);
+</code></pre>
+<p><strong>実行順序：</strong></p>
+<ol>
+<li>プログラム開始</li>
+<li>質問1を表示</li>
+<li>回答1を受け取り</li>
+<li>質問2を表示</li>
+<li>回答2を受け取り</li>
+</ol>
+<h3>ステップ5.12: 連続入力処理の実装</h3>
+<p>複数の項目を順番に入力する処理を実装しましょう。</p>
+<pre><code class="language-javascript">function promptAddTask() {
+    rl.question(&quot;タスク名: &quot;, (title) =&gt; {
+        rl.question(&quot;説明: &quot;, (desc) =&gt; {
+            rl.question(&quot;優先度(数字): &quot;, (priority) =&gt; {
+                rl.question(&quot;重要? (true/false): &quot;, (important) =&gt; {
+                    // すべての入力が完了した時点で実行
+                    const newTask = createTask(
+                        title,
+                        desc,
+                        priority,
+                        important === &quot;___&quot;
+                    );
+                    tasks.push(newTask);
+                    console.log(`タスクを追加しました: ${newTask.title}`);
+                    showMenu();
+                });
+            });
+        });
+    });
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function promptAddTask() {
+    rl.question(&quot;タスク名: &quot;, (title) =&gt; {
+        rl.question(&quot;説明: &quot;, (desc) =&gt; {
+            rl.question(&quot;優先度(数字): &quot;, (priority) =&gt; {
+                rl.question(&quot;重要? (true/false): &quot;, (important) =&gt; {
+                    // すべての入力が完了した時点で実行
+                    const newTask = createTask(
+                        title,
+                        desc,
+                        priority,
+                        important === &quot;true&quot;
+                    );
+                    tasks.push(newTask);
+                    console.log(`タスクを追加しました: ${newTask.title}`);
+                    showMenu();
+                });
+            });
+        });
+    });
+}
+</code></pre>
+<h3>ステップ5.13: rl.close()によるプログラム終了</h3>
+<div class="knowledge">
+
+<p><code>rl.close()</code>は、readlineインターフェースを閉じ、プログラムを正常に終了させるメソッドです。CLIアプリケーションでは、ユーザーが「終了」を選択した時に呼び出し、リソースを適切に解放します。</p>
+</div>
+
+<p><strong>プログラム終了の流れ：</strong></p>
+<ol>
+<li>ユーザーが「10」（終了）を選択</li>
+<li><code>rl.close()</code>を実行</li>
+<li>readlineインターフェースが閉じられる</li>
+<li>Node.jsプロセスが終了</li>
+<li>コマンドプロンプトに戻る</li>
+</ol>
+<p><strong>適切な終了処理：</strong></p>
+<pre><code class="language-javascript">case &quot;10&quot;:
+    console.log(&quot;アプリケーションを終了します...&quot;);
+    rl.___();
+    break;
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">case &quot;10&quot;:
+    console.log(&quot;アプリケーションを終了します...&quot;);
+    rl.close();
+    break;
+</code></pre>
+<hr>
+<h2>Section 6: オブジェクト操作とプロパティアクセスの詳細</h2>
+<h3>ステップ6.1: typeof演算子の基本理解</h3>
+<div class="knowledge">
+
+<p>typeof演算子は、変数や値のデータ型を文字列で返す演算子です。プログラム実行時に型を確認し、型に応じた適切な処理を行うために使用します。エラーを防ぎ、安全なプログラムを作成するための重要なツールです。</p>
+</div>
+
+<p><strong>typeof演算子の基本構文：</strong></p>
+<pre><code class="language-javascript">typeof 変数名
+typeof 値
+</code></pre>
+<p><strong>主要な型の確認：</strong></p>
+<pre><code class="language-javascript">console.log(typeof 25);        // &quot;number&quot;
+console.log(typeof &quot;text&quot;);    // &quot;string&quot;
+console.log(typeof true);      // &quot;boolean&quot;
+console.log(typeof undefined); // &quot;undefined&quot;
+</code></pre>
+<p>下の型確認コードを完成させてください：</p>
+<pre><code class="language-javascript">let age = 30;
+let name = &quot;田中&quot;;
+let isActive = false;
+
+console.log(&quot;age の型:&quot;, ___ age);
+console.log(&quot;name の型:&quot;, ___ name);
+console.log(&quot;isActive の型:&quot;, ___ isActive);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let age = 30;
+let name = &quot;田中&quot;;
+let isActive = false;
+
+console.log(&quot;age の型:&quot;, typeof age);
+console.log(&quot;name の型:&quot;, typeof name);
+console.log(&quot;isActive の型:&quot;, typeof isActive);
+</code></pre>
+<h3>ステップ6.2: 入力値の型チェックと変換</h3>
+<div class="knowledge">
+
+<p>ユーザーからの入力は常に文字列として受け取られます。数値として使用する場合は、事前に型変換を行い、変換が正常に行われたかをチェックする必要があります。</p>
+</div>
+
+<p><strong>安全な数値変換の例：</strong></p>
+<pre><code class="language-javascript">function safeNumberConversion(input) {
+    // 文字列を数値に変換
+    let number = Number(input);
+    
+    // NaN（変換失敗）をチェック
+    if (typeof number === &quot;number&quot; &amp;&amp; !isNaN(number)) {
+        return number;
+    } else {
+        return null; // 変換失敗
+    }
+}
+
+// 使用例
+let userInput = &quot;25&quot;;
+let taskIndex = safeNumberConversion(userInput); // 25
+let invalidInput = safeNumberConversion(&quot;abc&quot;); // null
+</code></pre>
+<p><strong>タスク番号の安全な処理：</strong></p>
+<pre><code class="language-javascript">function processTaskIndex(input) {
+    let index = Number(input) - 1; // 1ベースから0ベースに変換
+    
+    if (___ index !== &quot;number&quot; || isNaN(index)) {
+        return null; // 数値でない
+    }
+    
+    if (index &lt; 0 || index &gt;= tasks.length) {
+        return null; // 範囲外
+    }
+    
+    return index; // 有効なインデックス
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function processTaskIndex(input) {
+    let index = Number(input) - 1; // 1ベースから0ベースに変換
+    
+    if (typeof index !== &quot;number&quot; || isNaN(index)) {
+        return null; // 数値でない
+    }
+    
+    if (index &lt; 0 || index &gt;= tasks.length) {
+        return null; // 範囲外
+    }
+    
+    return index; // 有効なインデックス
+}
+</code></pre>
+<h3>ステップ6.3: Object.entries()の理解と活用</h3>
+<div class="knowledge">
+
+<p>Object.entries()は、オブジェクトの各プロパティを [キー, 値] の配列形式で返すメソッドです。オブジェクトの全プロパティを順番に処理したい場合に使用します。返される配列は、プロパティの数だけ要素を持ちます。</p>
+</div>
+
+<p><strong>基本的な動作：</strong></p>
+<pre><code class="language-javascript">let task = {
+    title: &quot;買い物&quot;,
+    completed: false
+};
+
+let entries = Object.entries(task);
+console.log(entries);
+// [ [&quot;title&quot;, &quot;買い物&quot;], [&quot;completed&quot;, false] ]
+</code></pre>
+<p><strong>配列の各要素は [キー, 値] の形式：</strong></p>
+<pre><code class="language-javascript">console.log(entries[0]); // [&quot;title&quot;, &quot;買い物&quot;]
+console.log(entries[1]); // [&quot;completed&quot;, false]
+</code></pre>
+<p>下のオブジェクトをObject.entries()で変換してください：</p>
+<pre><code class="language-javascript">let user = {
+    id: 1,
+    name: &quot;山田&quot;
+};
+
+let userEntries = Object.___(user);
+console.log(userEntries); // [ [&quot;id&quot;, 1], [&quot;name&quot;, &quot;山田&quot;] ] と表示される
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let user = {
+    id: 1,
+    name: &quot;山田&quot;
+};
+
+let userEntries = Object.entries(user);
+console.log(userEntries); // [ [&quot;id&quot;, 1], [&quot;name&quot;, &quot;山田&quot;] ] と表示される
+</code></pre>
+<h3>ステップ6.4: 分割代入（Destructuring）の理解</h3>
+<div class="knowledge">
+
+<p>分割代入は、配列から要素を取り出して複数の変数に一度に代入する構文です。Object.entries()が返す [キー, 値] の配列に対して使用することで、キーと値を別々の変数として同時に取得できます。</p>
+</div>
+
+<p><strong>配列の分割代入の基本：</strong></p>
+<pre><code class="language-javascript">let data = [&quot;apple&quot;, &quot;red&quot;];
+let [name, color] = data;
+console.log(name);  // &quot;apple&quot;
+console.log(color); // &quot;red&quot;
+</code></pre>
+<p><strong>従来の方法と分割代入の比較：</strong></p>
+<pre><code class="language-javascript">let entry = [&quot;title&quot;, &quot;買い物&quot;];
+
+// 従来の方法
+let key = entry[0];
+let value = entry[1];
+
+// 分割代入
+let [key, value] = entry;
+</code></pre>
+<p>下の配列を分割代入で取り出してください：</p>
+<pre><code class="language-javascript">let userInfo = [&quot;田中&quot;, 30];
+let [___, ___] = userInfo;
+console.log(`名前: ${userName}, 年齢: ${userAge}`);
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">let userInfo = [&quot;田中&quot;, 30];
+let [userName, userAge] = userInfo;
+console.log(`名前: ${userName}, 年齢: ${userAge}`);
+</code></pre>
+<h3>ステップ6.5: 学習内容の統合演習</h3>
+<p>Object.entries()、分割代入、typeof演算子を組み合わせて、プロパティ表示機能を実装します。</p>
+<div class="knowledge">
+
+<p>複数の概念を組み合わせることで、より実用的で高機能なプログラムを作成できます。Object.entries()でプロパティを取得し、分割代入でキーと値を分離し、typeof演算子で型情報を表示する総合的な機能を実装します。</p>
+</div>
+
+<p><strong>統合する3つの要素：</strong></p>
+<ol>
+<li>Object.entries() - オブジェクトのプロパティを配列で取得</li>
+<li>分割代入 - [キー, 値] を別々の変数に代入</li>
+<li>typeof演算子 - 値の型を確認</li>
+</ol>
+<p>下の関数を完成させてください：</p>
+<pre><code class="language-javascript">function showTaskProperties(index) {
+    if (typeof index !== &quot;number&quot; || index &lt; 0 || index &gt;= tasks.length) {
+        console.log(&quot;無効なインデックスです&quot;);
+        return;
+    }
+    
+    const task = tasks[index];
+    console.log(&quot;タスクのプロパティ:&quot;);
+    
+    // 3つの要素を全て使って実装
+    for (const [___, ___] of Object.___(___)) {
+        console.log(`  ${key}: ${value} (型: ${___ value})`);
+    }
+}
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function showTaskProperties(index) {
+    if (typeof index !== &quot;number&quot; || index &lt; 0 || index &gt;= tasks.length) {
+        console.log(&quot;無効なインデックスです&quot;);
+        return;
+    }
+    
+    const task = tasks[index];
+    console.log(&quot;タスクのプロパティ:&quot;);
+    
+    // 3つの要素を全て使って実装
+    for (const [key, value] of Object.entries(task)) {
+        console.log(`  ${key}: ${value} (型: ${typeof value})`);
+    }
+}
+</code></pre>
+<h3>ステップ6.6: プロパティ表示の入力処理実装</h3>
+<p>ユーザーからの入力を受け取って、プロパティ表示機能を呼び出す処理を実装しましょう。</p>
+<pre><code class="language-javascript">function promptShowProperties() {
+    rl.question(&quot;プロパティを表示するタスク番号: &quot;, (num) =&gt; {
+        const index = Number(num) - 1;
+        showTaskProperties(index);
+        showMenu();
+    });
+}
+</code></pre>
+<hr>
+<h2>Section 7: 完全なアプリケーションの統合</h2>
+<h3>ステップ7.1: タスク完了機能の実装</h3>
+<div class="knowledge">
+
+<p>タスク完了機能では、指定されたタスクの<code>completed</code>プロパティを<code>true</code>に変更します。既に完了済みのタスクや、存在しないタスクに対する適切なエラーハンドリングも重要です。</p>
+</div>
+
+<p><strong>タスク完了機能の要件：</strong></p>
+<ol>
+<li>指定されたインデックスのタスクが存在するかチェック</li>
+<li>すでに完了済みでないかチェック</li>
+<li>条件を満たす場合のみ完了状態に変更</li>
+<li>適切なフィードバックメッセージを表示</li>
+</ol>
+<pre><code class="language-javascript">function completeTask(index) {
+    // タスクの存在確認と未完了確認
+    if (tasks[index] &amp;&amp; !tasks[index].completed) {
+        tasks[index].___ = true;
+        console.log(&quot;タスクを完了しました！&quot;);
+    } else if (tasks[index] &amp;&amp; tasks[index].completed) {
+        console.log(&quot;このタスクは既に完了済みです&quot;);
+    } else {
+        console.log(&quot;無効なタスク番号です&quot;);
+    }
+}
+</code></pre>
+<p>下の穴埋めを完成させてください：</p>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">function completeTask(index) {
+    // タスクの存在確認と未完了確認
+    if (tasks[index] &amp;&amp; !tasks[index].completed) {
+        tasks[index].completed = true;
+        console.log(&quot;タスクを完了しました！&quot;);
+    } else if (tasks[index] &amp;&amp; tasks[index].completed) {
+        console.log(&quot;このタスクは既に完了済みです&quot;);
+    } else {
+        console.log(&quot;無効なタスク番号です&quot;);
+    }
+}
+</code></pre>
+<h3>ステップ7.2: 各種入力処理関数の実装</h3>
+<p>各機能に対応する入力処理関数を実装します。</p>
+<pre><code class="language-javascript">// タスク完了の入力処理
+function promptCompleteTask() {
+    rl.question(&quot;完了にするタスク番号: &quot;, (num) =&gt; {
+        const index = Number(num) - 1;
+        completeTask(index);
+        showMenu();
+    });
+}
+
+// タスク削除の入力処理
+function promptDeleteTask() {
+    rl.question(&quot;削除するタスク番号: &quot;, (num) =&gt; {
+        const index = Number(num) - 1;
+        deleteTask(index);
+        showMenu();
+    });
+}
+
+// タスク検索の入力処理
+function promptSearchTask() {
+    rl.question(&quot;検索ワード: &quot;, (word) =&gt; {
+        searchTasks(word);
+        showMenu();
+    });
+}
+</code></pre>
+<h3>ステップ7.3: メニュー処理の完全版</h3>
+<p>すべての機能をメニューに統合しましょう。</p>
+<pre><code class="language-javascript">function handleMenuSelection(selection) {
+    switch (selection) {
+        case &quot;1&quot;:
+            promptAddTask();
+            break;
+        case &quot;2&quot;:
+            listTasksForEach();
+            showMenu();
+            break;
+        case &quot;3&quot;:
+            listTasksFor();
+            showMenu();
+            break;
+        case &quot;4&quot;:
+            listTasksWhile();
+            showMenu();
+            break;
+        case &quot;5&quot;:
+            promptCompleteTask();
+            break;
+        case &quot;6&quot;:
+            promptDeleteTask();
+            break;
+        case &quot;7&quot;:
+            promptSearchTask();
+            break;
+        case &quot;8&quot;:
+            showStatistics();
+            showMenu();
+            break;
+        case &quot;9&quot;:
+            promptShowProperties();
+            break;
+        case &quot;10&quot;:
+            console.log(&quot;アプリケーションを終了します...&quot;);
+            rl.close();
+            break;
+        default:
+            console.log(&quot;1～10の番号で選択してください&quot;);
+            showMenu();
+    }
+}
+</code></pre>
+<h3>ステップ7.4: アプリケーションの初期化と起動</h3>
+<div class="knowledge">
+
+<p>アプリケーションのエントリーポイントは、プログラムが開始される最初の処理部分です。グローバル変数の初期化、ウェルカムメッセージの表示、メイン処理の開始を順番に行います。ユーザーが最初に見る部分なので、分かりやすい説明が重要です。</p>
+</div>
+
+<p><strong>初期化処理の順序：</strong></p>
+<ol>
+<li>必要な変数の宣言</li>
+<li>ウェルカムメッセージの表示</li>
+<li>メイン処理の開始</li>
+</ol>
+<p>下のアプリケーション起動コードを完成させてください：</p>
+<pre><code class="language-javascript">// 1. グローバル変数の初期化
+let tasks = [];
+
+// 2. ウェルカムメッセージ
+console.log(&quot;=== Todo CLI アプリケーション ===&quot;);
+console.log(&quot;JavaScript を使った実践的な CLI ツール&quot;);
+
+// 3. メイン処理開始
+___();
+</code></pre>
+<hr>
+<p><strong>正解</strong></p>
+<pre><code class="language-javascript">// 1. グローバル変数の初期化
+let tasks = [];
+
+// 2. ウェルカムメッセージ
+console.log(&quot;=== Todo CLI アプリケーション ===&quot;);
+console.log(&quot;JavaScript を使った実践的な CLI ツール&quot;);
+
+// 3. メイン処理開始
+showMenu();
+</code></pre>
+<h3>ステップ7.5: 完全なファイル構成の確認</h3>
+<p>完成したアプリケーションのファイル構成を確認しましょう。</p>
+<p><strong>ファイルの構成順序：</strong></p>
+<ol>
+<li><strong>モジュールのインポート</strong>: <code>require</code>文</li>
+<li><strong>定数の定義</strong>: <code>MENU_OPTIONS</code>など</li>
+<li><strong>グローバル変数</strong>: <code>tasks</code>配列</li>
+<li><strong>ユーティリティ関数</strong>: <code>createTask</code>など</li>
+<li><strong>メイン機能関数</strong>: <code>listTasks</code>, <code>deleteTask</code>など</li>
+<li><strong>入力処理関数</strong>: <code>promptAddTask</code>など</li>
+<li><strong>メニュー関数</strong>: <code>showMenu</code>, <code>handleMenuSelection</code></li>
+<li><strong>アプリケーション起動</strong>: メイン処理の開始</li>
+</ol>
+<p>この構成により、読みやすく保守しやすいコードが完成します。</p>
+<p>✅ <strong>完成確認</strong></p>
+<p>これですべての機能が実装されました。以下のコマンドでアプリケーションを実行できます：</p>
+<pre><code class="language-bash">node todo.js
+</code></pre>
+<hr>
+<h2>まとめと学習成果</h2>
+<h3>習得したJavaScript技術要素</h3>
+<ol>
+<li><p><strong>基本構文</strong></p>
+<ul>
+<li>変数宣言（let, const）</li>
+<li>データ型（number, string, boolean, object, array）</li>
+<li>関数定義と呼び出し</li>
+</ul>
+</li>
+<li><p><strong>配列操作</strong></p>
+<ul>
+<li>forEach, map, filter, every, some</li>
+<li>push, splice, length</li>
+</ul>
+</li>
+<li><p><strong>制御構文</strong></p>
+<ul>
+<li>if/else条件分岐</li>
+<li>for, while, forEach繰り返し</li>
+<li>switch文による多分岐</li>
+</ul>
+</li>
+<li><p><strong>オブジェクト指向</strong></p>
+<ul>
+<li>オブジェクトリテラル</li>
+<li>プロパティアクセス</li>
+<li>Object.entries()</li>
+</ul>
+</li>
+<li><p><strong>エラーハンドリング</strong></p>
+<ul>
+<li>try-catch文</li>
+<li>Error オブジェクト</li>
+</ul>
+</li>
+<li><p><strong>Node.js特有機能</strong></p>
+<ul>
+<li>require文によるモジュール読み込み</li>
+<li>readline による対話的入力</li>
+<li>process.stdin/stdout</li>
+</ul>
+</li>
+</ol>
+<h3>次のステップへ</h3>
+<ul>
+<li><strong>上級JavaScript</strong>: async/await, Promise, ES6+機能</li>
+<li><strong>Webアプリケーション</strong>: DOM操作, イベント処理</li>
+<li><strong>フレームワーク学習</strong>: React, Vue.js, Express.js</li>
+<li><strong>データベース連携</strong>: MongoDB, MySQL との接続</li>
+</ul>
+<hr>
+<h2>完成版コード</h2>
+<details>
+<summary>todo.js 完全版（クリックして表示）</summary>
+
+<pre><code class="language-javascript">const readline = require(&quot;readline&quot;);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+const MENU = [&quot;タスク追加&quot;, &quot;一覧(forEach)&quot;, &quot;一覧(for)&quot;, &quot;一覧(while)&quot;, &quot;完了&quot;, &quot;削除&quot;, &quot;検索&quot;, &quot;統計&quot;, &quot;プロパティ&quot;, &quot;終了&quot;];
+
+let tasks = [];
+
+function createTask(title, desc = null, priority = 1, important = false) {
+  return {
+    title: title || &quot;無題&quot;,
+    desc: desc ?? &quot;説明なし&quot;,
+    priority: Number(priority),
+    important: Boolean(important),
+    completed: false,
+    created: new Date(),
+  };
+}
+
+function addTask(task) {
+  tasks.push(task);
+}
+
+function listTasks(mode = &quot;forEach&quot;) {
+  if (tasks.length === 0) {
+    console.log(&quot;タスクがありません&quot;);
+    return;
+  }
+  if (mode === &quot;forEach&quot;) {
+    tasks.forEach((t, i) =&gt; {
+      console.log(`${i + 1}: [${t.completed ? &quot;x&quot; : &quot; &quot;}] ${t.title} (優先度:${t.priority}, 重要:${t.important ? &quot;!&quot; : &quot;-&quot;})`);
+    });
+  } else if (mode === &quot;for&quot;) {
+    for (let i = 0; i &lt; tasks.length; i++) {
+      const t = tasks[i];
+      console.log(`${i + 1}: [${t.completed ? &quot;x&quot; : &quot; &quot;}] ${t.title}`);
+    }
+  } else if (mode === &quot;while&quot;) {
+    let i = 0;
+    while (i &lt; tasks.length) {
+      const t = tasks[i];
+      console.log(`${i + 1}: [${t.completed ? &quot;x&quot; : &quot; &quot;}] ${t.title}`);
+      i++;
+    }
+  }
+}
+
+function completeTask(idx) {
+  if (tasks[idx] &amp;&amp; !tasks[idx].completed) {
+    tasks[idx].completed = true;
+    console.log(&quot;完了にしました!&quot;);
+  } else {
+    console.log(&quot;無効な番号または既に完了済み&quot;);
+  }
+}
+
+function deleteTask(idx) {
+  try {
+    if (tasks[idx]) {
+      tasks.splice(idx, 1);
+      console.log(&quot;削除しました!&quot;);
+    } else {
+      throw new Error(&quot;無効な番号&quot;);
+    }
+  } catch (e) {
+    console.log(&quot;エラー:&quot;, e.message);
+  }
+}
+
+function searchTasks(word) {
+  const found = tasks.filter((t) =&gt; t.title.includes(word));
+  if (found.length &gt; 0) {
+    found.forEach((t, i) =&gt; console.log(`${i + 1}: [${t.completed ? &quot;x&quot; : &quot; &quot;}] ${t.title}`));
+    console.log(
+      &quot;全て完了:&quot;,
+      found.every((t) =&gt; t.completed),
+      &quot;未完了あり:&quot;,
+      found.some((t) =&gt; !t.completed)
+    );
+  } else {
+    console.log(&quot;該当タスクなし&quot;);
+  }
+}
+
+function showStats() {
+  const total = tasks.length;
+  const completed = tasks.filter((t) =&gt; t.completed).length;
+  const allCompleted = tasks.every((t) =&gt; t.completed);
+  const hasIncomplete = tasks.some((t) =&gt; !t.completed);
+  const eq = total == completed;
+  const strictEq = total === completed;
+  console.log(`総数: ${total}, 完了: ${completed}, 未完了: ${total - completed}`);
+  console.log(`全て完了: ${allCompleted ? &quot;はい&quot; : &quot;いいえ&quot;}, 未完了あり: ${hasIncomplete ? &quot;はい&quot; : &quot;いいえ&quot;}`);
+  console.log(`==: ${eq}, ===: ${strictEq}`);
+}
+
+function showTaskProperties(idx) {
+  if (typeof idx !== &quot;number&quot; || idx &lt; 0 || idx &gt;= tasks.length) {
+    console.log(&quot;無効な番号&quot;);
+    return;
+  }
+  const task = tasks[idx];
+  console.log(&quot;プロパティ一覧:&quot;);
+  for (const [key, value] of Object.entries(task)) {
+    console.log(`  ${key}: ${value}`);
+  }
+}
+
+function promptAddTask() {
+  rl.question(&quot;タスク名: &quot;, (title) =&gt; {
+    rl.question(&quot;説明: &quot;, (desc) =&gt; {
+      rl.question(&quot;優先度(数字): &quot;, (priority) =&gt; {
+        rl.question(&quot;重要? (true/false): &quot;, (important) =&gt; {
+          const task = createTask(title, desc, priority, important === &quot;true&quot;);
+          addTask(task);
+          console.log(`追加しました! (${task.title})`);
+          showMenu();
+        });
+      });
+    });
+  });
+}
+
+function promptCompleteTask() {
+  rl.question(&quot;完了にする番号: &quot;, (num) =&gt; {
+    const idx = Number(num) - 1;
+    completeTask(idx);
+    showMenu();
+  });
+}
+
+function promptDeleteTask() {
+  rl.question(&quot;削除する番号: &quot;, (num) =&gt; {
+    const idx = Number(num) - 1;
+    deleteTask(idx);
+    showMenu();
+  });
+}
+
+function promptSearchTask() {
+  rl.question(&quot;検索ワード: &quot;, (word) =&gt; {
+    searchTasks(word);
+    showMenu();
+  });
+}
+
+function promptShowProperties() {
+  rl.question(&quot;プロパティを見たいタスク番号: &quot;, (num) =&gt; {
+    showTaskProperties(Number(num) - 1);
+    showMenu();
+  });
+}
+
+function showMenu() {
+  console.log(&quot;\n&quot; + MENU.map((item, i) =&gt; `${i + 1}. ${item}`).join(&quot;  &quot;));
+  rl.question(&quot;操作を選んでください: &quot;, (answer) =&gt; {
+    switch (answer.trim()) {
+      case &quot;1&quot;:
+        promptAddTask();
+        break;
+      case &quot;2&quot;:
+        listTasks(&quot;forEach&quot;);
+        showMenu();
+        break;
+      case &quot;3&quot;:
+        listTasks(&quot;for&quot;);
+        showMenu();
+        break;
+      case &quot;4&quot;:
+        listTasks(&quot;while&quot;);
+        showMenu();
+        break;
+      case &quot;5&quot;:
+        promptCompleteTask();
+        break;
+      case &quot;6&quot;:
+        promptDeleteTask();
+        break;
+      case &quot;7&quot;:
+        promptSearchTask();
+        break;
+      case &quot;8&quot;:
+        showStats();
+        showMenu();
+        break;
+      case &quot;9&quot;:
+        promptShowProperties();
+        break;
+      case &quot;10&quot;:
+        rl.close();
+        break;
+      default:
+        console.log(&quot;1～10の番号で選択してください&quot;);
+        showMenu();
+    }
+  });
+}
+
+// コメント例
+// これは単一行コメントです
+/*
+  これは複数行コメントです。
+  文法事項の説明やサンプルをここに書けます。
+*/
+
+showMenu();
+</code></pre>
+</details>
+
+<p>これで、JavaScript の基礎から実践的なCLIアプリケーション開発まで、体系的に学習することができました！</p>
+<hr>
+<h2>Section 8: デバッグとトラブルシューティング</h2>
+<h3>ステップ8.1: console.logの効果的な使い方</h3>
+<div class="knowledge">
+
+<p><code>console.log</code>は、プログラムの動作を確認するための最も基本的なデバッグツールです。変数の値、関数の実行タイミング、エラーの原因を特定するために使用します。効果的に使うことで、問題を素早く発見し、解決できます。</p>
+</div>
+
+<p><strong>デバッグのための<code>console.log</code>テクニック:</strong></p>
+<pre><code class="language-javascript">// 変数の値を確認
+let userName = &quot;田中&quot;;
+console.log(&quot;ユーザー名:&quot;, userName);
+
+// 関数の開始と終了を確認
+function addTask(title) {
+    console.log(&quot;addTask関数開始 - タイトル:&quot;, title);
+    // 処理...
+    console.log(&quot;addTask関数終了&quot;);
+}
+
+// オブジェクトの中身を確認
+let task = {title: &quot;買い物&quot;, completed: false};
+console.log(&quot;タスクオブジェクト:&quot;, task);
+</code></pre>
+<h3>ステップ8.2: よくあるエラーとその解決法</h3>
+<div class="knowledge">
+
+<p>プログラミングを始めたばかりの時は、よく似たエラーに遭遇します。これらのエラーパターンを覚えておくことで、同じ問題に直面した時に迅速に解決できます。</p>
+</div>
+
+<p><strong>頻出エラー一覧:</strong></p>
+<table>
+<thead>
+<tr>
+<th>エラーメッセージ</th>
+<th>原因</th>
+<th>解決方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ReferenceError: xxx is not defined</code></td>
+<td>変数や関数が宣言されていない</td>
+<td>変数の宣言を確認、スペルミスをチェック</td>
+</tr>
+<tr>
+<td><code>TypeError: Cannot read property &#39;xxx&#39; of undefined</code></td>
+<td>オブジェクトがundefinedまたはnull</td>
+<td>オブジェクトの存在確認を追加</td>
+</tr>
+<tr>
+<td><code>SyntaxError: Unexpected token</code></td>
+<td>文法エラー（括弧の不一致など）</td>
+<td>括弧、クォートの対応を確認</td>
+</tr>
+<tr>
+<td><code>TypeError: xxx.push is not a function</code></td>
+<td>配列でない変数に配列メソッドを使用</td>
+<td>変数の型を確認</td>
+</tr>
+</tbody></table>
+<p><strong>実際のトラブルシューティング例:</strong></p>
+<pre><code class="language-javascript">// エラーが出る例
+function displayTask(index) {
+    console.log(tasks[index].title); // エラー：tasks[index]がundefined
+}
+
+// 修正版
+function displayTask(index) {
+    if (index &gt;= 0 &amp;&amp; index &lt; tasks.length &amp;&amp; tasks[index]) {
+        console.log(tasks[index].title);
+    } else {
+        console.log(&quot;無効なタスク番号です&quot;);
+    }
+}
+</code></pre>
+<hr>
+<h2>Section 9: コードの改善と保守</h2>
+<h3>ステップ9.1: 読みやすいコードの書き方</h3>
+<div class="knowledge">
+
+<p>プログラムは書いた本人だけでなく、他の人も読むことを前提に書きます。また、数か月後の自分も「他の人」です。読みやすいコードを書くことで、バグの発見、機能追加、チーム開発が格段に楽になります。</p>
+</div>
+
+<p><strong>読みやすいコードのルール:</strong></p>
+<ol>
+<li><p><strong>意味のある変数名</strong></p>
+<pre><code class="language-javascript">// 悪い例
+let d = new Date();
+let u = &quot;田中&quot;;
+
+// 良い例
+let currentDate = new Date();
+let userName = &quot;田中&quot;;
+</code></pre>
+</li>
+<li><p><strong>適切なコメント</strong></p>
+<pre><code class="language-javascript">// タスクの完了状態を切り替える関数
+function toggleTaskCompletion(taskIndex) {
+    // 配列の範囲内かチェック
+    if (taskIndex &gt;= 0 &amp;&amp; taskIndex &lt; tasks.length) {
+        tasks[taskIndex].completed = !tasks[taskIndex].completed;
+    }
+}
+</code></pre>
+</li>
+<li><p><strong>関数の分割</strong></p>
+<pre><code class="language-javascript">// 長すぎる関数は分割する
+function processUserInput(input) {
+    let cleanInput = sanitizeInput(input);
+    let validInput = validateInput(cleanInput);
+    return processValidInput(validInput);
+}
+</code></pre>
+</li>
+</ol>
+<h3>ステップ9.2: 機能追加の考え方</h3>
+<div class="knowledge">
+
+<p>既存のプログラムに新しい機能を追加する時は、既存のコードの構造を理解し、一貫性を保ちながら実装することが重要です。小さな変更から始めて、徐々に複雑な機能を追加していきます。</p>
+</div>
+
+<p><strong>機能追加の手順:</strong></p>
+<ol>
+<li><strong>要件の明確化</strong>: 何を実現したいかを具体的に定義</li>
+<li><strong>既存コードの分析</strong>: 似た機能がないか確認</li>
+<li><strong>設計</strong>: どこにどんなコードを追加するか計画</li>
+<li><strong>実装</strong>: 小さな部分から実装</li>
+<li><strong>テスト</strong>: 新機能と既存機能の動作確認</li>
+</ol>
+<p><strong>実例: タスクの優先度変更機能を追加</strong></p>
+<pre><code class="language-javascript">// 既存の構造に合わせて新機能を追加
+function changePriority(taskIndex, newPriority) {
+    try {
+        if (taskIndex &gt;= 0 &amp;&amp; taskIndex &lt; tasks.length) {
+            tasks[taskIndex].priority = Number(newPriority);
+            console.log(&quot;優先度を変更しました&quot;);
+        } else {
+            throw new Error(&quot;無効なタスク番号です&quot;);
+        }
+    } catch (error) {
+        console.log(&quot;エラー:&quot;, error.message);
+    }
+}
+</code></pre>
+<hr>
+<h2>Section 10: 次のステップへの道筋</h2>
+<h3>ステップ10.1: 学習の継続方法</h3>
+<div class="knowledge">
+
+<p>プログラミングの学習は継続が重要です。基礎を固めた後は、実際のプロジェクト作成、新しい技術の習得、コミュニティへの参加を通じて、継続的にスキルアップしていきます。</p>
+</div>
+
+<p><strong>推奨学習ステップ:</strong></p>
+<ol>
+<li><p><strong>基礎の反復練習</strong></p>
+<ul>
+<li>今回のTodoアプリに機能追加</li>
+<li>別のCLIアプリケーション作成</li>
+<li>アルゴリズムの問題解決</li>
+</ul>
+</li>
+<li><p><strong>Web開発への展開</strong></p>
+<ul>
+<li>HTML/CSSの学習</li>
+<li>DOM操作とイベント処理</li>
+<li>Webページでの動的な処理</li>
+</ul>
+</li>
+<li><p><strong>フレームワークの学習</strong></p>
+<ul>
+<li>React.js（ユーザーインターフェース）</li>
+<li>Node.js + Express（サーバーサイド）</li>
+<li>データベース連携</li>
+</ul>
+</li>
+<li><p><strong>実践的なプロジェクト</strong></p>
+<ul>
+<li>ポートフォリオサイト作成</li>
+<li>小規模なWebアプリケーション開発</li>
+<li>オープンソースプロジェクトへの貢献</li>
+</ul>
+</li>
+</ol>
+<h3>ステップ10.2: 実務で活用できるスキル</h3>
+<div class="knowledge">
+
+<p>今回学習した内容は、実際の業務で以下のような形で活用できます。プログラミングの知識は、エンジニア以外の職種でも、作業の自動化や効率化に役立ちます。</p>
+</div>
+
+<p><strong>業務での活用例:</strong></p>
+<ol>
+<li><p><strong>作業自動化</strong></p>
+<ul>
+<li>Excelデータの処理自動化</li>
+<li>ファイル整理のスクリプト作成</li>
+<li>定期的なレポート生成</li>
+</ul>
+</li>
+<li><p><strong>データ分析</strong></p>
+<ul>
+<li>ログファイルの解析</li>
+<li>売上データの集計</li>
+<li>顧客情報の整理</li>
+</ul>
+</li>
+<li><p><strong>ツール開発</strong></p>
+<ul>
+<li>社内用の管理ツール</li>
+<li>簡単な計算ツール</li>
+<li>データ変換ツール</li>
+</ul>
+</li>
+</ol>
+<p><strong>継続学習のためのリソース:</strong></p>
+<ul>
+<li><strong>公式ドキュメント</strong>: MDN Web Docs (JavaScript)</li>
+<li><strong>練習サイト</strong>: LeetCode, Codewars</li>
+<li><strong>コミュニティ</strong>: Qiita, Stack Overflow</li>
+<li><strong>書籍</strong>: JavaScript関連の技術書</li>
+</ul>
+<h3>ステップ10.3: プログラミング習慣の確立</h3>
+<div class="knowledge">
+
+<p>プログラミングスキルの向上には、継続的な練習が不可欠です。毎日少しずつでも、コードを書く習慣を身につけることで、着実にスキルアップできます。</p>
+</div>
+
+<p><strong>効果的な学習習慣:</strong></p>
+<ol>
+<li><p><strong>毎日のコーディング</strong></p>
+<ul>
+<li>1日30分からでも毎日コードを書く</li>
+<li>小さな課題から始める</li>
+<li>学習記録を付ける</li>
+</ul>
+</li>
+<li><p><strong>コードレビューの習慣</strong></p>
+<ul>
+<li>自分のコードを見直す</li>
+<li>他の人のコードを読む</li>
+<li>改善点を見つける練習</li>
+</ul>
+</li>
+<li><p><strong>実践的なプロジェクト</strong></p>
+<ul>
+<li>学習した内容を組み合わせたアプリ作成</li>
+<li>実際の問題を解決するツール開発</li>
+<li>ポートフォリオの充実</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>🎉 学習完了おめでとうございます！</strong></p>
+<p>真のプログラマーへの道のりは今から始まります。今回のガイドで学習した基礎知識を土台に、継続的な学習と実践を通じて、さらなるスキルアップを目指してください！</p>
+<p><strong>最終課題: 独自機能の追加</strong>
+今回作成したTodoアプリに、以下のような独自機能を追加してみましょう：</p>
+<ul>
+<li>タスクの期限設定機能</li>
+<li>カテゴリ別フィルター</li>
+<li>タスクのエクスポート機能</li>
+<li>ユーザー設定の保存</li>
+</ul>
+<p>プログラミングの世界はとても広く、常に新しい技術が生まれています。基礎をしっかりと身につけた今、どんな技術にも挑戦できる準備が整いました！</p>
+
+</body>
+</html>
