@@ -7,10 +7,35 @@
 <link rel="stylesheet" href="/nitac_jyoken_public_materials/style.css">
 </head>
 <body class="markdown-body">
-<h1>深層学習実装マニュアル：MNIST分類器をPyTorchで構築する</h1>
+<h1>深層学習実装マニュアル**：MNIST分類器をPyTorchで構築する</h1>
+<style>
+
+.knowledge {
+
+background-color:rgb(230, 230, 230);
+padding: 10px;
+border-radius: 5px;
+margin-bottom: 20px;
+color: black;
+font-size: 1.2rem;
+line-height: 1.5;
+font-weight: bold;
+border: 1px solid red;
+}
+</style>
+
 <h2>はじめに：深層学習実装の全体像とプログラミングの基本</h2>
 <h3>1.1. このマニュアルの目的と対象者</h3>
 <p>このマニュアルは、AIの理論は理解しているものの、Pythonでの実装経験が少ない社会人初心者を対象としています。手書き数字の分類という具体的なタスク（MNIST）を通して、深層学習モデルをPyTorchで構築し、学習させる一連のプロセスを体系的に学びます。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>深層学習</strong>：多層のニューラルネットワークを用いてデータから特徴を自動的に学習する機械学習の一分野です。</li>
+<li><strong>MNIST</strong>：手書き数字の画像データセットで、0から9までの数字の画像とその正解ラベルが含まれます。深層学習の入門やベンチマークによく用いられます。</li>
+<li><strong>PyTorch</strong>：Facebook（現Meta）が開発したオープンソースの機械学習ライブラリで、特に深層学習モデルの構築と訓練に強みを持つ。柔軟性が高く、Pythonでの記述が直感的であるため、研究開発から実用まで幅広く利用されています。</li>
+</ul>
+</div>
+
 <p><strong>学ぶことの全体像:</strong>
 深層学習の実装は、以下の主要なステップで構成されます。</p>
 <ol>
@@ -23,6 +48,19 @@
 <p>PyTorchは、これらの深層学習モデルの構築と学習を効率的に行うための強力なオープンソースライブラリです。なぜPyTorchを使うのかというと、柔軟性が高く、Pythonのコードとして直感的に記述できるため、研究開発から実用まで幅広く利用されているからです。</p>
 <h3>1.2. プログラミング設計の基本概念</h3>
 <p>深層学習の実装に限らず、プログラミングにおいて「設計」は非常に重要です。特に、コードを「クラス」や「関数」に分割する「モジュール化」は、以下の点で大きなメリットがあります。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>モジュール化</strong>：プログラム全体を機能ごとに小さな部品（モジュール）に分割すること。これにより、コードの管理がしやすくなり、再利用性や可読性が向上します。</li>
+<li><strong>関数</strong>：特定の処理をひとまとまりにしたコードのブロック。同じ処理を何度も書く手間を省き、コードの再利用性を高めます。</li>
+<li><strong>クラス</strong>：データ（属性）と、そのデータを操作する処理（メソッド）をひとまとめにした「設計図」。現実世界のモノや概念をプログラム上で表現する際に用いられます。</li>
+<li><strong>インスタンス（オブジェクト）</strong>：クラスという設計図に基づいて実際に作られた具体的なもの。クラスの定義に従って、それぞれが独自のデータを持つことができます。</li>
+<li><strong>オブジェクト指向プログラミング</strong>：プログラムを「オブジェクト」という単位で組み立てていくプログラミングの考え方。クラス、継承、カプセル化、ポリモーフィズムなどの概念が中心となる。</li>
+<li><strong>継承</strong>：既存のクラス（親クラス）の機能や特性を新しいクラス（子クラス）が引き継ぐ仕組み。共通のコードを再利用し、効率的にプログラムを拡張できます。</li>
+<li><strong>torch.utils.data.Dataset、torch.nn.Module</strong>：PyTorchでデータセットやニューラルネットワークモデルを定義する際に、その「ひな形」となる基底クラス。これらを継承することで、PyTorchの機能と連携しやすくなります。</li>
+</ul>
+</div>
+
 <ul>
 <li><strong>再利用性:</strong> 一度書いたコードを別の場所や別のプロジェクトで使い回せる。</li>
 <li><strong>可読性:</strong> コードの各部分が何をしているのかが分かりやすくなる。</li>
@@ -80,6 +118,15 @@ child_obj.unique_method() # 出力: これは子クラス独自のメソッド�
 <h3>2.1. データセットの役割とPyTorchでの表現</h3>
 <p>深層学習において「データセット」は、モデルが学習するための入力データ（画像、テキストなど）と、それに対応する正解ラベル（手書き数字の「5」など）の集合を指します。PyTorchでは、このデータセットを効率的に管理するために<code>torch.utils.data.Dataset</code>という抽象クラスが提供されています。</p>
 <p><code>Dataset</code>クラスを継承することで、以下の2つの重要なメソッドを実装するだけで、PyTorchがデータを扱うための標準的なインターフェースを提供できます。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>データセット</strong>：モデルが学習するために使う、入力データとそれに対応する正解ラベルの集まりです。</li>
+<li><strong>抽象クラス</strong>：それ自体はインスタンス化されず、他のクラスに継承されることを前提としたクラスです。共通のインターフェース（メソッドの定義）を強制することで、コードの一貫性を保ちます。</li>
+<li><strong><strong>len</strong>(self)、<strong>getitem</strong>(self, idx)</strong>：Pythonの特殊メソッド（マジックメソッド）で、それぞれ<code>len()</code>関数や<code>[]</code>（インデックスアクセス）演算子に対応します。PyTorchの<code>Dataset</code>クラスを継承する際には、これらのメソッドを実装する必要があります。</li>
+</ul>
+</div>
+
 <ul>
 <li><code>__len__(self)</code>: データセットに含まれるサンプルの総数を返します。</li>
 <li><code>__getitem__(self, idx)</code>: 指定されたインデックス<code>idx</code>に対応する1つのデータサンプル（入力と正解ラベルのペア）を返します。</li>
@@ -87,6 +134,15 @@ child_obj.unique_method() # 出力: これは子クラス独自のメソッド�
 <h3>2.2. MNISTデータセットの読み込み</h3>
 <p>MNISTは手書き数字の画像データセットで、深層学習の入門によく使われます。PyTorchの<code>torchvision</code>ライブラリを使えば、簡単にダウンロードして利用できます。</p>
 <p><code>torchvision.datasets.MNIST</code>は、MNISTデータセットを扱うための便利なクラスです。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>torchvision</strong>：PyTorchの公式ライブラリの一つで、画像処理やコンピュータビジョン関連のデータセット、モデル、変換（Transformations）機能を提供します。</li>
+<li><strong>torchvision.datasets.MNIST</strong>：<code>torchvision</code>が提供する、MNISTデータセットを簡単に扱えるようにしたクラスです。</li>
+<li><strong>transform</strong>：データセットからデータを読み込む際に、そのデータに対して適用する前処理のパイプラインです。画像のサイズ変更、正規化、テンソルへの変換などを行います。</li>
+</ul>
+</div>
+
 <ul>
 <li><code>root</code>: データセットをダウンロードして保存するディレクトリを指定します。</li>
 <li><code>train</code>: <code>True</code>にすると訓練データセットを、<code>False</code>にするとテストデータセットをロードします。</li>
@@ -95,6 +151,24 @@ child_obj.unique_method() # 出力: これは子クラス独自のメソッド�
 </ul>
 <h3>2.3. <code>NumberDataset</code>クラスの実装詳細</h3>
 <p><code>MNIST訓練実装答え.py</code>では、<code>NumberDataset</code>というカスタムデータセットクラスが定義されています。これは<code>torch.utils.data.Dataset</code>を継承しています。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>NumberDataset</strong>：このマニュアルで定義する、MNISTデータセットをPyTorchで扱いやすいようにカスタマイズしたクラスです。</li>
+<li><strong><strong>init</strong></strong>：Pythonのクラスでインスタンスが生成される際に自動的に呼び出される特殊メソッドです。初期設定や必要なデータの読み込みなどを行います。</li>
+<li><strong>self.dataset</strong>：<code>NumberDataset</code>クラスのインスタンスが持つ属性（変数）で、実際にMNISTデータセットのデータを保持しています。</li>
+<li><strong>transforms.ToTensor()</strong>：画像をPyTorchのテンソル形式に変換し、同時にピクセル値を0から1の範囲に正規化する前処理です。</li>
+<li><strong>PIL形式の画像</strong>：Pythonで画像を扱うための標準的なライブラリであるPillow（PILの後継）で扱われる画像形式です。</li>
+<li><strong>テンソル</strong>：PyTorchやTensorFlowなどの深層学習フレームワークでデータを扱うための基本的なデータ構造です。多次元配列のようなもので、数値計算に最適化されています。</li>
+<li><strong>ピクセル値</strong>：デジタル画像を構成する最小単位であるピクセルが持つ色の情報です。通常、0から255の整数値で表現されます。</li>
+<li><strong>正規化</strong>：データの値を特定の範囲（例: 0から1、または平均0、標準偏差1）に変換することです。これにより、モデルの学習が安定しやすくなります。</li>
+<li><strong>image.view(-1)</strong>：テンソルの形状を変更するメソッドです。<code>-1</code>を指定すると、その次元のサイズが自動的に計算されます。この場合、28x28の画像を1次元の784要素のベクトルに変換しています。</li>
+<li><strong>1次元ベクトル</strong>：要素が一列に並んだデータ構造です。画像データを全結合層に入力する際によく用いられます。</li>
+<li><strong>全結合層（Linear層）</strong>：ニューラルネットワークの基本的な層の一つで、入力のすべてのニューロンが出力のすべてのニューロンと結合している層です。線形変換を行います。</li>
+<li><strong>カプセル化</strong>：データとそのデータを操作するメソッドを一つの単位（クラス）にまとめること。外部から直接データにアクセスするのを防ぎ、コードの保守性や安全性を高めます。</li>
+</ul>
+</div>
+
 <p><strong><code>NumberDataset</code>クラスのコード（一部抜粋）:</strong></p>
 <pre><code class="language-python">import torch
 import torchvision
@@ -159,6 +233,18 @@ class NumberDataset(Dataset):
 </ul>
 <h3>2.6. 訓練データと検証データの分割</h3>
 <p>モデルの学習がうまくいっているか、そして未知のデータに対しても正しく予測できるか（「汎化性能」）を評価するために、データセットを「訓練データ」と「検証データ」に分割することが非常に重要です。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>訓練データ</strong>：モデルが学習するために直接使用するデータです。モデルは訓練データからパターンを学び、パラメータを調整します。</li>
+<li><strong>検証データ</strong>：学習中にモデルの性能を評価するために使用するデータです。モデルのパラメータ更新には直接使われず、過学習の兆候を早期に発見するために役立ちます。</li>
+<li><strong>過学習</strong>：モデルが訓練データに過剰に適合しすぎてしまい、未知のデータ（検証データやテストデータ）に対しては性能が著しく低下する現象です。汎化性能が低い状態を指します。</li>
+<li><strong>torch.utils.data.random_split</strong>：PyTorchのデータセットをランダムに複数のサブセットに分割するための関数です。</li>
+<li><strong>torch.Generator().manual_seed(42)</strong>：PyTorchの乱数生成器のシード（乱数の初期値）を固定する設定です。これにより、乱数に依存する処理（例: データの分割）が毎回同じ結果を生成し、実験の再現性が確保されます。</li>
+<li><strong>再現性</strong>：同じ条件で実験を繰り返した場合に、常に同じ結果が得られることです。深層学習の実験では、シード固定によって再現性を確保することが重要です。</li>
+</ul>
+</div>
+
 <ul>
 <li><strong>訓練データ:</strong> モデルが学習するために使用するデータ。</li>
 <li><strong>検証データ:</strong> 学習中にモデルの性能を評価するために使用するデータ。このデータはモデルのパラメータ更新には直接使用されません。これにより、モデルが訓練データに過剰に適合しすぎる「過学習」を防ぐことができます。</li>
@@ -172,6 +258,22 @@ class NumberDataset(Dataset):
 <h3>3.1. モデルの役割とPyTorchでの表現</h3>
 <p>深層学習における「モデル」とは、入力データを受け取り、何らかの変換（計算）を行って出力（予測結果）を生成する関数や構造のことです。ニューラルネットワークは、このモデルの一種です。</p>
 <p>PyTorchでは、ニューラルネットワークモデルを構築するために<code>torch.nn.Module</code>という基底クラスが提供されています。このクラスを継承して独自のモデルクラスを定義することが、PyTorchにおけるモデル構築の基本的な方法です。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>モデル</strong>：入力データを受け取り、何らかの計算を行って予測結果を生成する、深層学習における中心的な構成要素です。</li>
+<li><strong>ニューラルネットワーク</strong>：人間の脳の神経回路を模倣した計算モデルです。複数の層（ニューロンの集まり）が結合されており、データから複雑なパターンを学習できます。</li>
+<li><strong>torch.nn.Module</strong>：PyTorchでニューラルネットワークモデルを構築する際の基底クラスです。このクラスを継承することで、モデルの層やパラメータの管理、GPUへの移動、勾配計算などが容易になります。</li>
+<li><strong>層の管理</strong>：モデル内の各層（例: 線形層、畳み込み層）をPyTorchが自動的に認識し、そのパラメータ（重みやバイアス）を効率的に管理する機能です。</li>
+<li><strong>順伝播</strong>：入力データがニューラルネットワークの各層を順番に通過し、最終的な出力（予測結果）が計算されるプロセスです。</li>
+<li><strong>forwardメソッド</strong>：<code>nn.Module</code>を継承したクラスで必ず実装するメソッドです。モデルにデータが入力されたときに、そのデータがどのように各層を伝播していくか（順伝播の計算グラフ）を定義します。</li>
+<li><strong>GPU対応</strong>：モデルの計算をCPUではなく、より高速なGPU（Graphics Processing Unit）で行うことができる機能です。大規模な深層学習モデルの訓練時間を大幅に短縮できます。</li>
+<li><strong>model.to(&#39;cuda&#39;)</strong>：PyTorchのモデルをGPU（CUDAデバイス）に移動させるためのコードです。これにより、モデルの計算がGPU上で行われるようになります。</li>
+<li><strong>パラメータの自動追跡</strong>：モデルの学習可能なパラメータ（重みとバイアス）に対して、勾配計算に必要な情報をPyTorchが自動的に記録・追跡する機能です。これにより、誤差逆伝播が容易になります。</li>
+<li><strong>勾配</strong>：損失関数の値を最小化するために、各パラメータをどの方向にどれだけ変化させるべきかを示す値です。微分によって計算されます。</li>
+</ul>
+</div>
+
 <p><code>nn.Module</code>を継承する主な理由は以下の通りです。</p>
 <ul>
 <li><strong>層の管理:</strong> モデル内の各層（例: 線形層、畳み込み層）を自動的に認識し、パラメータを管理してくれます。</li>
@@ -181,6 +283,26 @@ class NumberDataset(Dataset):
 </ul>
 <h3>3.2. <code>MyNet</code>クラスの構造</h3>
 <p><code>MNIST訓練実装答え.py</code>では、<code>MyNet</code>というニューラルネットワークモデルが定義されています。これは<code>nn.Module</code>を継承しています。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>MyNet</strong>：このマニュアルで定義する、手書き数字分類のためのシンプルなニューラルネットワークモデルのクラスです。</li>
+<li><strong>super(MyNet, self).<strong>init</strong>()</strong>：Pythonで子クラスの<code>__init__</code>メソッド内で、親クラスの<code>__init__</code>メソッドを呼び出すための標準的な記述です。これにより、親クラスの初期化処理が実行され、<code>nn.Module</code>の持つ機能（パラメータ管理など）が<code>MyNet</code>に引き継がれます。</li>
+<li><strong>nn.Linear(in_features, out_features)</strong>：PyTorchで全結合層（線形層）を定義するためのクラスです。<code>in_features</code>は入力の次元数、<code>out_features</code>は出力の次元数を指定します。</li>
+<li><strong>重みとバイアス</strong>：ニューラルネットワークの各層における学習可能なパラメータです。重みは入力の特徴の重要度を調整し、バイアスは出力のオフセットを調整します。</li>
+<li><strong>行列積と加算</strong>：線形層で行われる基本的な数学的演算です。入力ベクトルに重み行列を掛け（行列積）、バイアスベクトルを加算することで、次の層への出力が計算されます。</li>
+<li><strong>input_size、hidden_size、output_size</strong>：ニューラルネットワークの構造を定義する際の重要なハイパーパラメータです。<code>input_size</code>は入力層のニューロン数、<code>hidden_size</code>は隠れ層のニューロン数、<code>output_size</code>は出力層のニューロン数を指します。</li>
+<li><strong>活性化関数</strong>：ニューラルネットワークの各ニューロンの出力に非線形性をもたらす関数です。これにより、モデルはより複雑なパターンを学習できるようになります。</li>
+<li><strong>nn.ReLU() (Rectified Linear Unit)</strong>：代表的な活性化関数の一つで、入力が0以下なら0、0より大きければその値をそのまま出力するシンプルな関数です。計算が高速で、勾配消失問題の緩和に役立ちます。</li>
+<li><strong>非線形性</strong>：入力と出力の関係が直線的ではない性質です。活性化関数によってニューラルネットワークに非線形性が導入されることで、線形モデルでは表現できない複雑な関係を学習できるようになります。</li>
+<li><strong>nn.Softmax(dim=-1)</strong>：主に多クラス分類問題の出力層で用いられる活性化関数です。入力された複数の値を、合計が1になるような確率分布に変換します。<code>dim=-1</code>は、最後の次元に沿ってSoftmaxを適用することを意味します。</li>
+<li><strong>分類問題の出力層</strong>：入力データがどのカテゴリ（クラス）に属するかを予測する問題において、最終的な予測結果を出力するニューラルネットワークの層です。通常、各クラスに属する確率を出力します。</li>
+<li><strong>確率分布</strong>：ある事象が起こる可能性を数値で示したものです。分類問題では、入力データが各クラスに属する確率の集まりとして表現されます。</li>
+<li><strong>インスタンス変数</strong>：クラスのインスタンス（オブジェクト）ごとに異なる値を保持できる変数です。<code>self.変数名</code>の形式で定義され、そのインスタンスの生存期間中、値を保持します。</li>
+</ul>
+</div>
+
+<p><strong><code>MyNet</code>クラスのコード（一部抜粋）:</strong></p>
 <p><strong><code>MyNet</code>クラスのコード（一部抜粋）:</strong></p>
 <pre><code class="language-python">import torch.nn as nn
 
@@ -256,6 +378,13 @@ class MyNet(nn.Module):
 </code></pre>
 <h3>3.3. <code>forward</code>メソッドの実装</h3>
 <p><code>forward</code>メソッドは、モデルにデータが入力されたときに、そのデータが各層をどのように伝播していくか（順伝播の計算グラフ）を定義します。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>順伝播の計算グラフ</strong>：入力データがモデルの各層を通過し、どのような計算が順に行われて最終的な出力が得られるかを示す一連の処理の流れです。<code>forward</code>メソッドで定義されます。</li>
+</ul>
+</div>
+
 <p><code>MyNet</code>の<code>forward</code>メソッドでは、入力<code>x</code>が<code>layer1</code>を通過し、<code>relu</code>で活性化され、次に<code>layer2</code>、<code>relu</code>、<code>layer3</code>、<code>relu</code>、<code>layer4</code>を順に通過し、最後に<code>softmax</code>で処理されて出力が返されます。</p>
 <p><strong>実装課題:</strong>
 <code>MyNet</code>クラスの<code>forward</code>メソッドは、入力<code>x</code>が各層と活性化関数をどのように通過するかを定義します。以下の穴埋めコードを完成させてください。</p>
@@ -294,6 +423,24 @@ class MyNet(nn.Module):
 <h3>4.1. 学習プロセスの全体像</h3>
 <p>深層学習における「学習」とは、モデルが与えられたデータからパターンを抽出し、未知のデータに対して正確な予測ができるように、モデル内部のパラメータ（重みとバイアス）を調整するプロセスです。</p>
 <p><code>MNIST訓練実装答え.py</code>では、<code>train_model</code>という関数に学習プロセス全体がまとめられています。このように学習のロジックを関数としてカプセル化することで、コードの見通しが良くなり、再利用性も高まります。</p>
+<div class="knowledge">
+
+<ul>
+<li><strong>学習</strong>：モデルが与えられたデータからパターンを抽出し、未知のデータに対して正確な予測ができるように、モデル内部のパラメータ（重みとバイアス）を調整するプロセスです。</li>
+<li><strong>パラメータ（重みとバイアス）</strong>：ニューラルネットワークの各層における学習可能な数値です。これらの値を調整することで、モデルはデータから特徴を学び、予測能力を向上させます。</li>
+<li><strong>train_model</strong>：このマニュアルで定義する、モデルの学習プロセス全体をまとめた関数です。</li>
+<li><strong>カプセル化</strong>：データとそのデータを操作するメソッドを一つの単位（クラスや関数）にまとめることです。これにより、コードの見通しが良くなり、再利用性や保守性が向上します。</li>
+<li><strong>順伝播 (Forward Pass)</strong>：入力データがモデルを通過し、予測結果が生成されるプロセスです。</li>
+<li><strong>損失計算 (Loss Calculation)</strong>：モデルの予測結果と正解ラベルとの間の誤差を数値化するプロセスです。</li>
+<li><strong>誤差</strong>：モデルの予測と実際の正解との間のずれや違いです。この誤差を小さくすることが学習の目標となります。</li>
+<li><strong>損失関数</strong>：モデルの予測結果と正解ラベルの誤差を数値化する関数です。この値が小さいほど、モデルの予測は正確であると判断できます。</li>
+<li><strong>誤差逆伝播 (Backward Pass)</strong>：損失関数の誤差を基に、モデルの各パラメータ（重みとバイアス）が、その誤差にどれだけ寄与したかを計算するプロセスです。</li>
+<li><strong>勾配の計算</strong>：誤差逆伝播によって、各パラメータに対する損失関数の傾き（勾配）を求めることです。この勾配が、パラメータを更新する方向と大きさを決定します。</li>
+<li><strong>パラメータ更新 (Parameter Update)</strong>：計算された勾配に基づいて、モデルのパラメータ（重みとバイアス）を微調整するプロセスです。</li>
+<li><strong>最適化手法</strong>：損失関数の値を最小化するために、モデルのパラメータをどのように更新するかを決定するアルゴリズムです。</li>
+</ul>
+</div>
+
 <p>学習プロセスは、通常、以下のサイクルを繰り返します。</p>
 <ol>
 <li><strong>順伝播 (Forward Pass):</strong> 入力データをモデルに通し、予測結果を得る。</li>
@@ -445,7 +592,7 @@ class MyNet(nn.Module):
 </li>
 </ul>
 <hr>
-<h2>ステップ5：メイン実行ブロックとハイパーパラメータの調整</h2>
+<h2>ステップ5*：メイン実行ブロックとハイパーパラメータの調整</h2>
 <h3>6.1. 全体の統合と実行フロー</h3>
 <p><code>if __name__ == &quot;__main__&quot;:</code>ブロックは、Pythonスクリプトが直接実行されたときにのみ実行されるコードを記述するための標準的な慣習です。このブロック内で、これまでに定義したすべてのコンポーネント（データセット、モデル、損失関数、最適化手法、学習関数、評価関数、可視化関数）が統合され、深層学習のパイプライン全体が実行されます。</p>
 <p><strong>実行フローの概要:</strong></p>
